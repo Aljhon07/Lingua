@@ -1,21 +1,20 @@
-import { Text, View, StyleSheet } from "react-native"
+import "@utils/gesture-handler.native"
+import React from "react"
+import { NavigationContainer } from "@react-navigation/native"
+import ThemeProvider from "@context/ThemeProvider"
+import FontProvider from "@context/FontProvider"
+import AuthProvider from "@context/AuthProvider.jsx"
+import RootNavigator from "@navigation/RootNavigator"
+import ThemedApp from "@components/layouts/ThemedApp"
 
-export default function Index() {
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Home screen</Text>
-    </View>
+    <ThemeProvider>
+      <FontProvider>
+        <AuthProvider>
+          <ThemedApp />
+        </AuthProvider>
+      </FontProvider>
+    </ThemeProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#25292e",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: "#fff",
-  },
-})

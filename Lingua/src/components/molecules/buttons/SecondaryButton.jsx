@@ -1,5 +1,5 @@
 import { Button } from "@components/atoms/Button"
-import { useTheme } from "@context/ThemeProvider"
+import { useThemeContext } from "@context/ThemeProvider"
 
 export function SecondaryButton({
   children,
@@ -8,7 +8,7 @@ export function SecondaryButton({
   buttonStyle,
   bold,
 }) {
-  const { theme } = useTheme()
+  const { colors } = useThemeContext()
   return (
     <Button
       onPress={onPress}
@@ -18,7 +18,7 @@ export function SecondaryButton({
         borderWidth: 1,
         ...buttonStyle,
       }}
-      textStyle={{ color: theme.primary, ...textStyle }}
+      textStyle={{ color: colors.primary, ...textStyle }}
       bold={bold}
     >
       {children}
