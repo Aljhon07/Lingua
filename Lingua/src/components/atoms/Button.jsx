@@ -1,7 +1,7 @@
-import { Paragraph, SubHeadings } from "@components/atoms/Typography";
-import { Pressable } from "react-native";
-import { useTheme } from "@context/ThemeProvider";
-import { border } from "@constants/globalStyles";
+import { Paragraph, SubHeadings } from "@components/atoms/Typography"
+import { Pressable } from "react-native"
+import { useTheme } from "@context/ThemeProvider"
+import { border } from "@constants/globalStyles"
 
 export function Button({
   children,
@@ -10,7 +10,7 @@ export function Button({
   buttonStyle,
   bold = true,
 }) {
-  const { theme } = useTheme();
+  const { theme } = useTheme()
   return (
     <Pressable
       style={[
@@ -31,5 +31,5 @@ export function Button({
         {children}
       </Paragraph>
     </Pressable>
-  );
+  )
 }

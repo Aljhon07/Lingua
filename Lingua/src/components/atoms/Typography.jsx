@@ -1,11 +1,11 @@
-import { useTheme } from "@context/ThemeProvider";
-import { useFontContext } from "@context/FontProvider";
-import { Pressable, Text } from "react-native";
-import { fontSize } from "@constants/globalStyles";
+import { useTheme } from "@context/ThemeProvider"
+import { useFontContext } from "@context/FontProvider"
+import { Pressable, Text } from "react-native"
+import { fontSize } from "@constants/globalStyles"
 
 export function Paragraph({ children, style, bold = false, center }) {
-  const { theme } = useTheme();
-  const { fonts } = useFontContext();
+  const { theme } = useTheme()
+  const { fonts } = useFontContext()
   return (
     <Text
       style={[
@@ -20,14 +20,14 @@ export function Paragraph({ children, style, bold = false, center }) {
     >
       {children}
     </Text>
-  );
+  )
 }
 export function SubText({ children, style, bold = false, center = false }) {
   return (
     <Paragraph style={style} bold={bold} center={false}>
       {children}
     </Paragraph>
-  );
+  )
 }
 export function LinkText({
   children,
@@ -36,7 +36,7 @@ export function LinkText({
   center = false,
   onPress,
 }) {
-  const { theme } = useTheme();
+  const { theme } = useTheme()
 
   return (
     <Pressable
@@ -54,12 +54,12 @@ export function LinkText({
         {children}
       </Paragraph>
     </Pressable>
-  );
+  )
 }
 
 export function SubHeadings({ children, style, bold = true }) {
-  const { theme } = useTheme();
-  const { fonts } = useFontContext();
+  const { theme } = useTheme()
+  const { fonts } = useFontContext()
   return (
     <Text
       style={[
@@ -73,12 +73,12 @@ export function SubHeadings({ children, style, bold = true }) {
     >
       {children}
     </Text>
-  );
+  )
 }
 
 export function Headings3({ children, style }) {
-  const { theme } = useTheme();
-  const { fonts } = useFontContext();
+  const { theme } = useTheme()
+  const { fonts } = useFontContext()
   return (
     <Text
       style={[
@@ -92,5 +92,5 @@ export function Headings3({ children, style }) {
     >
       {children}
     </Text>
-  );
+  )
 }

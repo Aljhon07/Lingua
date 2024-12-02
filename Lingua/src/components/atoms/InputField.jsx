@@ -1,9 +1,9 @@
-import { StyleSheet, View } from "react-native";
-import { Pressable, TextInput } from "react-native-gesture-handler";
-import { Paragraph } from "./Typography";
-import { border, spacing } from "@constants/globalStyles";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import { useToggle } from "@hooks/useToggle";
+import { StyleSheet, View } from "react-native"
+import { Pressable, TextInput } from "react-native-gesture-handler"
+import { Paragraph } from "./Typography"
+import { border, spacing } from "@constants/globalStyles"
+import Icon from "react-native-vector-icons/MaterialIcons"
+import { useToggle } from "@hooks/useToggle"
 
 export function TextField({ label, style, ...props }) {
   return (
@@ -11,11 +11,11 @@ export function TextField({ label, style, ...props }) {
       {label && <Paragraph>{label}</Paragraph>}
       <TextInput {...props} style={[style, styles.textInput]} />
     </View>
-  );
+  )
 }
 
 export function PasswordField({ label, style, ...props }) {
-  const [isPasswordVisible, setIsPasswordVisible] = useToggle(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useToggle(false)
 
   return (
     <View>
@@ -38,7 +38,7 @@ export function PasswordField({ label, style, ...props }) {
         </Pressable>
       </View>
     </View>
-  );
+  )
 }
 const styles = StyleSheet.create({
   textInput: {
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
     right: spacing.md,
     padding: spacing.sm,
   },
-});
+})

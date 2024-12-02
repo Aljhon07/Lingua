@@ -1,5 +1,5 @@
-import { Button } from "@components/atoms/Button";
-import { useTheme } from "@context/ThemeProvider";
+import { Button } from "@components/atoms/Button"
+import { useTheme } from "@context/ThemeProvider"
 
 export function SecondaryButton({
   children,
@@ -8,7 +8,7 @@ export function SecondaryButton({
   buttonStyle,
   bold,
 }) {
-  const { theme } = useTheme();
+  const { theme } = useTheme()
   return (
     <Button
       onPress={onPress}
@@ -23,5 +23,5 @@ export function SecondaryButton({
     >
       {children}
     </Button>
-  );
+  )
 }

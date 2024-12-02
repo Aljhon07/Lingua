@@ -1,5 +1,5 @@
-import { Button } from "@components/atoms/Button";
-import { useTheme } from "@context/ThemeProvider";
+import { Button } from "@components/atoms/Button"
+import { useTheme } from "@context/ThemeProvider"
 
 export function PrimaryButton({
   children,
@@ -8,7 +8,7 @@ export function PrimaryButton({
   buttonStyle,
   bold,
 }) {
-  const { theme } = useTheme();
+  const { theme } = useTheme()
 
   return (
     <Button
@@ -22,5 +22,5 @@ export function PrimaryButton({
     >
       {children}
     </Button>
-  );
+  )
 }
