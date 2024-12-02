@@ -15,23 +15,34 @@ export default function MainTab() {
   const { colors } = useThemeContext()
   const { fonts } = useFontContext()
 
+  const tabBarIconsColor = {
+    active: "#000000",
+    inactive: "#949494",
+  }
   return (
     <Tab.Navigator
       initialRouteName="Explore"
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.background,
+          backgroundColor: colors.primary,
           height: 65,
           paddingTop: spacing.sm,
+          borderTopWidth: 0,
+          shadowOffset: {
+            width: 0,
+            height: 12,
+          },
+          shadowOpacity: 0.58,
+          shadowRadius: 16.0,
+          elevation: 24,
         },
         tabBarLabelStyle: {
           fontSize: 12,
           fontFamily: fonts.MerriweatherRegular,
         },
-
-        tabBarActiveTintColor: colors.active,
-        tabBarInactiveTintColor: colors.inactive,
+        tabBarActiveTintColor: tabBarIconsColor.active,
+        tabBarInactiveTintColor: tabBarIconsColor.inactive,
       }}
     >
       <Tab.Screen
@@ -42,7 +53,9 @@ export default function MainTab() {
             <MaterialIcons
               name="travel-explore"
               size={24}
-              color={focused ? colors.active : colors.inactive}
+              color={
+                focused ? tabBarIconsColor.active : tabBarIconsColor.inactive
+              }
             />
           ),
         }}
@@ -55,7 +68,9 @@ export default function MainTab() {
             <SimpleLineIcons
               name="graduation"
               size={24}
-              color={focused ? colors.active : colors.inactive}
+              color={
+                focused ? tabBarIconsColor.active : tabBarIconsColor.inactive
+              }
             />
           ),
         }}
@@ -68,7 +83,9 @@ export default function MainTab() {
             <SimpleLineIcons
               name="microphone"
               size={24}
-              color={focused ? colors.active : colors.inactive}
+              color={
+                focused ? tabBarIconsColor.active : tabBarIconsColor.inactive
+              }
             />
           ),
         }}
@@ -81,7 +98,9 @@ export default function MainTab() {
             <Feather
               name="user"
               size={24}
-              color={focused ? colors.active : colors.inactive}
+              color={
+                focused ? tabBarIconsColor.active : tabBarIconsColor.inactive
+              }
             />
           ),
         }}
