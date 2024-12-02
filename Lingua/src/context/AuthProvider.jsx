@@ -21,7 +21,7 @@ export default function AuthProvider({ children }) {
         setAuthToken(token)
         setIsAuthenticated(true)
       }
-
+      console.log(token)
       setLoading(false)
     }
     checkAuthStatus()
@@ -31,7 +31,7 @@ export default function AuthProvider({ children }) {
       deleteItemAsync("refresh_token")
     }
 
-    return () => removeTokens()
+    // return () => removeTokens()
   }, [])
 
   const contextSignIn = async ({ email, password }) => {
