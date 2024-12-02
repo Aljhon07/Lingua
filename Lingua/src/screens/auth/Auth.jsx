@@ -3,17 +3,17 @@ import { Paragraph } from "@components/atoms/Typography"
 import { PrimaryButton } from "@components/molecules/buttons/PrimaryButton"
 import { SecondaryButton } from "@components/molecules/buttons/SecondaryButton"
 import { LinguaLogo } from "@components/atoms/LinguaLogo"
-import FlexView, { FlexSafeAreaView } from "@components/atoms/FlexView"
 import { lightTheme } from "@constants/colors"
 import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function Auth({ navigation }) {
   const bg_1 = require("@assets/images/background_1.jpg")
   const bg_2 = require("@assets/images/background_2.jpg")
+
   return (
     <ImageBackground style={{ flex: 1, width: "100%" }} source={bg_1}>
       <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.3)" }}>
-        <FlexView style={{ padding: 20 }}>
+        <View style={{ flex: 1, padding: 20 }}>
           <View
             style={{
               flex: 1,
@@ -52,7 +52,7 @@ export default function Auth({ navigation }) {
               Sign In
             </PrimaryButton>
           </View>
-        </FlexView>
+        </View>
       </SafeAreaView>
     </ImageBackground>
   )

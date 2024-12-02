@@ -1,16 +1,16 @@
-import { useTheme } from "@context/ThemeProvider"
+import { useThemeContext } from "@context/ThemeProvider"
 import { useFontContext } from "@context/FontProvider"
 import { Pressable, Text } from "react-native"
 import { fontSize } from "@constants/globalStyles"
 
 export function Paragraph({ children, style, bold = false, center }) {
-  const { theme } = useTheme()
+  const { colors } = useThemeContext()
   const { fonts } = useFontContext()
   return (
     <Text
       style={[
         {
-          color: theme.text,
+          color: colors.text,
           fontSize: fontSize.base,
           fontFamily: bold ? fonts.MerriweatherBold : fonts.CrimsonTextRegular,
           textAlign: center ? "center" : "left",
@@ -36,7 +36,7 @@ export function LinkText({
   center = false,
   onPress,
 }) {
-  const { theme } = useTheme()
+  const { colors } = useThemeContext()
 
   return (
     <Pressable
@@ -47,7 +47,7 @@ export function LinkText({
       }}
     >
       <Paragraph
-        style={[{ color: theme.link }, style]}
+        style={[{ color: colors.link }, style]}
         bold={bold}
         center={center}
       >
@@ -58,13 +58,13 @@ export function LinkText({
 }
 
 export function SubHeadings({ children, style, bold = true }) {
-  const { theme } = useTheme()
+  const { colors } = useThemeContext()
   const { fonts } = useFontContext()
   return (
     <Text
       style={[
         {
-          color: theme.textHeadings,
+          color: colors.textHeadings,
           fontSize: fontSize.md,
           fontFamily: bold ? fonts.MerriweatherBold : fonts.MerriweatherRegular,
         },
@@ -77,13 +77,13 @@ export function SubHeadings({ children, style, bold = true }) {
 }
 
 export function Headings3({ children, style }) {
-  const { theme } = useTheme()
+  const { colors } = useThemeContext()
   const { fonts } = useFontContext()
   return (
     <Text
       style={[
         {
-          color: theme.text,
+          color: colors.text,
           fontSize: fontSize.lg,
           fontFamily: fonts.MerriweatherBold,
         },

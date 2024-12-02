@@ -1,19 +1,19 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing";
-import Profile from "../profile/Profile";
-import Learn from "../language-learning/Learn";
-import Translator from "../translator/Translator";
-import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { useTheme } from "@context/ThemeProvider";
-import { spacing } from "@constants/globalStyles";
-import { useFontContext } from "@context/FontProvider";
-import { Paragraph } from "@components/atoms/Typography";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing"
+import Profile from "../profile/Profile"
+import Learn from "../language-learning/Learn"
+import Translator from "../translator/Translator"
+import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
+import { useThemeContext } from "@context/ThemeProvider"
+import { spacing } from "@constants/globalStyles"
+import { useFontContext } from "@context/FontProvider"
+import { Paragraph } from "@components/atoms/Typography"
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export default function MainTab() {
-  const { theme } = useTheme();
-  const { fonts } = useFontContext();
+  const { colors } = useThemeContext()
+  const { fonts } = useFontContext()
 
   return (
     <Tab.Navigator
@@ -21,7 +21,7 @@ export default function MainTab() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme.background,
+          backgroundColor: colors.background,
           height: 65,
           paddingTop: spacing.sm,
         },
@@ -30,8 +30,8 @@ export default function MainTab() {
           fontFamily: fonts.MerriweatherRegular,
         },
 
-        tabBarActiveTintColor: theme.active,
-        tabBarInactiveTintColor: theme.inactive,
+        tabBarActiveTintColor: colors.active,
+        tabBarInactiveTintColor: colors.inactive,
       }}
     >
       <Tab.Screen
@@ -42,7 +42,7 @@ export default function MainTab() {
             <MaterialIcons
               name="travel-explore"
               size={24}
-              color={focused ? theme.active : theme.inactive}
+              color={focused ? colors.active : colors.inactive}
             />
           ),
         }}
@@ -55,7 +55,7 @@ export default function MainTab() {
             <SimpleLineIcons
               name="graduation"
               size={24}
-              color={focused ? theme.active : theme.inactive}
+              color={focused ? colors.active : colors.inactive}
             />
           ),
         }}
@@ -68,7 +68,7 @@ export default function MainTab() {
             <SimpleLineIcons
               name="microphone"
               size={24}
-              color={focused ? theme.active : theme.inactive}
+              color={focused ? colors.active : colors.inactive}
             />
           ),
         }}
@@ -81,11 +81,11 @@ export default function MainTab() {
             <Feather
               name="user"
               size={24}
-              color={focused ? theme.active : theme.inactive}
+              color={focused ? colors.active : colors.inactive}
             />
           ),
         }}
       />
     </Tab.Navigator>
-  );
+  )
 }
