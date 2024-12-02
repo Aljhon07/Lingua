@@ -1,22 +1,9 @@
-import React from "react"
-import { View, StyleSheet } from "react-native"
 import { useThemeContext } from "@context/ThemeProvider"
+import { View } from "react-native"
 
-export default function ThemedView({ style, children, ...props }) {
+export function ThemedView({ children, style }) {
   const { colors } = useThemeContext()
-
   return (
-    <View
-      style={[styles.container, { backgroundColor: colors.background }, style]}
-      {...props}
-    >
-      {children}
-    </View>
+    <View style={[{ backgroundColor: "transparent" }, style]}>{children}</View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})

@@ -76,7 +76,7 @@ export function SubHeadings({ children, style, bold = true }) {
   )
 }
 
-export function Headings3({ children, style }) {
+export function Headings({ children, style }) {
   const { colors } = useThemeContext()
   const { fonts } = useFontContext()
   return (
@@ -84,7 +84,7 @@ export function Headings3({ children, style }) {
       style={[
         {
           color: colors.text,
-          fontSize: fontSize.lg,
+          fontSize: fontSize.xl,
           fontFamily: fonts.MerriweatherBold,
         },
         style,
@@ -93,4 +93,8 @@ export function Headings3({ children, style }) {
       {children}
     </Text>
   )
+}
+
+export function Headings2({ children, style }) {
+  return <Headings style={{ ...style, fontSize: 34 }}>{children}</Headings>
 }
