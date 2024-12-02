@@ -24,7 +24,11 @@ export function Paragraph({ children, style, bold = false, center }) {
 }
 export function SubText({ children, style, bold = false, center = false }) {
   return (
-    <Paragraph style={style} bold={bold} center={false}>
+    <Paragraph
+      style={{ ...style, fontSize: fontSize.sm }}
+      bold={bold}
+      center={false}
+    >
       {children}
     </Paragraph>
   )
