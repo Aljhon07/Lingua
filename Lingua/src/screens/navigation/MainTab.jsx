@@ -7,7 +7,6 @@ import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
 import { useThemeContext } from "@context/ThemeProvider"
 import { spacing } from "@constants/globalStyles"
 import { useFontContext } from "@context/FontProvider"
-import { Paragraph } from "@components/atoms/Typography"
 
 const Tab = createBottomTabNavigator()
 
