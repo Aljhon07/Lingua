@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
     return response
   },
   async (error) => {
-    console.err(error)
+    console.error(error)
     console.log(error.config)
     if (error.response.status === 401) {
       const newAccessToken = await refreshTokens()
