@@ -1,38 +1,52 @@
-import { Headings2 } from "@components/atoms/Typography"
-import { SearchBar } from "@components/molecules/SearchBar"
 import { spacing } from "@constants/globalStyles"
 import { FlatList, StyleSheet, View } from "react-native"
-import { flags } from "@constants/flags"
-import { IconButton } from "@components/molecules/buttons/IconButton"
 import { getCountries } from "@services/directus/rest"
 import { useEffect, useState } from "react"
+import { Button, Searchbar, Text } from "react-native-paper"
 
 export default function TravelPackagesListing() {
-  const [countries, setCountries] = useState([])
+  const [searchQuery, setSearchQuery] = useState("")
+  const [countries, setCountries] = useState([{ name: "All" }])
+  const [filter, setFilter] = useState("All")
+  console.log(filter)
   useEffect(() => {
     const fetchCountries = async () => {
       try {
-        const countries = await getCountries()
-        setCountries(countries)
-      } catch (error) {
-        setCountries([])
-      }
+        const res = await getCountries()
+        setCountries([{ name: "All" }, ...res])
+      } catch (error) {}
     }
     fetchCountries()
   }, [])
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
-        <Headings2>Where Will Your{"\n"}Next Adventure Take You?</Headings2>
+        <Text variant="headlineLarge">
+          Where Will Your{"\n"}Next Adventure Take You?
+        </Text>
         <View style={styles.wrapper}>
-          <SearchBar />
+          <Searchbar
+            inputStyle={{}}
+            placeholder="Search"
+            onChangeText={setSearchQuery}
+            value={searchQuery}
+          />
           <FlatList
             horizontal={true}
-            data={flags}
-            renderItem={({ item }) => (
-              <IconButton image={item.image} country={item.name} />
-            )}
-            keyExtractor={(item) => item.name}
+            data={countries}
+            renderItem={({ item }) => {
+              const isSelected = item.name === filter
+              console.log(item.name, isSelected)
+              return (
+                <Button
+                  mode={isSelected ? "contained" : "outlined"}
+                  onPress={() => setFilter(item.name)}
+                >
+                  {item.name}
+                </Button>
+              )
+            }}
+            keyExtractor={(item, index) => item + index.toString()}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           />
@@ -53,5 +67,9 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     gap: spacing.xl,
+  },
+  optionButtons: {
+    padding: 2,
+    marginHorizontal: 5,
   },
 })

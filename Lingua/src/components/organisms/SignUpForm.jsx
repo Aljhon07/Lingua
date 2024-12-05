@@ -1,79 +1,81 @@
-import { StyleSheet, View } from "react-native";
-import { spacing } from "@constants/globalStyles";
-import { useInputChange } from "@hooks/useInputChange";
-import { useAuthContext } from "@context/AuthProvider";
-import { PasswordField, TextField } from "@components/atoms/InputField";
-import { PrimaryButton } from "@components/molecules/buttons/PrimaryButton";
-import { InlineTextWithLink } from "@components/molecules/InlineTextWithLink";
+import { StyleSheet, View } from "react-native"
+import { spacing } from "@constants/globalStyles"
+import { useInputChange } from "@hooks/useInputChange"
+import { useAuthContext } from "@context/AuthProvider"
+import { TextInput, Button, Text } from "react-native-paper"
+import { LinkText } from "@components/atoms/LinkText"
 
-export default function SignInForm({ navigation }) {
+export default function SignUpForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
     confirmPassword: "",
-  });
+  })
 
-  const { signUp } = useAuthContext();
-  const handleSignUp = async () => signUp(credentials);
+  const { signUp } = useAuthContext()
+  const handleSignUp = async () => signUp(credentials)
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <TextField
+        <TextInput
+          mode="outlined"
           style={styles.inputField}
-          placeholder="First Name"
+          label="First Name"
           value={credentials.firstName}
           onChangeText={(text) => handleInputChange("firstName", text)}
         />
-        <TextField
+        <TextInput
+          mode="outlined"
           style={styles.inputField}
-          placeholder="Last Name"
+          label="Last Name"
           value={credentials.lastName}
           onChangeText={(text) => handleInputChange("lastName", text)}
         />
-        <TextField
+        <TextInput
+          mode="outlined"
           style={styles.inputField}
-          placeholder="Email"
+          label="Email"
           value={credentials.email}
           onChangeText={(text) => handleInputChange("email", text)}
+          autoComplete="on"
         />
-        <PasswordField
-          style={styles.inputField}
-          placeholder="Password"
+        <TextInput
+          mode="outlined"
+          secureTextEntry
+          label="Password"
           value={credentials.password}
           onChangeText={(text) => handleInputChange("password", text)}
         />
-        <PasswordField
-          style={styles.inputField}
-          placeholder="Confirm Password"
+        <TextInput
+          mode="outlined"
+          secureTextEntry
+          label="Confirm Password"
           value={credentials.confirmPassword}
           onChangeText={(text) => handleInputChange("confirmPassword", text)}
         />
         <View style={styles.wrapper}>
-          <PrimaryButton buttonStyle={{ flex: 0 }} onPress={handleSignUp}>
+          <Button mode="contained" onPress={handleSignUp}>
             Sign Up
-          </PrimaryButton>
-
-          <InlineTextWithLink
-            text="Already have an Account?"
-            linkText="Sign In"
-            onLinkPress={() => navigation.replace("SignIn")}
-          />
+          </Button>
+          <Text style={styles.centerText}>
+            Already have an account?{" "}
+            <LinkText onPress={() => navigation.replace("SignIn")}>
+              Sign In
+            </LinkText>
+          </Text>
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     gap: spacing.xl,
-  },
-  row: {
-    flexDirection: "row",
   },
   wrapper: {
     justifyContent: "center",
@@ -84,4 +86,7 @@ const styles = StyleSheet.create({
     width: "90%",
     gap: spacing.lg,
   },
-});
+  centerText: {
+    textAlign: "center",
+  },
+})

@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useEffect } from "react";
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+import React, { createContext, useContext, useEffect } from "react"
+import { useFonts } from "expo-font"
+import * as SplashScreen from "expo-splash-screen"
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
-export const FontContext = createContext();
+export const FontContext = createContext()
 
 export default function FontProvider({ children }) {
   const [fontsLoaded] = useFonts({
@@ -14,16 +14,16 @@ export default function FontProvider({ children }) {
 
     "CrimsonText-Regular": require("../../assets/fonts/CrimsonText-Regular.ttf"),
     "CrimsonText-Bold": require("../../assets/fonts/CrimsonText-Bold.ttf"),
-  });
+  })
 
   useEffect(() => {
     if (fontsLoaded) {
-      SplashScreen.hideAsync();
+      SplashScreen.hideAsync()
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded])
 
   if (!fontsLoaded) {
-    return null;
+    return null
   }
 
   return (
@@ -41,7 +41,7 @@ export default function FontProvider({ children }) {
     >
       {children}
     </FontContext.Provider>
-  );
+  )
 }
 
-export const useFontContext = () => useContext(FontContext);
+export const useFontContext = () => useContext(FontContext)

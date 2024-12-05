@@ -1,3 +1,11 @@
+const commons = {
+  primary: "#00FF9C",
+  success: "#63ff63",
+  link: "#2450ff",
+  warning: "#ff4747",
+  success: "#63ff63",
+}
+
 const darkTheme = {
   background: "#111517",
   layer: "#0d0d0d",
@@ -42,4 +50,4 @@ const lightTheme = {
   success: "#63ff63",
 }
 
-export { darkTheme, lightTheme }
+export { darkTheme, lightTheme, commons }
