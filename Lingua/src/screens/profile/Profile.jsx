@@ -1,6 +1,5 @@
-import { Loading } from "@components/atoms/Loadings"
+import { Loading } from "@components/atoms/Loading"
 import { getProfile } from "@services/directus/rest"
-import { getItemAsync } from "expo-secure-store"
 import { useEffect, useState } from "react"
 import { Text } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
