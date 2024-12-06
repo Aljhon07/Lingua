@@ -1,7 +1,17 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
 
-export async function getProfile() {
+export const searchPackage = async (searchQuery) => {
+  console.log("Searching...")
+  try {
+    const res = await axiosInstance.get(
+      `/items/travel_package?search=${searchQuery}`
+    )
+    console.log(res)
+  } catch (error) {}
+}
+
+export const fetchProfile = async () => {
   console.log("Fetching Profile...")
   try {
     const res = await axiosInstance.get("/users/me")
@@ -23,10 +33,10 @@ export const getCountries = async () => {
   }
 }
 
-export const getPackages = async () => {
+export const fetchPackages = async () => {
   try {
     console.log("Fetching Packages...")
-    const res = await axiosInstance.get("/items/travel_package")
+    const res = await axiosInstance.get(`/items/travel_package`)
     console.log("Packages Fetched")
     return res.data.data
   } catch (error) {
@@ -34,7 +44,19 @@ export const getPackages = async () => {
   }
 }
 
-export const getPackageDetails = async (id) => {
+export const fetchPackageByCountry = async (filter) => {
+  try {
+    console.log("Fetching Packages...")
+    const res = await axiosInstance.get(
+      `/items/travel_package?filter=[country][name][_eq]=${filter}`
+    )
+    console.log("Packages Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("getPackages", error))
+  }
+}
+export const fetchPackageDetails = async (id) => {
   try {
     console.log("Fetching Package Details...")
     const res = await axiosInstance.get(`/items/travel_package/${id}`)
