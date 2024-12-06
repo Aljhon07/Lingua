@@ -1,5 +1,5 @@
-const commons = {
-  primary: "#00FF9C",
+const commonColors = {
+  primary: "#00acc7",
   success: "#63ff63",
   link: "#2450ff",
   warning: "#ff4747",
@@ -50,4 +50,4 @@ const lightTheme = {
   success: "#63ff63",
 }
 
-export { darkTheme, lightTheme, commons }
+export { darkTheme, lightTheme, commonColors }
