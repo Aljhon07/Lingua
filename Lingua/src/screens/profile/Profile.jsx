@@ -3,7 +3,7 @@ import { Loading } from "@components/atoms/Loading"
 import { useAuthContext } from "@context/AuthProvider"
 import { useThemeContext } from "@context/ThemeProvider"
 import { useToggle } from "@hooks/useToggle"
-import { getProfile } from "@services/directus/rest"
+import { fetchProfile } from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { Button, Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
@@ -15,10 +15,11 @@ export default function Profile() {
   const { signOut } = useAuthContext()
   const { toggleTheme } = useThemeContext()
   const { colors } = useTheme()
+
   useEffect(() => {
-    const fetchProfile = async () => {
+    const getProfile = async () => {
       try {
-        const profile = await getProfile()
+        const profile = await fetchProfile()
         setProfile(profile)
       } catch (error) {
         console.log(error)
@@ -26,7 +27,7 @@ export default function Profile() {
         setLoading(false)
       }
     }
-    fetchProfile()
+    getProfile()
   }, [])
 
   if (loading) return <Loading />

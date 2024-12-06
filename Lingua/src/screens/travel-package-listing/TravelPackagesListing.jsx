@@ -1,14 +1,18 @@
 import { spacing } from "@constants/globalStyles"
-import { FlatList, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { getCountries } from "@services/directus/rest"
 import { useEffect, useState } from "react"
-import { Searchbar, Text, TextInput } from "react-native-paper"
-import { CustomButton } from "@components/atoms/CustomButton"
+import { Text } from "react-native-paper"
+import { CustomSearchBar } from "@components/atoms/CustomSearchBar"
+import { CountryFilterList } from "./components/CountryFilterList"
+import { PackageListing } from "./components/PackageListing"
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
   const [countries, setCountries] = useState([{ name: "All" }])
   const [filter, setFilter] = useState("All")
+  const styles = createStyles()
+
   console.log(filter)
   useEffect(() => {
     const fetchCountries = async () => {
@@ -18,7 +22,8 @@ export default function TravelPackagesListing() {
       } catch (error) {}
     }
     fetchCountries()
-  }, [])
+  }, [filter])
+
   return (
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
@@ -26,61 +31,43 @@ export default function TravelPackagesListing() {
           Where Will Your{"\n"}Next Adventure Take You?
         </Text>
         <View style={styles.wrapper}>
-          <TextInput
-            placeholder="Search"
-            inputMode="search"
-            mode="outlined"
-            left={<TextInput.Icon icon="magnify" />}
-            right={
-              <TextInput.Icon icon="close" onPress={() => setSearchQuery("")} />
-            }
-            onChangeText={setSearchQuery}
-            value={searchQuery}
+          <CustomSearchBar
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
           />
-          <Searchbar
-            value={searchQuery}
-            style={{ maxHeight: 50, marginBottom: 0 }}
-          />
-          <FlatList
-            horizontal={true}
-            data={countries}
-            renderItem={({ item }) => {
-              const isSelected = item.name == filter
-              console.log(item.name, isSelected)
-              return (
-                <CustomButton
-                  primary={isSelected}
-                  textVariant="titleSmall"
-                  onPress={() => setFilter(item.name)}
-                >
-                  {item.name}
-                </CustomButton>
-              )
-            }}
-            extraData={filter}
-            showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
+          <CountryFilterList
+            countries={countries}
+            filter={filter}
+            setFilter={setFilter}
           />
         </View>
+      </View>
+      <View style={{ backgroundColor: "red", flex: 1 }}>
+        <PackageListing />
       </View>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    paddingHorizontal: spacing.lg,
-    marginTop: spacing.xxl,
-  },
-  wrapper: {
-    gap: spacing.md,
-  },
-  headerContainer: {
-    gap: spacing.xl,
-  },
-  optionButtons: {
-    padding: 2,
-    marginHorizontal: 5,
-  },
-})
+const createStyles = () =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      paddingHorizontal: spacing.lg,
+      marginTop: spacing.xxl,
+      gap: spacing.xl,
+    },
+    wrapper: {
+      gap: spacing.md,
+    },
+    headerContainer: {
+      gap: spacing.xl,
+    },
+    flatListGap: {
+      marginRight: spacing.sm,
+    },
+    optionButtons: {
+      padding: 2,
+      marginHorizontal: 5,
+    },
+  })
