@@ -3,18 +3,19 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from "@react-navigation/native"
-import { commonColors } from "@constants/colors"
 import { fontConfig } from "@constants/fontConfig"
 import { border } from "@constants/globalStyles"
+import { lightTheme, darkTheme } from "@constants/colors"
 
 const CombinedDarkTheme = {
   ...MD3DarkTheme,
   ...NavigationDarkTheme,
+  roundness: border.md,
   fonts: configureFonts({ config: fontConfig }),
   colors: {
     ...NavigationDarkTheme.colors,
     ...MD3DarkTheme.colors,
-    ...commonColors,
+    ...darkTheme,
   },
 }
 const CombinedLightTheme = {
@@ -26,7 +27,7 @@ const CombinedLightTheme = {
   colors: {
     ...NavigationDefaultTheme.colors,
     ...MD3LightTheme.colors,
-    ...commonColors,
+    ...lightTheme,
   },
 }
 
