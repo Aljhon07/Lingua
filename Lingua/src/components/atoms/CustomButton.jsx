@@ -44,6 +44,7 @@ const createStyles = (roundness, colors, primary) =>
       borderWidth: primary ? 0 : 1,
       borderColor: colors.outline,
       borderRadius: roundness,
+      overflow: "hidden",
     },
     text: {
       color: primary ? colors.onPrimary : colors.primary,
