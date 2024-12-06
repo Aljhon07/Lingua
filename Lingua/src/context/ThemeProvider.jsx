@@ -1,45 +1,30 @@
-import { createContext, useState, useContext } from "react"
-import { commons, darkTheme, lightTheme } from "@constants/colors"
-import { MD3DarkTheme, MD3LightTheme, configureFonts } from "react-native-paper"
-import {
-  DarkTheme as NavigationDarkTheme,
-  DefaultTheme as NavigationDefaultTheme,
-} from "@react-navigation/native"
-import { fontConfig } from "@constants/fontConfig"
+import { createContext, useState, useContext, useEffect } from "react"
+import { CombinedDarkTheme, CombinedLightTheme } from "@utils/combinedTheme"
+import { Appearance } from "react-native"
+import { NavigationContainer } from "@react-navigation/native"
+import { PaperProvider } from "react-native-paper"
+import { StatusBar } from "expo-status-bar"
 
 export const ThemeContext = createContext()
 
 export default function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState(lightTheme)
-
-  const CombinedDarkTheme = {
-    ...MD3DarkTheme,
-    ...NavigationDarkTheme,
-    fonts: configureFonts({ config: fontConfig }),
-    colors: {
-      ...NavigationDarkTheme.colors,
-      ...MD3DarkTheme.colors,
-      ...commons,
-    },
-  }
-  const CombinedLightTheme = {
-    ...MD3LightTheme,
-    ...NavigationDefaultTheme,
-    fonts: configureFonts({ config: fontConfig }),
-    colors: {
-      ...NavigationDefaultTheme.colors,
-      ...MD3LightTheme.colors,
-      ...commons,
-    },
-  }
+  const colorScheme = Appearance.getColorScheme()
+  const [theme, setTheme] = useState(
+    colorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
+  )
 
   const toggleTheme = () => {
-    setTheme(theme === lightTheme ? darkTheme : lightTheme)
+    setTheme(
+      theme === CombinedLightTheme ? CombinedDarkTheme : CombinedLightTheme
+    )
   }
 
   return (
-    <ThemeContext.Provider value={{ colors: theme, toggleTheme }}>
-      {children}
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <PaperProvider theme={theme}>
+        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <NavigationContainer theme={theme}>{children}</NavigationContainer>
+      </PaperProvider>
     </ThemeContext.Provider>
   )
 }

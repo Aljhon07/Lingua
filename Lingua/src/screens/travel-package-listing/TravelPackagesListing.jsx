@@ -2,7 +2,8 @@ import { spacing } from "@constants/globalStyles"
 import { FlatList, StyleSheet, View } from "react-native"
 import { getCountries } from "@services/directus/rest"
 import { useEffect, useState } from "react"
-import { Button, Searchbar, Text } from "react-native-paper"
+import { Searchbar, Text, TextInput } from "react-native-paper"
+import { CustomButton } from "@components/atoms/CustomButton"
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -25,28 +26,38 @@ export default function TravelPackagesListing() {
           Where Will Your{"\n"}Next Adventure Take You?
         </Text>
         <View style={styles.wrapper}>
-          <Searchbar
-            inputStyle={{}}
+          <TextInput
             placeholder="Search"
+            inputMode="search"
+            mode="outlined"
+            left={<TextInput.Icon icon="magnify" />}
+            right={
+              <TextInput.Icon icon="close" onPress={() => setSearchQuery("")} />
+            }
             onChangeText={setSearchQuery}
             value={searchQuery}
+          />
+          <Searchbar
+            value={searchQuery}
+            style={{ maxHeight: 50, marginBottom: 0 }}
           />
           <FlatList
             horizontal={true}
             data={countries}
             renderItem={({ item }) => {
-              const isSelected = item.name === filter
+              const isSelected = item.name == filter
               console.log(item.name, isSelected)
               return (
-                <Button
-                  mode={isSelected ? "contained" : "outlined"}
+                <CustomButton
+                  primary={isSelected}
+                  textVariant="titleSmall"
                   onPress={() => setFilter(item.name)}
                 >
                   {item.name}
-                </Button>
+                </CustomButton>
               )
             }}
-            keyExtractor={(item, index) => item + index.toString()}
+            extraData={filter}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
           />
