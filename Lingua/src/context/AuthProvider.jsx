@@ -1,7 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react"
-import { refreshTokens } from "@utils/TokenManager"
+import { refreshTokens, removeTokens } from "@utils/TokenManager"
 import { signIn } from "@services/directus/auth"
-import * as SecureStorage from "expo-secure-store"
 export const AuthContext = createContext()
 
 export default function AuthProvider({ children }) {
@@ -50,7 +49,10 @@ export default function AuthProvider({ children }) {
 
   const contextSignUp = async ({ email, password, firstName, lastName }) => {}
 
-  const contextSignOut = async () => {}
+  const contextSignOut = async () => {
+    setIsAuthenticated(false)
+    await removeTokens()
+  }
 
   return (
     <AuthContext.Provider

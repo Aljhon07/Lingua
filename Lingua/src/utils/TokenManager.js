@@ -30,3 +30,12 @@ export async function saveTokens(accessToken, refreshToken) {
     console.error("Error saving tokens:", error)
   }
 }
+
+export async function removeTokens() {
+  try {
+    await SecureStore.deleteItemAsync("accessToken")
+    await SecureStore.deleteItemAsync("refreshToken")
+  } catch (error) {
+    console.error("Error deleting tokens:", error)
+  }
+}
