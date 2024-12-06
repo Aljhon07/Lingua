@@ -4,12 +4,14 @@ import { LinkText } from "@components/atoms/LinkText"
 import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
 import { Button, Text, TextInput } from "react-native-paper"
+import { useToggle } from "@hooks/useToggle"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
     email: "",
     password: "",
   })
+  const [visible, toggleVisiblity] = useToggle()
   const { status, signIn } = useAuthContext()
 
   const handleSignIn = async () => signIn(credentials)
@@ -29,10 +31,15 @@ export default function SignInForm({ navigation }) {
         <TextInput
           mode="outlined"
           textContentType="password"
-          secureTextEntry
+          secureTextEntry={!visible}
           label="Password"
           value={credentials.password}
-          right={<TextInput.Affix text="/100" />}
+          right={
+            <TextInput.Icon
+              icon={visible ? "eye" : "eye-off"}
+              onPress={toggleVisiblity}
+            />
+          }
           onChangeText={(text) => handleInputChange("password", text)}
         />
 
