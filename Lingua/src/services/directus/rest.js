@@ -28,7 +28,7 @@ export const fetchProfile = async () => {
 export const fetchCountries = async () => {
   try {
     console.log("Fetching Countries...")
-    const res = await axiosInstance.get("/items/country")
+    const res = await axiosInstance.get("/items/country?fields=name")
     console.log("Countries Fetched")
     return res.data.data
   } catch (error) {
@@ -39,7 +39,9 @@ export const fetchCountries = async () => {
 export const fetchPackages = async () => {
   try {
     console.log("Fetching Packages...")
-    const res = await axiosInstance.get(`/items/travel_package`)
+    const res = await axiosInstance.get(
+      `/items/travel_package?fields=id,name,country.name,cover,price`
+    )
     console.log("Packages Fetched")
     return res.data.data
   } catch (error) {
@@ -51,7 +53,7 @@ export const fetchPackageByCountry = async (filter) => {
   try {
     console.log("Fetching Packages By Country...")
     const res = await axiosInstance.get(
-      `/items/travel_package?filter[country][name][_eq]=${filter}`
+      `/items/travel_package?fields=id,name,country.name,price,cover&filter[country][name][_eq]=${filter}`
     )
     console.log("Packages by Country Fetched")
     return res.data.data
