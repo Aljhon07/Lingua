@@ -1,28 +1,39 @@
 import { spacing } from "@constants/globalStyles"
 import { StyleSheet, View } from "react-native"
-import { getCountries } from "@services/directus/rest"
+import {
+  fetchPackages,
+  searchPackages,
+  fetchPackageByCountry,
+} from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { Text } from "react-native-paper"
 import { CustomSearchBar } from "@components/atoms/CustomSearchBar"
 import { CountryFilterList } from "./components/CountryFilterList"
 import { PackageListing } from "./components/PackageListing"
+import { useQueryState } from "@hooks/useQueryState"
+import DataContainer from "@components/layouts/DataContainer"
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
-  const [countries, setCountries] = useState([{ name: "All" }])
-  const [filter, setFilter] = useState("All")
+  const { getQueryState, executeQuery } = useQueryState()
+
+  const packagesState = getQueryState("packages")
   const styles = createStyles()
 
-  console.log(filter)
   useEffect(() => {
-    const fetchCountries = async () => {
-      try {
-        const res = await getCountries()
-        setCountries([{ name: "All" }, ...res])
-      } catch (error) {}
+    executeQuery("packages", fetchPackages)
+  }, [])
+
+  const searchPackage = async () => {
+    executeQuery("packages", searchPackages, searchQuery)
+  }
+  const getPackagesByCountry = async (selectedFilter) => {
+    if (selectedFilter === "All") {
+      executeQuery("packages", fetchPackages)
+    } else {
+      executeQuery("packages", fetchPackageByCountry, selectedFilter)
     }
-    fetchCountries()
-  }, [filter])
+  }
 
   return (
     <View style={styles.screen}>
@@ -34,16 +45,26 @@ export default function TravelPackagesListing() {
           <CustomSearchBar
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
+            onSubmitEditing={searchPackage}
+            placeholder="Search by keyword..."
           />
           <CountryFilterList
-            countries={countries}
-            filter={filter}
-            setFilter={setFilter}
+            onPress={(selectedFilter) => getPackagesByCountry(selectedFilter)}
           />
         </View>
       </View>
       <View style={{ backgroundColor: "red", flex: 1 }}>
-        <PackageListing />
+        <View style={{ backgroundColor: "red", flex: 1 }}>
+          <DataContainer
+            error={packagesState.error}
+            loading={packagesState.loading}
+            errorMessage={"Failed to fetch packages"}
+            noDataMessage="No Packages Available!"
+            data={packagesState.data}
+          >
+            <PackageListing packages={packagesState.data} />
+          </DataContainer>
+        </View>
       </View>
     </View>
   )

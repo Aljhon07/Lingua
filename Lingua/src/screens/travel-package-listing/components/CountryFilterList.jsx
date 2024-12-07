@@ -1,8 +1,26 @@
 import { CustomButton } from "@components/atoms/CustomButton"
+import { fetchCountries } from "@services/directus/rest"
+import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 
-export function CountryFilterList({ countries, filter, setFilter }) {
+export function CountryFilterList({ onPress }) {
+  const [filter, setFilter] = useState("All")
+  const [countries, setCountries] = useState([{ name: "All" }])
+  useEffect(() => {
+    const getCountries = async () => {
+      try {
+        const countriesRes = await fetchCountries()
+        setCountries([{ name: "All" }, ...countriesRes])
+      } catch (error) {}
+    }
+    getCountries()
+  }, [])
+
+  const handlePress = (country) => {
+    setFilter(country)
+    onPress(country)
+  }
   return (
     <FlatList
       horizontal={true}
@@ -15,7 +33,7 @@ export function CountryFilterList({ countries, filter, setFilter }) {
             primary={isSelected}
             textVariant="labelMedium"
             style={[styles.flatListGap]}
-            onPress={() => setFilter(item.name)}
+            onPress={() => handlePress(item.name)}
           >
             {item.name}
           </CustomButton>
