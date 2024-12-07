@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react"
 import { refreshTokens, removeTokens } from "@utils/TokenManager"
-import { signIn } from "@services/directus/auth"
+import { signIn, signUp } from "@services/directus/auth"
 export const AuthContext = createContext()
 
 export default function AuthProvider({ children }) {
@@ -47,7 +47,20 @@ export default function AuthProvider({ children }) {
     }
   }
 
-  const contextSignUp = async ({ email, password, firstName, lastName }) => {}
+  const contextSignUp = async ({ email, password, firstName, lastName }) => {
+    try {
+      const res = await signUp(email, password)
+      setIsAuthenticated(true)
+      console.log("Sign Up successful")
+    } catch (error) {
+      console.error("Auth", error.responseData)
+      setStatus({
+        isError: true,
+        message: error.responseData[0],
+        res: error.response,
+      })
+    }
+  }
 
   const contextSignOut = async () => {
     setIsAuthenticated(false)
