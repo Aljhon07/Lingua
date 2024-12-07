@@ -53,18 +53,16 @@ export default function TravelPackagesListing() {
           />
         </View>
       </View>
-      <View style={{ backgroundColor: "red", flex: 1 }}>
-        <View style={{ backgroundColor: "red", flex: 1 }}>
-          <DataContainer
-            error={packagesState.error}
-            loading={packagesState.loading}
-            errorMessage={"Failed to fetch packages"}
-            noDataMessage="No Packages Available!"
-            data={packagesState.data}
-          >
-            <PackageListing packages={packagesState.data} />
-          </DataContainer>
-        </View>
+      <View style={styles.packageContainer}>
+        <DataContainer
+          error={packagesState.error}
+          loading={packagesState.loading}
+          errorMessage={"Failed to fetch packages"}
+          noDataMessage="No Packages Available!"
+          data={packagesState.data}
+        >
+          <PackageListing packages={packagesState.data} />
+        </DataContainer>
       </View>
     </View>
   )
@@ -77,6 +75,9 @@ const createStyles = () =>
       paddingHorizontal: spacing.lg,
       marginTop: spacing.xxl,
       gap: spacing.xl,
+    },
+    packageContainer: {
+      flex: 1,
     },
     wrapper: {
       gap: spacing.md,
