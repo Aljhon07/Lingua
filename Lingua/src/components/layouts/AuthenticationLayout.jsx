@@ -1,6 +1,6 @@
 import { LinguaLogo } from "@components/atoms/LinguaLogo"
 import { border, spacing } from "@constants/globalStyles"
-import { ImageBackground, KeyboardAvoidingView, View } from "react-native"
+import { View } from "react-native"
 import { StyleSheet } from "react-native"
 
 export default function AuthenticationForm({ children }) {
