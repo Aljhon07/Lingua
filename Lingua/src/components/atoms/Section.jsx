@@ -8,24 +8,36 @@ export function Section({
   headline,
   children,
   headlineVariant = "headlineSmall",
+  contentContainerStyle,
+  sectionStyle,
 }) {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, sectionStyle]}>
       <Text variant={headlineVariant} style={styles.headline}>
         {headline}
       </Text>
-      <View style={styles.content}>{children}</View>
+      <View style={[styles.content, contentContainerStyle]}>{children}</View>
     </View>
   )
 }
 
 const createStyles = (colors, roundness) =>
   StyleSheet.create({
+    container: {
+      flex: 1,
+      marginBottom: spacing.md,
+    },
     headline: {
       marginBottom: spacing.md,
     },
-    content: {},
+    content: {
+      flex: 1,
+      backgroundColor: colors.surfaceVariant,
+      padding: spacing.md,
+
+      borderRadius: roundness,
+    },
   })
