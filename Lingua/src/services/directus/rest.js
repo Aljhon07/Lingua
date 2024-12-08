@@ -14,10 +14,10 @@ export const searchPackages = async (searchQuery) => {
   }
 }
 
-export const fetchProfile = async () => {
+export const fetchProfile = async (filter) => {
   console.log("Fetching Profile...")
   try {
-    const res = await axiosInstance.get("/users/me")
+    const res = await axiosInstance.get(`/users/me?${filter}`)
     console.log("Profile Fetched")
     return res.data.data
   } catch (error) {

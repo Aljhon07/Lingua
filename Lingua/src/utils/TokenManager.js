@@ -12,7 +12,6 @@ export async function refreshTokens() {
     })
     const { access_token: accessToken, refresh_token: newRefreshToken } =
       response.data.data
-    console.log(accessToken, newRefreshToken)
     saveTokens(accessToken, newRefreshToken)
     return { accessToken, newRefreshToken }
   } catch (error) {

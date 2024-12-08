@@ -13,7 +13,7 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   async (request) => {
     const accessToken = await SecureStore.getItemAsync("accessToken")
-    console.log("Interceptor Fetched Token: " + accessToken)
+    console.log("Interceptor Fetched Token: ")
     if (
       accessToken &&
       request.url !== "/auth/login" &&
@@ -33,7 +33,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("Second Interceptor Successful: " + response.data)
+    console.log("Second Interceptor Successful: ")
     return response
   },
   async (error) => {
