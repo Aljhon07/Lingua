@@ -15,6 +15,7 @@ export const useQueryState = () => {
 
     try {
       const res = await querFn(...args)
+      console.log(res)
       setQueries((prevQueries) => ({
         ...prevQueries,
         [name]: {

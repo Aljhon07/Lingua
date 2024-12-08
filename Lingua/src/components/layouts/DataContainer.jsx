@@ -11,8 +11,10 @@ const DataContainer = ({
   noDataMessage,
 }) => {
   const { colors } = useTheme()
+  console.log(data)
 
   if (loading) {
+    console.log("Loading...")
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -26,7 +28,7 @@ const DataContainer = ({
   }
 
   if (error) {
-    console.log("Error:", error)
+    console.error("Error:", error)
     return (
       <View style={styles.container}>
         <Text style={{ color: colors.error }}>
@@ -37,6 +39,8 @@ const DataContainer = ({
   }
 
   if (!data || data.length === 0) {
+    console.log("No Data")
+
     return (
       <View style={styles.container}>
         <Text>{noDataMessage || "No data available"}</Text>
