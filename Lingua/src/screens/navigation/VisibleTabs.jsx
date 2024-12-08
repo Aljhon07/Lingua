@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native"
 import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing"
 import Profile from "../profile/Profile"
 import Learn from "../language-learning/Learn"
+import Translator from "../translator/Translator"
 
 const Tab = createBottomTabNavigator()
 
@@ -13,6 +14,7 @@ export default function VisibleTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Explore"
+      p
       screenOptions={{
         headerShown: false,
       }}
@@ -27,16 +29,16 @@ export default function VisibleTabs() {
         }}
       />
       <Tab.Screen
-        name="Learn"
-        component={Learn}
+        component={Translator}
+        name="Bookings"
         options={{
           tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="graduation" size={24} color={color} />
+            <SimpleLineIcons name="book-open" size={24} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        component={TravelPackagesListing}
+        component={Translator}
         name="Translator"
         listeners={() => ({
           tabPress: (e) => {
@@ -47,6 +49,15 @@ export default function VisibleTabs() {
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Learn"
+        component={Learn}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <SimpleLineIcons name="graduation" size={24} color={color} />
           ),
         }}
       />

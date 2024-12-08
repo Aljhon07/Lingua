@@ -1,8 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack"
-import VisibleTabs from "./VisibleTabs"
-import Translator from "../translator/Translator"
 import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
+
+import VisibleTabs from "./VisibleTabs"
+import Translator from "../translator/Translator"
+import PackageDetailsNavigation from "./PackageDetailsNavigation"
 
 const Stack = createStackNavigator()
 
@@ -25,6 +27,13 @@ export default function MainTab() {
     >
       <Stack.Screen name="VisibleTabs" component={VisibleTabs} />
       <Stack.Screen name="Translator" component={Translator} />
+      <Stack.Screen
+        options={{
+          animation: "scale_from_center",
+        }}
+        name="PackageDetailsNavigation"
+        component={PackageDetailsNavigation}
+      />
     </Stack.Navigator>
   )
 }

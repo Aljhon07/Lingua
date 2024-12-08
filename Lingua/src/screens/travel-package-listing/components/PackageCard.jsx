@@ -1,16 +1,26 @@
 import React from "react"
 import { cloudinary } from "@constants/api"
 import { Image, StyleSheet, View } from "react-native"
-import { Text, useTheme } from "react-native-paper"
+import { Text, TouchableRipple, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
-import { CustomButton } from "@components/atoms/CustomButton"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { useNavigation } from "@react-navigation/native"
 
 export function PackageCard({ item }) {
+  const navigation = useNavigation()
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
+
   const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.cover}`
+
+  const handleNavigate = () => {
+    navigation.navigate("PackageDetailsNavigation", {
+      screen: "PackageDetails",
+      params: { imageURL, item },
+    })
+  }
   return (
-    <View style={styles.card}>
+    <View style={styles.card} onPress={handleNavigate}>
       <Image style={styles.image} source={{ uri: imageURL }} />
       <View style={styles.content}>
         <Text variant="titleLarge">{item.name}</Text>
@@ -24,7 +34,7 @@ export function PackageCard({ item }) {
             </Text>
             /person
           </Text>
-          <CustomButton>Details</CustomButton>
+          <CustomButton onPress={handleNavigate}>Details</CustomButton>
         </View>
       </View>
     </View>
@@ -39,7 +49,6 @@ const createStyles = (colors, roundness) =>
       overflow: "hidden",
       elevation: 2,
       marginBottom: spacing.md,
-      padding: spacing.lg,
     },
     image: {
       width: "100%",
@@ -47,7 +56,8 @@ const createStyles = (colors, roundness) =>
       borderRadius: roundness,
     },
     content: {
-      paddingTop: spacing.lg,
+      paddingVertical: spacing.md,
+      paddingHorizontal: spacing.md,
     },
     detailsOverview: {
       flexDirection: "row",

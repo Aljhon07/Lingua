@@ -1,4 +1,4 @@
-import { CustomButton } from "@components/atoms/CustomButton"
+import { CustomButton } from "@components/molecules/CustomButton"
 import { fetchCountries } from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
