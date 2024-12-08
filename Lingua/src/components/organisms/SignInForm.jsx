@@ -5,6 +5,7 @@ import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
 import { Button, Text, TextInput } from "react-native-paper"
 import { useToggle } from "@hooks/useToggle"
+import { CustomButton } from "@components/atoms/CustomButton"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
@@ -12,7 +13,7 @@ export default function SignInForm({ navigation }) {
     password: "",
   })
   const [visible, toggleVisiblity] = useToggle()
-  const { status, signIn } = useAuthContext()
+  const { loading, status, signIn } = useAuthContext()
 
   const handleSignIn = async () => signIn(credentials)
 
@@ -44,9 +45,9 @@ export default function SignInForm({ navigation }) {
         />
 
         <View style={styles.wrapper}>
-          <Button mode="contained" onPress={handleSignIn}>
+          <CustomButton primary onPress={handleSignIn} loading={loading}>
             Sign In
-          </Button>
+          </CustomButton>
           <Text style={styles.centerText}>
             Don't have an account?{" "}
             <LinkText onPress={() => navigation.navigate("SignUp")}>
