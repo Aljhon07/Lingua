@@ -1,7 +1,6 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
-import { PackageOverview } from "../travel-package-listing/components/PackageOverview"
-import { PackageItinerary } from "../travel-package-listing/components/PackageItinerary"
-import { View } from "react-native"
+import { PackageOverview } from "../travel-package-listing/PackageOverview"
+import { PackageItinerary } from "../travel-package-listing/PackageItinerary"
 
 const Tab = createMaterialTopTabNavigator()
 

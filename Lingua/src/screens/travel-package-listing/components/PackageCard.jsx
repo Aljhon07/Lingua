@@ -15,29 +15,31 @@ export function PackageCard({ item }) {
 
   const handleNavigate = () => {
     navigation.navigate("PackageDetailsNavigation", {
-      screen: "PackageDetails",
-      params: { imageURL, item },
+      imageURL,
+      item,
     })
   }
   return (
-    <View style={styles.card} onPress={handleNavigate}>
-      <Image style={styles.image} source={{ uri: imageURL }} />
-      <View style={styles.content}>
-        <Text variant="titleLarge">{item.name}</Text>
-        <Text variant="labelLarge" style={styles.surfaceText}>
-          {item.country.name}
-        </Text>
-        <View style={styles.detailsOverview}>
-          <Text>
-            <Text variant="titleMedium" style={styles.price}>
-              ₱{item.price}
-            </Text>
-            /person
+    <TouchableRipple style={styles.card} onPress={handleNavigate}>
+      <>
+        <Image style={styles.image} source={{ uri: imageURL }} />
+        <View style={styles.content}>
+          <Text variant="titleLarge">{item.name}</Text>
+          <Text variant="labelLarge" style={styles.surfaceText}>
+            {item.country.name}
           </Text>
-          <CustomButton onPress={handleNavigate}>Details</CustomButton>
+          <View style={styles.detailsOverview}>
+            <Text>
+              <Text variant="titleMedium" style={styles.price}>
+                ₱{item.price}
+              </Text>
+              /person
+            </Text>
+            <CustomButton onPress={handleNavigate}>Details</CustomButton>
+          </View>
         </View>
-      </View>
-    </View>
+      </>
+    </TouchableRipple>
   )
 }
 
@@ -47,8 +49,10 @@ const createStyles = (colors, roundness) =>
       backgroundColor: colors.surface,
       borderRadius: roundness,
       overflow: "hidden",
-      elevation: 2,
       marginBottom: spacing.md,
+      borderWidth: 1,
+      borderColor: colors.primary,
+      padding: spacing.md,
     },
     image: {
       width: "100%",

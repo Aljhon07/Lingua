@@ -6,19 +6,20 @@ import {
   fetchPackageByCountry,
 } from "@services/directus/rest"
 import { useEffect, useState } from "react"
-import { Text } from "react-native-paper"
+import { Text, useTheme } from "react-native-paper"
 import { CustomSearchBar } from "@components/atoms/CustomSearchBar"
 import { CountryFilterList } from "./components/CountryFilterList"
 import { PackageListing } from "./components/PackageListing"
 import { useQueryState } from "@hooks/useQueryState"
 import DataContainer from "@components/layouts/DataContainer"
+import { Section } from "@components/atoms/Section"
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
   const { getQueryState, executeQuery } = useQueryState()
-
+  const { colors } = useTheme()
   const packagesState = getQueryState("packages")
-  const styles = createStyles()
+  const styles = createStyles(colors)
 
   useEffect(() => {
     executeQuery("packages", fetchPackages)
@@ -39,7 +40,7 @@ export default function TravelPackagesListing() {
     <View style={styles.screen}>
       <View style={styles.headerContainer}>
         <Text variant="headlineLarge">
-          Where Will Your{"\n"}Next Adventure Take You?
+          Adventure is calling, [Username]! Where to go next?
         </Text>
         <View style={styles.wrapper}>
           <CustomSearchBar
@@ -53,22 +54,28 @@ export default function TravelPackagesListing() {
           />
         </View>
       </View>
-      <View style={styles.packageContainer}>
-        <DataContainer
-          error={packagesState.error}
-          loading={packagesState.loading}
-          errorMessage={"Failed to fetch packages"}
-          noDataMessage="No Packages Available!"
-          data={packagesState.data}
+      {/* Track: Removed View Component */}
+      <DataContainer
+        error={packagesState.error}
+        loading={packagesState.loading}
+        errorMessage={"Failed to fetch packages"}
+        noDataComponent="No Packages Available!"
+        data={packagesState.data}
+      >
+        <Section
+          headline={"Packages"}
+          headlineVariant="headlineLarge"
+          sectionStyle={styles.section}
+          contentContainerStyle={styles.packageSection}
         >
-          <PackageListing packages={packagesState.data} />
-        </DataContainer>
-      </View>
+          <PackageListing horizontal packages={packagesState.data} />
+        </Section>
+      </DataContainer>
     </View>
   )
 }
 
-const createStyles = () =>
+const createStyles = (colors) =>
   StyleSheet.create({
     screen: {
       flex: 1,
@@ -89,7 +96,11 @@ const createStyles = () =>
       marginRight: spacing.sm,
     },
     optionButtons: {
-      padding: 2,
-      marginHorizontal: 5,
+      padding: spacing.sm,
+      marginHorizontal: spacing.sm,
+    },
+    packageSection: {
+      backgroundColor: "transparent",
+      padidng: spacing.md,
     },
   })

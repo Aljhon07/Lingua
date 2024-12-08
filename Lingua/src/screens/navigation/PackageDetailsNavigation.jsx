@@ -5,9 +5,10 @@ import { useTheme } from "react-native-paper"
 
 const Stack = createStackNavigator()
 
-export default function PackageDetailsNavigation() {
+export default function PackageDetailsNavigation({ route }) {
   const { colors, roundness } = useTheme()
-
+  const { imageURL, item } = route.params
+  console.error(item.country.name)
   return (
     <Stack.Navigator
       initialRouteName="PackageDetails"
@@ -20,9 +21,10 @@ export default function PackageDetailsNavigation() {
         name="PackageDetails"
         options={{
           headerShown: true,
-          headerTitle: "Details",
+          headerTitle: `Travel to ${item.country.name}`,
           headerTitleAlign: "center",
         }}
+        initialParams={{ item, imageURL }}
         component={PackageDetails}
       />
     </Stack.Navigator>
