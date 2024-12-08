@@ -1,6 +1,6 @@
 import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
-import { useTheme, Text } from "react-native-paper"
+import { useTheme, Text, ActivityIndicator } from "react-native-paper"
 
 export function CustomButton({
   onPress,
@@ -9,6 +9,8 @@ export function CustomButton({
   textStyle,
   textVariant = "labelLarge",
   primary = false,
+  loading = false,
+  props,
 }) {
   const { roundness, colors } = useTheme()
   const styles = createStyles(roundness, colors, primary)
@@ -18,10 +20,15 @@ export function CustomButton({
         onPress={onPress}
         android_ripple={{ color: "rgba(176, 176, 176, 0.4)", borderless: true }}
         style={[styles.button, style]}
+        {...props}
       >
-        <Text variant={textVariant} style={[styles.text, textStyle]}>
-          {children}
-        </Text>
+        {loading ? (
+          <ActivityIndicator animating={loading} />
+        ) : (
+          <Text variant={textVariant} style={[styles.text, textStyle]}>
+            {children}
+          </Text>
+        )}
       </Pressable>
     </View>
   )
