@@ -4,12 +4,22 @@ import { spacing } from "@constants/globalStyles"
 import { useInputChange } from "@hooks/useInputChange"
 import { Image, StyleSheet, View } from "react-native"
 import { Text, TextInput, useTheme } from "react-native-paper"
+import { SubmitDocuments } from "./components/SubmitDocuments"
+import { useState } from "react"
+import { uploadImages, uploadTransactions } from "@services/directus/rest"
+import { useQueryState } from "@hooks/useQueryState"
 
 export default function Booking({ route }) {
+  const [images, setImages] = useState([])
   const { colors, roundness } = useTheme()
   const styles = createStyle(colors, roundness)
-  const { imageURL, name, price } = route.params
+  const { imageURL, name, price, id } = route.params
   const [information, setInformation] = useInputChange({})
+
+  const handleSubmit = async () => {
+    console.log("")
+    uploadTransactions(information.firstName, information.lastName, price, id)
+  }
 
   return (
     <View style={styles.container}>
@@ -42,7 +52,10 @@ export default function Booking({ route }) {
           value={information.lastName}
           onChange={(text) => setInformation("lastName", text)}
         />
-        <CustomButton primary>Submit</CustomButton>
+        <SubmitDocuments images={images} setImages={setImages} />
+        <CustomButton primary onPress={handleSubmit}>
+          Submit
+        </CustomButton>
       </Section>
     </View>
   )

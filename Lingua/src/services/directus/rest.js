@@ -86,3 +86,40 @@ export const fetchPackageItinerary = async (id) => {
     throw new Error(logError("fetchPackageItinerary", error))
   }
 }
+
+export const uploadImages = async (imageUris) => {
+  console.log(imageUris)
+  try {
+    const uploadedImages = []
+    for (const imageUri of imageUris) {
+      const formData = new FormData()
+      formData.append("file", imageUri)
+
+      console.log("Uploading Image...")
+      const res = await axiosInstance.post("/files", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      console.log("Image Uploaded: ", res.data)
+    }
+    return uploadedImages
+  } catch (error) {
+    console.error("Failed to upload image:", error)
+  }
+}
+
+export const uploadTransactions = async (first_name, last_name, price, id) => {
+  console.log(id)
+  try {
+    const res = await axiosInstance.post("/items/payments", {
+      first_name,
+      last_name,
+      travel_package: { id: id },
+      price,
+    })
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("uploadProcess", error))
+  }
+}
