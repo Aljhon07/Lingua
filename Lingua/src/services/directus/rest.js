@@ -63,8 +63,10 @@ export const fetchPackageByCountry = async (filter) => {
 }
 export const fetchPackageDetails = async (id) => {
   try {
-    console.log("Fetching Package Details...")
-    const res = await axiosInstance.get(`/items/travel_package/${id}`)
+    console.log("Fetching Package Details...", id)
+    const res = await axiosInstance.get(
+      `/items/travel_package/${id}?fields=*,itinerary.*,features.*`
+    )
     console.log("Package Details Fetched")
     return res.data.data
   } catch (error) {
