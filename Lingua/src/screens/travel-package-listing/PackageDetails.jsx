@@ -24,6 +24,7 @@ export default function PackageDetails({ route, navigation }) {
     navigation.navigate("BookingScreen", {
       name: item.name,
       price: item.price,
+      imageURL,
     })
   }
   return (

@@ -27,7 +27,15 @@ export default function PackageDetailsNavigation({ route }) {
         initialParams={{ item, imageURL }}
         component={PackageDetails}
       />
-      <Stack.Screen name="BookingScreen" component={Booking} />
+      <Stack.Screen
+        name="BookingScreen"
+        component={Booking}
+        options={{
+          animation: "slide_from_right",
+          headerShown: true,
+          headerTitle: "Booking",
+        }}
+      />
     </Stack.Navigator>
   )
 }
