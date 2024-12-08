@@ -1,15 +1,14 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
 import { ActivityIndicator, Text, useTheme } from "react-native-paper"
-
-const DataContainer = ({
+export default function DataContainer({
   loading,
   error,
   data,
   children,
   errorMessage,
   noDataMessage,
-}) => {
+}) {
   const { colors } = useTheme()
   console.log(data)
 
@@ -58,5 +57,3 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 })
-
-export default DataContainer

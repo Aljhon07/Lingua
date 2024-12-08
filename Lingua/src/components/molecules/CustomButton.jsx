@@ -7,6 +7,7 @@ export function CustomButton({
   children,
   style,
   textStyle,
+  containerStyle,
   textVariant = "labelLarge",
   primary = false,
   loading = false,
@@ -15,7 +16,7 @@ export function CustomButton({
   const { roundness, colors } = useTheme()
   const styles = createStyles(roundness, colors, primary)
   return (
-    <View style={styles.buttonView}>
+    <View style={[styles.buttonView, containerStyle]}>
       <Pressable
         onPress={onPress}
         android_ripple={{ color: "rgba(176, 176, 176, 0.4)", borderless: true }}
