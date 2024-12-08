@@ -73,3 +73,16 @@ export const fetchPackageDetails = async (id) => {
     throw new Error(logError("getPackageDetails", error))
   }
 }
+
+export const fetchPackageItinerary = async (id) => {
+  try {
+    console.log("Fetching Package Itinerary...", id)
+    const res = await axiosInstance.get(
+      `/items/destination?filter[travel_package][id][_eq]=${id}&sort=dayNumber&fields=image,overview,activities.name,dayNumber`
+    )
+    console.log("Package Itinerary Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchPackageItinerary", error))
+  }
+}
