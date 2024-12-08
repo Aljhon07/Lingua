@@ -1,28 +1,75 @@
-import { createContext, useState, useContext, useEffect } from "react"
-import { CombinedDarkTheme, CombinedLightTheme } from "@utils/combinedTheme"
+import React, { createContext, useState, useEffect, useContext } from "react"
+import { CombinedDarkTheme, CombinedLightTheme } from "@constants/combinedTheme"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { PaperProvider } from "react-native-paper"
 import { Appearance } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
-import { PaperProvider } from "react-native-paper"
 import { StatusBar } from "expo-status-bar"
 
-export const ThemeContext = createContext()
+const ThemeContext = createContext()
 
 export default function ThemeProvider({ children }) {
-  const colorScheme = Appearance.getColorScheme()
+  const systemColorScheme = Appearance.getColorScheme()
   const [theme, setTheme] = useState(
-    colorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
+    systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
   )
+  const [themePreference, setThemePreference] = useState("automatic")
 
-  const toggleTheme = () => {
-    setTheme(
-      theme === CombinedLightTheme ? CombinedDarkTheme : CombinedLightTheme
-    )
+  useEffect(() => {
+    const loadTheme = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem("theme")
+        if (savedTheme) {
+          setThemePreference(savedTheme)
+          if (savedTheme === "light") {
+            setTheme(CombinedLightTheme)
+          } else if (savedTheme === "dark") {
+            setTheme(CombinedDarkTheme)
+          } else {
+            setTheme(
+              systemColorScheme === "dark"
+                ? CombinedDarkTheme
+                : CombinedLightTheme
+            )
+          }
+        }
+      } catch (error) {
+        console.error(error)
+        setTheme(
+          systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
+        )
+      }
+    }
+
+    loadTheme()
+  }, [themePreference])
+
+  const setThemePreferenceAndSave = async (preference) => {
+    const savedTheme = await AsyncStorage.setItem("theme", preference)
+    if (preference) {
+      setThemePreference(preference)
+      if (preference === "light") {
+        setTheme(CombinedLightTheme)
+      } else if (preference === "dark") {
+        setTheme(CombinedDarkTheme)
+      } else {
+        setTheme(
+          systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
+        )
+      }
+    }
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider
+      value={{
+        themePreference,
+        theme,
+        setThemePreference: setThemePreferenceAndSave,
+      }}
+    >
       <PaperProvider theme={theme}>
-        <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
+        <StatusBar style={themePreference === "dark" ? "light" : "dark"} />
         <NavigationContainer theme={theme}>{children}</NavigationContainer>
       </PaperProvider>
     </ThemeContext.Provider>
