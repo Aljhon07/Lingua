@@ -9,7 +9,7 @@ import DataContainer from "@components/layouts/DataContainer"
 import PackageDetailsTabs from "@navigation/PackageDetailsTabs"
 import { CustomButton } from "@components/molecules/CustomButton"
 
-export default function PackageDetails({ route }) {
+export default function PackageDetails({ route, navigation }) {
   const { imageURL, item } = route.params
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
@@ -20,6 +20,12 @@ export default function PackageDetails({ route }) {
     executeQuery("packageDetails", fetchPackageDetails, item.id)
   }, [])
 
+  const handleBookingNavigate = () => {
+    navigation.navigate("BookingScreen", {
+      name: item.name,
+      price: item.price,
+    })
+  }
   return (
     <DataContainer
       data={packageDetails.data}
@@ -41,7 +47,9 @@ export default function PackageDetails({ route }) {
           </View>
         </View>
         <PackageDetailsTabs packageDetails={packageDetails} />
-        <CustomButton primary>Book Now!</CustomButton>
+        <CustomButton primary onPress={handleBookingNavigate}>
+          Book Now!
+        </CustomButton>
       </View>
     </DataContainer>
   )
