@@ -8,21 +8,22 @@ import { CustomButton } from "@components/molecules/CustomButton"
 import { Section } from "@components/atoms/Section"
 import { spacing } from "@constants/globalStyles"
 import { ThemeSelector } from "@components/molecules/ThemeSelector"
-import { useTheme } from "react-native-paper"
+import { Text, useTheme } from "react-native-paper"
 import { useAuthContext } from "@context/AuthProvider"
 
 export default function Profile() {
-  const { signOut } = useAuthContext()
-  const { getQueryState, executeQuery } = useQueryState()
+  const profileImage = require("@assets/images/default_profile.png")
   const { colors } = useTheme()
   const styles = createStyles(colors)
-  const profileImage = require("@assets/images/default_profile.png")
+  const { getQueryState, executeQuery } = useQueryState()
   const profile = getQueryState("profile")
+  const { signOut } = useAuthContext()
 
   useEffect(() => {
     executeQuery("profile", fetchProfile)
   }, [])
 
+  console.log("Profile: ", profile)
   return (
     <SafeAreaView style={styles.screen}>
       <DataContainer
@@ -32,8 +33,11 @@ export default function Profile() {
       >
         <View style={styles.profileContainer}>
           <Image source={profileImage} style={styles.profile} />
-          <CustomButton primary>Change Profile</CustomButton>
+          <Text variant="titleLarge">
+            {profile.data?.first_name} {profile.data?.last_name}
+          </Text>
         </View>
+        <CustomButton primary>Edit Profile</CustomButton>
 
         <Section
           headline="Theme"
@@ -80,8 +84,9 @@ const createStyles = (colors) =>
     },
 
     profile: {
-      width: 150,
-      height: 150,
+      aspectRatio: 1,
+      height: 100,
+      padding: 0,
       borderRadius: 75,
     },
     logOutButton: {

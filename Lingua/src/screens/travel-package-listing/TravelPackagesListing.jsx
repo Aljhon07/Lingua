@@ -26,7 +26,7 @@ export default function TravelPackagesListing() {
 
   useEffect(() => {
     executeQuery("packages", fetchPackages)
-    executeQuery("profile", fetchProfile, "fields=first_name")
+    executeQuery("profile", fetchProfile, "?fields=first_name")
     console.error(profileState.data)
   }, [])
 

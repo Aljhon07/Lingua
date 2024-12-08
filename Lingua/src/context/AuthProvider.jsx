@@ -49,9 +49,9 @@ export default function AuthProvider({ children }) {
 
   const contextSignUp = async ({ email, password, firstName, lastName }) => {
     try {
-      const res = await signUp(email, password)
-      setIsAuthenticated(true)
+      const res = await signUp(email, password, firstName, lastName)
       console.log("Sign Up successful")
+      contextSignIn({ email, password })
     } catch (error) {
       console.error("Auth", error.responseData)
       setStatus({

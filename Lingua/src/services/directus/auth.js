@@ -20,7 +20,7 @@ export async function signIn(email, password) {
 }
 
 export async function signUp(email, password, first_name, last_name) {
-  console.log("Registering user...")
+  console.log("Registering user: ", first_name, last_name)
   const trimmedEmail = email.trim()
   try {
     const res = await axiosInstance.post("/users/register", {
@@ -30,7 +30,7 @@ export async function signUp(email, password, first_name, last_name) {
       last_name,
     })
     console.log("User registered successfully!")
-    await signIn(trimmedEmail, password)
+    // await signIn(trimmedEmail, password)
   } catch (error) {
     console.error("Sign Up failed")
     console.error(error.message[0])
