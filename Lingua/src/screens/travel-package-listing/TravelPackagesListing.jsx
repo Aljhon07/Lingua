@@ -4,6 +4,7 @@ import {
   fetchPackages,
   searchPackages,
   fetchPackageByCountry,
+  fetchProfile,
 } from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { Text, useTheme } from "react-native-paper"
@@ -18,14 +19,18 @@ export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
   const { getQueryState, executeQuery } = useQueryState()
   const { colors } = useTheme()
+
   const packagesState = getQueryState("packages")
+  const profileState = getQueryState("profile")
   const styles = createStyles(colors)
 
   useEffect(() => {
     executeQuery("packages", fetchPackages)
+    executeQuery("profile", fetchProfile, "fields=first_name")
+    console.error(profileState.data)
   }, [])
 
-  const searchPackage = async () => {
+  const searchPackage = () => {
     executeQuery("packages", searchPackages, searchQuery)
   }
   const getPackagesByCountry = async (selectedFilter) => {
@@ -37,41 +42,48 @@ export default function TravelPackagesListing() {
   }
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.headerContainer}>
-        <Text variant="headlineLarge">
-          Adventure is calling, [Username]! Where to go next?
-        </Text>
-        <View style={styles.wrapper}>
-          <CustomSearchBar
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            onSubmitEditing={searchPackage}
-            placeholder="Search by keyword..."
-          />
-          <CountryFilterList
-            onPress={(selectedFilter) => getPackagesByCountry(selectedFilter)}
-          />
+    <DataContainer
+      data={profileState.data}
+      error={profileState.error}
+      loading={profileState.loading && packagesState.loading}
+    >
+      <View style={styles.screen}>
+        <View style={styles.headerContainer}>
+          <Text variant="headlineLarge">
+            Adventure is calling, {profileState?.data?.first_name}! Where to go
+            next?
+          </Text>
+          <View style={styles.wrapper}>
+            <CustomSearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              onSubmitEditing={searchPackage}
+              placeholder="Search by keyword..."
+            />
+            <CountryFilterList
+              onPress={(selectedFilter) => getPackagesByCountry(selectedFilter)}
+            />
+          </View>
         </View>
-      </View>
-      {/* Track: Removed View Component */}
-      <DataContainer
-        error={packagesState.error}
-        loading={packagesState.loading}
-        errorMessage={"Failed to fetch packages"}
-        noDataComponent="No Packages Available!"
-        data={packagesState.data}
-      >
-        <Section
-          headline={"Packages"}
-          headlineVariant="headlineLarge"
-          sectionStyle={styles.section}
-          contentContainerStyle={styles.packageSection}
+        {/* Track: Removed View Component */}
+        <DataContainer
+          error={packagesState.error}
+          loading={packagesState.loading}
+          errorMessage={"Failed to fetch packages"}
+          noDataComponent="No Packages Available!"
+          data={packagesState.data}
         >
-          <PackageListing horizontal packages={packagesState.data} />
-        </Section>
-      </DataContainer>
-    </View>
+          <Section
+            headline={"Packages"}
+            headlineVariant="headlineLarge"
+            sectionStyle={styles.section}
+            contentContainerStyle={styles.packageSection}
+          >
+            <PackageListing horizontal packages={packagesState.data} />
+          </Section>
+        </DataContainer>
+      </View>
+    </DataContainer>
   )
 }
 
