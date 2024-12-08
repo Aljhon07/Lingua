@@ -4,7 +4,7 @@ import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
 import { TextInput, Text } from "react-native-paper"
 import { LinkText } from "@components/atoms/LinkText"
-import { CustomButton } from "@components/atoms/CustomButton"
+import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function SignUpForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({

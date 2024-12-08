@@ -2,13 +2,17 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Auth from "../auth/Auth.jsx"
 import SignIn from "../auth/SignIn.jsx"
 import SignUp from "../auth/SignUp.jsx"
-import { Appbar } from "react-native-paper"
 
 const Stack = createStackNavigator()
 
 export default function AuthNavigation() {
   return (
-    <Stack.Navigator initialRouteName="Auth" screenOptions={{}}>
+    <Stack.Navigator
+      initialRouteName="Auth"
+      screenOptions={{
+        headerLeft: () => null,
+      }}
+    >
       <Stack.Screen
         name="Auth"
         component={Auth}
@@ -19,7 +23,7 @@ export default function AuthNavigation() {
       <Stack.Screen
         options={{
           title: "Sign In",
-          headerLeft: () => null,
+
           headerTitleAlign: "center",
         }}
         name="SignIn"
@@ -28,7 +32,7 @@ export default function AuthNavigation() {
       <Stack.Screen
         options={{
           title: "Sign Up",
-          headerLeft: () => null,
+
           headerTitleAlign: "center",
         }}
         name="SignUp"

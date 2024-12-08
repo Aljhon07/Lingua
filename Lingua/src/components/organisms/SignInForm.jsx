@@ -5,7 +5,7 @@ import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
 import { Button, Text, TextInput } from "react-native-paper"
 import { useToggle } from "@hooks/useToggle"
-import { CustomButton } from "@components/atoms/CustomButton"
+import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
