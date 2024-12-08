@@ -1,6 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import PackageDetails from "../travel-package-listing/PackageDetails"
-import { MaterialIcons } from "@expo/vector-icons"
 import { useTheme } from "react-native-paper"
 import Booking from "../flight-booking/Booking"
 
@@ -28,7 +27,7 @@ export default function PackageDetailsNavigation({ route }) {
         initialParams={{ item, imageURL }}
         component={PackageDetails}
       />
-      <Stack.Screen name="BookingSceen" component={Booking} />
+      <Stack.Screen name="BookingScreen" component={Booking} />
     </Stack.Navigator>
   )
 }

@@ -11,7 +11,10 @@ export function PackageOverview({ route }) {
 
   const styles = createStyles(colors, roundness)
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <Section headline={"Description"}>
         <Text variant="bodyLarge" style={styles.description}>
           {packageDetails.description}
