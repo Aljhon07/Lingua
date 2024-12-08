@@ -10,13 +10,14 @@ export function Section({
   headlineVariant = "headlineSmall",
   contentContainerStyle,
   sectionStyle,
+  textColor,
 }) {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 
   return (
     <View style={[styles.container, sectionStyle]}>
-      <Text variant={headlineVariant} style={styles.headline}>
+      <Text variant={headlineVariant} style={[styles.headline, textColor]}>
         {headline}
       </Text>
       <View style={[styles.content, contentContainerStyle]}>{children}</View>
