@@ -22,6 +22,7 @@ export default function TravelPackagesListing() {
 
   const packagesState = getQueryState("packages")
   const profileState = getQueryState("profile")
+  const recentBookings = getQueryState("bookings")
   const styles = createStyles(colors)
 
   useEffect(() => {
@@ -113,6 +114,6 @@ const createStyles = (colors) =>
     },
     packageSection: {
       backgroundColor: "transparent",
-      padidng: spacing.md,
+      padding: 0,
     },
   })
