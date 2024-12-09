@@ -110,16 +110,28 @@ export const uploadImages = async (imageUris) => {
 }
 
 export const uploadTransactions = async (first_name, last_name, price, id) => {
-  console.log(id)
+  console.log(first_name, last_name)
   try {
     const res = await axiosInstance.post("/items/payments", {
       first_name,
       last_name,
-      travel_package: { id: id },
+      travel_package: id,
       price,
     })
+    console.log(res.data.data)
     return res.data.data
   } catch (error) {
     throw new Error(logError("uploadProcess", error))
+  }
+}
+
+export const fetchTransactions = async (filter) => {
+  try {
+    console.log("Fetching Transactions...")
+    const res = await axiosInstance.get(`/items/payments?${filter}`)
+    console.log("Transactions Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("getTransactions", error))
   }
 }
