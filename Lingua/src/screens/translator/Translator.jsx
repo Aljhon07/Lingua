@@ -7,13 +7,9 @@ import { useSpeechRecognition } from "@hooks/useSpeechRecognition"
 
 export default function Translator() {
   const { colors } = useTheme()
-  const { setIsSpeaking, speaking, handleRecording } = useSpeechRecognition()
+  const { transcript, recording, handleRecording } = useSpeechRecognition()
   const styles = createStyles(colors)
 
-  const handlePress = () => {
-    setIsSpeaking(!speaking)
-    const recording = handleRecording()
-  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>
@@ -23,10 +19,10 @@ export default function Translator() {
       </View>
       <View style={styles.wrapper}>
         <IconButton
-          icon={speaking ? "stop" : "microphone"}
+          icon={recording ? "stop" : "microphone"}
           size={70}
           iconColor={colors.onPrimaryContainer}
-          onPress={handlePress}
+          onPress={handleRecording}
           style={styles.microphoneIcon}
         />
       </View>
