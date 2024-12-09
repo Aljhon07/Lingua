@@ -5,6 +5,7 @@ import TravelPackagesListing from "../travel-package-listing/TravelPackagesListi
 import Profile from "../profile/Profile"
 import Learn from "../language-learning/Learn"
 import Translator from "../translator/Translator"
+import BookingHistory from "../booking-history/BookingHistory"
 
 const Tab = createBottomTabNavigator()
 
@@ -29,7 +30,7 @@ export default function VisibleTabs() {
         }}
       />
       <Tab.Screen
-        component={Translator}
+        component={BookingHistory}
         name="Bookings"
         options={{
           tabBarIcon: ({ color }) => (
