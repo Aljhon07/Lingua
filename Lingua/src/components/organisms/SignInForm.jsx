@@ -1,55 +1,64 @@
-import { PrimaryButton } from "@buttons/PrimaryButton";
-import { PasswordField, TextField } from "@components/atoms/InputField";
-import { StyleSheet, View } from "react-native";
-import { spacing } from "@constants/globalStyles";
-import { LinkText, Paragraph } from "@components/atoms/Typography";
-import { useInputChange } from "@hooks/useInputChange";
-import { useAuthContext } from "@context/AuthProvider";
-import { InlineTextWithLink } from "@components/molecules/InlineTextWithLink";
+import { StyleSheet, View } from "react-native"
+import { spacing } from "@constants/globalStyles"
+import { LinkText } from "@components/atoms/LinkText"
+import { useInputChange } from "@hooks/useInputChange"
+import { useAuthContext } from "@context/AuthProvider"
+import { Button, Text, TextInput } from "react-native-paper"
+import { useToggle } from "@hooks/useToggle"
+import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
     email: "",
     password: "",
-  });
-  const { status, signIn } = useAuthContext();
+  })
+  const [visible, toggleVisiblity] = useToggle()
+  const { loading, status, signIn } = useAuthContext()
 
-  const handleSignIn = async () => signIn(credentials);
+  const handleSignIn = async () => signIn(credentials)
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <TextField
+        <TextInput
+          mode="outlined"
           style={styles.inputField}
-          placeholder="Email"
+          textContentType="emailAddress"
+          label="Email"
           value={credentials.email}
           onChangeText={(text) => handleInputChange("email", text)}
           autoComplete="on"
         />
-        <PasswordField
-          style={styles.inputField}
-          placeholder="Password"
+        <TextInput
+          mode="outlined"
+          textContentType="password"
+          secureTextEntry={!visible}
+          label="Password"
           value={credentials.password}
+          right={
+            <TextInput.Icon
+              icon={visible ? "eye" : "eye-off"}
+              onPress={toggleVisiblity}
+            />
+          }
           onChangeText={(text) => handleInputChange("password", text)}
         />
-        {status.isError && (
-          <Paragraph style={{ color: "red" }}>{status.message}</Paragraph>
-        )}
-        <View style={styles.wrapper}>
-          <PrimaryButton buttonStyle={{ flex: 0 }} onPress={handleSignIn}>
-            Sign In
-          </PrimaryButton>
-          <InlineTextWithLink
-            text="Don't have an account?"
-            linkText="Sign Up"
-            onLinkPress={() => navigation.replace("SignUp")}
-          />
 
-          <LinkText center>Forgot Password?</LinkText>
+        <View style={styles.wrapper}>
+          <CustomButton primary onPress={handleSignIn} loading={loading}>
+            Sign In
+          </CustomButton>
+          <Text style={styles.centerText}>
+            Don't have an account?{" "}
+            <LinkText onPress={() => navigation.navigate("SignUp")}>
+              Sign Up
+            </LinkText>
+          </Text>
+          <LinkText style={styles.centerText}>Forgot Password?</LinkText>
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -67,4 +76,7 @@ const styles = StyleSheet.create({
     width: "90%",
     gap: spacing.lg,
   },
-});
+  centerText: {
+    textAlign: "center",
+  },
+})

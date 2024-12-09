@@ -1,59 +1,56 @@
-import { ImageBackground, View } from "react-native"
-import { Paragraph } from "@components/atoms/Typography"
-import { PrimaryButton } from "@components/molecules/buttons/PrimaryButton"
-import { SecondaryButton } from "@components/molecules/buttons/SecondaryButton"
+import { View } from "react-native"
 import { LinguaLogo } from "@components/atoms/LinguaLogo"
-import { lightTheme } from "@constants/colors"
-import { SafeAreaView } from "react-native-safe-area-context"
+import { Button, Text, useTheme } from "react-native-paper"
 
 export default function Auth({ navigation }) {
   const bg_1 = require("@assets/images/background_1.jpg")
   const bg_2 = require("@assets/images/background_2.jpg")
-
   return (
-    <ImageBackground style={{ flex: 1, width: "100%" }} source={bg_1}>
-      <SafeAreaView style={{ flex: 1, backgroundColor: "rgba(0, 0, 0, 0.3)" }}>
-        <View style={{ flex: 1, padding: 20 }}>
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <LinguaLogo light />
-            <Paragraph
-              style={{
-                color: lightTheme.textInverted,
-                textAlign: "center",
-                width: 240,
-              }}
-            >
-              Plan your journeys and communicate effortlessly, wherever you go.
-            </Paragraph>
-          </View>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              gap: 10,
-            }}
-          >
-            <SecondaryButton
-              onPress={() => navigation.navigate("SignUp")}
-              buttonStyle={{
-                borderColor: lightTheme.textInverted,
-              }}
-              textStyle={{ color: lightTheme.textInverted }}
-            >
-              Sign Up
-            </SecondaryButton>
-            <PrimaryButton onPress={() => navigation.navigate("SignIn")}>
-              Sign In
-            </PrimaryButton>
-          </View>
-        </View>
-      </SafeAreaView>
-    </ImageBackground>
+    <View style={{ flex: 1, padding: 20 }}>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <LinguaLogo light />
+        <Text
+          style={{
+            textAlign: "center",
+            width: 240,
+          }}
+        >
+          Plan your journeys and communicate effortlessly, wherever you go.
+        </Text>
+      </View>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          gap: 10,
+        }}
+      >
+        <Button
+          onPress={() => navigation.navigate("SignUp")}
+          mode="outlined"
+          style={{ flex: 1 }}
+        >
+          Sign Up
+        </Button>
+
+        <Button
+          style={{ flex: 1 }}
+          onPress={() => navigation.navigate("SignIn")}
+          mode="contained"
+          contentStyle={{
+            flexDirection: "row-reverse",
+          }}
+          loading={false}
+        >
+          Sign In
+        </Button>
+      </View>
+    </View>
   )
 }

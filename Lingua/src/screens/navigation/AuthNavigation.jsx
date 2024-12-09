@@ -1,22 +1,29 @@
-import { createStackNavigator } from "@react-navigation/stack";
-import Auth from "../auth/Auth.jsx";
-import SignIn from "../auth/SignIn.jsx";
-import SignUp from "../auth/SignUp.jsx";
+import { createStackNavigator } from "@react-navigation/stack"
+import Auth from "../auth/Auth.jsx"
+import SignIn from "../auth/SignIn.jsx"
+import SignUp from "../auth/SignUp.jsx"
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 export default function AuthNavigation() {
   return (
     <Stack.Navigator
       initialRouteName="Auth"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerLeft: () => null,
+      }}
     >
-      <Stack.Screen name="Auth" component={Auth} />
+      <Stack.Screen
+        name="Auth"
+        component={Auth}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen
         options={{
           title: "Sign In",
-          headerShown: true,
-          headerLeft: () => null,
+
           headerTitleAlign: "center",
         }}
         name="SignIn"
@@ -25,13 +32,12 @@ export default function AuthNavigation() {
       <Stack.Screen
         options={{
           title: "Sign Up",
-          headerShown: true,
-          headerLeft: () => null,
+
           headerTitleAlign: "center",
         }}
         name="SignUp"
         component={SignUp}
       />
     </Stack.Navigator>
-  );
+  )
 }

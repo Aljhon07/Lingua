@@ -12,7 +12,6 @@ export async function refreshTokens() {
     })
     const { access_token: accessToken, refresh_token: newRefreshToken } =
       response.data.data
-    console.log(accessToken, newRefreshToken)
     saveTokens(accessToken, newRefreshToken)
     return { accessToken, newRefreshToken }
   } catch (error) {
@@ -28,5 +27,14 @@ export async function saveTokens(accessToken, refreshToken) {
     await SecureStore.setItemAsync("refreshToken", refreshToken)
   } catch (error) {
     console.error("Error saving tokens:", error)
+  }
+}
+
+export async function removeTokens() {
+  try {
+    await SecureStore.deleteItemAsync("accessToken")
+    await SecureStore.deleteItemAsync("refreshToken")
+  } catch (error) {
+    console.error("Error deleting tokens:", error)
   }
 }

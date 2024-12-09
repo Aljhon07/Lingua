@@ -1,6 +1,6 @@
 import { LinguaLogo } from "@components/atoms/LinguaLogo"
 import { border, spacing } from "@constants/globalStyles"
-import { ImageBackground, KeyboardAvoidingView, View } from "react-native"
+import { View } from "react-native"
 import { StyleSheet } from "react-native"
 
 export default function AuthenticationForm({ children }) {
@@ -8,16 +8,10 @@ export default function AuthenticationForm({ children }) {
   const bg_2 = require("@assets/images/background_2.jpg")
 
   return (
-    <ImageBackground
-      source={bg_1}
-      style={styles.imageBackground}
-      imageStyle={styles.bgImageStyle}
-    >
-      <View style={styles.container}>
-        <LinguaLogo light={false} style={styles.logo} />
-        <View>{children}</View>
-      </View>
-    </ImageBackground>
+    <View style={styles.container}>
+      <LinguaLogo light={false} style={styles.logo} />
+      <View>{children}</View>
+    </View>
   )
 }
 
@@ -34,7 +28,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     borderRadius: border.md,
     width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
   },
 
   logo: {
