@@ -39,6 +39,6 @@ export const useQueryState = () => {
   }
 
   const getQueryState = (name) =>
-    queries[name] || { loading: false, error: false, data: null }
+    queries[name] || { loading: true, error: false, data: null }
   return { getQueryState, executeQuery }
 }
