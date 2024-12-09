@@ -87,29 +87,29 @@ export const fetchPackageItinerary = async (id) => {
   }
 }
 
-export const uploadImages = async (imageUris) => {
-  console.log(imageUris)
-  try {
-    const formData = new FormData()
-    for (const imageUri of imageUris) {
-      formData.append("file", {
-        uri: imageUri,
-        name: imageUri.split("/").pop(),
-        type: "image/*",
-      })
-      console.log("Uploading Image...")
-    }
-    const res = await axiosInstance.post("/files", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    })
-    console.log("Image Uploaded: ")
-    return res.data.data
-  } catch (error) {
-    console.error("Failed to upload image:", error)
-  }
-}
+// export const uploadImages = async (imageUris) => {
+//   console.log(imageUris)
+//   try {
+//     const formData = new FormData()
+//     for (const imageUri of imageUris) {
+//       formData.append("file", {
+//         uri: imageUri,
+//         name: imageUri.split("/").pop(),
+//         type: "image/*",
+//       })
+//       console.log("Uploading Image...")
+//     }
+//     const res = await axiosInstance.post("/files", formData, {
+//       headers: {
+//         "Content-Type": "multipart/form-data",
+//       },
+//     })
+//     console.log("Image Uploaded: ")
+//     return res.data.data
+//   } catch (error) {
+//     console.error("Failed to upload image:", error)
+//   }
+// }
 
 export const uploadTransactions = async (first_name, last_name, price, id) => {
   console.log(first_name, last_name)
