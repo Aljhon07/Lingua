@@ -44,8 +44,14 @@ export function useSpeechRecognition() {
   const playRecording = async () => {
     try {
       console.log("Playing recording...")
-      const { sound } = await Audio.Sound.createAsync({ uri: transcript })
-      setSound(sound)
+      // const { sound } = await Audio.Sound.createAsync({ uri: transcript })
+      if (transcript) {
+        const { sound } = await Audio.Sound.createAsync(
+          require("@assets/audio/test.mp3")
+        )
+        setSound(sound)
+      }
+
       await sound.playAsync()
     } catch (error) {
       console.error(error)
@@ -55,6 +61,7 @@ export function useSpeechRecognition() {
   useEffect(() => {
     playRecording()
   }, [transcript])
+
   const handleRecording = async () => {
     if (recording) {
       await stopRecording()
