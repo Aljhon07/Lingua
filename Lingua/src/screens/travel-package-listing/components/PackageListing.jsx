@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native"
 import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import { PackageCard } from "./PackageCard"
+import { spacing } from "@constants/globalStyles"
 
 export function PackageListing({
   packages,

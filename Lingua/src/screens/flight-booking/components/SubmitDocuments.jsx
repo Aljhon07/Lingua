@@ -1,6 +1,5 @@
 import { spacing } from "@constants/globalStyles"
 import * as ImagePicker from "expo-image-picker"
-import { useState } from "react"
 import { Image, StyleSheet, View } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 import { Button, IconButton, useTheme } from "react-native-paper"

@@ -12,7 +12,6 @@ export function PackageItinerary({ route }) {
   const { executeQuery, getQueryState } = useQueryState()
   const itinerary = getQueryState("itinerary")
 
-  console.error(itinerary)
   useEffect(() => {
     executeQuery("itinerary", fetchPackageItinerary, packageDetails.id)
   }, [])
@@ -25,6 +24,7 @@ export function PackageItinerary({ route }) {
     >
       <View style={styles.container}>
         <FlatList
+          showsVerticalScrollIndicator={false}
           data={itinerary.data}
           renderItem={({ item }) => <ItineraryCard item={item} />}
         />

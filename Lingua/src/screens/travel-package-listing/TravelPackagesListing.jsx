@@ -23,13 +23,11 @@ export default function TravelPackagesListing() {
 
   const packagesState = getQueryState("packages")
   const profileState = getQueryState("profile")
-  const recentBookings = getQueryState("bookings")
   const styles = createStyles(colors)
 
   useEffect(() => {
     getPackages()
     executeQuery("profile", fetchProfile, "?fields=first_name")
-    console.error(profileState.data)
   }, [])
 
   const getPackages = () => {
@@ -81,8 +79,8 @@ export default function TravelPackagesListing() {
           <Section
             headline={"Packages"}
             headlineVariant="headlineLarge"
-            sectionStyle={styles.section}
-            contentContainerStyle={styles.packageSection}
+            sectionStyle={styles.packageSection}
+            contentContainerStyle={styles.section}
           >
             <PackageListing
               horizontal
@@ -103,6 +101,7 @@ const createStyles = (colors) =>
       flex: 1,
       paddingHorizontal: spacing.lg,
       marginTop: spacing.xl,
+      gap: spacing.lg,
     },
     packageContainer: {
       flex: 1,
@@ -120,7 +119,7 @@ const createStyles = (colors) =>
       padding: spacing.sm,
       marginHorizontal: spacing.sm,
     },
-    packageSection: {
+    section: {
       backgroundColor: "transparent",
       padding: 0,
     },
