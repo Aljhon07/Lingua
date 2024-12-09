@@ -1,6 +1,17 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
 
+export const fetchLessons = async () => {
+  try {
+    console.log("Fetching Lessons...")
+    const res = await axiosInstance.get(`/items/lessons?${filter}`)
+    console.log("Lessons Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchLessons", error))
+  }
+}
+
 export const searchPackages = async (searchQuery) => {
   console.log("Searching...")
   try {
@@ -86,30 +97,6 @@ export const fetchPackageItinerary = async (id) => {
     throw new Error(logError("fetchPackageItinerary", error))
   }
 }
-
-// export const uploadImages = async (imageUris) => {
-//   console.log(imageUris)
-//   try {
-//     const formData = new FormData()
-//     for (const imageUri of imageUris) {
-//       formData.append("file", {
-//         uri: imageUri,
-//         name: imageUri.split("/").pop(),
-//         type: "image/*",
-//       })
-//       console.log("Uploading Image...")
-//     }
-//     const res = await axiosInstance.post("/files", formData, {
-//       headers: {
-//         "Content-Type": "multipart/form-data",
-//       },
-//     })
-//     console.log("Image Uploaded: ")
-//     return res.data.data
-//   } catch (error) {
-//     console.error("Failed to upload image:", error)
-//   }
-// }
 
 export const uploadTransactions = async (first_name, last_name, price, id) => {
   console.log(first_name, last_name)

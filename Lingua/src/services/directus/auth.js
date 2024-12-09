@@ -4,11 +4,9 @@ import { saveTokens } from "@utils/TokenManager"
 
 export async function signIn(email, password) {
   console.log("Signing in...")
-  console.log(email, password)
-  const trimmedEmail = email.trim()
   try {
     const res = await axiosInstance.post("/auth/login", {
-      email: trimmedEmail,
+      email,
       password,
     })
     const { access_token, refresh_token } = res.data.data
@@ -21,16 +19,14 @@ export async function signIn(email, password) {
 
 export async function signUp(email, password, first_name, last_name) {
   console.log("Registering user: ", first_name, last_name)
-  const trimmedEmail = email.trim()
   try {
     const res = await axiosInstance.post("/users/register", {
-      email: trimmedEmail,
+      email,
       password,
       first_name,
       last_name,
     })
     console.log("User registered successfully!")
-    // await signIn(trimmedEmail, password)
   } catch (error) {
     console.error("Sign Up failed")
     console.error(error.message[0])
