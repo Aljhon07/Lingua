@@ -42,7 +42,7 @@ export default function ThemeProvider({ children }) {
     }
 
     loadTheme()
-  }, [themePreference])
+  }, [])
 
   const setThemePreferenceAndSave = async (preference) => {
     const savedTheme = await AsyncStorage.setItem("theme", preference)
