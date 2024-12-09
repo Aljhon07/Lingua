@@ -8,6 +8,7 @@ const Stack = createStackNavigator()
 export default function PackageDetailsNavigation({ route }) {
   const { colors, roundness } = useTheme()
   const { imageURL, item } = route.params
+  console.log("navigation", item)
   console.error(item.country.name)
   return (
     <Stack.Navigator

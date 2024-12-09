@@ -9,16 +9,30 @@ import { useState } from "react"
 import { uploadImages, uploadTransactions } from "@services/directus/rest"
 import { useQueryState } from "@hooks/useQueryState"
 
-export default function Booking({ route }) {
+export default function Booking({ route, navigation }) {
   const [images, setImages] = useState([])
   const { colors, roundness } = useTheme()
   const styles = createStyle(colors, roundness)
   const { imageURL, name, price, id } = route.params
-  const [information, setInformation] = useInputChange({})
+  const [information, handleInputChange] = useInputChange({
+    firstName: null,
+    lastName: null,
+  })
 
+  console.log(information)
   const handleSubmit = async () => {
-    console.log("")
-    uploadTransactions(information.firstName, information.lastName, price, id)
+    try {
+      await uploadTransactions(
+        information.firstName,
+        information.lastName,
+        price,
+        id
+      )
+      console.log("Form submitted:", information)
+      navigation.navigate("VisibleTabs")
+    } catch (error) {
+      console.error("Failed to upload documents:", error)
+    }
   }
 
   return (
@@ -43,14 +57,16 @@ export default function Booking({ route }) {
         <TextInput
           mode="outlined"
           label={"First Name"}
+          textContentType="givenName"
           value={information.firstName}
-          onChange={(text) => setInformation("firstName", text)}
+          onChangeText={(text) => handleInputChange("firstName", text)}
         />
         <TextInput
           mode="outlined"
           label={"Last Name"}
+          textContentType="familyName"
           value={information.lastName}
-          onChange={(text) => setInformation("lastName", text)}
+          onChangeText={(text) => handleInputChange("lastName", text)}
         />
         <SubmitDocuments images={images} setImages={setImages} />
         <CustomButton primary onPress={handleSubmit}>
