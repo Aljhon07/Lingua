@@ -6,7 +6,7 @@ import { fetchTransactions } from "@services/directus/rest"
 import { formatDate } from "@utils/formatDate"
 import { useEffect } from "react"
 import { Image, StyleSheet, View } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import { Text, TouchableRipple, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
 
@@ -15,15 +15,18 @@ export default function BookingHistory({ navigation }) {
   const bookingHistory = getQueryState("booking-history")
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
-  console.log(bookingHistory)
+
   useEffect(() => {
+    getBookingHistory()
+  }, [])
+
+  const getBookingHistory = () => {
     executeQuery(
       "booking-history",
       fetchTransactions,
       "fields=first_name,last_name,status,date_created,travel_package.name,travel_package.id,travel_package.cover,travel_package.price,travel_package.country.name&sort=date_created"
     )
-  }, [])
-
+  }
   const renderItem = ({ item }) => {
     console.log(item)
     const formatteddDate = formatDate(item.date_created)
@@ -71,6 +74,12 @@ export default function BookingHistory({ navigation }) {
           Every Booking Tells a Story – Here's Yours!
         </Text>
         <FlatList
+          refreshControl={
+            <RefreshControl
+              refreshing={bookingHistory.loading}
+              onRefresh={getBookingHistory}
+            />
+          }
           data={bookingHistory.data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}

@@ -7,7 +7,6 @@ import { Text, TextInput, useTheme } from "react-native-paper"
 import { SubmitDocuments } from "./components/SubmitDocuments"
 import { useState } from "react"
 import { uploadImages, uploadTransactions } from "@services/directus/rest"
-import { useQueryState } from "@hooks/useQueryState"
 
 export default function Booking({ route, navigation }) {
   const [images, setImages] = useState([])
@@ -19,9 +18,11 @@ export default function Booking({ route, navigation }) {
     lastName: null,
   })
 
-  console.log(information)
   const handleSubmit = async () => {
     try {
+      const res = await uploadImages(images)
+      console.log(res)
+
       await uploadTransactions(
         information.firstName,
         information.lastName,

@@ -11,6 +11,7 @@ import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function PackageDetails({ route, navigation }) {
   const { imageURL, item } = route.params
+  console.log(item)
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 

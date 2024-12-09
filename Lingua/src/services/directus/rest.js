@@ -90,20 +90,22 @@ export const fetchPackageItinerary = async (id) => {
 export const uploadImages = async (imageUris) => {
   console.log(imageUris)
   try {
-    const uploadedImages = []
+    const formData = new FormData()
     for (const imageUri of imageUris) {
-      const formData = new FormData()
-      formData.append("file", imageUri)
-
-      console.log("Uploading Image...")
-      const res = await axiosInstance.post("/files", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      formData.append("file", {
+        uri: imageUri,
+        name: imageUri.split("/").pop(),
+        type: "image/*",
       })
-      console.log("Image Uploaded: ", res.data)
+      console.log("Uploading Image...")
     }
-    return uploadedImages
+    const res = await axiosInstance.post("/files", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    console.log("Image Uploaded: ")
+    return res.data.data
   } catch (error) {
     console.error("Failed to upload image:", error)
   }

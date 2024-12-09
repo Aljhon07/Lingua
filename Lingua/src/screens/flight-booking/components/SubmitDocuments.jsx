@@ -17,7 +17,7 @@ export function SubmitDocuments({ images, setImages }) {
     })
 
     if (!result.canceled) {
-      const selectedImages = result.assets.map((asset) => asset)
+      const selectedImages = result.assets.map((asset) => asset.uri)
       setImages((prevImages) => [...prevImages, ...selectedImages])
     }
   }
@@ -26,7 +26,6 @@ export function SubmitDocuments({ images, setImages }) {
     setImages((prevImages) => prevImages.filter((image) => image.uri !== uri))
   }
 
-  console.log(images)
   return (
     <View style={styles.container}>
       <Button mode="outlined" onPress={pickImage}>
@@ -45,7 +44,7 @@ export function SubmitDocuments({ images, setImages }) {
               style={styles.removeButton}
               iconColor={colors.onErrorContainer}
             />
-            <Image source={{ uri: item.uri }} style={styles.image} />
+            <Image source={{ uri: item }} style={styles.image} />
           </View>
         )}
       />

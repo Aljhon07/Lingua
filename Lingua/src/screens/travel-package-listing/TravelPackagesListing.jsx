@@ -14,6 +14,7 @@ import { PackageListing } from "./components/PackageListing"
 import { useQueryState } from "@hooks/useQueryState"
 import DataContainer from "@components/layouts/DataContainer"
 import { Section } from "@components/atoms/Section"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -26,11 +27,14 @@ export default function TravelPackagesListing() {
   const styles = createStyles(colors)
 
   useEffect(() => {
-    executeQuery("packages", fetchPackages)
+    getPackages()
     executeQuery("profile", fetchProfile, "?fields=first_name")
     console.error(profileState.data)
   }, [])
 
+  const getPackages = () => {
+    executeQuery("packages", fetchPackages)
+  }
   const searchPackage = () => {
     executeQuery("packages", searchPackages, searchQuery)
   }
@@ -48,7 +52,7 @@ export default function TravelPackagesListing() {
       error={profileState.error}
       loading={profileState.loading && packagesState.loading}
     >
-      <View style={styles.screen}>
+      <SafeAreaView style={styles.screen}>
         <View style={styles.headerContainer}>
           <Text variant="headlineLarge">
             Adventure is calling, {profileState?.data?.first_name}! Where to go
@@ -80,10 +84,15 @@ export default function TravelPackagesListing() {
             sectionStyle={styles.section}
             contentContainerStyle={styles.packageSection}
           >
-            <PackageListing horizontal packages={packagesState.data} />
+            <PackageListing
+              horizontal
+              packages={packagesState.data}
+              refreshing={packagesState.loading}
+              onRefresh={getPackages}
+            />
           </Section>
         </DataContainer>
-      </View>
+      </SafeAreaView>
     </DataContainer>
   )
 }
@@ -93,8 +102,7 @@ const createStyles = (colors) =>
     screen: {
       flex: 1,
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.xxl,
-      gap: spacing.xl,
+      marginTop: spacing.xl,
     },
     packageContainer: {
       flex: 1,
