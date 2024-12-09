@@ -64,6 +64,7 @@ export default function BookingHistory({ navigation }) {
       loading={bookingHistory.loading}
       error={bookingHistory.error}
       data={bookingHistory.data}
+      noDataMessage={"Book your Package Now. ->>> button to explore screen"}
     >
       <SafeAreaView style={styles.container}>
         <Text style={styles.headline} variant="headlineLarge">
