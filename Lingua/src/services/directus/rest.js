@@ -1,6 +1,19 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
 
+export const fetchQuizzes = async ({ id, filter }) => {
+  try {
+    console.log("Fetching Quizzes...")
+    const res = await axiosInstance.get(
+      `/items/quizzes?[lesson][_eq]=${id}&${filter}`
+    )
+    console.log("Quizzes Fetched: ", res.data.data)
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchQuizzes", error))
+  }
+}
+
 export const fetchLessons = async (filter) => {
   try {
     console.log("Fetching Lessons...")
@@ -13,10 +26,12 @@ export const fetchLessons = async (filter) => {
   }
 }
 
-export const fetchVocabulary = async (filter) => {
+export const fetchVocabulary = async ({ id, filter }) => {
   try {
     console.log("Fetching Vocabulary...")
-    const res = await axiosInstance.get(`/items/vocabulary?${filter}`)
+    const res = await axiosInstance.get(
+      `/items/vocabulary?[lesson][_eq]=${id}&${filter}`
+    )
     console.log("Vocabulary Fetched")
     return res.data.data
   } catch (error) {

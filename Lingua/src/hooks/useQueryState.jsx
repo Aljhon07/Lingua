@@ -32,7 +32,7 @@ export const useQueryState = () => {
           ...prevQueries[name],
           loading: false,
           error: true,
-          data: error,
+          data: error || "QueryState Message: An error occurred",
         },
       }))
     }

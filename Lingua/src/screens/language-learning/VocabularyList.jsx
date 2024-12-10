@@ -9,24 +9,25 @@ import { FlatList } from "react-native-gesture-handler"
 import { Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
 
-const test = [[{ hello: "test" }]]
-export default function VocabularyList({ route }) {
+export default function VocabularyList({ route, navigation }) {
+  const { id, title } = route.params
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
-  const { id } = route.params
   const { executeQuery, getQueryState } = useQueryState()
   const vocabulary = getQueryState("vocabulary")
 
   useEffect(() => {
     ;(async () => {
-      await executeQuery(
-        "vocabulary",
-        fetchVocabulary,
-        `fields=[lesson][_eq]=${id}&fields=keyword,translation`
-      )
+      await executeQuery("vocabulary", fetchVocabulary, {
+        id,
+        filter: `fields=keyword,translation`,
+      })
     })()
   }, [])
-  console.error("Vocab: ", vocabulary.data)
+
+  const handleQuizNavigation = () => {
+    navigation.navigate("Quiz", { id, title })
+  }
 
   const renderItem = ({ keyword, translation }) => {
     return (
@@ -46,7 +47,7 @@ export default function VocabularyList({ route }) {
       error={vocabulary.error}
       loading={vocabulary.loading}
     >
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.wrapper}>
           <Text variant="titleLarge">Vocabulary</Text>
           <Text variant="bodyMedium">
@@ -58,8 +59,10 @@ export default function VocabularyList({ route }) {
           data={vocabulary.data}
           renderItem={({ item }) => renderItem(item)}
         />
-        <CustomButton primary>Take Quiz</CustomButton>
-      </SafeAreaView>
+        <CustomButton primary onPress={handleQuizNavigation}>
+          Take Quiz
+        </CustomButton>
+      </View>
     </DataContainer>
   )
 }
@@ -68,12 +71,12 @@ const createStyles = (colors, roundness) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: spacing.xl,
+      paddingVertical: spacing.md,
       paddingHorizontal: spacing.md,
       gap: spacing.md,
     },
     vocabularyContainer: {
-      backgroundColor: "red",
+      backgroundColor: colors.surfaceVariant,
       marginBottom: spacing.md,
       padding: spacing.lg,
       borderRadius: roundness,

@@ -1,17 +1,38 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import LessonList from "../language-learning/LessonList"
 import VocabularyList from "../language-learning/VocabularyList"
+import Quiz from "../language-learning/Quiz"
 
-const Stack = createStackNavigator()
+const LessonStack = createStackNavigator()
 
 export default function LessonNavigation() {
   return (
-    <Stack.Navigator
+    <LessonStack.Navigator
       initialRouteName="LessonList"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: true }}
     >
-      <Stack.Screen name="LessonList" component={LessonList} />
-      <Stack.Screen name="VocabularyList" component={VocabularyList} />
-    </Stack.Navigator>
+      <LessonStack.Screen
+        name="LessonList"
+        options={{
+          headerShown: false,
+        }}
+        component={LessonList}
+      />
+      <LessonStack.Screen
+        name="VocabularyList"
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+        })}
+        component={VocabularyList}
+      />
+
+      <LessonStack.Screen
+        name="Quiz"
+        component={Quiz}
+        options={({ route }) => ({
+          headerTitle: route.params.title,
+        })}
+      />
+    </LessonStack.Navigator>
   )
 }

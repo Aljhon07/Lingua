@@ -9,7 +9,7 @@ export function LessonCard({ title, id, description }) {
   const styles = createStyles(colors, roundness)
 
   const handleNavigation = () => {
-    navigation.navigate("VocabularyList", { id })
+    navigation.navigate("VocabularyList", { id, title })
   }
   return (
     <TouchableRipple style={styles.container} onPress={handleNavigation}>
