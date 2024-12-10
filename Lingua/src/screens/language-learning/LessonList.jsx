@@ -1,12 +1,14 @@
 import { useEffect } from "react"
 import { StyleSheet } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { spacing } from "@constants/globalStyles"
 import { LessonCard } from "./components/LessonCard"
 import { useQueryState } from "@hooks/useQueryState"
 import DataContainer from "@components/layouts/DataContainer"
 import { fetchLessons } from "@services/directus/rest"
+import { Text } from "react-native-paper"
+import { Section } from "@components/atoms/Section"
 
 export default function LessonList() {
   const { getQueryState, executeQuery } = useQueryState()
@@ -19,6 +21,9 @@ export default function LessonList() {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Text variant="headlineLarge">
+        Every Lesson Brings You Closer to Fluency. Start Now!
+      </Text>
       <DataContainer
         loading={lesson.loading}
         error={lesson.error}
@@ -26,16 +31,21 @@ export default function LessonList() {
         noDataMessage={"No Lessons Found"}
         errorMessage={"Error Fetching Lessons"}
       >
-        <FlatList
-          data={lesson.data}
-          renderItem={({ item }) => (
-            <LessonCard
-              title={item.name}
-              id={item.id}
-              description={item.description}
-            />
-          )}
-        />
+        <Section
+          headline="Lessons"
+          contentContainerStyle={{ backgroundColor: "transparent", padding: 0 }}
+        >
+          <FlatList
+            data={lesson.data}
+            renderItem={({ item }) => (
+              <LessonCard
+                title={item.name}
+                id={item.id}
+                description={item.description}
+              />
+            )}
+          />
+        </Section>
       </DataContainer>
     </SafeAreaView>
   )
@@ -47,7 +57,8 @@ const createStyles = () =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      paddingVertical: spacing.xl,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.lg,
+      marginTop: spacing.xl,
+      gap: spacing.lg,
     },
   })

@@ -31,6 +31,7 @@ export default function LessonNavigation() {
         component={Quiz}
         options={({ route }) => ({
           headerTitle: route.params.title,
+          headerLeft: () => null,
         })}
       />
     </LessonStack.Navigator>
