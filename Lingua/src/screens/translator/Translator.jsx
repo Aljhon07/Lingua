@@ -4,10 +4,12 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { StyleSheet, View } from "react-native"
 import { spacing } from "@constants/globalStyles"
 import { useSpeechRecognition } from "@hooks/useSpeechRecognition"
+import { useToggle } from "@hooks/useToggle"
 
 export default function Translator() {
   const { colors } = useTheme()
-  const { transcript, recording, handleRecording } = useSpeechRecognition()
+  const [recording, toggleRecording] = useToggle(false)
+
   const styles = createStyles(colors)
 
   return (
@@ -22,7 +24,7 @@ export default function Translator() {
           icon={recording ? "stop" : "microphone"}
           size={70}
           iconColor={colors.onPrimaryContainer}
-          onPress={handleRecording}
+          onPress={toggleRecording}
           style={styles.microphoneIcon}
         />
       </View>

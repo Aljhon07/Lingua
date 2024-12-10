@@ -1,6 +1,6 @@
 const { useState } = require("react")
 
-export function useToggle(ininitalVal = false) {
+export function wuseToggle(ininitalVal = false) {
   const [value, setValue] = useState(ininitalVal)
 
   const toggle = () => setValue((prev) => !prev)
