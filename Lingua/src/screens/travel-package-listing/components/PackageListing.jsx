@@ -6,7 +6,6 @@ import { spacing } from "@constants/globalStyles"
 export function PackageListing({
   packages,
   containerStyle,
-  horizontal,
   onRefresh,
   refreshing,
 }) {

@@ -13,6 +13,7 @@ export function MultipleChoice({ choices, handleNext }) {
     conditonalStyling(index)
 
     setTimeout(() => {
+      setSelectedIndex(null)
       handleNext()
     }, 300)
   }

@@ -2,18 +2,18 @@ import { createStackNavigator } from "@react-navigation/stack"
 import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 
-import VisibleTabs from "./VisibleTabs"
+import MainTab from "./MainTab"
 import Translator from "../translator/Translator"
 import PackageDetailsNavigation from "./PackageDetailsNavigation"
 
 const Stack = createStackNavigator()
 
-export default function MainTab() {
+export default function MainNavigation() {
   const { colors } = useTheme()
 
   return (
     <Stack.Navigator
-      initialRouteName="VisibleTabs"
+      initialRouteName="MainTab"
       screenOptions={{
         animation: "reveal_from_bottom",
         headerShown: false,
@@ -25,7 +25,7 @@ export default function MainTab() {
         },
       }}
     >
-      <Stack.Screen name="VisibleTabs" component={VisibleTabs} />
+      <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Translator" component={Translator} />
       <Stack.Screen
         options={{

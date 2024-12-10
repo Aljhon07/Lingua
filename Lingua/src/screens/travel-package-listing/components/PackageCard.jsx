@@ -13,6 +13,7 @@ export function PackageCard({ item }) {
 
   const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.cover}`
 
+  console.log("card", item)
   const handleNavigate = () => {
     navigation.navigate("PackageDetailsNavigation", {
       imageURL,

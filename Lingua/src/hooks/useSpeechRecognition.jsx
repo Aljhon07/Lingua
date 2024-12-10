@@ -44,7 +44,6 @@ export function useSpeechRecognition() {
   const playRecording = async () => {
     try {
       console.log("Playing recording...")
-      // const { sound } = await Audio.Sound.createAsync({ uri: transcript })
       if (transcript) {
         const { sound } = await Audio.Sound.createAsync(
           require("@assets/audio/test.mp3")

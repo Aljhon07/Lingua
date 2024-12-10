@@ -21,22 +21,19 @@ export function PackageOverview({ route }) {
         </Text>
       </Section>
 
-      <Section
-        headline="Features"
-        contentContainerStyle={{ backgroundColor: "transparent", padding: 0 }}
-      >
-        <FlatList
-          data={packageDetails.features.basic_features}
-          renderItem={({ item }) => (
-            <CustomTag
-              label={item}
-              style={{ marginRight: spacing.md, marginBottom: spacing.md }}
-            />
-          )}
-          style={{ flexDirection: "row" }}
-          numColumns={3}
-          scrollToOverflowEnabled={false}
-        />
+      <Section headline="Features" contentContainerStyle={styles.tagContainer}>
+        {packageDetails.features.basic_features.length > 0 &&
+          packageDetails.features.basic_features.map((feature) => {
+            return (
+              <CustomTag
+                label={feature}
+                style={{
+                  marginRight: spacing.md,
+                  marginBottom: spacing.md,
+                }}
+              />
+            )
+          })}
       </Section>
       <Section
         headline="Inclusions"
@@ -79,5 +76,11 @@ const createStyles = (colors, roundness) =>
     },
     exclusionText: {
       color: colors.onErrorContainer,
+    },
+    tagContainer: {
+      backgroundColor: "transparent",
+      padding: 0,
+      flexDirection: "row",
+      flexWrap: "wrap",
     },
   })

@@ -15,35 +15,6 @@ export default function ThemeProvider({ children }) {
   )
   const [themePreference, setThemePreference] = useState("automatic")
 
-  useEffect(() => {
-    const loadTheme = async () => {
-      try {
-        const savedTheme = await AsyncStorage.getItem("theme")
-        if (savedTheme) {
-          setThemePreference(savedTheme)
-          if (savedTheme === "light") {
-            setTheme(CombinedLightTheme)
-          } else if (savedTheme === "dark") {
-            setTheme(CombinedDarkTheme)
-          } else {
-            setTheme(
-              systemColorScheme === "dark"
-                ? CombinedDarkTheme
-                : CombinedLightTheme
-            )
-          }
-        }
-      } catch (error) {
-        console.error(error)
-        setTheme(
-          systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
-        )
-      }
-    }
-
-    loadTheme()
-  }, [])
-
   const setThemePreferenceAndSave = async (preference) => {
     const savedTheme = await AsyncStorage.setItem("theme", preference)
     if (preference) {

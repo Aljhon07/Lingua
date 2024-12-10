@@ -24,7 +24,6 @@ export default function TravelPackagesListing() {
   const packagesState = getQueryState("packages")
   const profileState = getQueryState("profile")
   const styles = createStyles(colors)
-
   useEffect(() => {
     getPackages()
     executeQuery("profile", fetchProfile, "?fields=first_name")
@@ -36,11 +35,14 @@ export default function TravelPackagesListing() {
   const searchPackage = () => {
     executeQuery("packages", searchPackages, searchQuery)
   }
+
   const getPackagesByCountry = async (selectedFilter) => {
     if (selectedFilter === "All") {
       executeQuery("packages", fetchPackages)
     } else {
-      executeQuery("packages", fetchPackageByCountry, selectedFilter)
+      executeQuery("packages", fetchPackages, {
+        filter: `filter[country][name][_eq]=${selectedFilter}`,
+      })
     }
   }
 

@@ -1,6 +1,7 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
-import { saveTokens } from "@utils/TokenManager"
+import { randomUUID } from "expo-crypto"
+import * as SecureStorage from "expo-secure-store"
 
 export async function signIn(email, password) {
   console.log("Signing in...")
@@ -9,8 +10,24 @@ export async function signIn(email, password) {
       email,
       password,
     })
-    const { access_token, refresh_token } = res.data.data
-    await saveTokens(access_token, refresh_token)
+
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${res.data.data.access_token}`
+
+    const staticToken = randomUUID()
+    const token = await axiosInstance.patch("/users/me", {
+      token: staticToken,
+      static_token: staticToken,
+    })
+
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token.data.data.static_token}`
+    await SecureStorage.setItemAsync(
+      "accessToken",
+      token.data.data.static_token
+    )
   } catch (error) {
     console.error("Sign In failed")
     throw new Error(logError("signIn", error))

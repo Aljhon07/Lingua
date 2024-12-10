@@ -9,7 +9,7 @@ import LessonNavigation from "./LessonNavigation"
 
 const Tab = createBottomTabNavigator()
 
-export default function VisibleTabs() {
+export default function MainTab() {
   const { navigate } = useNavigation()
 
   return (
@@ -57,6 +57,7 @@ export default function VisibleTabs() {
         name="LessonsNavigation"
         component={LessonNavigation}
         options={{
+          title: "Learn",
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="graduation" size={24} color={color} />
           ),

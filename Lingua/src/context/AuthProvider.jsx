@@ -1,8 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react"
 import { refreshTokens, removeTokens } from "@utils/TokenManager"
 import { signIn, signUp } from "@services/directus/auth"
-export const AuthContext = createContext()
+import * as SecureStorage from "expo-secure-store"
+import { axiosInstance } from "@utils/axiosInstance"
 
+export const AuthContext = createContext()
 export default function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -15,8 +17,11 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const tokens = await refreshTokens()
-        if (tokens) setIsAuthenticated(true)
+        const token = await SecureStorage.getItemAsync("accessToken")
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${token}`
+        if (token) setIsAuthenticated(true)
       } catch (error) {
         setIsAuthenticated(false)
       } finally {
@@ -24,12 +29,7 @@ export default function AuthProvider({ children }) {
       }
     }
     checkAuthStatus()
-
-    // const removeTokens = async () => {
-    //   await SecureStorage.deleteItemAsync("accessToken")
-    //   await SecureStorage.deleteItemAsync("refreshToken")
-    // }
-    // return () => removeTokens()
+    setIsAuthenticated(false)
   }, [])
 
   const contextSignIn = async ({ email, password }) => {
@@ -63,8 +63,8 @@ export default function AuthProvider({ children }) {
   }
 
   const contextSignOut = async () => {
+    await SecureStorage.deleteItemAsync("accessToken")
     setIsAuthenticated(false)
-    await removeTokens()
   }
 
   return (
