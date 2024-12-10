@@ -1,6 +1,6 @@
 import { useAuthContext } from "@context/AuthProvider"
 import AuthNavigation from "./AuthNavigation"
-import MainTab from "./MainTab"
+import MainNavigation from "./MainNavigation"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
 
@@ -18,5 +18,5 @@ export default function RootNavigator() {
     return null
   }
 
-  return isAuthenticated ? <MainTab /> : <AuthNavigation />
+  return isAuthenticated ? <MainNavigation /> : <AuthNavigation />
 }

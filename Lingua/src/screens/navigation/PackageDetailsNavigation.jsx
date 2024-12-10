@@ -1,6 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack"
 import PackageDetails from "../travel-package-listing/PackageDetails"
-import { useTheme } from "react-native-paper"
 import Booking from "../flight-booking/Booking"
 
 const Stack = createStackNavigator()

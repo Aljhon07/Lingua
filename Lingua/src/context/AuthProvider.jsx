@@ -73,7 +73,6 @@ export default function AuthProvider({ children }) {
         signIn: contextSignIn,
         signOut: contextSignOut,
         signUp: contextSignUp,
-        status,
         loading,
         isAuthenticated,
       }}

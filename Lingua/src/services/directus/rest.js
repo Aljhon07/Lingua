@@ -1,14 +1,26 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
 
-export const fetchLessons = async () => {
+export const fetchLessons = async (filter) => {
   try {
     console.log("Fetching Lessons...")
     const res = await axiosInstance.get(`/items/lessons?${filter}`)
     console.log("Lessons Fetched")
+    console.log(res.data.data[0])
     return res.data.data
   } catch (error) {
     throw new Error(logError("fetchLessons", error))
+  }
+}
+
+export const fetchVocabulary = async (filter) => {
+  try {
+    console.log("Fetching Vocabulary...")
+    const res = await axiosInstance.get(`/items/vocabulary?${filter}`)
+    console.log("Vocabulary Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchVocabulary", error))
   }
 }
 

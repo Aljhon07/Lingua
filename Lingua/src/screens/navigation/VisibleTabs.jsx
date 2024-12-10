@@ -3,9 +3,9 @@ import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing"
 import Profile from "../profile/Profile"
-import Learn from "../language-learning/Learn"
 import Translator from "../translator/Translator"
 import BookingHistory from "../booking-history/BookingHistory"
+import LessonNavigation from "./LessonNavigation"
 
 const Tab = createBottomTabNavigator()
 
@@ -54,8 +54,8 @@ export default function VisibleTabs() {
         }}
       />
       <Tab.Screen
-        name="Learn"
-        component={Learn}
+        name="LessonsNavigation"
+        component={LessonNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="graduation" size={24} color={color} />
