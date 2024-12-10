@@ -1,4 +1,4 @@
-const domain = "192.168.115.188"
+const domain = "192.168.98.188"
 
 export const directus = {
   baseURL: `http://${domain}:8055`,
