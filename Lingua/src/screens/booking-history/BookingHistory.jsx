@@ -29,7 +29,6 @@ export default function BookingHistory({ navigation }) {
   }
   const renderItem = ({ item }) => {
     const formatteddDate = formatDate(item.date_created)
-
     const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.travel_package.cover}`
     return (
       <TouchableRipple
@@ -62,16 +61,16 @@ export default function BookingHistory({ navigation }) {
   }
 
   return (
-    <DataContainer
-      loading={bookingHistory.loading}
-      error={bookingHistory.error}
-      data={bookingHistory.data}
-      noDataMessage={"Book your Package Now. ->>> button to explore screen"}
-    >
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.headline} variant="headlineLarge">
-          Every Booking Tells a Story – Here's Yours!
-        </Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.headline} variant="headlineLarge">
+        Every Booking Tells a Story – Here's Yours!
+      </Text>
+      <DataContainer
+        loading={bookingHistory.loading}
+        error={bookingHistory.error}
+        data={bookingHistory.data}
+        noDataMessage={"Book your Package Now. ->>> button to explore screen"}
+      >
         <FlatList
           refreshControl={
             <RefreshControl
@@ -79,12 +78,13 @@ export default function BookingHistory({ navigation }) {
               onRefresh={getBookingHistory}
             />
           }
+          key={(index) => index}
           data={bookingHistory.data}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
-      </SafeAreaView>
-    </DataContainer>
+      </DataContainer>
+    </SafeAreaView>
   )
 }
 

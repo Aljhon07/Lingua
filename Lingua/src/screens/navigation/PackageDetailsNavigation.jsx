@@ -6,7 +6,6 @@ const Stack = createStackNavigator()
 
 export default function PackageDetailsNavigation({ route }) {
   const { imageURL, item } = route.params
-  console.log("PackageDetailsNavigation: ", item.country)
 
   return (
     <Stack.Navigator

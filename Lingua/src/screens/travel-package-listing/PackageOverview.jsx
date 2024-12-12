@@ -26,6 +26,7 @@ export function PackageOverview({ route }) {
           packageDetails.features.basic_features.map((feature) => {
             return (
               <CustomTag
+                key={feature}
                 label={feature}
                 style={{
                   marginRight: spacing.md,

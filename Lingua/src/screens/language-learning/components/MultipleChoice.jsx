@@ -4,7 +4,6 @@ import { StyleSheet, Text, Touchable, View } from "react-native"
 import { TouchableRipple, useTheme } from "react-native-paper"
 
 export function MultipleChoice({ choices, handleNext }) {
-  console.error(choices)
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
   const [selectedIndex, setSelectedIndex] = useState(null)
@@ -37,6 +36,7 @@ export function MultipleChoice({ choices, handleNext }) {
 
   const choicesComponent = choices.map((item, index) => (
     <TouchableRipple
+      key={index}
       style={conditonalStyling(index)}
       onPress={() => handlePress(index)}
     >

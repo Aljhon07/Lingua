@@ -13,7 +13,7 @@ export default function SignInForm({ navigation }) {
     password: "",
   })
   const [visible, toggleVisiblity] = useToggle()
-  const { loading, status, signIn } = useAuthContext()
+  const { loading, signIn } = useAuthContext()
 
   const handleSignIn = async () => signIn(credentials)
 

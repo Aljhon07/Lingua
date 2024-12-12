@@ -15,8 +15,4 @@ export const useSpeechRecognition = () => {
       }
     }
   })
-
-  const startRecording = () => {
-    const recording = new Audio.Recording()
-  }
 }
