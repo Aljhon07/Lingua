@@ -7,7 +7,7 @@ export function logError(identifier, error) {
       url: error.config?.url,
     }
     console.error(`${identifier}: ${JSON.stringify(errorDetails)}`)
-    return errorDetails.responseData
+    return errorDetails.message
   } catch (error) {
     console.error(`${identifier} logging error!`)
   }

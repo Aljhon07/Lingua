@@ -27,7 +27,6 @@ export function CountryFilterList({ onPress }) {
       data={countries}
       renderItem={({ item }) => {
         const isSelected = item.name === filter
-        console.log(item.name, isSelected)
         return (
           <CustomButton
             primary={isSelected}

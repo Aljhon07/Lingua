@@ -28,7 +28,6 @@ export default function BookingHistory({ navigation }) {
     )
   }
   const renderItem = ({ item }) => {
-    console.log(item)
     const formatteddDate = formatDate(item.date_created)
 
     const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.travel_package.cover}`

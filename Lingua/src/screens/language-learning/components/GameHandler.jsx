@@ -12,7 +12,6 @@ export function GameHandler({ data }) {
   const [numberOfItems, setNumberOfItems] = useState(questions.length)
   const [currentItem, setCurrentItem] = useState(0)
   const [life, setLife] = useState(3)
-  console.log(currentItem, numberOfItems)
 
   const handleNext = () => {
     setCurrentItem(currentItem + 1)

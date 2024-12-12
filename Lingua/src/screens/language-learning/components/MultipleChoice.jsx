@@ -4,6 +4,7 @@ import { StyleSheet, Text, Touchable, View } from "react-native"
 import { TouchableRipple, useTheme } from "react-native-paper"
 
 export function MultipleChoice({ choices, handleNext }) {
+  console.error(choices)
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
   const [selectedIndex, setSelectedIndex] = useState(null)

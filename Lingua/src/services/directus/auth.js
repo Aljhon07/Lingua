@@ -4,6 +4,8 @@ import { randomUUID } from "expo-crypto"
 import * as SecureStorage from "expo-secure-store"
 
 export async function signIn(email, password) {
+  SecureStorage.deleteItemAsync("accessToken")
+  delete axiosInstance.defaults.headers.common["Authorization"]
   console.log("Signing in...")
   try {
     const res = await axiosInstance.post("/auth/login", {
@@ -21,13 +23,14 @@ export async function signIn(email, password) {
       static_token: staticToken,
     })
 
-    axiosInstance.defaults.headers.common[
-      "Authorization"
-    ] = `Bearer ${token.data.data.static_token}`
     await SecureStorage.setItemAsync(
       "accessToken",
       token.data.data.static_token
     )
+    console.log(token.data.data.static_token)
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token.data.data.static_token}`
   } catch (error) {
     console.error("Sign In failed")
     throw new Error(logError("signIn", error))
@@ -35,6 +38,8 @@ export async function signIn(email, password) {
 }
 
 export async function signUp(email, password, first_name, last_name) {
+  SecureStorage.deleteItemAsync("accessToken")
+  delete axiosInstance.defaults.headers.common["Authorization"]
   console.log("Registering user: ", first_name, last_name)
   try {
     const res = await axiosInstance.post("/users/register", {

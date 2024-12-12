@@ -3,7 +3,6 @@ import { StyleSheet, View } from "react-native"
 import {
   fetchPackages,
   searchPackages,
-  fetchPackageByCountry,
   fetchProfile,
 } from "@services/directus/rest"
 import { useEffect, useState } from "react"
@@ -37,12 +36,15 @@ export default function TravelPackagesListing() {
   }
 
   const getPackagesByCountry = async (selectedFilter) => {
+    console.log(selectedFilter)
     if (selectedFilter === "All") {
       executeQuery("packages", fetchPackages)
     } else {
-      executeQuery("packages", fetchPackages, {
-        filter: `filter[country][name][_eq]=${selectedFilter}`,
-      })
+      executeQuery(
+        "packages",
+        fetchPackages,
+        `filter[country][name][_eq]=${selectedFilter}`
+      )
     }
   }
 
@@ -64,6 +66,7 @@ export default function TravelPackagesListing() {
               setSearchQuery={setSearchQuery}
               onSubmitEditing={searchPackage}
               placeholder="Search by keyword..."
+              onClearSearch={getPackages}
             />
             <CountryFilterList
               onPress={(selectedFilter) => getPackagesByCountry(selectedFilter)}

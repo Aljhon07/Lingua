@@ -22,7 +22,6 @@ export default function Quiz({ route }) {
       })
     })()
   }, [])
-  console.error("Quiz: ", JSON.stringify(quizzes.data))
   return (
     <View style={styles.container}>
       <DataContainer

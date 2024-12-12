@@ -5,10 +5,11 @@ export function CustomSearchBar({
   setSearchQuery,
   onSubmitEditing,
   placeholder,
+  onClearSearch,
 }) {
   const handleClearSearch = () => {
     setSearchQuery("")
-    onSubmitEditing("")
+    onClearSearch()
   }
 
   return (

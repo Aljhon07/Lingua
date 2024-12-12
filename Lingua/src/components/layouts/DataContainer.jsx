@@ -45,7 +45,7 @@ export default function DataContainer({
     )
   }
 
-  console.log("Data Container: ", data)
+  console.log("Data Container: Data Fetched")
   return <>{children}</>
 }
 

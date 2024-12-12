@@ -8,31 +8,30 @@ export const useQueryState = () => {
       ...prevQueries,
       [name]: {
         loading: true,
-        error: false,
+        error: null,
         data: null,
       },
     }))
 
     try {
       const res = await querFn(...args)
-      console.log(res)
       setQueries((prevQueries) => ({
         ...prevQueries,
         [name]: {
           ...prevQueries[name],
           loading: false,
-          error: false,
+          error: null,
           data: res,
         },
       }))
-    } catch (error) {
+    } catch (test) {
       setQueries((prevQueries) => ({
         ...prevQueries,
         [name]: {
           ...prevQueries[name],
           loading: false,
           error: true,
-          data: error || "QueryState Message: An error occurred",
+          data: "QueryState Message: An error occurred",
         },
       }))
     }

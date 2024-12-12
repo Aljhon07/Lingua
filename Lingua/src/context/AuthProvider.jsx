@@ -18,10 +18,14 @@ export default function AuthProvider({ children }) {
     const checkAuthStatus = async () => {
       try {
         const token = await SecureStorage.getItemAsync("accessToken")
+        if (!token) {
+          console.log("remove")
+          delete axiosInstance.defaults.headers.common["Authorization"]
+        }
         axiosInstance.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${token}`
-        if (token) setIsAuthenticated(true)
+        setIsAuthenticated(true)
       } catch (error) {
         setIsAuthenticated(false)
       } finally {
@@ -29,7 +33,6 @@ export default function AuthProvider({ children }) {
       }
     }
     checkAuthStatus()
-    setIsAuthenticated(false)
   }, [])
 
   const contextSignIn = async ({ email, password }) => {
@@ -64,6 +67,7 @@ export default function AuthProvider({ children }) {
 
   const contextSignOut = async () => {
     await SecureStorage.deleteItemAsync("accessToken")
+    delete axiosInstance.defaults.headers.common["Authorization"]
     setIsAuthenticated(false)
   }
 
