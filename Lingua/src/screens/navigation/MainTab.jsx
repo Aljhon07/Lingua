@@ -1,39 +1,77 @@
-import { createStackNavigator } from "@react-navigation/stack"
-import { useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-
-import VisibleTabs from "./VisibleTabs"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
+import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing"
+import Profile from "../profile/Profile"
 import Translator from "../translator/Translator"
-import PackageDetailsNavigation from "./PackageDetailsNavigation"
+import BookingHistory from "../booking-history/BookingHistory"
+import LessonNavigation from "./LessonNavigation"
 
-const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
 export default function MainTab() {
-  const { colors } = useTheme()
+  const { navigate } = useNavigation()
 
   return (
-    <Stack.Navigator
-      initialRouteName="VisibleTabs"
+    <Tab.Navigator
+      initialRouteName="Explore"
+      p
       screenOptions={{
-        animation: "reveal_from_bottom",
         headerShown: false,
-        tabBarStyle: {
-          backgroundColor: colors.primary,
-          height: 65,
-          paddingTop: spacing.sm,
-          borderTopWidth: 0,
-        },
       }}
     >
-      <Stack.Screen name="VisibleTabs" component={VisibleTabs} />
-      <Stack.Screen name="Translator" component={Translator} />
-      <Stack.Screen
+      <Tab.Screen
+        name="Explore"
+        component={TravelPackagesListing}
         options={{
-          animation: "scale_from_center",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="travel-explore" size={24} color={color} />
+          ),
         }}
-        name="PackageDetailsNavigation"
-        component={PackageDetailsNavigation}
       />
-    </Stack.Navigator>
+      <Tab.Screen
+        component={BookingHistory}
+        name="Bookings"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <SimpleLineIcons name="book-open" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        component={Translator}
+        name="Translator"
+        listeners={() => ({
+          tabPress: (e) => {
+            e.preventDefault()
+            navigate("Translator")
+          },
+        })}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <SimpleLineIcons name="microphone" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="LessonsNavigation"
+        component={LessonNavigation}
+        options={{
+          title: "Learn",
+          tabBarIcon: ({ color }) => (
+            <SimpleLineIcons name="graduation" size={24} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Feather name="user" size={24} color={color} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   )
 }

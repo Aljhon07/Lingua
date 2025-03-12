@@ -1,8 +1,10 @@
 import { useAuthContext } from "@context/AuthProvider"
 import AuthNavigation from "./AuthNavigation"
-import MainTab from "./MainTab"
+import MainNavigation from "./MainNavigation"
 import * as SplashScreen from "expo-splash-screen"
 import { useEffect } from "react"
+import { Text } from "react-native-paper"
+import TravelPackagesProvider from "@context/TravelPackagesProvider."
 
 export default function RootNavigator() {
   const { loading, isAuthenticated } = useAuthContext()
@@ -18,5 +20,11 @@ export default function RootNavigator() {
     return null
   }
 
-  return isAuthenticated ? <MainTab /> : <AuthNavigation />
+  return isAuthenticated ? (
+    <TravelPackagesProvider>
+      <MainNavigation />
+    </TravelPackagesProvider>
+  ) : (
+    <AuthNavigation />
+  )
 }

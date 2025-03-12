@@ -1,16 +1,36 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
-import { saveTokens } from "@utils/TokenManager"
+import { randomUUID } from "expo-crypto"
+import * as SecureStorage from "expo-secure-store"
 
 export async function signIn(email, password) {
+  SecureStorage.deleteItemAsync("accessToken")
+  delete axiosInstance.defaults.headers.common["Authorization"]
   console.log("Signing in...")
   try {
     const res = await axiosInstance.post("/auth/login", {
       email,
       password,
     })
-    const { access_token, refresh_token } = res.data.data
-    await saveTokens(access_token, refresh_token)
+
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${res.data.data.access_token}`
+
+    const staticToken = randomUUID()
+    const token = await axiosInstance.patch("/users/me", {
+      token: staticToken,
+      static_token: staticToken,
+    })
+
+    await SecureStorage.setItemAsync(
+      "accessToken",
+      token.data.data.static_token
+    )
+    console.log(token.data.data.static_token)
+    axiosInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${token.data.data.static_token}`
   } catch (error) {
     console.error("Sign In failed")
     throw new Error(logError("signIn", error))
@@ -18,6 +38,8 @@ export async function signIn(email, password) {
 }
 
 export async function signUp(email, password, first_name, last_name) {
+  SecureStorage.deleteItemAsync("accessToken")
+  delete axiosInstance.defaults.headers.common["Authorization"]
   console.log("Registering user: ", first_name, last_name)
   try {
     const res = await axiosInstance.post("/users/register", {

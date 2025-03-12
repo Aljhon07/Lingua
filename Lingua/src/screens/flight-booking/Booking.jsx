@@ -20,14 +20,9 @@ export default function Booking({ route, navigation }) {
 
   const handleSubmit = async () => {
     try {
-      await uploadTransactions(
-        information.firstName,
-        information.lastName,
-        price,
-        id
-      )
+      await uploadTransactions(information.firstName, information.lastName, id)
       console.log("Form submitted:", information)
-      navigation.navigate("VisibleTabs")
+      navigation.navigate("MainTab")
     } catch (error) {
       console.error("Failed to upload documents:", error)
     }

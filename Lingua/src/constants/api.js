@@ -1,4 +1,5 @@
-const domain = "192.168.115.188"
+const domain = "192.168.164.188"
+const staticToken = "lwqqqz4urV1PzRy5iG47QO9IX75l4f_A"
 
 export const directus = {
   baseURL: `http://${domain}:8055`,

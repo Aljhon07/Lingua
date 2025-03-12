@@ -3,46 +3,36 @@ import { StyleSheet, View } from "react-native"
 import {
   fetchPackages,
   searchPackages,
-  fetchPackageByCountry,
   fetchProfile,
 } from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { Text, useTheme } from "react-native-paper"
 import { CustomSearchBar } from "@components/atoms/CustomSearchBar"
 import { CountryFilterList } from "./components/CountryFilterList"
-import { PackageListing } from "./components/PackageListing"
 import { useQueryState } from "@hooks/useQueryState"
 import DataContainer from "@components/layouts/DataContainer"
 import { Section } from "@components/atoms/Section"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { PackageCard } from "./components/PackageCard"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
+import { useTravelPackagesContext } from "@context/TravelPackagesProvider."
 
 export default function TravelPackagesListing() {
   const [searchQuery, setSearchQuery] = useState("")
   const { getQueryState, executeQuery } = useQueryState()
-  const { colors } = useTheme()
 
-  const packagesState = getQueryState("packages")
+  const { packagesState, getPackages, searchPackage } =
+    useTravelPackagesContext()
+
   const profileState = getQueryState("profile")
+
+  const { colors } = useTheme()
   const styles = createStyles(colors)
 
   useEffect(() => {
     getPackages()
     executeQuery("profile", fetchProfile, "?fields=first_name")
   }, [])
-
-  const getPackages = () => {
-    executeQuery("packages", fetchPackages)
-  }
-  const searchPackage = () => {
-    executeQuery("packages", searchPackages, searchQuery)
-  }
-  const getPackagesByCountry = async (selectedFilter) => {
-    if (selectedFilter === "All") {
-      executeQuery("packages", fetchPackages)
-    } else {
-      executeQuery("packages", fetchPackageByCountry, selectedFilter)
-    }
-  }
 
   return (
     <DataContainer
@@ -60,11 +50,12 @@ export default function TravelPackagesListing() {
             <CustomSearchBar
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
-              onSubmitEditing={searchPackage}
+              onSubmitEditing={() => searchPackage(searchQuery)}
               placeholder="Search by keyword..."
+              onClearSearch={getPackages}
             />
             <CountryFilterList
-              onPress={(selectedFilter) => getPackagesByCountry(selectedFilter)}
+              onPress={(selectedFilter) => getPackages(selectedFilter)}
             />
           </View>
         </View>
@@ -82,11 +73,16 @@ export default function TravelPackagesListing() {
             sectionStyle={styles.packageSection}
             contentContainerStyle={styles.section}
           >
-            <PackageListing
-              horizontal
-              packages={packagesState.data}
-              refreshing={packagesState.loading}
-              onRefresh={getPackages}
+            <FlatList
+              refreshControl={
+                <RefreshControl
+                  onRefresh={getPackages}
+                  refreshing={packagesState.loading}
+                />
+              }
+              data={packagesState.data}
+              renderItem={({ item }) => <PackageCard item={item} />}
+              keyExtractor={(item) => item.id.toString()}
             />
           </Section>
         </DataContainer>

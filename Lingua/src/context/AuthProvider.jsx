@@ -1,8 +1,10 @@
 import { createContext, useState, useContext, useEffect } from "react"
 import { refreshTokens, removeTokens } from "@utils/TokenManager"
 import { signIn, signUp } from "@services/directus/auth"
-export const AuthContext = createContext()
+import * as SecureStorage from "expo-secure-store"
+import { axiosInstance } from "@utils/axiosInstance"
 
+export const AuthContext = createContext()
 export default function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -15,8 +17,16 @@ export default function AuthProvider({ children }) {
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const tokens = await refreshTokens()
-        if (tokens) setIsAuthenticated(true)
+        const token = await SecureStorage.getItemAsync("accessToken")
+        if (token) {
+          axiosInstance.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${token}`
+          setIsAuthenticated(true)
+        } else {
+          console.log("remove")
+          delete axiosInstance.defaults.headers.common["Authorization"]
+        }
       } catch (error) {
         setIsAuthenticated(false)
       } finally {
@@ -24,12 +34,6 @@ export default function AuthProvider({ children }) {
       }
     }
     checkAuthStatus()
-
-    // const removeTokens = async () => {
-    //   await SecureStorage.deleteItemAsync("accessToken")
-    //   await SecureStorage.deleteItemAsync("refreshToken")
-    // }
-    // return () => removeTokens()
   }, [])
 
   const contextSignIn = async ({ email, password }) => {
@@ -53,7 +57,7 @@ export default function AuthProvider({ children }) {
       console.log("Sign Up successful")
       contextSignIn({ email, password })
     } catch (error) {
-      console.error("Auth", error.responseData)
+      console.error("Auth", error)
       setStatus({
         isError: true,
         message: error.responseData[0],
@@ -63,8 +67,9 @@ export default function AuthProvider({ children }) {
   }
 
   const contextSignOut = async () => {
+    await SecureStorage.deleteItemAsync("accessToken")
+    delete axiosInstance.defaults.headers.common["Authorization"]
     setIsAuthenticated(false)
-    await removeTokens()
   }
 
   return (
@@ -73,7 +78,6 @@ export default function AuthProvider({ children }) {
         signIn: contextSignIn,
         signOut: contextSignOut,
         signUp: contextSignUp,
-        status,
         loading,
         isAuthenticated,
       }}

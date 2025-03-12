@@ -6,11 +6,11 @@ export function CustomTag({ label, backgroundColor, textColor, style }) {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness, textColor, backgroundColor)
   return (
-    <View style={[styles.container, style]}>
+    <Text style={[styles.container, style]}>
       <Text variant="labelLarge" style={[styles.label]}>
         {label}
       </Text>
-    </View>
+    </Text>
   )
 }
 

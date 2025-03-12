@@ -1,33 +1,25 @@
 import { CustomButton } from "@components/molecules/CustomButton"
+import { useTravelPackagesContext } from "@context/TravelPackagesProvider."
 import { fetchCountries } from "@services/directus/rest"
 import { useEffect, useState } from "react"
 import { StyleSheet } from "react-native"
 import { FlatList } from "react-native-gesture-handler"
 
-export function CountryFilterList({ onPress }) {
-  const [filter, setFilter] = useState("All")
-  const [countries, setCountries] = useState([{ name: "All" }])
-  useEffect(() => {
-    const getCountries = async () => {
-      try {
-        const countriesRes = await fetchCountries()
-        setCountries([{ name: "All" }, ...countriesRes])
-      } catch (error) {}
-    }
-    getCountries()
-  }, [])
+export function CountryFilterList() {
+  const { countries, getPackages, filter, setFilter } =
+    useTravelPackagesContext()
 
   const handlePress = (country) => {
     setFilter(country)
-    onPress(country)
+    getPackages(country)
   }
+
   return (
     <FlatList
       horizontal={true}
       data={countries}
       renderItem={({ item }) => {
         const isSelected = item.name === filter
-        console.log(item.name, isSelected)
         return (
           <CustomButton
             primary={isSelected}

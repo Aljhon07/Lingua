@@ -21,7 +21,6 @@ export default function DataContainer({
           animating={true}
           color={colors.primary}
         />
-        <Text>Loading...</Text>
       </View>
     )
   }
@@ -39,7 +38,6 @@ export default function DataContainer({
 
   if (!data || data.length === 0) {
     console.log("No Data")
-
     return (
       <View style={styles.container}>
         <Text>{noDataMessage || "No data available"}</Text>
@@ -47,6 +45,7 @@ export default function DataContainer({
     )
   }
 
+  console.log("Data Container: Data Fetched")
   return <>{children}</>
 }
 
