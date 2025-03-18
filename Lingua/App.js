@@ -1,17 +1,19 @@
-import "@utils/gesture-handler.native"
 import React from "react"
 import AuthProvider from "@context/AuthProvider.jsx"
 import { useFonts } from "expo-font"
 import ThemeProvider from "@context/ThemeProvider"
 import RootNavigator from "@navigation/RootNavigator"
+import ProfileProvider from "@context/ProfileProvider"
+import { SafeAreaProvider } from "react-native-safe-area-context"
 
 export default function App() {
   const [loaded] = useFonts({
-    "Merriweather-Regular": require("@assets/fonts/Merriweather-Regular.ttf"),
-    "Merriweather-Bold": require("@assets/fonts/Merriweather-Bold.ttf"),
-    "Merriweather-Black": require("@assets/fonts/Merriweather-Black.ttf"),
-    "CrimsonText-Regular": require("@assets/fonts/CrimsonText-Regular.ttf"),
-    "CrimsonText-Bold": require("@assets/fonts/CrimsonText-Bold.ttf"),
+    "Alegreya-Thin": require("@assets/fonts/Alegreya/AlegreyaSans-Thin.ttf"),
+    "Alegreya-Regular": require("@assets/fonts/Alegreya/AlegreyaSans-Regular.ttf"),
+    "Alegreya-Medium": require("@assets/fonts/Alegreya/AlegreyaSans-Medium.ttf"),
+    "Alegreya-Bold": require("@assets/fonts/Alegreya/AlegreyaSans-Bold.ttf"),
+    "Exo2-Medium": require("@assets/fonts/exo2/Exo2-Medium.ttf"),
+    "Exo2-Bold": require("@assets/fonts/exo2/Exo2-Bold.ttf"),
   })
 
   if (!loaded) {
@@ -19,10 +21,14 @@ export default function App() {
   }
 
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <RootNavigator />
-      </ThemeProvider>
-    </AuthProvider>
+    <SafeAreaProvider>
+      <ProfileProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <RootNavigator />
+          </ThemeProvider>
+        </AuthProvider>
+      </ProfileProvider>
+    </SafeAreaProvider>
   )
 }

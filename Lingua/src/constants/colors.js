@@ -177,7 +177,7 @@ const darkTheme = {
   onErrorContainer: "rgb(255, 255, 255)", // Text color on error container
 
   background: "rgb(25, 28, 29)", // Dark background for dark theme
-  onBackground: "rgb(225, 227, 228)", // Light text on dark background
+  onBackground: "rgb(193, 196, 197)", // Light text on dark background
 
   surface: "rgb(25, 28, 29)", // Dark surface for dark theme
   onSurface: "rgb(225, 227, 228)", // Light text on dark surface

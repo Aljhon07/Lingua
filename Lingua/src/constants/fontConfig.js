@@ -1,66 +1,66 @@
 export const fontConfig = {
   bodySmall: {
-    fontFamily: "CrimsonText-Regular",
-    fontSize: 14,
+    fontFamily: "Alegreya-Regular",
+    fontSize: 13,
   },
   bodyMedium: {
-    fontFamily: "CrimsonText-Regular",
-    fontSize: 16,
+    fontFamily: "Alegreya-Regular",
+    fontSize: 15,
   },
   bodyLarge: {
-    fontFamily: "CrimsonText-Regular",
-    fontSize: 18,
+    fontFamily: "Alegreya-Regular",
+    fontSize: 17,
   },
   displaySmall: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Exo2-Bold",
     fontSize: 20,
   },
   displayMedium: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Exo2-Bold",
     fontSize: 24,
   },
   displayLarge: {
-    fontFamily: "Merriweather-Black",
+    fontFamily: "Exo2-Bold",
     fontSize: 28,
   },
   headlineSmall: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Exo2-Bold",
     fontSize: 22,
   },
   headlineMedium: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Exo2-Bold",
     fontSize: 26,
   },
   headlineLarge: {
-    fontFamily: "Merriweather-Black",
-    fontSize: 30,
+    fontFamily: "Exo2-Bold",
+    fontSize: 32,
   },
   titleSmall: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Alegreya-Medium",
     fontSize: 18,
   },
   titleMedium: {
-    fontFamily: "Merriweather-Bold",
-    fontSize: 20,
+    fontFamily: "Alegreya-Bold",
+    fontSize: 22,
   },
   titleLarge: {
-    fontFamily: "Merriweather-Black",
-    fontSize: 24,
+    fontFamily: "Alegreya-Bold",
+    fontSize: 26,
   },
   labelSmall: {
-    fontFamily: "CrimsonText-Regular",
+    fontFamily: "Alegreya-Thin",
     fontSize: 12,
   },
   labelMedium: {
-    fontFamily: "CrimsonText-Bold",
+    fontFamily: "Alegreya-Regular",
     fontSize: 14,
   },
   labelLarge: {
-    fontFamily: "Merriweather-Bold",
+    fontFamily: "Alegreya-Medium",
     fontSize: 16,
   },
   default: {
-    fontFamily: "CrimsonText-Regular",
+    fontFamily: "Alegreya-Regular",
     fontSize: 16,
   },
 }

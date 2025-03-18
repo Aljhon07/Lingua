@@ -1,5 +1,6 @@
-import { registerRootComponent } from "expo";
+import "@utils/gesture-handler.native"
+import { registerRootComponent } from "expo"
 
-import App from "./App";
+import App from "./App"
 
-registerRootComponent(App);
+registerRootComponent(App)
