@@ -1,18 +1,14 @@
 import { createContext, useState, useContext, useEffect } from "react"
-import { refreshTokens, removeTokens } from "@utils/TokenManager"
 import { signIn, signUp } from "@services/directus/auth"
 import * as SecureStorage from "expo-secure-store"
 import { axiosInstance } from "@utils/axiosInstance"
+import { useProfileContext } from "./ProfileProvider"
 
 export const AuthContext = createContext()
 export default function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [status, setStatus] = useState({
-    isError: false,
-    message: "",
-    res: null,
-  })
+  const { getProfile } = useProfileContext()
 
   useEffect(() => {
     const checkAuthStatus = async () => {
@@ -22,9 +18,10 @@ export default function AuthProvider({ children }) {
           axiosInstance.defaults.headers.common[
             "Authorization"
           ] = `Bearer ${token}`
-          setIsAuthenticated(true)
+          const profile = await getProfile()
+          if (profile) setIsAuthenticated(true)
         } else {
-          console.log("remove")
+          console.log("Auth: Token deleted")
           delete axiosInstance.defaults.headers.common["Authorization"]
         }
       } catch (error) {
@@ -39,15 +36,14 @@ export default function AuthProvider({ children }) {
   const contextSignIn = async ({ email, password }) => {
     try {
       const res = await signIn(email, password)
+      setLoading(true)
+      await getProfile()
       setIsAuthenticated(true)
       console.log("Sign in successful")
     } catch (error) {
       console.error("Auth", error.responseData[0])
-      setStatus({
-        isError: true,
-        message: error.responseData[0],
-        res: error.response,
-      })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -55,14 +51,11 @@ export default function AuthProvider({ children }) {
     try {
       const res = await signUp(email, password, firstName, lastName)
       console.log("Sign Up successful")
+      setLoading(true)
       contextSignIn({ email, password })
     } catch (error) {
       console.error("Auth", error)
-      setStatus({
-        isError: true,
-        message: error.responseData[0],
-        res: error.response,
-      })
+      setLoading(false)
     }
   }
 
