@@ -3,7 +3,7 @@ import { spacing } from "@constants/globalStyles"
 import { LinkText } from "@components/atoms/LinkText"
 import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
-import { Button, Text, TextInput } from "react-native-paper"
+import { Text, TextInput } from "react-native-paper"
 import { useToggle } from "@hooks/useToggle"
 import { CustomButton } from "@components/molecules/CustomButton"
 

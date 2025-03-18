@@ -10,7 +10,7 @@ import { lightTheme, darkTheme } from "@constants/colors"
 const CombinedDarkTheme = {
   ...MD3DarkTheme,
   ...NavigationDarkTheme,
-  roundness: border.md,
+  roundness: border.lg,
   fonts: configureFonts({ config: fontConfig }),
   colors: {
     ...NavigationDarkTheme.colors,
@@ -23,7 +23,7 @@ const CombinedLightTheme = {
   ...NavigationDefaultTheme,
 
   fonts: configureFonts({ config: fontConfig }),
-  roundness: border.md,
+  roundness: border.lg,
   colors: {
     ...NavigationDefaultTheme.colors,
     ...MD3LightTheme.colors,

@@ -10,7 +10,7 @@ export default function DataContainer({
   noDataMessage,
 }) {
   const { colors } = useTheme()
-  console.log(data)
+  console.log("Data Container: ", data)
 
   if (loading) {
     console.log("Loading...")
