@@ -1,60 +1,48 @@
+import { border } from "@constants/globalStyles"
 import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
-import { useTheme, Text, ActivityIndicator } from "react-native-paper"
+import {
+  useTheme,
+  Text,
+  ActivityIndicator,
+  Button,
+  Icon,
+} from "react-native-paper"
 
 export function CustomButton({
   onPress,
-  children,
   style,
-  textStyle,
-  containerStyle,
-  textVariant = "labelLarge",
   primary = false,
   loading = false,
+  icon,
+  iconSize = 24,
+  contentStyle,
   props,
+  children,
 }) {
   const { roundness, colors } = useTheme()
   const styles = createStyles(roundness, colors, primary)
   return (
-    <View style={[styles.buttonView, containerStyle]}>
-      <Pressable
-        onPress={onPress}
-        android_ripple={{ color: "rgba(176, 176, 176, 0.4)", borderless: true }}
-        style={[styles.button, style]}
-        {...props}
-      >
-        {loading ? (
-          <ActivityIndicator animating={loading} />
-        ) : (
-          <Text variant={textVariant} style={[styles.text, textStyle]}>
-            {children}
-          </Text>
-        )}
-      </Pressable>
-    </View>
+    <Button
+      mode={primary ? "contained" : "outlined"}
+      style={[style, styles.button]}
+      onPress={onPress}
+      loading={loading}
+      icon={() => (
+        <Icon source={icon} size={iconSize} color={colors.onPrimary} />
+      )}
+      contentStyle={contentStyle}
+      labelStyle={{ fontFamily: "Alegreya-Medium", fontSize: 17 }}
+      {...props}
+    >
+      {children}
+    </Button>
   )
 }
 
-const createStyles = (roundness, colors, primary) =>
+const createStyles = (roundness) =>
   StyleSheet.create({
-    buttonView: {
-      alignSelf: "stretch",
-      justifyContent: "center",
-      borderRadius: roundness,
-      backgroundColor: "transparent",
-      overflow: "hidden",
-    },
     button: {
-      padding: 10,
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: primary ? colors.primary : colors.onPrimary,
-      borderWidth: primary ? 0 : 1,
-      borderColor: colors.outline,
-      borderRadius: roundness,
-      overflow: "hidden",
-    },
-    text: {
-      color: primary ? colors.onPrimary : colors.primary,
+      borderRadius: border.md,
     },
   })
