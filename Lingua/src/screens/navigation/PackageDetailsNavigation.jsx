@@ -5,7 +5,7 @@ import Booking from "../flight-booking/Booking"
 const Stack = createStackNavigator()
 
 export default function PackageDetailsNavigation({ route }) {
-  const { imageURL, item } = route.params
+  const { item } = route.params
 
   return (
     <Stack.Navigator
@@ -22,11 +22,11 @@ export default function PackageDetailsNavigation({ route }) {
           headerTitle: `Travel to ${item.country.name}`,
           headerTitleAlign: "center",
         }}
-        initialParams={{ item, imageURL }}
+        initialParams={{ item }}
         component={PackageDetails}
       />
       <Stack.Screen
-        name="BookingScreen"
+        name="Booking"
         component={Booking}
         options={{
           animation: "slide_from_right",

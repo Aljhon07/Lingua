@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
-import TravelPackagesListing from "../travel-package-listing/TravelPackagesListing"
 import Profile from "../profile/Profile"
 import Translator from "../translator/Translator"
 import BookingHistory from "../booking-history/BookingHistory"
 import LessonNavigation from "./LessonNavigation"
+import Explore from "../travel-package-listing/Explore"
 
 const Tab = createBottomTabNavigator()
 
@@ -15,14 +15,11 @@ export default function MainTab() {
   return (
     <Tab.Navigator
       initialRouteName="Explore"
-      p
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerShown: false }}
     >
       <Tab.Screen
         name="Explore"
-        component={TravelPackagesListing}
+        component={Explore}
         options={{
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="travel-explore" size={24} color={color} />
@@ -43,7 +40,7 @@ export default function MainTab() {
         name="Translator"
         listeners={() => ({
           tabPress: (e) => {
-            e.preventDefault()
+            // e.preventDefault()
             navigate("Translator")
           },
         })}

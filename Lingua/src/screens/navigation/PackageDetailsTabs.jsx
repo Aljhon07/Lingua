@@ -2,21 +2,26 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { PackageOverview } from "../travel-package-listing/PackageOverview"
 import { PackageItinerary } from "../travel-package-listing/PackageItinerary"
 
-const Tab = createMaterialTopTabNavigator()
+const TopTab = createMaterialTopTabNavigator()
 
 export default function PackageDetailsTabs({ packageDetails }) {
   return (
-    <Tab.Navigator initialRouteName="Overview">
-      <Tab.Screen
+    <TopTab.Navigator
+      initialRouteName="Overview"
+      screenOptions={{
+        lazy: false,
+      }}
+    >
+      <TopTab.Screen
         name="Overview"
         component={PackageOverview}
         initialParams={packageDetails}
       />
-      <Tab.Screen
+      <TopTab.Screen
         name="Itinerary"
         component={PackageItinerary}
         initialParams={packageDetails}
       />
-    </Tab.Navigator>
+    </TopTab.Navigator>
   )
 }
