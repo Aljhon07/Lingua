@@ -10,10 +10,8 @@ export default function ProfileProvider({ children }) {
     try {
       const data = await fetchProfile("fields=first_name,last_name,email")
       setProfile(data)
-      console.log("Profile Provider: ", data)
       return data
     } catch (error) {
-      console.error(error)
       return null
     }
   }

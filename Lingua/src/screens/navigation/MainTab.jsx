@@ -15,7 +15,7 @@ export default function MainTab() {
   return (
     <Tab.Navigator
       initialRouteName="Explore"
-      screenOptions={{ headerShown: false }}
+      screenOptions={{ headerShown: false, headerTransparent: false }}
     >
       <Tab.Screen
         name="Explore"

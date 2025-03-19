@@ -4,7 +4,7 @@ import { spacing } from "@constants/globalStyles"
 
 import MainTab from "./MainTab"
 import Translator from "../translator/Translator"
-import PackageDetailsNavigation from "./PackageDetailsNavigation"
+import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation"
 
 const Stack = createStackNavigator()
 

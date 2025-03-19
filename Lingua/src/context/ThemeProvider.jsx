@@ -18,7 +18,6 @@ export default function ThemeProvider({ children }) {
   SystemUI.setBackgroundColorAsync(CombinedDarkTheme.colors.background)
 
   useEffect(() => {
-    console.log("Theme Provider")
     setThemePreferenceAndSave(themePreference)
   }, [])
 
