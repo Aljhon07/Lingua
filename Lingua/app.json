@@ -9,7 +9,7 @@
     "platforms": ["android"],
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/images/lingua_dark.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

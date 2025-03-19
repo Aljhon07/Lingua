@@ -3,41 +3,34 @@ import { useState } from "react"
 export const useQueryState = () => {
   const [queries, setQueries] = useState({})
 
-  const executeQuery = async (name, querFn, ...args) => {
+  const initQueries = ({ name, loading, error, data }) => {
     setQueries((prevQueries) => ({
       ...prevQueries,
       [name]: {
-        loading: true,
-        error: null,
-        data: null,
+        loading: loading,
+        error: error,
+        data: data,
       },
     }))
+  }
 
+  const executeQuery = async (name, querFn, ...args) => {
+    initQueries({ name, loading: true, error: null, data: null })
     try {
       const res = await querFn(...args)
-      setQueries((prevQueries) => ({
-        ...prevQueries,
-        [name]: {
-          ...prevQueries[name],
-          loading: false,
-          error: null,
-          data: res,
-        },
-      }))
-    } catch (test) {
-      setQueries((prevQueries) => ({
-        ...prevQueries,
-        [name]: {
-          ...prevQueries[name],
-          loading: false,
-          error: true,
-          data: "QueryState Message: An error occurred",
-        },
-      }))
+      initQueries({ name, loading: false, error: null, data: res })
+      return res
+    } catch (err) {
+      initQueries({
+        name,
+        loading: false,
+        error: true,
+        data: "Query State Error: " + err,
+      })
     }
   }
 
   const getQueryState = (name) =>
     queries[name] || { loading: true, error: false, data: null }
-  return { getQueryState, executeQuery }
+  return { getQueryState, executeQuery, queries }
 }

@@ -28,7 +28,6 @@ export default function TravelPackagesProvider({ children }) {
 
   const getPackages = (filter = null) => {
     executeQuery("packages", fetchPackages, `${filter}`)
-    console.log(packagesState.data)
     setPackages(packagesState.data)
   }
 

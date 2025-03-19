@@ -29,7 +29,7 @@ export default function BookingHistory({ navigation }) {
   }
   const renderItem = ({ item }) => {
     const formatteddDate = formatDate(item.date_created)
-    const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.travel_package.cover}`
+    const imageURL = `$${cloudinary.images}/${item.travel_package.cover}`
     return (
       <TouchableRipple
         style={styles.bookingItem}

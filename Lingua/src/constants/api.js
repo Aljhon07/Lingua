@@ -1,4 +1,6 @@
 const domain = "192.168.217.188"
+// const domain = "192.168.13.188"
+
 const staticToken = "lwqqqz4urV1PzRy5iG47QO9IX75l4f_A"
 
 export const directus = {

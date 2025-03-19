@@ -1,7 +1,7 @@
 import { spacing } from "@constants/globalStyles"
-import { useEffect, useState } from "react"
-import { StyleSheet, Text, Touchable, View } from "react-native"
-import { TouchableRipple, useTheme } from "react-native-paper"
+import { useState } from "react"
+import { StyleSheet, View } from "react-native"
+import { TouchableRipple, useTheme, Text } from "react-native-paper"
 
 export function MultipleChoice({ choices, handleNext }) {
   const { colors, roundness } = useTheme()
@@ -40,7 +40,7 @@ export function MultipleChoice({ choices, handleNext }) {
       style={conditonalStyling(index)}
       onPress={() => handlePress(index)}
     >
-      <Text variant="bodyLarge" style={styles.choice}>
+      <Text variant="headlineSmall" style={styles.choice}>
         {item.answer}
       </Text>
     </TouchableRipple>
@@ -65,7 +65,7 @@ const createStyles = (colors, roundness) =>
     },
     choice: {
       textAlign: "center",
-      fontSize: 28,
       fontFamily: "CrimsonText-Regular",
+      color: "white",
     },
   })
