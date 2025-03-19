@@ -3,7 +3,7 @@ import { useTravelPackagesContext } from "@context/TravelPackagesProvider"
 import { Button, Text, TextInput, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import { StyleSheet, View } from "react-native"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   en,
   registerTranslation,
@@ -14,77 +14,85 @@ import { StatusBar } from "expo-status-bar"
 import { Dropdown } from "react-native-paper-dropdown"
 import { CustomButton } from "@components/molecules/CustomButton"
 
-export default function Header({ getPackages }) {
-  useEffect(() => {
-    StatusBar.setBar
-  })
-
+export default function Header({ getPackages, countries }) {
   registerTranslation("en", en)
   const { profile } = useProfileContext()
-  const { countries } = useTravelPackagesContext()
 
-  const [date, setDate] = useState(new Date(Date.now()))
-  const [destination, setDestination] = useState("")
+  console.log(countries)
+  const [filter, setFilter] = useState({
+    date: new Date(Date.now()),
+    destination: undefined,
+    minBudget: undefined,
+    maxBudget: undefined,
+  })
 
   const { colors } = useTheme()
   const styles = createStyles(colors)
 
   const handleSearch = () => {
-    getPackages(`filter[country][name][_eq]=${destination}`)
+    if (filter.destination) {
+      getPackages(`filter[country][name][_eq]=${filter.destination}`)
+    } else {
+      getPackages()
+    }
   }
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
 
-      <Text variant="headlineMedium">
+      <Text variant="headlineLarge">
         Adventure is calling, {profile.first_name}! Where to go next?
       </Text>
 
-      <View style={{ width: "100%" }}>
+      <View style={styles.wrapper}>
         <Dropdown
           label="Travel to"
+          mode="outlined"
           placeholder="Select Destination"
           options={countries}
-          value={destination}
-          onSelect={setDestination}
+          value={filter.destination}
+          onSelect={(value) =>
+            setFilter({
+              ...filter,
+              destination: value,
+            })
+          }
           hideMenuHeader
         />
-      </View>
 
-      <View>
         <DatePickerInput
           locale="en"
+          mode="outlined"
           label="Departure Date"
-          value={date}
-          onChange={(d) => setDate(d)}
+          value={filter.date}
+          onChange={(value) => setFilter({ ...filter, date: value })}
           inputMode="start"
           validRange={{ startDate: new Date(Date.now()) }}
           presentationStyle="formSheet"
         />
+
+        <View style={styles.budgetRange}>
+          <TextInput
+            label="Min budget"
+            inputMode="numeric"
+            mode="outlined"
+            value={filter.minBudget}
+            onChangeText={(input) => setFilter({ ...filter, minBudget: input })}
+            style={{ flex: 1 }}
+            left={<TextInput.Affix text="₱ " />}
+          />
+          <TextInput
+            label="Max Budget"
+            inputMode="numeric"
+            mode="outlined"
+            value={filter.maxBudget}
+            onChangeText={(input) => setFilter({ ...filter, maxBudget: input })}
+            style={{ flex: 1 }}
+            left={<TextInput.Affix text="₱ " />}
+          />
+        </View>
       </View>
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          gap: 8,
-        }}
-      >
-        <TextInput
-          label="Min budget"
-          inputMode="numeric"
-          mode="flat"
-          style={{ flex: 1 }}
-          left={<TextInput.Affix text="₱ " />}
-        />
-        <TextInput
-          label="Max Budget"
-          inputMode="numeric"
-          mode="flat"
-          style={{ flex: 1 }}
-          left={<TextInput.Affix text="₱ " />}
-        />
-      </View>
       <CustomButton primary onPress={handleSearch}>
         Search
       </CustomButton>
@@ -95,14 +103,17 @@ export default function Header({ getPackages }) {
 const createStyles = (colors) =>
   StyleSheet.create({
     headerContainer: {
-      gap: spacing.xl,
-      backgroundColor: colors.elevation.level1,
       borderBottomLeftRadius: spacing.lg,
       borderBottomRightRadius: spacing.lg,
-      elevation: 10,
-      shadowColor: "white",
+      gap: spacing.md,
+      backgroundColor: colors.elevation.level1,
+    },
+    budgetRange: {
+      flexDirection: "row",
+      justifyContent: "space-between",
+      gap: 8,
     },
     wrapper: {
-      gap: spacing.md,
+      gap: spacing.xl,
     },
   })

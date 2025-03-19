@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack"
-import PackageDetails from "../travel-package-listing/PackageDetails"
-import Booking from "../flight-booking/Booking"
+import PackageDetails from "../PackageDetails"
+import BookingNavigation from "src/screens/flight-booking/navigation/BookingNavigation"
+import BackButton from "@components/molecules/BackButton"
 
 const Stack = createStackNavigator()
 
@@ -11,26 +12,32 @@ export default function PackageDetailsNavigation({ route }) {
     <Stack.Navigator
       initialRouteName="PackageDetails"
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
         headerTransparent: false,
       }}
     >
       <Stack.Screen
         name="PackageDetails"
         options={{
-          headerShown: true,
-          headerTitle: `Travel to ${item.country.name}`,
-          headerTitleAlign: "center",
+          headerTitle: "",
+          headerStyle: {
+            backgroundColor: "transparent",
+          },
+
+          headerLeft: () => {
+            return <BackButton />
+          },
+          headerTransparent: true,
         }}
         initialParams={{ item }}
         component={PackageDetails}
       />
       <Stack.Screen
-        name="Booking"
-        component={Booking}
+        name="BookingNavigation"
+        component={BookingNavigation}
         options={{
           animation: "slide_from_right",
-          headerShown: true,
+          headerShown: false,
           headerTitle: "Booking",
         }}
       />

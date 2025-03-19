@@ -1,13 +1,17 @@
-import { Icon, Text, useTheme } from "react-native-paper"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { Text, useTheme } from "react-native-paper"
 import { ImageBackground, StyleSheet } from "react-native"
 import { View } from "react-native"
 import { spacing } from "@constants/globalStyles"
-import { useQueryState } from "@hooks/useQueryState"
 import { useEffect } from "react"
-import { fetchPackageDetails } from "@services/directus/rest"
+import {
+  fetchPackageDetails,
+  fetchPackageItinerary,
+} from "@services/directus/rest"
 import DataContainer from "@components/layouts/DataContainer"
-import PackageDetailsTabs from "@navigation/PackageDetailsTabs"
+import PackageDetailsTabs from "./navigation/PackageDetailsTabs"
 import { CustomButton } from "@components/molecules/CustomButton"
+import { useQueryState } from "@hooks/useQueryState"
 import PaddedView from "@components/atoms/PaddedView"
 
 export default function PackageDetails({ route, navigation }) {
@@ -23,18 +27,21 @@ export default function PackageDetails({ route, navigation }) {
   }, [])
 
   const handleBookingNavigate = () => {
-    navigation.navigate("Booking", {
-      item,
+    navigation.navigate("BookingNavigation", {
+      travel_package: {
+        id: item.id,
+        cover: item.cover,
+      },
     })
   }
   return (
-    <DataContainer
-      data={packageDetails.data}
-      error={packageDetails.error}
-      loading={packageDetails.loading}
-      errorMessage={"Failed to fetch package details."}
-    >
-      <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <DataContainer
+        data={packageDetails.data}
+        error={packageDetails.error}
+        loading={packageDetails.loading}
+        errorMessage={"Failed to fetch package details."}
+      >
         <View style={styles.coverImg}>
           <ImageBackground style={styles.image} source={{ uri: item.cover }}>
             <View style={styles.label}>
@@ -60,8 +67,8 @@ export default function PackageDetails({ route, navigation }) {
             Book Now
           </CustomButton>
         </PaddedView>
-      </View>
-    </DataContainer>
+      </DataContainer>
+    </SafeAreaView>
   )
 }
 
@@ -71,7 +78,6 @@ const createStyles = (colors, roundness) =>
       flex: 1,
     },
     coverImg: {
-      borderRadius: roundness,
       overflow: "hidden",
     },
     image: {

@@ -2,11 +2,10 @@ import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import { StyleSheet } from "react-native"
 import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
-
-import PaddedView from "@components/atoms/PaddedView"
 import { Section } from "@components/atoms/Section"
 import DataContainer from "@components/layouts/DataContainer"
 import { PackageCard } from "./PackageCard"
+import PaddedView from "@components/atoms/PaddedView"
 
 export default function PackageListing({
   packagesState,
@@ -56,6 +55,5 @@ const createStyles = (colors) =>
     },
     section: {
       backgroundColor: "transparent",
-      padding: 0,
     },
   })

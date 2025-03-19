@@ -1,7 +1,7 @@
 import React from "react"
 import { cloudinary } from "@constants/api"
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native"
-import { Icon, Text, TouchableRipple, useTheme } from "react-native-paper"
+import { Text, IconButton, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 
@@ -25,14 +25,16 @@ export function PackageCard({ item }) {
       <ImageBackground source={{ uri: imageURL }} style={styles.image}>
         <View style={styles.content}>
           <View style={styles.detailsOverview}>
-            <Text variant="titleSmall">{item.name}</Text>
             <Text variant="labelLarge" style={styles.surfaceText}>
               {item.country.name}
             </Text>
+            <Text variant="titleSmall">{item.name}</Text>
           </View>
-          <Pressable onPress={handleNavigate}>
-            <Icon source="open-in-new" size={28} color={colors.primary} />
-          </Pressable>
+          <IconButton
+            onPress={handleNavigate}
+            icon={"open-in-new"}
+            iconColor={colors.primary}
+          />
         </View>
       </ImageBackground>
     </Pressable>
@@ -48,6 +50,7 @@ const createStyles = (colors, roundness) =>
       borderWidth: 1,
       borderColor: colors.outline,
     },
+
     image: {
       width: "100%",
       height: 250,

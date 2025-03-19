@@ -5,7 +5,7 @@ import { FlatList } from "react-native-gesture-handler"
 import { Card, Text, useTheme } from "react-native-paper"
 
 export function ItineraryCard({ item }) {
-  const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.image}`
+  const imageURL = `${cloudinary.images}/${item.image}`
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 
@@ -34,7 +34,7 @@ const createStyles = (colors, roundness) =>
   StyleSheet.create({
     card: {
       borderRadius: roundness,
-      backgroundColor: colors.primaryContainer,
+      // backgroundColor: colors.primaryContainer,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.lg,
       marginBottom: spacing.lg,
@@ -44,6 +44,6 @@ const createStyles = (colors, roundness) =>
     cardCover: { borderRadius: roundness, marginBottom: spacing.md },
     cardContent: {},
     activities: {
-      color: colors.onPrimaryContainer,
+      // color: colors.onPrimaryContainer,
     },
   })

@@ -15,6 +15,7 @@ export function PackageItinerary({ route }) {
   useEffect(() => {
     executeQuery("itinerary", fetchPackageItinerary, packageDetails.id)
   }, [])
+
   return (
     <DataContainer
       errorMesssage={"Failed to fetch Itinerary"}

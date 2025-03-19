@@ -1,7 +1,6 @@
 import { spacing } from "@constants/globalStyles"
 import { StyleSheet } from "react-native"
 import { useEffect, useState } from "react"
-import { useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useTravelPackagesContext } from "@context/TravelPackagesProvider"
 import Header from "./components/Header"
@@ -9,9 +8,7 @@ import PackageListing from "./components/PackageListing"
 
 export default function Explore() {
   const [searchQuery, setSearchQuery] = useState("")
-  const { packages, packagesState, getPackages } = useTravelPackagesContext()
-
-  console.log("Package Listing: " + packages)
+  const { packagesState, getPackages, countries } = useTravelPackagesContext()
 
   useEffect(() => {
     getPackages("sort=-date_created&limit=5&offset=0")
@@ -24,6 +21,7 @@ export default function Explore() {
         getPackages={getPackages}
         styles={styles}
         setSearchQuery={setSearchQuery}
+        countries={countries}
       />
 
       <PackageListing
