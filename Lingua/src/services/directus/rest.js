@@ -1,5 +1,6 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
+import axios from "axios"
 export const fetchQuizzes = async ({ id, filter }) => {
   try {
     console.log("Fetching Quizzes...")
@@ -154,5 +155,18 @@ export const fetchTransactions = async (filter) => {
     return res.data.data
   } catch (error) {
     throw new Error(logError("getTransactions", error))
+  }
+}
+
+export const fetchTickets = async (id) => {
+  try {
+    console.log("Fetching tickets...")
+    const res = await axiosInstance.get(
+      `/items/ticket?filter[travel_package]=${id}&sort=departure_schedule&fields=*,travel_package.country.name,return_ticket.type,return_ticket.id,return_ticket.departure_schedule,return_ticket.departure_location,return_ticket.arrival_location,return_ticket.arrival_schedule`
+    )
+    console.log("Tickets Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("getTickets", error))
   }
 }
