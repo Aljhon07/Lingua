@@ -7,8 +7,6 @@ import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import Ticket from "./components/Ticket"
 
 export default function TicketList({ tickets, getTickets }) {
-  console.log(tickets.data)
-
   return (
     <DataContainer
       data={tickets.data}

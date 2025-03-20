@@ -22,8 +22,6 @@ export const formatTimeStamp = (timestamp) => {
 }
 
 export const getTimeDifference = (date1, date2) => {
-  console.log(date1)
-  console.log(date2)
   const x = new Date(date1)
   const y = new Date(date2)
 

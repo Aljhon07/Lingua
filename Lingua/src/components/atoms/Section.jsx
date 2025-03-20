@@ -25,14 +25,11 @@ export function Section({
 }
 
 const createStyles = (colors, roundness) =>
+  // removed flex: 1 from container and content
   StyleSheet.create({
-    container: {
-      flex: 1,
-    },
+    container: {},
     headline: {
       marginBottom: spacing.md,
     },
-    content: {
-      flex: 1,
-    },
+    content: {},
   })

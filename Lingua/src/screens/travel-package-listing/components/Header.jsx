@@ -1,8 +1,7 @@
 import PaddedView from "@components/atoms/PaddedView"
-import { useTravelPackagesContext } from "@context/TravelPackagesProvider"
-import { Button, Text, TextInput, useTheme } from "react-native-paper"
+import { Text, TextInput, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
-import { StyleSheet, View } from "react-native"
+import { Keyboard, StyleSheet, View } from "react-native"
 import { useState } from "react"
 import {
   en,
@@ -30,11 +29,21 @@ export default function Header({ getPackages, countries }) {
   const styles = createStyles(colors)
 
   const handleSearch = () => {
+    let queries = ""
+    Keyboard.dismiss()
     if (filter.destination) {
-      getPackages(`filter[country][name][_eq]=${filter.destination}`)
-    } else {
-      getPackages()
+      queries += `filter[country][name][_eq]=${filter.destination}`
     }
+    if (filter.minBudget && filter.maxBudget) {
+      queries += `&filter[price][_gte]=${filter.minBudget}`
+    }
+    if (filter.maxBudget) {
+      queries += `&filter[price][_lte]=${filter.maxBudget}`
+    }
+    if (filter.date) {
+    }
+    console.log("Fikter: ", queries)
+    getPackages(queries)
   }
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
@@ -57,7 +66,6 @@ export default function Header({ getPackages, countries }) {
               destination: value,
             })
           }
-          hideMenuHeader
         />
 
         <DatePickerInput

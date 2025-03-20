@@ -170,3 +170,16 @@ export const fetchTickets = async (id) => {
     throw new Error(logError("getTickets", error))
   }
 }
+
+export const fetchTicketDetails = async (id) => {
+  try {
+    console.log("Fetching Ticket Details...")
+    const res = await axiosInstance.get(
+      `/items/ticket/${id}?fields=*,return_ticket.*`
+    )
+    console.log("Ticket Details Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("getTicketDetails", error))
+  }
+}

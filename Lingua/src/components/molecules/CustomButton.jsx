@@ -1,13 +1,7 @@
 import { border } from "@constants/globalStyles"
 import React from "react"
 import { Pressable, StyleSheet, View } from "react-native"
-import {
-  useTheme,
-  Text,
-  ActivityIndicator,
-  Button,
-  Icon,
-} from "react-native-paper"
+import { useTheme, Button, Icon } from "react-native-paper"
 
 export function CustomButton({
   onPress,
