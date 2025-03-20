@@ -8,9 +8,10 @@ export default function ButtonPair({
   onPressRight,
   leftText = "Left",
   rightText = "Right",
+  style,
 }) {
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, style]}>
       <CustomButton onPress={onPressLeft} style={styles.button}>
         {leftText}
       </CustomButton>

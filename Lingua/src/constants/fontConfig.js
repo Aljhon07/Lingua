@@ -9,7 +9,7 @@ export const fontConfig = {
   },
   bodyLarge: {
     fontFamily: "Alegreya-Regular",
-    fontSize: 17,
+    fontSize: 19,
   },
   displaySmall: {
     fontFamily: "Exo2-Bold",

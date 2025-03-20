@@ -1,42 +1,63 @@
 import DataContainer from "@components/layouts/DataContainer"
-import { useQueryState } from "@hooks/useQueryState"
 import { fetchTicketDetails } from "@services/directus/rest"
 import React, { useEffect } from "react"
 import Ticket from "./components/Ticket"
 import PaddedView from "@components/atoms/PaddedView"
 import { StyleSheet, View } from "react-native"
 import { spacing } from "@constants/globalStyles"
-import PassengerInput from "./components/PassengerInput"
-import { Section } from "@components/atoms/Section"
 import ButtonPair from "@components/molecules/ButtonPair"
 import PassengerInputContainer from "./components/PassengerInputContainer"
+import { useQueryState } from "@hooks/useQueryState"
+import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
+import { useNavigation } from "@react-navigation/native"
+import ContactInput from "./components/ContactInput"
+import { ScrollView } from "react-native-gesture-handler"
+import PaymentMethodInput from "./components/PaymentMethodInput"
 
 export default function PassengerInfo({ route }) {
   const { id } = route.params
+  const { passengers } = usePassengerInfoContext()
+
+  const navigation = useNavigation()
+
   const { executeQuery, getQueryState } = useQueryState()
+
   const ticket = getQueryState("ticketDetails")
   const styles = createStyle()
 
+  const handleGoBack = () => {
+    navigation.goBack()
+  }
+  const handleGoToSummary = () => {
+    navigation.navigate("Summary", { id, passengers })
+  }
   useEffect(() => {
-    executeQuery("ticketDetails", fetchTicketDetails, id)
+    executeQuery("ticketDetails", fetchTicketDetails, { id })
   }, [])
 
   return (
     <PaddedView style={styles.screen}>
-      <View style={styles.wrapper}>
-        <DataContainer
-          loading={ticket.loading}
-          error={ticket.error}
-          data={ticket.data}
-          noDataMessage={"Can't find ticket details."}
-        >
-          <Ticket ticket={ticket.data} interactable={false}></Ticket>
-          <Section headline={"Passengers"}>
+      <DataContainer
+        loading={ticket.loading}
+        error={ticket.error}
+        data={ticket.data}
+        noDataMessage={"Can't find ticket details."}
+      >
+        <ScrollView style={styles.wrapper}>
+          <View style={styles.inputWrapper}>
+            <Ticket ticket={ticket.data} interactable={false}></Ticket>
+            <ContactInput />
+            <PaymentMethodInput />
             <PassengerInputContainer />
-          </Section>
-        </DataContainer>
-      </View>
-      <ButtonPair leftText="Back" rightText="Next" />
+          </View>
+        </ScrollView>
+        <ButtonPair
+          leftText="Back"
+          rightText="Next"
+          onPressLeft={handleGoBack}
+          onPressRight={handleGoToSummary}
+        />
+      </DataContainer>
     </PaddedView>
   )
 }
@@ -48,5 +69,6 @@ const createStyle = (colors) =>
       justifyContent: "space-between",
       paddingBottom: spacing.lg,
     },
-    wrapper: { gap: spacing.md },
+    inputWrapper: { gap: spacing.lg },
+    wrapper: { flex: 1, marginBottom: spacing.lg, gap: spacing.lg },
   })

@@ -171,12 +171,13 @@ export const fetchTickets = async (id) => {
   }
 }
 
-export const fetchTicketDetails = async (id) => {
+export const fetchTicketDetails = async ({
+  id,
+  filter = "?fields=*,return_ticket.*",
+}) => {
   try {
     console.log("Fetching Ticket Details...")
-    const res = await axiosInstance.get(
-      `/items/ticket/${id}?fields=*,return_ticket.*`
-    )
+    const res = await axiosInstance.get(`/items/ticket/${id}${filter}`)
     console.log("Ticket Details Fetched")
     return res.data.data
   } catch (error) {
