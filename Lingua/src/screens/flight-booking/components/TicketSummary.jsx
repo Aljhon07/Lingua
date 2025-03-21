@@ -6,10 +6,9 @@ import { Divider, Surface } from "react-native-paper"
 
 export default function TicketSummary({
   ticket,
-  passengersCount,
+  passengersCount = 1,
   returnTicket,
 }) {
-  console.log(returnTicket)
   return (
     <StyledSurface>
       <TwoColumnsText

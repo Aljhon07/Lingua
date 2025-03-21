@@ -22,11 +22,5 @@ export default function RootNavigator() {
     return null
   }
 
-  return isAuthenticated ? (
-    <TravelPackagesProvider>
-      <MainNavigation />
-    </TravelPackagesProvider>
-  ) : (
-    <AuthNavigation />
-  )
+  return isAuthenticated ? <MainNavigation /> : <AuthNavigation />
 }

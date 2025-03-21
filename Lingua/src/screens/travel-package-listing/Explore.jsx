@@ -5,13 +5,26 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import { useTravelPackagesContext } from "@context/TravelPackagesProvider"
 import Header from "./components/Header"
 import PackageListing from "./components/PackageListing"
+import { useQueryState } from "@hooks/useQueryState"
+import { fetchCountries, fetchPackages } from "@services/directus/rest"
 
 export default function Explore() {
   const [searchQuery, setSearchQuery] = useState("")
-  const { packagesState, getPackages, countries } = useTravelPackagesContext()
+  const [countries, setCountries] = useState([])
+  const { executeQuery, getQueryState } = useQueryState()
+  const packagesState = getQueryState("packages")
+
+  const getPackages = (filter = null) => {
+    executeQuery("packages", fetchPackages, `${filter}`)
+  }
 
   useEffect(() => {
-    getPackages("sort=-date_created&limit=5&offset=0")
+    const getCountries = async () => {
+      const res = await fetchCountries()
+      setCountries(res)
+    }
+    getCountries()
+    getPackages()
   }, [])
 
   return (

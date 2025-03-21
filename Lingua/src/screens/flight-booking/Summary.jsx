@@ -2,7 +2,7 @@ import DataContainer from "@components/layouts/DataContainer"
 import ButtonPair from "@components/molecules/ButtonPair"
 import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
-import { fetchTicketDetails } from "@services/directus/rest"
+import { fetchTicketDetails, postBooking } from "@services/directus/rest"
 import React, { useEffect } from "react"
 import { StyleSheet, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
@@ -24,6 +24,16 @@ export default function Summary({ route }) {
   const navigation = useNavigation()
   const { getAllInfo, setTicket } = usePassengerInfoContext()
 
+  const handlePlaceOrder = async () => {
+    const res = await postBooking(getAllInfo())
+    if (res.status != 200) {
+      alert(res.code)
+      return
+    }
+
+    alert("Booking Successful!")
+    navigation.navigate("MainTab", { screen: "Bookings" })
+  }
   useEffect(() => {
     setTicket(id)
     executeQuery("ticketDetails", fetchTicketDetails, { id })
@@ -54,9 +64,7 @@ export default function Summary({ route }) {
           leftText="Back"
           rightText="Place Order"
           onPressLeft={() => navigation.goBack()}
-          onPressRight={() =>
-            navigation.navigate("MainTab", { screen: "Bookings" })
-          }
+          onPressRight={handlePlaceOrder}
           style={styles.buttonPair}
         />
       </DataContainer>

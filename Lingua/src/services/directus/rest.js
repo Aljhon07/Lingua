@@ -133,6 +133,30 @@ export const fetchPackageItinerary = async (id) => {
   }
 }
 
+export const postBooking = async (data) => {
+  const { ticket, paymentMethod, contacts, passengers } = data
+  const formattedInfo = {
+    ticket: [ticket],
+    payment_method: paymentMethod,
+    contact_number: contacts.phoneNumber,
+    email_address: contacts.emailAddress,
+    passengers,
+  }
+
+  try {
+    console.log("Uploading Booking...")
+    const res = await axiosInstance.post("/items/booking", formattedInfo)
+    const resData = {
+      status: res.status,
+      data: res.data.data,
+    }
+    return resData
+  } catch (error) {
+    logError("postBooking", error)
+    return error
+  }
+}
+
 export const uploadTransactions = async (first_name, last_name, id) => {
   console.log(first_name, last_name)
   try {

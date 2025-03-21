@@ -8,7 +8,6 @@ import { useTheme } from "react-native-paper"
 import { useNavigation } from "@react-navigation/native"
 
 export default function Ticket({ ticket, interactable = true }) {
-  console.log("Ticket", ticket)
   const navigation = useNavigation()
   const { colors } = useTheme()
 

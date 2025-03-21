@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx expo start --reset-cache",
+    "offline": "npx expo start --offline --reset-cache",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",

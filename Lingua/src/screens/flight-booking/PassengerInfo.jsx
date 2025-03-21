@@ -3,7 +3,7 @@ import { fetchTicketDetails } from "@services/directus/rest"
 import React, { useEffect } from "react"
 import Ticket from "./components/Ticket"
 import PaddedView from "@components/atoms/PaddedView"
-import { StyleSheet, View } from "react-native"
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
 import { spacing } from "@constants/globalStyles"
 import ButtonPair from "@components/molecules/ButtonPair"
 import PassengerInputContainer from "./components/PassengerInputContainer"
@@ -70,5 +70,9 @@ const createStyle = (colors) =>
       paddingBottom: spacing.lg,
     },
     inputWrapper: { gap: spacing.lg },
-    wrapper: { flex: 1, marginBottom: spacing.lg, gap: spacing.lg },
+    wrapper: {
+      flex: 1,
+      marginBottom: spacing.lg,
+      gap: spacing.lg,
+    },
   })

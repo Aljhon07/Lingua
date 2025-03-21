@@ -1,7 +1,9 @@
 import { border } from "@constants/globalStyles"
 import React from "react"
-import { Pressable, StyleSheet, View } from "react-native"
-import { useTheme, Button, Icon } from "react-native-paper"
+import { StyleSheet } from "react-native"
+import { IconButton, useTheme, Button, Icon } from "react-native-paper"
+import { spacing } from "@constants/globalStyles"
+import { useNavigation } from "@react-navigation/native"
 
 export function CustomButton({
   onPress,
@@ -19,7 +21,7 @@ export function CustomButton({
   return (
     <Button
       mode={primary ? "contained" : "outlined"}
-      style={[style, styles.button]}
+      style={[styles.button, style]}
       onPress={onPress}
       loading={loading}
       icon={() => (
@@ -40,3 +42,29 @@ const createStyles = (roundness) =>
       borderRadius: border.md,
     },
   })
+
+export function BackButton({ onPress }) {
+  const navigation = useNavigation()
+  const { colors } = useTheme()
+
+  const handleNavigateBack = () => {
+    if (onPress) {
+      onPress()
+    } else {
+      navigation.goBack()
+    }
+  }
+  return (
+    <IconButton
+      onPress={handleNavigateBack}
+      style={{ borderRadius: spacing.md }}
+      iconColor={colors.onBackground}
+      icon={"chevron-left"}
+      size={24}
+      mode="contained"
+      containerColor={colors.surface
+        .replace("rgb", "rgba")
+        .replace(")", ", 0.8)")}
+    />
+  )
+}
