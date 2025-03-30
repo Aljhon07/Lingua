@@ -3,7 +3,7 @@ import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
 import { useNavigation } from "@react-navigation/native"
 import Profile from "../profile/Profile"
 import Translator from "../translator/Translator"
-import BookingHistory from "../booking-history/BookingHistory"
+import BookingHistory from "../bookings/BookingHistory"
 import LessonNavigation from "./LessonNavigation"
 import Explore from "../travel-package-listing/Explore"
 
