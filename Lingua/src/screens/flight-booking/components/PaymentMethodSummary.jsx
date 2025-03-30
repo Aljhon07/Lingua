@@ -5,8 +5,7 @@ import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
 import React from "react"
 import { Text, useTheme } from "react-native-paper"
 
-export default function PaymentMethodSummary() {
-  const { paymentMethod } = usePassengerInfoContext()
+export default function PaymentMethodSummary({ paymentMethod }) {
   const { colors } = useTheme()
 
   return (

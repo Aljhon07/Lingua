@@ -1,18 +1,18 @@
 import DataContainer from "@components/layouts/DataContainer"
-import { cloudinary } from "@constants/api"
 import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
-import { fetchTransactions } from "@services/directus/rest"
-import { formatDate } from "@utils/formatDate"
+import { fetchBookings } from "@services/directus/rest"
 import { useEffect } from "react"
-import { Image, StyleSheet, View } from "react-native"
-import { FlatList, RefreshControl } from "react-native-gesture-handler"
-import { Text, TouchableRipple, useTheme } from "react-native-paper"
+import { StyleSheet, View } from "react-native"
+import { Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
+import BookingOverview from "./components/BookingOverview"
 
-export default function BookingHistory({ navigation }) {
+export default function BookingHistory() {
   const { getQueryState, executeQuery } = useQueryState()
   const bookingHistory = getQueryState("booking-history")
+
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 
@@ -23,40 +23,8 @@ export default function BookingHistory({ navigation }) {
   const getBookingHistory = () => {
     executeQuery(
       "booking-history",
-      fetchTransactions,
-      "fields=first_name,last_name,status,date_created,travel_package.name,travel_package.id,travel_package.cover,travel_package.price,travel_package.country.name&sort=date_created"
-    )
-  }
-  const renderItem = ({ item }) => {
-    const formatteddDate = formatDate(item.date_created)
-    const imageURL = `$${cloudinary.images}/${item.travel_package.cover}`
-    return (
-      <TouchableRipple
-        style={styles.bookingItem}
-        onPress={() =>
-          navigation.navigate("PackageDetailsNavigation", {
-            imageURL,
-            item: item.travel_package,
-          })
-        }
-      >
-        <>
-          <Image source={{ uri: imageURL }} style={styles.image} />
-          <View style={styles.details}>
-            <Text variant="titleSmall" style={styles.packageName}>
-              {item.travel_package.name}
-            </Text>
-            <Text variant="bodyLarge" style={styles.price}>
-              ₱{item.travel_package.price}
-            </Text>
-            <Text style={styles.status}>Status: {item.status}</Text>
-            <Text>Date Booked: {formatteddDate}</Text>
-            <Text>
-              {item.first_name} {item.last_name}
-            </Text>
-          </View>
-        </>
-      </TouchableRipple>
+      fetchBookings,
+      "fields=*,passengers,ticket.price,ticket.travel_package.name"
     )
   }
 
@@ -68,7 +36,7 @@ export default function BookingHistory({ navigation }) {
       <DataContainer
         loading={bookingHistory.loading}
         error={bookingHistory.error}
-        data={bookingHistory.data}
+        data={bookingHistory.data?.data}
         noDataMessage={"Book your Package Now. ->>> button to explore screen"}
       >
         <FlatList
@@ -78,10 +46,12 @@ export default function BookingHistory({ navigation }) {
               onRefresh={getBookingHistory}
             />
           }
+          style={{ paddingHorizontal: spacing.lg, paddingVertical: spacing.md }}
+          ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
           key={(index) => index}
-          data={bookingHistory.data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          data={bookingHistory.data?.data}
+          renderItem={({ item }) => <BookingOverview item={item} />}
+          keyExtractor={(item, index) => item.id + index}
         />
       </DataContainer>
     </SafeAreaView>
@@ -92,19 +62,14 @@ const createStyles = (colors, roundness) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: spacing.lg,
-      paddingVertical: spacing.xl,
     },
     headline: {
       marginBottom: spacing.xl,
+      paddingHorizontal: spacing.lg,
+      paddingTop: spacing.xl,
     },
     bookingItem: {
-      flexDirection: "row",
-      marginBottom: spacing.md,
-      padding: spacing.md,
-      borderColor: colors.outline,
-      borderWidth: 1,
-      borderRadius: roundness,
+      backgroundColor: "red",
     },
     image: {
       width: 100,

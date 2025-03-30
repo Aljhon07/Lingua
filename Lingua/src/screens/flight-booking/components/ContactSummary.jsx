@@ -4,8 +4,7 @@ import { spacing } from "@constants/globalStyles"
 import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
 import React from "react"
 import { Text, useTheme } from "react-native-paper"
-export default function ContactSummary() {
-  const { contacts } = usePassengerInfoContext()
+export default function ContactSummary({ contactInfo }) {
   const { colors } = useTheme()
   return (
     <StyledSurface>
@@ -19,10 +18,10 @@ export default function ContactSummary() {
         }}
       >
         <Text variant="bodyLarge" style={{ color: colors.onBackground }}>
-          {contacts.emailAddress}
+          {contactInfo.emailAddress}
         </Text>
         <Text variant="bodyLarge" style={{ color: colors.onBackground }}>
-          {contacts.phoneNumber}
+          {contactInfo.phoneNumber}
         </Text>
       </Section>
     </StyledSurface>

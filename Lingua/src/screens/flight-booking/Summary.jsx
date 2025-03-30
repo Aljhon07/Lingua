@@ -4,7 +4,7 @@ import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
 import { fetchTicketDetails, postBooking } from "@services/directus/rest"
 import React, { useEffect } from "react"
-import { StyleSheet, View } from "react-native"
+import { Alert, StyleSheet, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { useTheme } from "react-native-paper"
 import TicketSummary from "./components/TicketSummary"
@@ -22,7 +22,8 @@ export default function Summary({ route }) {
   const ticketDetails = getQueryState("ticketDetails")
   const { data: ticket } = ticketDetails
   const navigation = useNavigation()
-  const { getAllInfo, setTicket } = usePassengerInfoContext()
+  const { getAllInfo, setTicket, paymentMethod, contacts } =
+    usePassengerInfoContext()
 
   const handlePlaceOrder = async () => {
     const res = await postBooking(getAllInfo())
@@ -31,8 +32,16 @@ export default function Summary({ route }) {
       return
     }
 
-    alert("Booking Successful!")
-    navigation.navigate("MainTab", { screen: "Bookings" })
+    Alert.alert(
+      "Booking Succesful",
+      "Your booking is now for approval. Check the status on history tab.",
+      [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("MainTab", { screen: "Bookings" }),
+        },
+      ]
+    )
   }
   useEffect(() => {
     setTicket(id)
@@ -49,8 +58,8 @@ export default function Summary({ route }) {
         <ScrollView style={styles.scrollView}>
           <View style={styles.wrapper}>
             <PassengerSummary style={styles} passengers={passengers} />
-            <ContactSummary />
-            <PaymentMethodSummary />
+            <ContactSummary contactInfo={contacts} />
+            <PaymentMethodSummary paymentMethod={paymentMethod} />
             {ticket && (
               <TicketSummary
                 ticket={ticket}

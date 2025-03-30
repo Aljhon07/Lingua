@@ -20,8 +20,10 @@ export default function PackageListing({
       <DataContainer
         error={packagesState.error}
         loading={packagesState.loading}
-        errorMessage={"Failed to fetch packages"}
-        noDataComponent="No Packages Available!"
+        errorMessage={"Failed "}
+        noDataMessage={
+          "No packages match your criteria. Try adjusting your filter."
+        }
         data={packagesState.data}
       >
         <Section

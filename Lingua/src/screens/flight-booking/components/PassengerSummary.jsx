@@ -2,9 +2,10 @@ import { Section } from "@components/atoms/Section"
 import StyledSurface from "@components/atoms/StyledSurface"
 import { spacing } from "@constants/globalStyles"
 import React from "react"
-import { Text } from "react-native-paper"
+import { Text, useTheme } from "react-native-paper"
 
-export default function PassengerSummary({ style: styles, passengers }) {
+export default function PassengerSummary({ passengers }) {
+  const { colors } = useTheme()
   return (
     <StyledSurface>
       <Section
@@ -19,7 +20,11 @@ export default function PassengerSummary({ style: styles, passengers }) {
       >
         {passengers.map((passenger, index) => {
           return (
-            <Text variant="bodyLarge" style={styles.text} key={index}>
+            <Text
+              variant="bodyLarge"
+              style={{ color: colors.onSurface }}
+              key={index}
+            >
               {passenger.name}
             </Text>
           )

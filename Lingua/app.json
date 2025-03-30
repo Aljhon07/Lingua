@@ -6,7 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/lingua_dark.png",
@@ -21,7 +23,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.unknown067.Lingua"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +40,11 @@
           "photosPermission": "The app accesses your photos to let you share them with your friends."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2f69e6b7-fbf3-4b8e-9a9e-c66ebf3bf16b"
+      }
+    }
   }
 }

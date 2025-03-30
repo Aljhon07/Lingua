@@ -134,11 +134,13 @@ export const fetchPackageItinerary = async (id) => {
 }
 
 export const postBooking = async (data) => {
-  const { ticket, paymentMethod, contacts, passengers } = data
+  const { ticket, price, paymentMethod, contacts, passengers } = data
+  console.log(price)
   const formattedInfo = {
-    ticket: [ticket],
+    ticket: ticket,
+    price: price,
     payment_method: paymentMethod,
-    contact_number: contacts.phoneNumber,
+    phone_number: contacts.phoneNumber,
     email_address: contacts.emailAddress,
     passengers,
   }
@@ -157,30 +159,61 @@ export const postBooking = async (data) => {
   }
 }
 
-export const uploadTransactions = async (first_name, last_name, id) => {
-  console.log(first_name, last_name)
+export const fetchBookings = async (filter) => {
   try {
-    const res = await axiosInstance.post("/items/payments", {
-      first_name,
-      last_name,
-      travel_package: id,
-    })
-    return res.data.data
+    console.log("Fetching Bookings...")
+    const res = await axiosInstance.get(`/items/booking?${filter}`)
+    console.log("Bookings Fetched")
+    const resData = {
+      status: res.status,
+      data: res.data.data,
+    }
+    return resData
   } catch (error) {
-    throw new Error(logError("uploadProcess", error))
+    logError("postBooking", error)
+    return error
   }
 }
 
-export const fetchTransactions = async (filter) => {
+export const fetchBookingDetails = async ({ id, filter }) => {
   try {
-    console.log("Fetching Transactions...")
-    const res = await axiosInstance.get(`/items/payments?${filter}`)
-    console.log("Transactions Fetched")
-    return res.data.data
+    console.log("Fetching Booking Details...")
+    const res = await axiosInstance.get(`/items/booking/${id}?${filter}`)
+    console.log("Booking Details Fetched")
+    const resData = {
+      status: res.status,
+      data: res.data.data,
+    }
+    return resData
   } catch (error) {
-    throw new Error(logError("getTransactions", error))
+    logError("postBooking", error)
+    return error
   }
 }
+// export const uploadTransactions = async (first_name, last_name, id) => {
+//   console.log(first_name, last_name)
+//   try {
+//     const res = await axiosInstance.post("/items/payments", {
+//       first_name,
+//       last_name,
+//       travel_package: id,
+//     })
+//     return res.data.data
+//   } catch (error) {
+//     throw new Error(logError("uploadProcess", error))
+//   }
+// }
+
+// export const fetchTransactions = async (filter) => {
+//   try {
+//     console.log("Fetching Transactions...")
+//     const res = await axiosInstance.get(`/items/payments?${filter}`)
+//     console.log("Transactions Fetched")
+//     return res.data.data
+//   } catch (error) {
+//     throw new Error(logError("getTransactions", error))
+//   }
+// }
 
 export const fetchTickets = async (id) => {
   try {

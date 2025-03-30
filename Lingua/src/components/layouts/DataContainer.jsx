@@ -43,7 +43,7 @@ export default function DataContainer({
     )
   }
 
-  console.log("Data Container: ", data)
+  console.log("Data Container: ")
   return <>{children}</>
 }
 
