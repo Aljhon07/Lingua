@@ -1,6 +1,7 @@
 import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
-import axios from "axios"
+import { generateBookingDetails } from "@utils/ticketDetailsGenerator"
+
 export const fetchQuizzes = async ({ id, filter }) => {
   try {
     console.log("Fetching Quizzes...")
@@ -193,10 +194,15 @@ export const fetchBookingDetails = async ({ id, filter }) => {
 
 export const patchBooking = async ({ id, paymentId }) => {
   try {
-    console.log("Updating Booking...")
+    console.log("Updating Booking...", paymentId, " : ", id)
+    const { data } = await fetchBookingDetails({ id })
+    console.log(data)
+    const updateBooking = generateBookingDetails(data)
+    console.log(JSON.stringify(updateBooking, null, 2))
     const res = await axiosInstance.patch(`/items/booking/${id}`, {
       status: "Paid",
       payment_id: paymentId,
+      ...updateBooking,
     })
     console.log("Booking Updated")
     return res.data.data
