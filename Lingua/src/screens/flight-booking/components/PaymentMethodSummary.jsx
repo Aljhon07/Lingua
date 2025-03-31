@@ -1,7 +1,6 @@
 import { Section } from "@components/atoms/Section"
 import StyledSurface from "@components/atoms/StyledSurface"
 import { spacing } from "@constants/globalStyles"
-import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
 import React from "react"
 import { Text, useTheme } from "react-native-paper"
 

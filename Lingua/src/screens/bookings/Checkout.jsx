@@ -1,14 +1,19 @@
+import { LinguaLogo } from "@components/atoms/LinguaLogo"
+import { Section } from "@components/atoms/Section"
+import StyledSurface from "@components/atoms/StyledSurface"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { spacing } from "@constants/globalStyles"
 import React, { useState } from "react"
 import { View, StyleSheet } from "react-native"
-import { TextInput, Button, Card } from "react-native-paper"
+import { DatePickerInput } from "react-native-paper-dates"
+import { TextInput } from "react-native-paper"
 
-const Checkout = () => {
+export default function Checkout() {
   const [details, setDetails] = useState({
-    name: "",
-    email: "",
-    cardNumber: "",
-    expiry: "",
-    cvv: "",
+    name: "Test User",
+    cardNumber: "5455590000000009",
+    expiry: new Date(Date.now()),
+    cvv: "123",
   })
   const [loading, setLoading] = useState(false)
 
@@ -17,8 +22,8 @@ const Checkout = () => {
   }
 
   const handleCheckout = () => {
-    const { name, email, cardNumber, expiry, cvv } = details
-    if (!name || !email || !cardNumber || !expiry || !cvv) {
+    const { name, cardNumber, expiry, cvv } = details
+    if (!name || !cardNumber || !expiry || !cvv) {
       alert("Please fill in all details")
       return
     }
@@ -31,53 +36,61 @@ const Checkout = () => {
 
   return (
     <View style={styles.container}>
-      <Card style={styles.card}>
-        <Card.Content>
+      <View style={{ alignItems: "center", marginBottom: spacing.xl }}>
+        <LinguaLogo light style={{ width: "80%" }} />
+      </View>
+
+      <StyledSurface style={styles.card}>
+        <Section
+          headline={"Card Information"}
+          flexValue={0}
+          contentContainerStyle={styles.cardInfo}
+        >
           <TextInput
-            label="Full Name"
+            mode="outlined"
+            label="Cardholder's Name"
             value={details.name}
             onChangeText={(value) => handleInputChange("name", value)}
             style={styles.input}
           />
+
           <TextInput
-            label="Email"
-            value={details.email}
-            onChangeText={(value) => handleInputChange("email", value)}
-            keyboardType="email-address"
-            style={styles.input}
-          />
-          <TextInput
+            mode="outlined"
             label="Card Number"
             value={details.cardNumber}
             onChangeText={(value) => handleInputChange("cardNumber", value)}
             keyboardType="numeric"
             style={styles.input}
           />
-          <TextInput
-            label="Expiry Date (MM/YY)"
-            value={details.expiry}
-            onChangeText={(value) => handleInputChange("expiry", value)}
-            keyboardType="numeric"
-            style={styles.input}
-          />
-          <TextInput
-            label="CVV"
-            value={details.cvv}
-            onChangeText={(value) => handleInputChange("cvv", value)}
-            keyboardType="numeric"
-            secureTextEntry
-            style={styles.input}
-          />
-          <Button
-            mode="contained"
-            onPress={handleCheckout}
-            loading={loading}
-            style={styles.button}
-          >
-            Checkout
-          </Button>
-        </Card.Content>
-      </Card>
+
+          <View style={styles.rowContainer}>
+            <DatePickerInput
+              locale="en"
+              mode="outlined"
+              label="Expiry Date"
+              value={details.expiry}
+              onChange={(value) => handleInputChange("expiry", value)}
+              inputMode="start"
+              validRange={{ startDate: new Date() }}
+              presentationStyle="formSheet"
+              style={[styles.input, styles.expiry]}
+            />
+            <TextInput
+              mode="outlined"
+              label="CVV"
+              value={details.cvv}
+              onChangeText={(value) => handleInputChange("cvv", value)}
+              keyboardType="numeric"
+              secureTextEntry
+              style={[styles.input, styles.cvv]}
+            />
+          </View>
+
+          <CustomButton primary onPress={handleCheckout}>
+            Pay Now
+          </CustomButton>
+        </Section>
+      </StyledSurface>
     </View>
   )
 }
@@ -85,21 +98,23 @@ const Checkout = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 20,
   },
   card: {
-    width: "100%",
-    maxWidth: 400,
-    padding: 20,
+    marginHorizontal: spacing.xl,
   },
-  input: {
-    marginBottom: 15,
+  cardInfo: {
+    gap: spacing.md,
   },
-  button: {
-    marginTop: 20,
+  input: {},
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  expiry: {
+    flex: 1,
+  },
+  cvv: {
+    flex: 0.5,
   },
 })
-
-export default CheckoutScreen

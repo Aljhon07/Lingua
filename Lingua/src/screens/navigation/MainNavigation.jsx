@@ -5,8 +5,7 @@ import { spacing } from "@constants/globalStyles"
 import MainTab from "./MainTab"
 import Translator from "../translator/Translator"
 import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation"
-import BookingDetails from "../bookings/BookingDetails"
-import BackButton from "@components/molecules/BackButton"
+import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation"
 
 const Stack = createStackNavigator()
 
@@ -43,20 +42,8 @@ export default function MainNavigation() {
         component={PackageDetailsNavigation}
       />
       <Stack.Screen
-        options={{
-          animation: "scale_from_center",
-          headerShown: true,
-          headerTitle: "Booking Detais",
-          headerStyle: {
-            backgroundColor: "transparent",
-            shadowColor: "transparent",
-          },
-          headerTitleAlign: "center",
-
-          headerLeft: () => <BackButton />,
-        }}
-        name="BookingDetails"
-        component={BookingDetails}
+        name="BookingDetailsNavigation"
+        component={BookingDetailsNavigation}
       />
     </Stack.Navigator>
   )

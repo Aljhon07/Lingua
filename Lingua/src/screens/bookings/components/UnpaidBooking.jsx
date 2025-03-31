@@ -11,12 +11,13 @@ import TicketSummary from "src/screens/flight-booking/components/TicketSummary"
 import PaymentMethodSummary from "src/screens/flight-booking/components/PaymentMethodSummary"
 import ContactSummary from "src/screens/flight-booking/components/ContactSummary"
 import { CustomButton } from "@components/molecules/CustomButton"
+import { useNavigation } from "@react-navigation/native"
 
 export default function UnpaidBooking({ bookingId }) {
   const { executeQuery, getQueryState } = useQueryState()
   const bookingDetails = getQueryState("bookingDetails")
   const booking = bookingDetails.data?.data
-  console.log(booking)
+  const navigation = useNavigation()
   useEffect(() => {
     executeQuery("bookingDetails", fetchBookingDetails, {
       id: bookingId,
@@ -24,6 +25,13 @@ export default function UnpaidBooking({ bookingId }) {
         "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,ticket.*,ticket.return_ticket.*",
     })
   }, [])
+
+  const handleCheckout = () => {
+    navigation.navigate("Checkout", {
+      bookingId: bookingId,
+      paymentMethod: booking?.payment_method,
+    })
+  }
   return (
     <DataContainer
       data={bookingDetails.data?.data}
@@ -51,7 +59,7 @@ export default function UnpaidBooking({ bookingId }) {
       {booking?.status === "Approved" && (
         <CustomButton
           primary
-          onPress={() => console.log("Checkout")}
+          onPress={handleCheckout}
           style={{ margin: spacing.lg }}
         >
           Pay Now
