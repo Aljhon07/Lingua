@@ -24,7 +24,7 @@ export default function BookingHistory() {
     executeQuery(
       "booking-history",
       fetchBookings,
-      "fields=*,passengers,ticket.price,ticket.travel_package.name"
+      "fields=*,passengers,ticket.price,ticket.travel_package.name&sort=-date_updated"
     )
   }
 

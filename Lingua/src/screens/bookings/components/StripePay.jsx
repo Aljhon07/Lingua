@@ -67,6 +67,7 @@ export default function StripePay({ price, bookingId }) {
       Alert.alert("Error", error.message)
     } else {
       await patchBooking({ id: bookingId, paymentId: pid })
+      console.log("PID: ", pid)
       navigation.navigate("MainTab", {
         screen: "Bookings",
       })
