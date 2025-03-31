@@ -10,8 +10,8 @@ import { TextInput } from "react-native-paper"
 
 export default function Checkout() {
   const [details, setDetails] = useState({
-    name: "Test User",
-    cardNumber: "5455590000000009",
+    name: "Test",
+    cardNumber: 5455590000000009,
     expiry: new Date(Date.now()),
     cvv: "123",
   })

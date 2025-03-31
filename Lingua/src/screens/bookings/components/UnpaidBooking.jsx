@@ -12,6 +12,8 @@ import PaymentMethodSummary from "src/screens/flight-booking/components/PaymentM
 import ContactSummary from "src/screens/flight-booking/components/ContactSummary"
 import { CustomButton } from "@components/molecules/CustomButton"
 import { useNavigation } from "@react-navigation/native"
+import StripeApp from "./StripePay"
+import StripePay from "./StripePay"
 
 export default function UnpaidBooking({ bookingId }) {
   const { executeQuery, getQueryState } = useQueryState()
@@ -26,12 +28,12 @@ export default function UnpaidBooking({ bookingId }) {
     })
   }, [])
 
-  const handleCheckout = () => {
-    navigation.navigate("Checkout", {
-      bookingId: bookingId,
-      paymentMethod: booking?.payment_method,
-    })
-  }
+  // const handleCheckout = () => {
+  //   navigation.navigate("Checkout", {
+  //     bookingId: bookingId,
+  //     paymentMethod: booking?.payment_method,
+  //   })
+  // }
   return (
     <DataContainer
       data={bookingDetails.data?.data}
@@ -57,13 +59,10 @@ export default function UnpaidBooking({ bookingId }) {
         />
       </ScrollView>
       {booking?.status === "Approved" && (
-        <CustomButton
-          primary
-          onPress={handleCheckout}
-          style={{ margin: spacing.lg }}
-        >
-          Pay Now
-        </CustomButton>
+        <StripePay
+          price={booking?.passengers.length * booking?.ticket.price}
+          bookingId={bookingId}
+        />
       )}
     </DataContainer>
   )

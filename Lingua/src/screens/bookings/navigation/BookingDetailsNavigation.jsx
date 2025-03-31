@@ -4,6 +4,7 @@ import { spacing } from "@constants/globalStyles"
 import BackButton from "@components/molecules/BackButton"
 import BookingDetails from "../BookingDetails"
 import Checkout from "../Checkout"
+import StripeApp from "../components/StripePay"
 
 const Stack = createStackNavigator()
 
@@ -37,15 +38,15 @@ export default function BookingDetailsNavigation() {
         name="BookingDetails"
         component={BookingDetails}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         options={{
           animation: "scale_from_center",
           headerTitle: "Checkout",
           headerLeft: () => <BackButton />,
         }}
         name="Checkout"
-        component={Checkout}
-      />
+        component={StripeApp}
+      /> */}
     </Stack.Navigator>
   )
 }

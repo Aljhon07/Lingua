@@ -1,4 +1,4 @@
-const domain = "192.168.1.14"
+export const domain = "192.168.1.14"
 // const domain = "192.168.131.188"
 // const domain = "192.168.131.188"
 

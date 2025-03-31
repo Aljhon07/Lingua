@@ -190,6 +190,20 @@ export const fetchBookingDetails = async ({ id, filter }) => {
     return error
   }
 }
+
+export const patchBooking = async ({ id, paymentId }) => {
+  try {
+    console.log("Updating Booking...")
+    const res = await axiosInstance.patch(`/items/booking/${id}`, {
+      status: "Paid",
+      payment_id: paymentId,
+    })
+    console.log("Booking Updated")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("patchBooking", error))
+  }
+}
 // export const uploadTransactions = async (first_name, last_name, id) => {
 //   console.log(first_name, last_name)
 //   try {
