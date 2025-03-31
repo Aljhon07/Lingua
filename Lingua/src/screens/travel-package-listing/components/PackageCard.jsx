@@ -1,77 +1,82 @@
 import React from "react"
 import { cloudinary } from "@constants/api"
-import { Image, StyleSheet, View } from "react-native"
-import { Text, TouchableRipple, useTheme } from "react-native-paper"
+import { ImageBackground, Pressable, StyleSheet, View } from "react-native"
+import { Text, IconButton, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
-import { CustomButton } from "@components/molecules/CustomButton"
 import { useNavigation } from "@react-navigation/native"
 
 export function PackageCard({ item }) {
   const navigation = useNavigation()
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
-
-  const imageURL = `${cloudinary.baseURL}/${cloudinary.images}/${item.cover}`
+  const imageURL = `${cloudinary.images}/${item.cover}`
 
   const handleNavigate = () => {
     navigation.navigate("PackageDetailsNavigation", {
-      imageURL,
-      item,
+      item: {
+        ...item,
+        cover: imageURL,
+      },
     })
   }
+
   return (
-    <TouchableRipple style={styles.card} onPress={handleNavigate}>
-      <>
-        <Image style={styles.image} source={{ uri: imageURL }} />
+    <Pressable style={styles.card} onPress={handleNavigate}>
+      <ImageBackground source={{ uri: imageURL }} style={styles.image}>
         <View style={styles.content}>
-          <Text variant="titleLarge">{item.name}</Text>
-          <Text variant="labelLarge" style={styles.surfaceText}>
-            {item.country.name}
-          </Text>
           <View style={styles.detailsOverview}>
-            <Text>
-              <Text variant="titleMedium" style={styles.price}>
-                ₱{item.price}
-              </Text>
-              /person
+            <Text variant="labelLarge" style={styles.surfaceText}>
+              {item.country.name}
             </Text>
-            <CustomButton onPress={handleNavigate}>Details</CustomButton>
+            <Text variant="titleSmall">{item.name}</Text>
           </View>
+          <IconButton
+            onPress={handleNavigate}
+            icon={"open-in-new"}
+            iconColor={colors.primary}
+          />
         </View>
-      </>
-    </TouchableRipple>
+      </ImageBackground>
+    </Pressable>
   )
 }
 
 const createStyles = (colors, roundness) =>
   StyleSheet.create({
     card: {
-      backgroundColor: colors.surface,
       borderRadius: roundness,
       overflow: "hidden",
-      marginBottom: spacing.md,
+      marginBottom: spacing.lg,
       borderWidth: 1,
-      borderColor: colors.primary,
-      padding: spacing.md,
+      borderColor: colors.outline,
     },
+
     image: {
       width: "100%",
-      height: 200,
+      height: 250,
       borderRadius: roundness,
     },
     content: {
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.md,
-    },
-    detailsOverview: {
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
+      gap: spacing.lg,
+      paddingVertical: spacing.md,
+      paddingHorizontal: spacing.md + 4,
+      position: "absolute",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      backgroundColor: colors.surface
+        .replace("rgb", "rgba")
+        .replace(")", ", 0.8)"),
     },
-    price: {
-      color: colors.primary,
+    detailsOverview: {
+      flex: 1,
+      minHeight: 50,
+      justifyContent: "center",
     },
     surfaceText: {
-      color: colors.onSurfaceVariant,
+      color: colors.onBackground,
     },
   })

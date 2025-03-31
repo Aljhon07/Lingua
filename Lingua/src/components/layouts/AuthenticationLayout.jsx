@@ -9,7 +9,7 @@ export default function AuthenticationForm({ children }) {
 
   return (
     <View style={styles.container}>
-      <LinguaLogo light={false} style={styles.logo} />
+      <LinguaLogo light={true} style={styles.logo} />
       <View>{children}</View>
     </View>
   )

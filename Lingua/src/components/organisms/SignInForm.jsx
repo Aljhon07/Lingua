@@ -3,7 +3,7 @@ import { spacing } from "@constants/globalStyles"
 import { LinkText } from "@components/atoms/LinkText"
 import { useInputChange } from "@hooks/useInputChange"
 import { useAuthContext } from "@context/AuthProvider"
-import { Button, Text, TextInput } from "react-native-paper"
+import { Text, TextInput, useTheme } from "react-native-paper"
 import { useToggle } from "@hooks/useToggle"
 import { CustomButton } from "@components/molecules/CustomButton"
 
@@ -14,7 +14,7 @@ export default function SignInForm({ navigation }) {
   })
   const [visible, toggleVisiblity] = useToggle()
   const { loading, signIn } = useAuthContext()
-
+  const { colors } = useTheme()
   const handleSignIn = async () => signIn(credentials)
 
   return (
@@ -39,6 +39,7 @@ export default function SignInForm({ navigation }) {
             <TextInput.Icon
               icon={visible ? "eye" : "eye-off"}
               onPress={toggleVisiblity}
+              color={colors.primary}
             />
           }
           onChangeText={(text) => handleInputChange("password", text)}

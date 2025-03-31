@@ -14,7 +14,9 @@ services:
       - new_db_data:/var/lib/mysql
 
   directus:
-    image: directus/directus:11.3.2
+    # 11.3.2
+    # 11.5.1
+    image: directus/directus:11.5.1
     ports:
       - "8055:8055"
     depends_on:

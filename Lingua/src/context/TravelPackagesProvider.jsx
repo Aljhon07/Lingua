@@ -9,54 +9,35 @@ import { useQueryState } from "@hooks/useQueryState"
 const TravelPackagesContext = createContext()
 
 export default function TravelPackagesProvider({ children }) {
-  const [countries, setCountries] = useState([{ name: "All" }])
-  const [filter, setFilter] = useState("All")
-
+  const [countries, setCountries] = useState([])
   const [packages, setPackages] = useState([])
 
   const { getQueryState, executeQuery } = useQueryState()
   const packagesState = getQueryState("packages")
 
   useEffect(() => {
-    const getCountries = async () => {
-      try {
-        const countriesRes = await fetchCountries()
-        setCountries([{ name: "All" }, ...countriesRes])
-      } catch (error) {}
-    }
     getCountries()
   }, [])
 
-  const getPackages = (filter = null) => {
-    if (!filter || filter === "All") {
-      executeQuery("packages", fetchPackages)
-      setPackages(packagesState.data)
-    } else {
-      executeQuery(
-        "packages",
-        fetchPackages,
-        `filter[country][name][_eq]=${filter}`
-      )
-    }
+  const getCountries = async () => {
+    try {
+      const res = await fetchCountries()
+      setCountries(res)
+    } catch (error) {}
   }
 
-  const searchPackage = (searchQuery) => {
-    executeQuery("packages", searchPackages, searchQuery)
-    setFilter("All")
+  const getPackages = (filter = null) => {
+    executeQuery("packages", fetchPackages, `${filter}`)
+    setPackages(packagesState.data)
   }
 
   return (
     <TravelPackagesContext.Provider
       value={{
         packages,
-        setPackages,
         getPackages,
-        searchPackage,
         packagesState,
         countries,
-        setCountries,
-        filter,
-        setFilter,
       }}
     >
       {children}

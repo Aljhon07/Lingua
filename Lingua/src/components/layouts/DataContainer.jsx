@@ -10,10 +10,8 @@ export default function DataContainer({
   noDataMessage,
 }) {
   const { colors } = useTheme()
-  console.log(data)
 
   if (loading) {
-    console.log("Loading...")
     return (
       <View style={styles.container}>
         <ActivityIndicator
@@ -26,18 +24,18 @@ export default function DataContainer({
   }
 
   if (error) {
-    console.error("Error:", error)
     return (
       <View style={styles.container}>
         <Text style={{ color: colors.error }}>
           {errorMessage || "Error loading data"}
         </Text>
+
+        <Text>{data}</Text>
       </View>
     )
   }
 
   if (!data || data.length === 0) {
-    console.log("No Data")
     return (
       <View style={styles.container}>
         <Text>{noDataMessage || "No data available"}</Text>
@@ -45,7 +43,7 @@ export default function DataContainer({
     )
   }
 
-  console.log("Data Container: Data Fetched")
+  console.log("Data Container: ")
   return <>{children}</>
 }
 
