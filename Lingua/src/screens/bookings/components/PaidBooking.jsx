@@ -24,76 +24,78 @@ export default function PaidBooking({ bookingId }) {
   }, [])
   console.log(JSON.stringify(bookingDetails, null, 2))
   return (
-    <ScrollView style={styles.scrollContainer}>
+    <View style={{ flex: 1, justifyContent: "center" }}>
       <DataContainer
         error={bookingDetails.error}
         loading={bookingDetails.loading}
         data={booking}
       >
-        {booking?.passengers.map((passenger, index) => {
-          const { date, time } = formatTimeStamp(
-            booking?.ticket.departure_schedule
-          )
-          const { date: _date, time: _time } = formatTimeStamp(
-            booking?.ticket.arrival_schedule
-          )
-          return (
-            <StyledSurface style={styles.surfaceContainer} key={index}>
-              <View>
-                <Text variant="labelLarge">
-                  Passenger Name: <Text> {passenger.name}</Text>
-                </Text>
-              </View>
-              <View style={styles.row}>
+        <ScrollView style={styles.scrollContainer}>
+          {booking?.passengers.map((passenger, index) => {
+            const { date, time } = formatTimeStamp(
+              booking?.ticket.departure_schedule
+            )
+            const { date: _date, time: _time } = formatTimeStamp(
+              booking?.ticket.arrival_schedule
+            )
+            return (
+              <StyledSurface style={styles.surfaceContainer} key={index}>
                 <View>
-                  <Text variant="labelLarge">From:</Text>
-                  <Text variant="headlineSmall">
-                    {booking?.ticket.departure_location}
+                  <Text variant="labelLarge">
+                    Passenger Name: <Text> {passenger.name}</Text>
                   </Text>
-                  <Text>{date}</Text>
-                  <Text>{time}</Text>
+                </View>
+                <View style={styles.row}>
+                  <View>
+                    <Text variant="labelLarge">From:</Text>
+                    <Text variant="headlineSmall">
+                      {booking?.ticket.departure_location}
+                    </Text>
+                    <Text>{date}</Text>
+                    <Text>{time}</Text>
+                  </View>
+
+                  <View>
+                    <Text style={styles.arrivalDetailsTxt} variant="labelLarge">
+                      To:
+                    </Text>
+                    <Text
+                      style={styles.arrivalDetailsTxt}
+                      variant="headlineSmall"
+                    >
+                      {booking?.ticket.arrival_location}
+                    </Text>
+                    <Text style={styles.arrivalDetailsTxt}>{_date}</Text>
+                    <Text style={styles.arrivalDetailsTxt}>{_time}</Text>
+                  </View>
                 </View>
 
-                <View>
-                  <Text style={styles.arrivalDetailsTxt} variant="labelLarge">
-                    To:
-                  </Text>
-                  <Text
-                    style={styles.arrivalDetailsTxt}
-                    variant="headlineSmall"
-                  >
-                    {booking?.ticket.arrival_location}
-                  </Text>
-                  <Text style={styles.arrivalDetailsTxt}>{_date}</Text>
-                  <Text style={styles.arrivalDetailsTxt}>{_time}</Text>
+                <View style={styles.row}>
+                  <View>
+                    <Text variant="labelLarge">PNR:</Text>
+                    <Text>{booking.pnr}</Text>
+                  </View>
+                  <View>
+                    <Text variant="labelLarge">Ticket No.:</Text>
+                    <Text>{passenger.ticket_number}</Text>
+                  </View>
+                  <View>
+                    <Text variant="labelLarge">Gate:</Text>
+                    <Text>{booking.gate}</Text>
+                  </View>
+                  <View>
+                    <Text variant="labelLarge">Seat:</Text>
+                    <Text>{passenger.seat}</Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.row}>
-                <View>
-                  <Text variant="labelLarge">PNR:</Text>
-                  <Text>{booking.pnr}</Text>
-                </View>
-                <View>
-                  <Text variant="labelLarge">Ticket No.:</Text>
-                  <Text>{passenger.ticket_number}</Text>
-                </View>
-                <View>
-                  <Text variant="labelLarge">Gate:</Text>
-                  <Text>{booking.gate}</Text>
-                </View>
-                <View>
-                  <Text variant="labelLarge">Seat:</Text>
-                  <Text>{passenger.seat}</Text>
-                </View>
-              </View>
-
-              <View style={styles.row}></View>
-            </StyledSurface>
-          )
-        })}
+                <View style={styles.row}></View>
+              </StyledSurface>
+            )
+          })}
+        </ScrollView>
       </DataContainer>
-    </ScrollView>
+    </View>
   )
 }
 
@@ -101,6 +103,7 @@ const styles = StyleSheet.create({
   surfaceContainer: {
     margin: spacing.lg,
   },
+
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
