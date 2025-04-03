@@ -1,30 +1,61 @@
-import { StyleSheet, View } from "react-native"
 import { FlatList, RefreshControl } from "react-native-gesture-handler"
-import { PackageCard } from "./PackageCard"
+import { StyleSheet } from "react-native"
+import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
+import { Section } from "@components/atoms/Section"
+import DataContainer from "@components/layouts/DataContainer"
+import { PackageCard } from "./PackageCard"
+import PaddedView from "@components/atoms/PaddedView"
 
-export function PackageListing({
-  packages,
-  containerStyle,
-  horizontal,
-  onRefresh,
-  refreshing,
+export default function PackageListing({
+  packagesState,
+  getPackages,
+  headline,
 }) {
+  const { colors } = useTheme()
+  const styles = createStyles(colors)
+
   return (
-    <View style={[styles.container, containerStyle]}>
-      <FlatList
-        refreshControl={
-          <RefreshControl onRefresh={onRefresh} refreshing={refreshing} />
+    <PaddedView style={styles.screen}>
+      <DataContainer
+        error={packagesState.error}
+        loading={packagesState.loading}
+        errorMessage={"Failed "}
+        noDataMessage={
+          "No packages match your criteria. Try adjusting your filter."
         }
-        data={packages}
-        renderItem={({ item }) => <PackageCard item={item} />}
-        keyExtractor={(item) => item.id.toString()}
-      />
-    </View>
+        data={packagesState.data}
+      >
+        <Section
+          headline={headline}
+          headlineVariant="titleMedium"
+          sectionStyle={styles.packageSection}
+          contentContainerStyle={styles.section}
+        >
+          <FlatList
+            refreshControl={
+              <RefreshControl
+                onRefresh={getPackages}
+                refreshing={packagesState.loading}
+              />
+            }
+            data={packagesState.data}
+            renderItem={({ item }) => <PackageCard item={item} />}
+            keyExtractor={(item) => item.id.toString()}
+          />
+        </Section>
+      </DataContainer>
+    </PaddedView>
   )
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})
+
+const createStyles = (colors) =>
+  StyleSheet.create({
+    screen: {
+      flex: 1,
+      gap: spacing.lg,
+    },
+    section: {
+      backgroundColor: "transparent",
+    },
+  })

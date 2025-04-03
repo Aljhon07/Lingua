@@ -10,35 +10,42 @@ export function Section({
   headlineVariant = "headlineSmall",
   contentContainerStyle,
   sectionStyle,
-  textColor,
+  leftComponent,
+  rightComponent,
+  flexValue = 1,
 }) {
   const { colors, roundness } = useTheme()
-  const styles = createStyles(colors, roundness)
+  const styles = createStyles(colors, roundness, flexValue)
 
   return (
     <View style={[styles.container, sectionStyle]}>
-      <Text variant={headlineVariant} style={[styles.headline, textColor]}>
-        {headline}
-      </Text>
+      <View style={styles.header}>
+        {leftComponent ? leftComponent : null}
+        <Text variant={headlineVariant} style={[styles.headline]}>
+          {headline}
+        </Text>
+        {rightComponent ? rightComponent : null}
+      </View>
       <View style={[styles.content, contentContainerStyle]}>{children}</View>
     </View>
   )
 }
 
-const createStyles = (colors, roundness) =>
+const createStyles = (colors, roundness, flexValue) =>
   StyleSheet.create({
     container: {
-      flex: 1,
-      marginBottom: spacing.md,
+      flex: flexValue,
+    },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
     },
     headline: {
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
+      marginRight: "auto",
     },
     content: {
-      flex: 1,
-      backgroundColor: colors.surfaceVariant,
-      padding: spacing.md,
-
-      borderRadius: roundness,
+      flex: flexValue,
     },
   })

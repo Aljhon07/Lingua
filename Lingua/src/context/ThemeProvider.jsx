@@ -5,43 +5,20 @@ import { PaperProvider } from "react-native-paper"
 import { Appearance } from "react-native"
 import { NavigationContainer } from "@react-navigation/native"
 import { StatusBar } from "expo-status-bar"
-
 const ThemeContext = createContext()
+import * as SystemUI from "expo-system-ui"
 
 export default function ThemeProvider({ children }) {
   const systemColorScheme = Appearance.getColorScheme()
+
   const [theme, setTheme] = useState(
     systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
   )
-  const [themePreference, setThemePreference] = useState("automatic")
+  const [themePreference, setThemePreference] = useState("dark")
+  SystemUI.setBackgroundColorAsync(CombinedDarkTheme.colors.background)
 
   useEffect(() => {
-    const loadTheme = async () => {
-      try {
-        const savedTheme = await AsyncStorage.getItem("theme")
-        if (savedTheme) {
-          setThemePreference(savedTheme)
-          if (savedTheme === "light") {
-            setTheme(CombinedLightTheme)
-          } else if (savedTheme === "dark") {
-            setTheme(CombinedDarkTheme)
-          } else {
-            setTheme(
-              systemColorScheme === "dark"
-                ? CombinedDarkTheme
-                : CombinedLightTheme
-            )
-          }
-        }
-      } catch (error) {
-        console.error(error)
-        setTheme(
-          systemColorScheme === "dark" ? CombinedDarkTheme : CombinedLightTheme
-        )
-      }
-    }
-
-    loadTheme()
+    setThemePreferenceAndSave(themePreference)
   }, [])
 
   const setThemePreferenceAndSave = async (preference) => {

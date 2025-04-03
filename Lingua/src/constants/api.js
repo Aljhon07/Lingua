@@ -1,4 +1,6 @@
-const domain = "192.168.115.188"
+export const domain = "192.168.1.14"
+// const domain = "192.168.131.188"
+// const domain = "192.168.131.188"
 
 export const directus = {
   baseURL: `http://${domain}:8055`,
@@ -6,5 +8,9 @@ export const directus = {
 
 export const cloudinary = {
   baseURL: "https://res.cloudinary.com/dlwnraplb",
-  images: `/image/upload/v1733513766/`,
+  imagePath: `/image/upload/v1733513766/`,
+
+  get images() {
+    return this.baseURL + this.imagePath
+  },
 }

@@ -1,6 +1,6 @@
 version: "3"
 services:
-  db:
+  new_db:
     image: mysql:8.0
     restart: always
     ports:
@@ -11,12 +11,16 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - new_db_data:/var/lib/mysql
 
   directus:
-    image: directus/directus:11.2.1
+    # 11.3.2
+    # 11.5.1
+    image: directus/directus:11.5.1
     ports:
       - "8055:8055"
+    depends_on:
+      - new_db
     environment:
       SECRET: ${SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
@@ -37,4 +41,4 @@ services:
       HOST: ${HOST}
 
 volumes:
-  db_data:
+  new_db_data:
