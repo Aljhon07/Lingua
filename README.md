@@ -14,3 +14,4 @@ iconv -f UTF-16LE -t UTF-8 backup/backup_v2-bookings.sql -o backup_v2-bookings_u
 Get-Content backup/backup_v2.sql | docker exec -i 47abdacc35fa mysql -uroot -prootpassword test
 docker exec 47abdacc35fa sh -c 'exec mysqldump -uroot -prootpassword test' > backup/backup_v3.sql
 sfdfsdf
+sadfsdfsadfs
