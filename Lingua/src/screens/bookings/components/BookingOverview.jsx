@@ -70,13 +70,14 @@ const createStyles = (colors, roundness) =>
     },
     cancel: {
       backgroundColor: colors.error,
+      color: colors.onErrorContainer,
     },
     approved: {
       backgroundColor: colors.success,
-      color: colors.surfaceVariant,
+      color: colors.onSuccessContainer,
     },
     pending: {
       backgroundColor: "orange",
-      color: colors.surfaceVariant,
+      color: colors.onSuccessContainer,
     },
   })

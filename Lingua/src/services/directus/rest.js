@@ -2,44 +2,6 @@ import { axiosInstance } from "@utils/axiosInstance"
 import { logError } from "@utils/errorLogger"
 import { generateBookingDetails } from "@utils/ticketDetailsGenerator"
 
-export const fetchQuizzes = async ({ id, filter }) => {
-  try {
-    console.log("Fetching Quizzes...")
-    const res = await axiosInstance.get(
-      `/items/quizzes?[lesson][_eq]=${id}&${filter}`
-    )
-    console.log("Quizzes Fetched")
-    return res.data.data
-  } catch (error) {
-    throw new Error(logError("fetchQuizzes", error))
-  }
-}
-
-export const fetchLessons = async (filter) => {
-  try {
-    console.log("Fetching Lessons...")
-    const res = await axiosInstance.get(`/items/lessons?${filter}`)
-    console.log("Lessons Fetched")
-    return res.data.data
-  } catch (error) {
-    throw new Error(logError("fetchLessons", error))
-  }
-}
-
-export const fetchVocabulary = async ({ id, filter }) => {
-  try {
-    console.log("Fetching Vocabulary...")
-    const res = await axiosInstance.get(
-      `/items/vocabulary?[lesson][_eq]=${id}&${filter}`
-    )
-    console.log("Vocabulary Fetched")
-
-    return res.data.data
-  } catch (error) {
-    throw new Error(logError("fetchVocabulary", error))
-  }
-}
-
 export const searchPackages = async (searchQuery) => {
   console.log("Searching...")
   try {
@@ -76,7 +38,6 @@ export const fetchCountries = async () => {
     }))
 
     return countries
-    // return res.data.data
   } catch (error) {
     throw new Error(logError("getCountries", error))
   }
@@ -94,19 +55,6 @@ export const fetchPackages = async (filter) => {
     throw new Error(logError("getPackages", error))
   }
 }
-
-// export const fetchPackageByCountry = async (filter) => {
-//   try {
-//     console.log("Fetching Packages By Country...")
-//     const res = await axiosInstance.get(
-//       `/items/travel_package?fields=id,name,country.name,price,cover&filter[country][name][_eq]=${filter}`
-//     )
-//     console.log("Packages by Country Fetched")
-//     return res.data.data
-//   } catch (error) {
-//     throw new Error(logError("getPackages", error))
-//   }
-// }
 
 export const fetchPackageDetails = async (id) => {
   try {
@@ -136,7 +84,6 @@ export const fetchPackageItinerary = async (id) => {
 
 export const postBooking = async (data) => {
   const { ticket, price, paymentMethod, contacts, passengers } = data
-  console.log(price)
   const formattedInfo = {
     ticket: ticket,
     price: price,
@@ -171,8 +118,8 @@ export const fetchBookings = async (filter) => {
     }
     return resData
   } catch (error) {
-    logError("postBooking", error)
-    return error
+    const err = logError("postBooking", error)
+    return err
   }
 }
 
@@ -210,30 +157,6 @@ export const patchBooking = async ({ id, paymentId }) => {
     throw new Error(logError("patchBooking", error))
   }
 }
-// export const uploadTransactions = async (first_name, last_name, id) => {
-//   console.log(first_name, last_name)
-//   try {
-//     const res = await axiosInstance.post("/items/payments", {
-//       first_name,
-//       last_name,
-//       travel_package: id,
-//     })
-//     return res.data.data
-//   } catch (error) {
-//     throw new Error(logError("uploadProcess", error))
-//   }
-// }
-
-// export const fetchTransactions = async (filter) => {
-//   try {
-//     console.log("Fetching Transactions...")
-//     const res = await axiosInstance.get(`/items/payments?${filter}`)
-//     console.log("Transactions Fetched")
-//     return res.data.data
-//   } catch (error) {
-//     throw new Error(logError("getTransactions", error))
-//   }
-// }
 
 export const fetchTickets = async (id) => {
   try {
@@ -259,5 +182,43 @@ export const fetchTicketDetails = async ({
     return res.data.data
   } catch (error) {
     throw new Error(logError("getTicketDetails", error))
+  }
+}
+
+export const fetchQuizzes = async ({ id, filter }) => {
+  try {
+    console.log("Fetching Quizzes...")
+    const res = await axiosInstance.get(
+      `/items/quizzes?[lesson][_eq]=${id}&${filter}`
+    )
+    console.log("Quizzes Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchQuizzes", error))
+  }
+}
+
+export const fetchLessons = async (filter) => {
+  try {
+    console.log("Fetching Lessons...")
+    const res = await axiosInstance.get(`/items/lessons?${filter}`)
+    console.log("Lessons Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchLessons", error))
+  }
+}
+
+export const fetchVocabulary = async ({ id, filter }) => {
+  try {
+    console.log("Fetching Vocabulary...")
+    const res = await axiosInstance.get(
+      `/items/vocabulary?[lesson][_eq]=${id}&${filter}`
+    )
+    console.log("Vocabulary Fetched")
+
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchVocabulary", error))
   }
 }

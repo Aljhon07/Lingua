@@ -29,19 +29,14 @@ export default function Header({ getPackages, countries }) {
   const styles = createStyles(colors)
 
   const handleSearch = () => {
-    let queries = ""
+    let queries = `filter[price][_gte]=${
+      filter.minBudget || 0
+    }&filter[price][_lte]=${filter.maxBudget || 999999}`
     Keyboard.dismiss()
     if (filter.destination) {
-      queries += `filter[country][name][_eq]=${filter.destination}`
+      queries += `&filter[country][name][_eq]=${filter.destination}`
     }
-    if (filter.minBudget && filter.maxBudget) {
-      queries += `&filter[price][_gte]=${filter.minBudget}`
-    }
-    if (filter.maxBudget) {
-      queries += `&filter[price][_lte]=${filter.maxBudget}`
-    }
-    if (filter.date) {
-    }
+
     console.log("Fikter: ", queries)
     getPackages(queries)
   }

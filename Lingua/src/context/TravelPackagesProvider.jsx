@@ -1,9 +1,5 @@
 import { useContext, useState, createContext, useEffect } from "react"
-import {
-  fetchCountries,
-  fetchPackages,
-  searchPackages,
-} from "@services/directus/rest"
+import { fetchCountries, fetchPackages } from "@services/directus/rest"
 import { useQueryState } from "@hooks/useQueryState"
 
 const TravelPackagesContext = createContext()

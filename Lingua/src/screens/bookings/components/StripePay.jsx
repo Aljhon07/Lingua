@@ -38,8 +38,7 @@ export default function StripePay({ price, bookingId }) {
     const { clientSecret, error } = await fetchPaymentIntentClientSecret()
 
     if (error || !clientSecret) {
-      Alert.alert("Error", "Could not fetch payment intent")
-      return
+      throw new Error("Check your network connection.")
     }
 
     const { error: initError } = await initPaymentSheet({
@@ -53,25 +52,29 @@ export default function StripePay({ price, bookingId }) {
     })
 
     if (initError) {
-      Alert.alert("Error", initError.message)
+      throw new Error("Init Error.")
     } else {
       setReady(true)
     }
   }
 
   const handlePayPress = async () => {
-    await initializePaymentSheet()
+    try {
+      await initializePaymentSheet()
 
-    const { error } = await presentPaymentSheet()
-    if (error) {
-      Alert.alert("Error", error.message)
-    } else {
+      const { error } = await presentPaymentSheet()
+      if (error) {
+        return
+      }
       await patchBooking({ id: bookingId, paymentId: pid })
-      console.log("PID: ", pid)
-      navigation.navigate("MainTab", {
-        screen: "Bookings",
-      })
-      Alert.alert("Success", "Payment Successful")
+      Alert.alert("Success", "Payment Successful", [
+        {
+          text: "OK",
+          onPress: () => navigation.navigate("MainTab", { screen: "Bookings" }),
+        },
+      ])
+    } catch (error) {
+      Alert.alert("Error", error.message)
     }
   }
 

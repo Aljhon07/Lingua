@@ -27,13 +27,12 @@ export async function signIn(email, password) {
       "accessToken",
       token.data.data.static_token
     )
-    console.log(token.data.data.static_token)
     axiosInstance.defaults.headers.common[
       "Authorization"
     ] = `Bearer ${token.data.data.static_token}`
   } catch (error) {
     console.error("Sign In failed")
-    throw new Error(logError("signIn", error))
+    throw new Error(logError("Sign In", error))
   }
 }
 
