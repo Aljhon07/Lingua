@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native"
 import Profile from "../profile/Profile"
 import Translator from "../translator/Translator"
 import BookingHistory from "../bookings/BookingHistory"
-import LessonNavigation from "./LessonNavigation"
+import LessonNavigation from "../language-learning/navigations/LessonNavigation"
 import Explore from "../travel-package-listing/Explore"
 
 const Tab = createBottomTabNavigator()

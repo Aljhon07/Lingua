@@ -185,23 +185,20 @@ export const fetchTicketDetails = async ({
   }
 }
 
-export const fetchQuizzes = async ({ id, filter }) => {
+export const fetchLanguages = async () => {
   try {
-    console.log("Fetching Quizzes...")
-    const res = await axiosInstance.get(
-      `/items/quizzes?[lesson][_eq]=${id}&${filter}`
-    )
-    console.log("Quizzes Fetched")
-    return res.data.data
+    console.log("Fetching Languages...")
+    const res = await axiosInstance.get("/items/languages?fields=code,name,id")
+    return res.data
   } catch (error) {
-    throw new Error(logError("fetchQuizzes", error))
+    throw new Error(logError("fetchLanguages", error))
   }
 }
 
 export const fetchLessons = async (filter) => {
   try {
     console.log("Fetching Lessons...")
-    const res = await axiosInstance.get(`/items/lessons?${filter}`)
+    const res = await axiosInstance.get(`/items/lesson?${filter}`)
     console.log("Lessons Fetched")
     return res.data.data
   } catch (error) {
@@ -209,16 +206,30 @@ export const fetchLessons = async (filter) => {
   }
 }
 
-export const fetchVocabulary = async ({ id, filter }) => {
+export const fetchVocabulary = async ({ id, lang }) => {
   try {
     console.log("Fetching Vocabulary...")
     const res = await axiosInstance.get(
-      `/items/vocabulary?[lesson][_eq]=${id}&${filter}`
+      `/items/vocabulary?filter[lesson][_eq]=${id}&fields=*,translations.*,translations.language.code&deep[translations][_filter][language][code]=${lang}`
     )
     console.log("Vocabulary Fetched")
 
     return res.data.data
   } catch (error) {
     throw new Error(logError("fetchVocabulary", error))
+  }
+}
+
+export const fetchQuestions = async ({ id, lang }) => {
+  try {
+    console.log("Fetching Questions...")
+    const res = await axiosInstance.get(
+      `/items/question?filter[lesson][_eq]=${id}&fields=question,type,answer.word,answer.sentence,answer.audio,answer.image,answer.translations.*&deep[answer][translations][_filter][language][code][_eq]=${lang}`
+    )
+    console.log(JSON.stringify(res.data.data, null, 2))
+
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchQuestions", error))
   }
 }
