@@ -9,6 +9,7 @@ import DataContainer from "@components/layouts/DataContainer"
 import { fetchLessons } from "@services/directus/rest"
 import { Text } from "react-native-paper"
 import { Section } from "@components/atoms/Section"
+import LessonProvider from "@context/LessonProvider"
 
 export default function LessonList() {
   const { getQueryState, executeQuery } = useQueryState()
@@ -33,7 +34,10 @@ export default function LessonList() {
       >
         <Section
           headline="Lessons"
-          contentContainerStyle={{ backgroundColor: "transparent", padding: 0 }}
+          contentContainerStyle={{
+            backgroundColor: "transparent",
+            padding: 0,
+          }}
         >
           <FlatList
             data={lesson.data}
