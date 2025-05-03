@@ -6,9 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "platforms": [
-      "android"
-    ],
+    "platforms": ["android"],
     "newArchEnabled": true,
     "splash": {
       "image": "./assets/images/lingua_dark.png",
@@ -24,9 +22,7 @@
         "backgroundColor": "#ffffff"
       },
       "softwareKeyboardLayoutMode": "pan",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ],
+      "permissions": ["android.permission.RECORD_AUDIO"],
       "package": "com.unknown067.Lingua"
     },
     "web": {
@@ -38,6 +34,12 @@
         "expo-image-picker",
         {
           "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": "Allow Lingua to access your microphone."
         }
       ]
     ],
