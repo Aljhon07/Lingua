@@ -11,5 +11,13 @@ iconv -f UTF-16LE -t UTF-8 backup/backup_v2-bookings.sql -o backup_v2-bookings_u
 
 <!--  -->
 
-Get-Content backup/backup_language_learning.sql | docker exec -i e90913fdcb80 mysql -uroot -prootpassword test
+Get-Content backup/backup_language_learning.sql | docker exec -i f6700a9136d9 mysql -uroot -prootpassword test
 docker exec e90913fdcb80 sh -c 'exec mysqldump -uroot -prootpassword test' > backup/backup_language_learning.sql
+
+
+
+
+docker exec 9ff95ae14c5c sh -c 'exec mysqldump -uroot -prootpassword --default-character-set=utf8mb4 --skip-set-charset test' > backup/_backup_language_learning.sql
+Get-Content backup/test.sql | docker exec -i 4ab4c94c8631 sh -c 'exec mysql -uroot -prootpassword --default-character-set=utf8mb4 test'
+
+docker cp ./mysql_backup 4ab4c94c8631:/var/lib/mysql

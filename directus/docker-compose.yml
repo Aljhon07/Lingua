@@ -26,6 +26,7 @@ services:
     depends_on:
       new_db:
         condition: service_healthy
+    restart: unless-stopped
     environment:
       SECRET: ${SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
@@ -44,6 +45,8 @@ services:
       STORAGE_CLOUDINARY_ACCESS_MODE: ${STORAGE_CLOUDINARY_ACCESS_MODE}
       WEBSOCKETS_ENABLED: ${WEBSOCKETS_ENABLED}
       HOST: ${HOST}
+      
 
 volumes:
   new_db_data:
+
