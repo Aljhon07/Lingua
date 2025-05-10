@@ -10,17 +10,23 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 20
     volumes:
       - new_db_data:/var/lib/mysql
 
   directus:
-    # 11.3.2
-    # 11.5.1
     image: directus/directus:11.5.1
     ports:
       - "8055:8055"
     depends_on:
-      - new_db
+      new_db:
+        condition: service_healthy
+    restart: unless-stopped
     environment:
       SECRET: ${SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
@@ -39,6 +45,8 @@ services:
       STORAGE_CLOUDINARY_ACCESS_MODE: ${STORAGE_CLOUDINARY_ACCESS_MODE}
       WEBSOCKETS_ENABLED: ${WEBSOCKETS_ENABLED}
       HOST: ${HOST}
+      
 
 volumes:
   new_db_data:
+
