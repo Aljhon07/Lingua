@@ -1,5 +1,5 @@
-// export const domain = "192.168.1.14"
-export const domain = "192.168.158.188"
+export const domain = "192.168.1.161"
+// export const domain = "10.0.2.2"
 // const domain = "192.168.131.188"
 
 export const directus = {
@@ -13,4 +13,4 @@ export const cloudinary = {
   get images() {
     return this.baseURL + this.imagePath
   },
-}
+} 

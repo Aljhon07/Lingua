@@ -1,9 +1,9 @@
-import { border } from "@constants/globalStyles"
-import React from "react"
-import { StyleSheet } from "react-native"
-import { IconButton, useTheme, Button, Icon } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { useNavigation } from "@react-navigation/native"
+import { border } from "@constants/globalStyles";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { IconButton, useTheme, Button, Icon } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { useNavigation } from "@react-navigation/native";
 
 export function CustomButton({
   onPress,
@@ -16,8 +16,8 @@ export function CustomButton({
   props,
   children,
 }) {
-  const { roundness, colors } = useTheme()
-  const styles = createStyles(roundness, colors, primary)
+  const { roundness, colors } = useTheme();
+  const styles = createStyles(roundness, colors, primary);
   return (
     <Button
       mode={primary ? "contained" : "outlined"}
@@ -25,7 +25,7 @@ export function CustomButton({
       onPress={onPress}
       loading={loading}
       icon={() => (
-        <Icon source={icon} size={iconSize} color={colors.onPrimary} />
+        <Icon source={icon} size={iconSize} color={colors.onBackground} />
       )}
       contentStyle={contentStyle}
       labelStyle={{ fontFamily: "Alegreya-Medium", fontSize: 17 }}
@@ -33,7 +33,7 @@ export function CustomButton({
     >
       {children}
     </Button>
-  )
+  );
 }
 
 const createStyles = (roundness) =>
@@ -41,19 +41,19 @@ const createStyles = (roundness) =>
     button: {
       borderRadius: border.md,
     },
-  })
+  });
 
 export function BackButton({ onPress }) {
-  const navigation = useNavigation()
-  const { colors } = useTheme()
+  const navigation = useNavigation();
+  const { colors } = useTheme();
 
   const handleNavigateBack = () => {
     if (onPress) {
-      onPress()
+      onPress();
     } else {
-      navigation.goBack()
+      navigation.goBack();
     }
-  }
+  };
   return (
     <IconButton
       onPress={handleNavigateBack}
@@ -66,5 +66,5 @@ export function BackButton({ onPress }) {
         .replace("rgb", "rgba")
         .replace(")", ", 0.8)")}
     />
-  )
+  );
 }

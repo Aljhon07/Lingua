@@ -1,0 +1,17 @@
+
+Restore: Get-Content backup.sql | docker exec -i {container-name} mysql -u {} -p {} {db-name}
+Backup: docker exec {container-name} sh -c 'exec mysqldump -u{} -p{} {db-name}' > backup.sql
+
+cat backup.sql | docker exec -i e157a33a722c mysql -uroot -prootpassword test
+
+iconv -f UTF-16LE -t UTF-8 backup/backup_v2-bookings.sql -o backup_v2-bookings_utf8.sql
+
+<!--  -->
+
+Get-Content backup_language_learning.sql | docker exec -i 17b0f65c614d mysql -uroot -prootpassword test
+docker exec 17b0f65c614d sh -c 'exec mysqldump -uroot -prootpassword test' > backup/backup_phrases.sql
+
+docker exec b07661b658c6 sh -c 'exec mysqldump -uroot -prootpassword --default-character-set=utf8mb4 --skip-set-charset test' > backup/backup_language_learning.sql
+Get-Content backup/test.sql | docker exec -i 4ab4c94c8631 sh -c 'exec mysql -uroot -prootpassword --default-character-set=utf8mb4 test'
+
+docker cp ./mysql_backup 4ab4c94c8631:/var/lib/mysql
