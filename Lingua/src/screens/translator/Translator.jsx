@@ -1,21 +1,35 @@
-import { View } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
 import SpeechRecog from "./SpeechRecog";
-import { LanguageProvider } from "@context/LanguageProvider";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LanguageList } from "@components/atoms/LanguageList";
 import Phrasebook from "./PhraseBook";
+import { useState } from "react";
+import { spacing } from "@constants/globalStyles";
+import { CustomButton } from "@components/molecules/CustomButton";
 
 export default function Translator() {
-  return (
-    <LanguageProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ flex: 1 }}>
-          <LanguageList />
-          <Phrasebook />
-        </View>
+  const [visible, setVisible] = useState(false);
 
-        <SpeechRecog />
-      </SafeAreaView>
-    </LanguageProvider>
+  return (
+    <SafeAreaView style={styles.container}>
+      <SpeechRecog />
+      <View style={styles.buttonGroup}>
+        <LanguageList label="Translate to" />
+        <CustomButton onPress={() => setVisible(true)}>
+          View Phrasebook
+        </CustomButton>
+        <Phrasebook visible={visible} setVisible={setVisible} />
+      </View>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: spacing.lg,
+  },
+  buttonGroup: {
+    gap: spacing.md,
+  },
+});

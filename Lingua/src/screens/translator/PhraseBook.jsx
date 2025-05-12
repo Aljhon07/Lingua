@@ -4,13 +4,18 @@ import { useLanguageContext } from "@context/LanguageProvider";
 import { useQueryState } from "@hooks/useQueryState";
 import { fetchPhrases } from "@services/directus/rest";
 import React, { useEffect, useState } from "react";
-import { View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
 import Phrase from "./components/Phrase";
+import { FlatList } from "react-native";
+import Modal from "react-native-modal";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { Text, useTheme } from "react-native-paper";
+import StyledSurface from "@components/atoms/StyledSurface";
 
-export default function Phrasebook() {
+export default function Phrasebook({ visible, setVisible }) {
   const { selectedLanguage, onSelectLanguage, languages } =
     useLanguageContext();
+
+  const { colors } = useTheme();
   const { getQueryState, executeQuery } = useQueryState("phrasebook");
   const phraseState = getQueryState("phrasebook");
 
@@ -22,16 +27,9 @@ export default function Phrasebook() {
     };
     getPhrases();
   }, [selectedLanguage]);
-  return (
-    <View style={{ flex: 1 }}>
-      {languages && (
-        <LanguageList
-          languages={languages}
-          onSelectLanguage={onSelectLanguage}
-          selectedLanguage={selectedLanguage}
-        />
-      )}
 
+  return (
+    <Modal visible={visible}>
       <DataContainer
         data={phraseState.data}
         isLoading={phraseState.isLoading}
@@ -39,17 +37,35 @@ export default function Phrasebook() {
         error={phraseState.error}
         noDataMessage={"No phrases found"}
       >
-        <FlatList
-          data={phraseState.data}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Phrase
-              english={item.phrase}
-              translation={item.translation[0].translation}
+        <StyledSurface>
+          {/* {languages && (
+            <LanguageList
+              languages={languages}
+              onSelectLanguage={onSelectLanguage}
+              selectedLanguage={selectedLanguage}
             />
-          )}
-        />
+          )} */}
+          <FlatList
+            data={phraseState.data}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <Phrase
+                phrase={item.phrase}
+                translation={item.translation[0].translation}
+                translatedAudio={item.translation[0].audio}
+              />
+            )}
+          />
+          <CustomButton
+            style={{
+              backgroundColor: colors.errorContainer,
+            }}
+            onPress={() => setVisible(false)}
+          >
+            <Text>Close</Text>
+          </CustomButton>
+        </StyledSurface>
       </DataContainer>
-    </View>
+    </Modal>
   );
 }

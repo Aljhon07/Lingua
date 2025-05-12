@@ -239,7 +239,7 @@ export const fetchPhrases = async ({ lang }) => {
   try {
     console.log("Fetching Phrases...");
     const res = await axiosInstance.get(
-      `/items/phrase?fields=id,phrase,translation.translation,translation.transliteration,translation.language.*&deep[translation][_filter][language][code][_eq]=${lang}`
+      `/items/phrase?fields=id,phrase,translation.translation,translation.transliteration,translation.audio,translation.language.*&deep[translation][_filter][language][code][_eq]=${lang}`
     );
 
     console.log(JSON.stringify(res.data.data, null, 2));

@@ -3,9 +3,7 @@ import { Text, IconButton, useTheme } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Linking, StyleSheet, View, Platform, Alert } from "react-native";
 import { spacing } from "@constants/globalStyles";
-import { Audio } from "expo-av";
 import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
-import Phrasebook from "./PhraseBook";
 
 export default function SpeechRecog() {
   const { colors } = useTheme();
