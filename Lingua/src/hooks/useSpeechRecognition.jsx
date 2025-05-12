@@ -110,20 +110,24 @@ const requestPermission = async () => {
         throw new Error("No recording URI found")
       }
       
-      const { data } = await transcribeAudio(uri)
-      console.log("Transcription response:", data)
+      const res = await transcribeAudio(uri)
+      if (res.status !== 200 || res.error) {
+        console.log(res)
+        throw new Error(res.message)
+      }
       setSrState((prevState => ({
         ...prevState,
         isRecording: false,
         isProcessing: false,
-        transcription: data.transcript || "No transcription available"
+        transcription: res.data.transcript || "No transcription available"
       })))
+
     } catch (error) {
       console.log("Error: " + error)
       setSrState((prevState) => ({
         ...prevState,
         isProcessing: false,
-        transcription: "Error processing audio"
+        transcription: error.message
       }))
     } finally {
       setSrState((prevState) => ({

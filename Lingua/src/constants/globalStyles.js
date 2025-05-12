@@ -13,11 +13,3 @@ export const border = {
   lg: 16,
   xl: 24,
 }
-
-export const fontSize = {
-  sm: 14,
-  base: 16,
-  md: 20,
-  lg: 32,
-  xl: 48,
-}
