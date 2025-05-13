@@ -15,13 +15,18 @@ export function LanguageList({ label = "Select Language" }) {
     <Dropdown
       mode="outlined"
       label={label}
-      value={selectedLanguage}
+      value={selectedLanguage?.code}
       options={languages.map((language) => ({
         label: language.name,
         value: language.code,
       }))}
       onSelect={(value) => {
-        onSelectLanguage(value);
+        const filteredLanguage = languages.find(
+          (language) => language.code === value
+        );
+        if (filteredLanguage) {
+          onSelectLanguage(filteredLanguage);
+        }
       }}
     />
   );

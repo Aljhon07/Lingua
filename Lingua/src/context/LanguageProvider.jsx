@@ -6,7 +6,10 @@ import { createContext, useContext, useEffect, useState } from "react";
 const LanuageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
-  const [languageCode, setLanguageCode] = useState("ja");
+  const [languageCode, setLanguageCode] = useState({
+    code: "ja",
+    name: "Japanese",
+  });
   const [languageList, setLanguageList] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -24,6 +27,7 @@ export const LanguageProvider = ({ children }) => {
   }, []);
 
   const changeLanguage = (lang) => {
+    console.log("Selected language:", lang);
     setLanguageCode(lang);
   };
 

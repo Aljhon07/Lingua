@@ -18,13 +18,13 @@ export const transcribeAudio = async (audioUri) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      timeout: 10000,
+      timeout: 7500,
     });
 
     return response;
   } catch (error) {
     const err = logError("transcribeAudio", error);
     console.log("Error in transcribeAudio:", err);
-    return err
+    return err;
   }
 };

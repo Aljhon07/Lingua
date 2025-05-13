@@ -12,8 +12,7 @@ import { Text, useTheme } from "react-native-paper";
 import StyledSurface from "@components/atoms/StyledSurface";
 
 export default function Phrasebook({ visible, setVisible }) {
-  const { selectedLanguage, onSelectLanguage, languages } =
-    useLanguageContext();
+  const { selectedLanguage } = useLanguageContext();
 
   const { colors } = useTheme();
   const { getQueryState, executeQuery } = useQueryState("phrasebook");
@@ -22,7 +21,7 @@ export default function Phrasebook({ visible, setVisible }) {
   useEffect(() => {
     const getPhrases = async () => {
       await executeQuery("phrasebook", fetchPhrases, {
-        lang: selectedLanguage,
+        lang: selectedLanguage.code,
       });
     };
     getPhrases();
@@ -49,11 +48,14 @@ export default function Phrasebook({ visible, setVisible }) {
             data={phraseState.data}
             keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
-              <Phrase
-                phrase={item.phrase}
-                translation={item.translation[0].translation}
-                translatedAudio={item.translation[0].audio}
-              />
+              console.log("Item: ", JSON.stringify(item, null, 2)),
+              (
+                <Phrase
+                  phrase={item.phrase}
+                  translation={item.translation[0]?.translation}
+                  translatedAudio={item.translation[0]?.audio}
+                />
+              )
             )}
           />
           <CustomButton
