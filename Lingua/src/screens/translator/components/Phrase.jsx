@@ -10,6 +10,10 @@ export default function Phrase({ phrase, translation, translatedAudio }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioUrl = `${cloudinary.audio}${translatedAudio}.mp3`;
 
+  if (!translation) {
+    return null;
+  }
+
   const playSound = async () => {
     try {
       if (sound) {
@@ -36,11 +40,11 @@ export default function Phrase({ phrase, translation, translatedAudio }) {
 
   return (
     <CustomButton
-      style={{ alignItems: "flex-start", flexDirection: "row" }}
+      style={{ alignItems: "flex-start", flex: 1 }}
       icon={isPlaying ? "pause" : "volume-high"}
       onPress={playSound}
     >
-      <View>
+      <View style={{ flex: 1, width: "100%" }}>
         <Text variant="labelLarge">{phrase}</Text>
         <Text variant="bodyMedium">{translation}</Text>
       </View>
