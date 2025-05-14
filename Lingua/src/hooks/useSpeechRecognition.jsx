@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Audio } from "expo-av";
 import { transcribeAudio } from "@services/speech";
+import { Alert } from "react-native";
 
 export const useSpeechRecognition = () => {
   const [srState, setSrState] = useState({
