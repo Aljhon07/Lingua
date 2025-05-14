@@ -1,16 +1,17 @@
-import { createStackNavigator } from "@react-navigation/stack"
-import { useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
+import { createStackNavigator } from "@react-navigation/stack";
+import { useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
 
-import MainTab from "./MainTab"
-import Translator from "../translator/Translator"
-import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation"
-import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation"
+import MainTab from "./MainTab";
+import Translator from "../translator/Translator";
+import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation";
+import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation";
+import LessonNavigation from "../language-learning/navigations/LessonNavigation";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function MainNavigation() {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
@@ -45,6 +46,13 @@ export default function MainNavigation() {
         name="BookingDetailsNavigation"
         component={BookingDetailsNavigation}
       />
+      <Stack.Screen
+        name="LessonVocabs"
+        component={LessonNavigation}
+        options={{
+          animation: "scale_from_center",
+        }}
+      />
     </Stack.Navigator>
-  )
+  );
 }

@@ -199,7 +199,7 @@ export const fetchLanguages = async () => {
 export const fetchLessons = async (filter) => {
   try {
     console.log("Fetching Lessons...");
-    const res = await axiosInstance.get(`/items/lesson?${filter}`);
+    const res = await axiosInstance.get(`/items/lesson?${filter}&sort=order`);
     console.log("Lessons Fetched");
     return res.data.data;
   } catch (error) {
@@ -211,9 +211,9 @@ export const fetchVocabulary = async ({ id, lang }) => {
   try {
     console.log("Fetching Vocabulary...");
     const res = await axiosInstance.get(
-      `/items/vocabulary?filter[lesson][_eq]=${id}&fields=*,translations.*,translations.language.code&deep[translations][_filter][language][code]=${lang}`
+      `/items/vocabulary?filter[lesson][_eq]=${id}&filter[translations][language][code][_eq]=${lang}&fields=word,sentence,definition,image,audio,translations.*,translations.language.*&deep[translations][_filter][language][code][_eq]=${lang}`
     );
-    console.log("Vocabulary Fetched");
+    console.log(JSON.stringify(res.data.data, null, 2));
 
     return res.data.data;
   } catch (error) {
@@ -227,7 +227,7 @@ export const fetchQuestions = async ({ id, lang }) => {
     const res = await axiosInstance.get(
       `/items/question?filter[lesson][_eq]=${id}&fields=question,type,answer.word,answer.sentence,answer.audio,answer.image,answer.translations.*&deep[answer][translations][_filter][language][code][_eq]=${lang}`
     );
-    console.log(JSON.stringify(res.data.data, null, 2));
+    console.log("TEst", JSON.stringify(res.data.data, null, 2));
 
     return res.data.data;
   } catch (error) {
