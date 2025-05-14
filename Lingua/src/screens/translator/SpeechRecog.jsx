@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Text, IconButton, useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Linking, StyleSheet, View, Platform, Alert } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { spacing } from "@constants/globalStyles";
 import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
 
