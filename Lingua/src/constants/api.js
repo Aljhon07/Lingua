@@ -1,12 +1,9 @@
-import { get } from "axios";
-
 export const domain = "192.168.1.161";
-// export const domain = "10.0.2.2"
+// export const domain = "10.0.2.2";
 // const domain = "192.168.131.188"
 
 export const directus = {
   baseURL: `http://${domain}:8055`,
-  assets: `http://${domain}:8055/assets`,
 };
 
 export const cloudinary = {
