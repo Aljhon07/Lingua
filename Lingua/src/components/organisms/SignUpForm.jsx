@@ -1,10 +1,11 @@
-import { StyleSheet, View } from "react-native"
-import { spacing } from "@constants/globalStyles"
-import { useInputChange } from "@hooks/useInputChange"
-import { useAuthContext } from "@context/AuthProvider"
-import { TextInput, Text } from "react-native-paper"
-import { LinkText } from "@components/atoms/LinkText"
-import { CustomButton } from "@components/molecules/CustomButton"
+import { StyleSheet, View } from "react-native";
+import { spacing } from "@constants/globalStyles";
+import { useInputChange } from "@hooks/useInputChange";
+import { useAuthContext } from "@context/AuthProvider";
+import { TextInput, Text } from "react-native-paper";
+import { LinkText } from "@components/atoms/LinkText";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { useToggle } from "@hooks/useToggle";
 
 export default function SignUpForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
@@ -13,10 +14,10 @@ export default function SignUpForm({ navigation }) {
     firstName: "",
     lastName: "",
     confirmPassword: "",
-  })
-
-  const { signUp } = useAuthContext()
-  const handleSignUp = async () => signUp(credentials)
+  });
+  const [visible, toggleVisiblity] = useToggle();
+  const { signUp } = useAuthContext();
+  const handleSignUp = async () => signUp(credentials);
 
   return (
     <View style={styles.container}>
@@ -45,17 +46,33 @@ export default function SignUpForm({ navigation }) {
         />
         <TextInput
           mode="outlined"
-          secureTextEntry
+          textContentType="password"
+          secureTextEntry={!visible}
           label="Password"
           value={credentials.password}
+          right={
+            <TextInput.Icon
+              icon={visible ? "eye" : "eye-off"}
+              onPress={toggleVisiblity}
+              color={colors.primary}
+            />
+          }
           onChangeText={(text) => handleInputChange("password", text)}
         />
         <TextInput
           mode="outlined"
-          secureTextEntry
-          label="Confirm Password"
+          textContentType="password"
+          secureTextEntry={!visible}
+          label="Password"
           value={credentials.confirmPassword}
-          onChangeText={(text) => handleInputChange("confirmPassword", text)}
+          right={
+            <TextInput.Icon
+              icon={visible ? "eye" : "eye-off"}
+              onPress={toggleVisiblity}
+              color={colors.primary}
+            />
+          }
+          onChangeText={(text) => handleInputChange("password", text)}
         />
         <View style={styles.wrapper}>
           <CustomButton primary onPress={handleSignUp}>
@@ -70,7 +87,7 @@ export default function SignUpForm({ navigation }) {
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -90,4 +107,4 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: "center",
   },
-})
+});

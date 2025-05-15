@@ -8,29 +8,29 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function RootNavigator() {
   const { loading, isAuthenticated } = useAuthContext();
-  useEffect(() => {
-    if (loading) {
-      SplashScreen.preventAutoHideAsync();
-    } else {
-      setTimeout(() => {
-        SplashScreen.hideAsync();
-      }, 100);
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     SplashScreen.preventAutoHideAsync();
+  //   } else {
+  //     setTimeout(() => {
+  //       SplashScreen.hideAsync();
+  //     }, 100);
+  //   }
+  // }, [loading]);
 
-  if (loading) {
-    return (
-      <SafeAreaView
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <ActivityIndicator size="large" />
-      </SafeAreaView>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <SafeAreaView
+  //       style={{
+  //         flex: 1,
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <ActivityIndicator size="large" />
+  //     </SafeAreaView>
+  //   );
+  // }
 
   return isAuthenticated ? <MainNavigation /> : <AuthNavigation />;
 }
