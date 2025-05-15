@@ -19,9 +19,9 @@ export default function Header({ getPackages, countries }) {
 
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: "Japan",
-    minBudget: 0,
-    maxBudget: 10000,
+    destination: undefined,
+    minBudget: undefined,
+    maxBudget: undefined,
   });
 
   const { colors } = useTheme();
