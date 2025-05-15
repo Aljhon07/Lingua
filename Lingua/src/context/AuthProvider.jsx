@@ -1,69 +1,72 @@
-import { createContext, useState, useContext, useEffect } from "react"
-import { signIn, signUp } from "@services/directus/auth"
-import * as SecureStorage from "expo-secure-store"
-import { axiosInstance } from "@utils/axiosInstance"
-import { useProfileContext } from "./ProfileProvider"
+import { createContext, useState, useContext, useEffect } from "react";
+import { signIn, signUp } from "@services/directus/auth";
+import * as SecureStorage from "expo-secure-store";
+import { axiosInstance } from "@utils/axiosInstance";
+import { useProfileContext } from "./ProfileProvider";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const { getProfile } = useProfileContext()
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { getProfile } = useProfileContext();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const token = await SecureStorage.getItemAsync("accessToken")
+        const token = await SecureStorage.getItemAsync("accessToken");
         if (token) {
           axiosInstance.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${token}`
-          const profile = await getProfile()
-          if (profile) setIsAuthenticated(true)
+          ] = `Bearer ${token}`;
+          const profile = await getProfile();
+          if (profile) setIsAuthenticated(true);
         } else {
-          console.log("Auth: Token deleted")
-          delete axiosInstance.defaults.headers.common["Authorization"]
+          console.log("Auth: Token deleted");
+          delete axiosInstance.defaults.headers.common["Authorization"];
         }
       } catch (error) {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    checkAuthStatus()
-  }, [])
+    };
+    checkAuthStatus();
+  }, []);
 
   const contextSignIn = async ({ email, password }) => {
+    setLoading(true);
     try {
-      const res = await signIn(email, password)
-      setLoading(true)
-      await getProfile()
-      setIsAuthenticated(true)
-      console.log("Sign in successful")
+      const res = await signIn(email, password);
+      if (res?.error) {
+        return res.message;
+      }
+      await getProfile();
+      setIsAuthenticated(true);
     } catch (error) {
-      console.error("Auth", error.responseData[0])
+      console.error("Auth");
     } finally {
-      setLoading(false)
+      console.log("Loading finished");
+      setLoading(false);
     }
-  }
+  };
 
   const contextSignUp = async ({ email, password, firstName, lastName }) => {
+    setLoading(true);
     try {
-      const res = await signUp(email, password, firstName, lastName)
-      console.log("Sign Up successful")
-      setLoading(true)
-      contextSignIn({ email, password })
+      const res = await signUp(email, password, firstName, lastName);
+      console.log("Sign Up successful");
+      contextSignIn({ email, password });
     } catch (error) {
-      console.error("Auth", error)
-      setLoading(false)
+      console.error("Auth", error);
+      setLoading(false);
     }
-  }
+  };
 
   const contextSignOut = async () => {
-    await SecureStorage.deleteItemAsync("accessToken")
-    delete axiosInstance.defaults.headers.common["Authorization"]
-    setIsAuthenticated(false)
-  }
+    await SecureStorage.deleteItemAsync("accessToken");
+    delete axiosInstance.defaults.headers.common["Authorization"];
+    setIsAuthenticated(false);
+  };
 
   return (
     <AuthContext.Provider
@@ -77,7 +80,7 @@ export default function AuthProvider({ children }) {
     >
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
-export const useAuthContext = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(AuthContext);

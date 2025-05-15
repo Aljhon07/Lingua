@@ -1,25 +1,36 @@
-import { StyleSheet, View } from "react-native"
-import { spacing } from "@constants/globalStyles"
-import { LinkText } from "@components/atoms/LinkText"
-import { useInputChange } from "@hooks/useInputChange"
-import { useAuthContext } from "@context/AuthProvider"
-import { Text, TextInput, useTheme } from "react-native-paper"
-import { useToggle } from "@hooks/useToggle"
-import { CustomButton } from "@components/molecules/CustomButton"
+import { StyleSheet, View } from "react-native";
+import { spacing } from "@constants/globalStyles";
+import { LinkText } from "@components/atoms/LinkText";
+import { useInputChange } from "@hooks/useInputChange";
+import { useAuthContext } from "@context/AuthProvider";
+import { Text, TextInput, useTheme } from "react-native-paper";
+import { useToggle } from "@hooks/useToggle";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { domain } from "@constants/api";
+import { useState } from "react";
+import { set } from "lodash";
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
     email: "",
     password: "",
-  })
-  const [visible, toggleVisiblity] = useToggle()
-  const { loading, signIn } = useAuthContext()
-  const { colors } = useTheme()
-  const handleSignIn = async () => signIn(credentials)
+  });
+  const [message, setMessage] = useState(null);
+  const [visible, toggleVisiblity] = useToggle();
+  const { loading, signIn } = useAuthContext();
+  const { colors } = useTheme();
+
+  const handleSignIn = async () => {
+    setMessage(null);
+    const res = await signIn(credentials);
+    setMessage(res);
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
+        <Text>{domain}</Text>
+
         <TextInput
           mode="outlined"
           style={styles.inputField}
@@ -45,8 +56,22 @@ export default function SignInForm({ navigation }) {
           onChangeText={(text) => handleInputChange("password", text)}
         />
 
+        {message && (
+          <Text
+            style={{
+              color: colors.error,
+            }}
+          >
+            {message}
+          </Text>
+        )}
         <View style={styles.wrapper}>
-          <CustomButton primary onPress={handleSignIn} loading={loading}>
+          <CustomButton
+            primary
+            onPress={handleSignIn}
+            loading={loading}
+            contentStyle={{ flexDirection: "row-reverse" }}
+          >
             Sign In
           </CustomButton>
           <Text style={styles.centerText}>
@@ -59,7 +84,7 @@ export default function SignInForm({ navigation }) {
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -80,4 +105,4 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: "center",
   },
-})
+});
