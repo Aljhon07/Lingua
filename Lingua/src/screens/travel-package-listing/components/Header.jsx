@@ -28,12 +28,12 @@ export default function Header({ getPackages, countries }) {
   const styles = createStyles(colors);
 
   const handleSearch = () => {
-    if (minBudget > maxBudget) {
-      alert("Minimum budget cannot be greater than maximum budget");
-      return;
-    }
     if (!filter.destination) {
       alert("Please select a destination");
+      return;
+    }
+    if (filter.minBudget > filter.maxBudget) {
+      alert("Minimum budget cannot be greater than maximum budget");
       return;
     }
     let queries = `filter[price][_gte]=${
