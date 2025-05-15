@@ -19,7 +19,7 @@ export default function Header({ getPackages, countries }) {
 
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: "Japan",
+    destination: undefined,
     minBudget: 0,
     maxBudget: 10000,
   });
