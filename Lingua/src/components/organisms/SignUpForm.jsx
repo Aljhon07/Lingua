@@ -2,7 +2,7 @@ import { StyleSheet, View } from "react-native";
 import { spacing } from "@constants/globalStyles";
 import { useInputChange } from "@hooks/useInputChange";
 import { useAuthContext } from "@context/AuthProvider";
-import { TextInput, Text } from "react-native-paper";
+import { TextInput, Text, useTheme } from "react-native-paper";
 import { LinkText } from "@components/atoms/LinkText";
 import { CustomButton } from "@components/molecules/CustomButton";
 import { useToggle } from "@hooks/useToggle";
@@ -17,6 +17,7 @@ export default function SignUpForm({ navigation }) {
   });
   const [visible, toggleVisiblity] = useToggle();
   const { signUp } = useAuthContext();
+  const { colors } = useTheme();
   const handleSignUp = async () => signUp(credentials);
 
   return (

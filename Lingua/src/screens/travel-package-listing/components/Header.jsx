@@ -2,7 +2,7 @@ import PaddedView from "@components/atoms/PaddedView";
 import { Text, TextInput, useTheme } from "react-native-paper";
 import { spacing } from "@constants/globalStyles";
 import { Keyboard, StyleSheet, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   en,
   registerTranslation,
@@ -20,8 +20,8 @@ export default function Header({ getPackages, countries }) {
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
     destination: "Japan",
-    minBudget: 0,
-    maxBudget: 10000,
+    minBudget: null,
+    maxBudget: null,
   });
 
   const { colors } = useTheme();
@@ -88,7 +88,9 @@ export default function Header({ getPackages, countries }) {
             inputMode="numeric"
             mode="outlined"
             value={filter.minBudget}
-            onChangeText={(input) => setFilter({ ...filter, minBudget: input })}
+            onChangeText={(input) =>
+              setFilter({ ...filter, minBudget: parseInt(input) })
+            }
             style={{ flex: 1 }}
             left={<TextInput.Affix text="₱ " />}
           />
@@ -97,7 +99,9 @@ export default function Header({ getPackages, countries }) {
             inputMode="numeric"
             mode="outlined"
             value={filter.maxBudget}
-            onChangeText={(input) => setFilter({ ...filter, maxBudget: input })}
+            onChangeText={(input) =>
+              setFilter({ ...filter, maxBudget: parseInt(input) })
+            }
             style={{ flex: 1 }}
             left={<TextInput.Affix text="₱ " />}
           />

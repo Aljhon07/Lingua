@@ -1,10 +1,10 @@
-import { View } from "react-native"
-import { LinguaLogo } from "@components/atoms/LinguaLogo"
-import { Button, Text, useTheme } from "react-native-paper"
+import { View } from "react-native";
+import { LinguaLogo } from "@components/atoms/LinguaLogo";
+import { Button, Text } from "react-native-paper";
 
 export default function Auth({ navigation }) {
-  const bg_1 = require("@assets/images/background_1.jpg")
-  const bg_2 = require("@assets/images/background_2.jpg")
+  const bg_1 = require("@assets/images/background_1.jpg");
+  const bg_2 = require("@assets/images/background_2.jpg");
   return (
     <View style={{ flex: 1, padding: 20 }}>
       <View
@@ -52,5 +52,5 @@ export default function Auth({ navigation }) {
         </Button>
       </View>
     </View>
-  )
+  );
 }
