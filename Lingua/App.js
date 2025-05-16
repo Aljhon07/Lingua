@@ -15,6 +15,7 @@ export default function App() {
     "Alegreya-Bold": require("@assets/fonts/Alegreya/AlegreyaSans-Bold.ttf"),
     "Exo2-Medium": require("@assets/fonts/exo2/Exo2-Medium.ttf"),
     "Exo2-Bold": require("@assets/fonts/exo2/Exo2-Bold.ttf"),
+    "NotoSans-Regular": require("@assets/fonts/noto-sans/NotoSans-Regular.ttf"),
   });
 
   if (!loaded) {

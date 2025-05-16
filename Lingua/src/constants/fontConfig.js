@@ -60,7 +60,7 @@ export const fontConfig = {
     fontSize: 16,
   },
   default: {
-    fontFamily: "Alegreya-Regular",
+    fontFamily: "NotoSans-Regular",
     fontSize: 16,
   },
-}
+};
