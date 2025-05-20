@@ -36,13 +36,16 @@ export default function Vocabulary({ vocab }) {
         onPress={playAudio}
       >
         <View style={{ gap: spacing.sm, alignSelf: "flex-start" }}>
-          <Text
-            variant="bodyLarge"
-            style={styles.translation}
-            theme={localFontConfig}
-          >
-            {translated_word}
-          </Text>
+          <View style={{ flexDirection: "row", gap: spacing.md }}>
+            <Text
+              variant="bodyLarge"
+              style={styles.translation}
+              theme={localFontConfig}
+            >
+              {translated_word}
+            </Text>
+            <Text variant="bodyLarge">{`(${word_transliteration})`}</Text>
+          </View>
           <Text
             variant="bodyMedium"
             theme={localFontConfig}
@@ -60,10 +63,13 @@ const createStyles = (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      padding: spacing.lg,
+      paddingVertical: spacing.lg,
+      paddingHorizontal: spacing.sm,
       gap: spacing.lg,
     },
-    translation: {},
+    translation: {
+      fontFamily: "NotoSans-Regular",
+    },
     english: {
       color: colors.surfaceVariant,
     },

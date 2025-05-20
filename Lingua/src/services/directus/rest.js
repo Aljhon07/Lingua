@@ -211,7 +211,7 @@ export const fetchVocabulary = async ({ id, lang }) => {
   try {
     console.log("Fetching Vocabulary...");
     const res = await axiosInstance.get(
-      `/items/vocabulary?filter[lesson][_eq]=${id}&filter[translations][language][code][_eq]=${lang}&fields=word,sentence,definition,image,audio,translations.*,translations.language.*&deep[translations][_filter][language][code][_eq]=${lang}`
+      `/items/vocabulary?filter[lesson][_eq]=${id}&filter[translations][language][code][_eq]=${lang}&fields=id,word,sentence,definition,image,audio,translations.*,translations.language.*&deep[translations][_filter][language][code][_eq]=${lang}`
     );
     console.log(JSON.stringify(res.data.data, null, 2));
 

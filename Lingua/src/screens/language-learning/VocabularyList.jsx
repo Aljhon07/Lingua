@@ -2,7 +2,7 @@ import DataContainer from "@components/layouts/DataContainer";
 import { spacing } from "@constants/globalStyles";
 import { useQueryState } from "@hooks/useQueryState";
 import { fetchVocabulary } from "@services/directus/rest";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { CustomButton } from "@components/molecules/CustomButton";
@@ -21,11 +21,7 @@ export default function VocabularyList({ id, title }) {
   const { handleVocabList } = useLessonContext();
   const { selectedLanguage } = useLanguageContext();
   const navigation = useNavigation();
-  useEffect(() => {
-    if (!vocabulary.error && !vocabulary.loading && vocabulary.data) {
-      handleVocabList(vocabulary.data);
-    }
-  }, [vocabulary.data]);
+  const [shuffledData, setShuffledData] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -34,11 +30,14 @@ export default function VocabularyList({ id, title }) {
         lang: selectedLanguage.code,
       });
     })();
+  }, [selectedLanguage]);
 
-    return () => {
-      console.log("Unmounting VocabularyList");
-    };
-  }, []);
+  useEffect(() => {
+    if (!vocabulary.error && !vocabulary.loading && vocabulary.data) {
+      setShuffledData(_.shuffle(vocabulary.data));
+      handleVocabList(vocabulary.data);
+    }
+  }, [vocabulary.data]);
 
   const handleQuizNavigation = () => {
     navigation.navigate("Quiz", { id, title });
@@ -52,7 +51,7 @@ export default function VocabularyList({ id, title }) {
         loading={vocabulary.loading}
       >
         <FlatList
-          data={_.shuffle(vocabulary.data)}
+          data={shuffledData}
           renderItem={(item) => {
             return <Vocabulary vocab={item.item} />;
           }}
