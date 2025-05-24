@@ -1,4 +1,5 @@
 import { CustomButton } from "@components/molecules/CustomButton";
+import { cloudinary } from "@constants/api";
 import { spacing } from "@constants/globalStyles";
 import { usePlayback } from "@hooks/usePlayback";
 import { StyleSheet, View } from "react-native";
@@ -8,7 +9,9 @@ import { JumpingTransition } from "react-native-reanimated";
 export default function Vocabulary({ vocab }) {
   const { translated_word, word_transliteration, audio } =
     vocab.translations[0];
-  const { playAudio, isPlaying } = usePlayback(audio);
+  const { playSound, isPlaying } = usePlayback(
+    `${cloudinary.audio}${audio}.mp3`
+  );
   const { colors } = useTheme();
   const styles = createStyles(colors);
 
@@ -33,7 +36,7 @@ export default function Vocabulary({ vocab }) {
         contentStyle={{
           gap: spacing.md,
         }}
-        onPress={playAudio}
+        onPress={playSound}
       >
         <View style={{ gap: spacing.sm, alignSelf: "flex-start" }}>
           <View style={{ flexDirection: "row", gap: spacing.md }}>

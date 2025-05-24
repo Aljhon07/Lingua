@@ -227,7 +227,7 @@ export const fetchQuestions = async ({ id, lang }) => {
     const res = await axiosInstance.get(
       `/items/question?filter[lesson][_eq]=${id}&fields=question,type,answer.word,answer.sentence,answer.audio,answer.image,answer.translations.*&deep[answer][translations][_filter][language][code][_eq]=${lang}`
     );
-    console.log("TEst", JSON.stringify(res.data.data, null, 2));
+    console.log("Questions", JSON.stringify(res.data.data, null, 2));
 
     return res.data.data;
   } catch (error) {
