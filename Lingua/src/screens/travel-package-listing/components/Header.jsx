@@ -1,45 +1,53 @@
-import PaddedView from "@components/atoms/PaddedView"
-import { Text, TextInput, useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { Keyboard, StyleSheet, View } from "react-native"
-import { useState } from "react"
+import PaddedView from "@components/atoms/PaddedView";
+import { Text, TextInput, useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { Keyboard, StyleSheet, View } from "react-native";
+import { useEffect, useState } from "react";
 import {
   en,
   registerTranslation,
   DatePickerInput,
-} from "react-native-paper-dates"
-import { useProfileContext } from "@context/ProfileProvider"
-import { StatusBar } from "expo-status-bar"
-import { Dropdown } from "react-native-paper-dropdown"
-import { CustomButton } from "@components/molecules/CustomButton"
+} from "react-native-paper-dates";
+import { useProfileContext } from "@context/ProfileProvider";
+import { StatusBar } from "expo-status-bar";
+import { Dropdown } from "react-native-paper-dropdown";
+import { CustomButton } from "@components/molecules/CustomButton";
 
 export default function Header({ getPackages, countries }) {
-  registerTranslation("en", en)
-  const { profile } = useProfileContext()
+  registerTranslation("en", en);
+  const { profile } = useProfileContext();
 
-  console.log(countries)
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: undefined,
-    minBudget: undefined,
-    maxBudget: undefined,
-  })
+    destination: "Japan",
+    minBudget: null,
+    maxBudget: null,
+  });
 
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
   const handleSearch = () => {
+    if (!filter.destination) {
+      alert("Please select a destination");
+      return;
+    }
+    if (filter.minBudget > filter.maxBudget) {
+      alert("Minimum budget cannot be greater than maximum budget");
+      return;
+    }
     let queries = `filter[price][_gte]=${
       filter.minBudget || 0
-    }&filter[price][_lte]=${filter.maxBudget || 999999}`
-    Keyboard.dismiss()
+    }&filter[price][_lte]=${filter.maxBudget || 999999}`;
+
+    Keyboard.dismiss();
     if (filter.destination) {
-      queries += `&filter[country][name][_eq]=${filter.destination}`
+      queries += `&filter[country][name][_eq]=${filter.destination}`;
     }
 
-    console.log("Fikter: ", queries)
-    getPackages(queries)
-  }
+    console.log("Fikter: ", queries);
+    getPackages(queries);
+  };
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
@@ -80,7 +88,9 @@ export default function Header({ getPackages, countries }) {
             inputMode="numeric"
             mode="outlined"
             value={filter.minBudget}
-            onChangeText={(input) => setFilter({ ...filter, minBudget: input })}
+            onChangeText={(input) =>
+              setFilter({ ...filter, minBudget: parseInt(input) })
+            }
             style={{ flex: 1 }}
             left={<TextInput.Affix text="₱ " />}
           />
@@ -89,7 +99,9 @@ export default function Header({ getPackages, countries }) {
             inputMode="numeric"
             mode="outlined"
             value={filter.maxBudget}
-            onChangeText={(input) => setFilter({ ...filter, maxBudget: input })}
+            onChangeText={(input) =>
+              setFilter({ ...filter, maxBudget: parseInt(input) })
+            }
             style={{ flex: 1 }}
             left={<TextInput.Affix text="₱ " />}
           />
@@ -100,7 +112,7 @@ export default function Header({ getPackages, countries }) {
         Search
       </CustomButton>
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -119,4 +131,4 @@ const createStyles = (colors) =>
     wrapper: {
       gap: spacing.xl,
     },
-  })
+  });

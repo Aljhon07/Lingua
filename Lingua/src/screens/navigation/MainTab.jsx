@@ -1,21 +1,25 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import Profile from "../profile/Profile"
-import Translator from "../translator/Translator"
-import BookingHistory from "../bookings/BookingHistory"
-import LessonNavigation from "./LessonNavigation"
-import Explore from "../travel-package-listing/Explore"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Profile from "../profile/Profile";
+import Translator from "../translator/Translator";
+import BookingHistory from "../bookings/BookingHistory";
+import LessonNavigation from "../language-learning/navigations/LessonNavigation";
+import Explore from "../travel-package-listing/Explore";
+import LessonList from "../language-learning/LessonList";
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
 
   return (
     <Tab.Navigator
       initialRouteName="Explore"
-      screenOptions={{ headerShown: false, headerTransparent: false }}
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        headerTransparent: false,
+      })}
     >
       <Tab.Screen
         name="Explore"
@@ -41,7 +45,7 @@ export default function MainTab() {
         listeners={() => ({
           tabPress: (e) => {
             // e.preventDefault()
-            navigate("Translator")
+            navigate("Translator");
           },
         })}
         options={{
@@ -52,7 +56,7 @@ export default function MainTab() {
       />
       <Tab.Screen
         name="LessonsNavigation"
-        component={LessonNavigation}
+        component={LessonList}
         options={{
           title: "Learn",
           tabBarIcon: ({ color }) => (
@@ -70,5 +74,5 @@ export default function MainTab() {
         }}
       />
     </Tab.Navigator>
-  )
+  );
 }

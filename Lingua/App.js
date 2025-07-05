@@ -1,10 +1,11 @@
-import React from "react"
-import AuthProvider from "@context/AuthProvider.jsx"
-import { useFonts } from "expo-font"
-import ThemeProvider from "@context/ThemeProvider"
-import RootNavigator from "@navigation/RootNavigator"
-import ProfileProvider from "@context/ProfileProvider"
-import { SafeAreaProvider } from "react-native-safe-area-context"
+import React from "react";
+import AuthProvider from "@context/AuthProvider.jsx";
+import { useFonts } from "expo-font";
+import ThemeProvider from "@context/ThemeProvider";
+import RootNavigator from "@navigation/RootNavigator";
+import ProfileProvider from "@context/ProfileProvider";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { LanguageProvider } from "@context/LanguageProvider";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -14,21 +15,24 @@ export default function App() {
     "Alegreya-Bold": require("@assets/fonts/Alegreya/AlegreyaSans-Bold.ttf"),
     "Exo2-Medium": require("@assets/fonts/exo2/Exo2-Medium.ttf"),
     "Exo2-Bold": require("@assets/fonts/exo2/Exo2-Bold.ttf"),
-  })
+    "NotoSans-Regular": require("@assets/fonts/noto-sans/NotoSans-Regular.ttf"),
+  });
 
   if (!loaded) {
-    return null
+    return null;
   }
 
   return (
     <SafeAreaProvider>
       <ProfileProvider>
         <AuthProvider>
-          <ThemeProvider>
-            <RootNavigator />
-          </ThemeProvider>
+          <LanguageProvider>
+            <ThemeProvider>
+              <RootNavigator />
+            </ThemeProvider>
+          </LanguageProvider>
         </AuthProvider>
       </ProfileProvider>
     </SafeAreaProvider>
-  )
+  );
 }

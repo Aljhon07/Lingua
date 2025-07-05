@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native";
 
 export default function SplitComponent({ right, left }) {
   return (
@@ -6,7 +6,7 @@ export default function SplitComponent({ right, left }) {
       <View style={styles.left}>{left}</View>
       <View style={styles.right}>{right}</View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
   right: {
     flex: 1,
   },
-})
+});

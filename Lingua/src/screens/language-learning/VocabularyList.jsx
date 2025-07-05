@@ -1,87 +1,67 @@
-import DataContainer from "@components/layouts/DataContainer"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { spacing } from "@constants/globalStyles"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchLessons, fetchVocabulary } from "@services/directus/rest"
-import { useEffect } from "react"
-import { StyleSheet, View } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
-import { Text, useTheme } from "react-native-paper"
-import { SafeAreaView } from "react-native-safe-area-context"
+import DataContainer from "@components/layouts/DataContainer";
+import { spacing } from "@constants/globalStyles";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchVocabulary } from "@services/directus/rest";
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { useTheme } from "react-native-paper";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { useLessonContext } from "@context/LessonProvider";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { FlatList } from "react-native-gesture-handler";
+import Vocabulary from "./components/Vocabulary";
+import _ from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
-export default function VocabularyList({ route, navigation }) {
-  const { id, title } = route.params
-  const { colors, roundness } = useTheme()
-  const styles = createStyles(colors, roundness)
-  const { executeQuery, getQueryState } = useQueryState()
-  const vocabulary = getQueryState("vocabulary")
+export default function VocabularyList({ id, title }) {
+  const { colors, roundness } = useTheme();
+  const styles = createStyles(colors, roundness);
+  const { executeQuery, getQueryState } = useQueryState();
+  const vocabulary = getQueryState("vocabulary");
+  const { handleVocabList } = useLessonContext();
+  const { selectedLanguage } = useLanguageContext();
+  const navigation = useNavigation();
+  const [shuffledData, setShuffledData] = useState([]);
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       await executeQuery("vocabulary", fetchVocabulary, {
         id,
-        filter: `fields=keyword,translation`,
-      })
-    })()
-  }, [])
+        lang: selectedLanguage.code,
+      });
+    })();
+  }, [selectedLanguage]);
+
+  useEffect(() => {
+    if (!vocabulary.error && !vocabulary.loading && vocabulary.data) {
+      setShuffledData(_.shuffle(vocabulary.data));
+      handleVocabList(vocabulary.data);
+    }
+  }, [vocabulary.data]);
 
   const handleQuizNavigation = () => {
-    navigation.navigate("Quiz", { id, title })
-  }
+    navigation.navigate("Quiz", { id, title });
+  };
 
-  const renderItem = ({ keyword, translation }) => {
-    return (
-      <View style={styles.vocabularyContainer}>
-        <Text variant="bodyLarge" style={styles.vocabularyText}>
-          {keyword}
-        </Text>
-        <Text variant="titleMedium" style={styles.vocabularyText}>
-          {translation}
-        </Text>
-      </View>
-    )
-  }
   return (
-    <DataContainer
-      data={vocabulary.data}
-      error={vocabulary.error}
-      loading={vocabulary.loading}
-    >
-      <View style={styles.container}>
-        <View style={styles.wrapper}>
-          <Text variant="titleLarge">Vocabulary</Text>
-          <Text variant="bodyMedium">
-            Before starting the vocabulary quiz, please remember the vocabulary
-            list below!
-          </Text>
-        </View>
+    <View style={{ flex: 1, padding: spacing.lg }}>
+      <DataContainer
+        data={vocabulary.data}
+        error={vocabulary.error}
+        loading={vocabulary.loading}
+      >
         <FlatList
-          data={vocabulary.data}
-          renderItem={({ item }) => renderItem(item)}
+          data={shuffledData}
+          renderItem={(item) => {
+            return <Vocabulary vocab={item.item} />;
+          }}
         />
         <CustomButton primary onPress={handleQuizNavigation}>
           Take Quiz
         </CustomButton>
-      </View>
-    </DataContainer>
-  )
+      </DataContainer>
+    </View>
+  );
 }
 
-const createStyles = (colors, roundness) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      paddingVertical: spacing.md,
-      paddingHorizontal: spacing.md,
-      gap: spacing.md,
-    },
-    vocabularyContainer: {
-      backgroundColor: colors.surfaceVariant,
-      marginBottom: spacing.md,
-      padding: spacing.lg,
-      borderRadius: roundness,
-    },
-    vocabularyText: {
-      textAlign: "center",
-    },
-  })
+const createStyles = (colors, roundness) => StyleSheet.create({});
