@@ -1,31 +1,31 @@
-import { LanguageList } from "@components/atoms/LanguageList";
-import DataContainer from "@components/layouts/DataContainer";
-import { useLanguageContext } from "@context/LanguageProvider";
-import { useQueryState } from "@hooks/useQueryState";
-import { fetchPhrases } from "@services/directus/rest";
-import React, { useEffect, useState } from "react";
-import Phrase from "./components/Phrase";
-import { FlatList } from "react-native";
-import Modal from "react-native-modal";
-import { CustomButton } from "@components/molecules/CustomButton";
-import { Text, useTheme } from "react-native-paper";
-import StyledSurface from "@components/atoms/StyledSurface";
+import { LanguageList } from "@components/atoms/LanguageList"
+import DataContainer from "@components/layouts/DataContainer"
+import { useLanguageContext } from "@context/LanguageProvider"
+import { useQueryState } from "@hooks/useQueryState"
+import { fetchPhrases } from "@services/directus/rest"
+import React, { useEffect, useState } from "react"
+import Phrase from "./components/Phrase"
+import { FlatList } from "react-native"
+import Modal from "react-native-modal"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { Text, useTheme } from "react-native-paper"
+import StyledSurface from "@components/atoms/StyledSurface"
 
 export default function Phrasebook({ visible, setVisible }) {
-  const { selectedLanguage } = useLanguageContext();
+  const { selectedLanguage } = useLanguageContext()
 
-  const { colors } = useTheme();
-  const { getQueryState, executeQuery } = useQueryState("phrasebook");
-  const phraseState = getQueryState("phrasebook");
+  const { colors } = useTheme()
+  const { getQueryState, executeQuery } = useQueryState("phrasebook")
+  const phraseState = getQueryState("phrasebook")
 
   useEffect(() => {
     const getPhrases = async () => {
       await executeQuery("phrasebook", fetchPhrases, {
         lang: selectedLanguage.code,
-      });
-    };
-    getPhrases();
-  }, [selectedLanguage]);
+      })
+    }
+    getPhrases()
+  }, [selectedLanguage])
 
   return (
     <Modal visible={visible}>
@@ -37,13 +37,6 @@ export default function Phrasebook({ visible, setVisible }) {
         noDataMessage={"No phrases found"}
       >
         <StyledSurface>
-          {/* {languages && (
-            <LanguageList
-              languages={languages}
-              onSelectLanguage={onSelectLanguage}
-              selectedLanguage={selectedLanguage}
-            />
-          )} */}
           <FlatList
             data={phraseState.data}
             keyExtractor={(item) => item.id.toString()}
@@ -69,5 +62,5 @@ export default function Phrasebook({ visible, setVisible }) {
         </StyledSurface>
       </DataContainer>
     </Modal>
-  );
+  )
 }

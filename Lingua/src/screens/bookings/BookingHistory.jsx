@@ -1,39 +1,39 @@
-import DataContainer from "@components/layouts/DataContainer";
-import { spacing } from "@constants/globalStyles";
-import { useQueryState } from "@hooks/useQueryState";
-import { fetchBookings } from "@services/directus/rest";
-import { useCallback, useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { Text, useTheme } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, RefreshControl } from "react-native-gesture-handler";
-import BookingOverview from "./components/BookingOverview";
-import { useFocusEffect } from "@react-navigation/native";
+import DataContainer from "@components/layouts/DataContainer"
+import { spacing } from "@constants/globalStyles"
+import { useQueryState } from "@hooks/useQueryState"
+import { fetchBookings } from "@services/directus/rest"
+import { useCallback, useEffect } from "react"
+import { StyleSheet, View } from "react-native"
+import { Text, useTheme } from "react-native-paper"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
+import BookingOverview from "./components/BookingOverview"
+import { useFocusEffect } from "@react-navigation/native"
 
 export default function BookingHistory() {
-  const { getQueryState, executeQuery } = useQueryState();
-  const bookingHistory = getQueryState("booking-history");
+  const { getQueryState, executeQuery } = useQueryState()
+  const bookingHistory = getQueryState("booking-history")
 
-  const { colors, roundness } = useTheme();
-  const styles = createStyles(colors, roundness);
+  const { colors, roundness } = useTheme()
+  const styles = createStyles(colors, roundness)
 
   useFocusEffect(
     useCallback(() => {
-      getBookingHistory();
+      getBookingHistory()
 
       return () => {
-        console.log("Unmounting BookingHistory");
-      };
+        console.log("Unmounting BookingHistory")
+      }
     }, [])
-  );
+  )
 
   const getBookingHistory = () => {
     executeQuery(
       "booking-history",
       fetchBookings,
       "fields=*,passengers,ticket.price,ticket.travel_package.name&sort=-date_updated"
-    );
-  };
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -62,7 +62,7 @@ export default function BookingHistory() {
         />
       </DataContainer>
     </SafeAreaView>
-  );
+  )
 }
 
 const createStyles = (colors, roundness) =>
@@ -74,6 +74,7 @@ const createStyles = (colors, roundness) =>
       marginBottom: spacing.xl,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl,
+      textAlign: "center",
     },
     bookingItem: {
       backgroundColor: "red",
@@ -87,4 +88,4 @@ const createStyles = (colors, roundness) =>
       flex: 1,
       marginLeft: spacing.md,
     },
-  });
+  })

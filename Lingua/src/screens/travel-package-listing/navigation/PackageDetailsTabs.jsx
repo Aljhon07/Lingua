@@ -6,7 +6,7 @@ const TopTab = createMaterialTopTabNavigator()
 
 export default function PackageDetailsTabs({ packageDetails }) {
   return (
-    <TopTab.Navigator initialRouteName="Overview" screenOptions={{}}>
+    <TopTab.Navigator>
       <TopTab.Screen
         name="Overview"
         component={PackageOverview}
