@@ -1,18 +1,18 @@
 import DataContainer from "@components/layouts/DataContainer"
-import ButtonPair from "@components/molecules/ButtonPair"
 import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
 import { fetchTicketDetails, postBooking } from "@services/directus/rest"
 import React, { useEffect } from "react"
 import { Alert, StyleSheet, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import { useTheme } from "react-native-paper"
+import { Text, useTheme } from "react-native-paper"
 import TicketSummary from "./components/TicketSummary"
 import PassengerSummary from "./components/PassengerSummary"
 import ContactSummary from "./components/ContactSummary"
 import PaymentMethodSummary from "./components/PaymentMethodSummary"
 import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
 import { useNavigation } from "@react-navigation/native"
+import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function Summary({ route }) {
   const { id, passengers } = route.params
@@ -69,13 +69,13 @@ export default function Summary({ route }) {
             )}
           </View>
         </ScrollView>
-        <ButtonPair
-          leftText="Back"
-          rightText="Place Order"
-          onPressLeft={() => navigation.goBack()}
-          onPressRight={handlePlaceOrder}
-          style={styles.buttonPair}
-        />
+        <View style={{ padding: spacing.lg }}>
+          <CustomButton primary onPress={handlePlaceOrder}>
+            <Text variant="titleSmall" style={styles.text}>
+              Place Order
+            </Text>
+          </CustomButton>
+        </View>
       </DataContainer>
     </View>
   )
@@ -92,9 +92,7 @@ const createStyle = (colors) =>
       paddingHorizontal: spacing.lg,
       marginTop: spacing.sm,
     },
-    buttonPair: {
-      padding: spacing.lg,
-    },
+
     text: {
       color: colors.onBackground,
     },

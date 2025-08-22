@@ -31,8 +31,15 @@ export async function signIn(email, password) {
       "Authorization"
     ] = `Bearer ${token.data.data.static_token}`
   } catch (error) {
-    console.error("Sign In failed")
-    throw new Error(logError("Sign In", error))
+    err = logError("signIn", error)
+
+    console.error("Sign In failed", typeof err)
+    err = {
+      error: true,
+      message: err.responseData?.[0]?.message || err.message,
+      status: err.status,
+    }
+    return err
   }
 }
 

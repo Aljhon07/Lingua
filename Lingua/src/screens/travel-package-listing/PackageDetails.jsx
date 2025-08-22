@@ -4,10 +4,7 @@ import { ImageBackground, StyleSheet } from "react-native"
 import { View } from "react-native"
 import { spacing } from "@constants/globalStyles"
 import { useEffect } from "react"
-import {
-  fetchPackageDetails,
-  fetchPackageItinerary,
-} from "@services/directus/rest"
+import { fetchPackageDetails } from "@services/directus/rest"
 import DataContainer from "@components/layouts/DataContainer"
 import PackageDetailsTabs from "./navigation/PackageDetailsTabs"
 import { CustomButton } from "@components/molecules/CustomButton"
@@ -64,7 +61,9 @@ export default function PackageDetails({ route, navigation }) {
             icon={"arrow-right-thin"}
             contentStyle={{ flexDirection: "row-reverse" }}
           >
-            Book Now
+            <Text variant="titleMedium" style={{ color: colors.onPrimary }}>
+              Book Now
+            </Text>
           </CustomButton>
         </PaddedView>
       </DataContainer>

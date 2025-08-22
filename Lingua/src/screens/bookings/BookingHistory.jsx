@@ -2,12 +2,13 @@ import DataContainer from "@components/layouts/DataContainer"
 import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
 import { fetchBookings } from "@services/directus/rest"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { StyleSheet, View } from "react-native"
 import { Text, useTheme } from "react-native-paper"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { FlatList, RefreshControl } from "react-native-gesture-handler"
 import BookingOverview from "./components/BookingOverview"
+import { useFocusEffect } from "@react-navigation/native"
 
 export default function BookingHistory() {
   const { getQueryState, executeQuery } = useQueryState()
@@ -16,9 +17,15 @@ export default function BookingHistory() {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
 
-  useEffect(() => {
-    getBookingHistory()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      getBookingHistory()
+
+      return () => {
+        console.log("Unmounting BookingHistory")
+      }
+    }, [])
+  )
 
   const getBookingHistory = () => {
     executeQuery(
@@ -67,6 +74,7 @@ const createStyles = (colors, roundness) =>
       marginBottom: spacing.xl,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl,
+      textAlign: "center",
     },
     bookingItem: {
       backgroundColor: "red",

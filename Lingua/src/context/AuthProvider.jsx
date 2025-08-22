@@ -34,24 +34,29 @@ export default function AuthProvider({ children }) {
   }, [])
 
   const contextSignIn = async ({ email, password }) => {
+    setLoading(true)
     try {
       const res = await signIn(email, password)
-      setLoading(true)
+      console.log("Auth Res: ", res)
+      if (res?.error) {
+        console.error("Conditional", res.error)
+        return res.message
+      }
       await getProfile()
       setIsAuthenticated(true)
-      console.log("Sign in successful")
     } catch (error) {
-      console.error("Auth", error.responseData[0])
+      console.error("Auth Error", error)
     } finally {
+      console.log("Loading finished")
       setLoading(false)
     }
   }
 
   const contextSignUp = async ({ email, password, firstName, lastName }) => {
+    setLoading(true)
     try {
       const res = await signUp(email, password, firstName, lastName)
       console.log("Sign Up successful")
-      setLoading(true)
       contextSignIn({ email, password })
     } catch (error) {
       console.error("Auth", error)

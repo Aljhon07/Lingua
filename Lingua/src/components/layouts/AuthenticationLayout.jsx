@@ -1,18 +1,22 @@
-import { LinguaLogo } from "@components/atoms/LinguaLogo"
-import { border, spacing } from "@constants/globalStyles"
-import { View } from "react-native"
-import { StyleSheet } from "react-native"
+import { LinguaLogo } from "@components/atoms/LinguaLogo";
+import { border, spacing } from "@constants/globalStyles";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
+import { StyleSheet } from "react-native";
+import { useTheme } from "react-native-paper";
 
 export default function AuthenticationForm({ children }) {
-  const bg_1 = require("@assets/images/background_1.jpg")
-  const bg_2 = require("@assets/images/background_2.jpg")
+  const bg_1 = require("@assets/images/background_1.jpg");
+  const bg_2 = require("@assets/images/background_2.jpg");
+  const { colors } = useTheme();
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor=""></StatusBar>
       <LinguaLogo light={true} style={styles.logo} />
       <View>{children}</View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -34,4 +38,4 @@ const styles = StyleSheet.create({
     width: "80%",
     alignSelf: "center",
   },
-})
+});

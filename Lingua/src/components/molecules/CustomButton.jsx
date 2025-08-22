@@ -24,6 +24,7 @@ export function CustomButton({
       style={[styles.button, style]}
       onPress={onPress}
       loading={loading}
+      disabled={loading}
       icon={() => (
         <Icon source={icon} size={iconSize} color={colors.onPrimary} />
       )}

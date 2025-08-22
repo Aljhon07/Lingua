@@ -15,7 +15,7 @@ export function ThemeSelector() {
         },
         {
           value: "automatic",
-          label: "Automatic",
+          label: "System",
         },
         { value: "dark", label: "Dark" },
       ]}
