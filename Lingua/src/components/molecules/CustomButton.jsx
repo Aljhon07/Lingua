@@ -12,12 +12,18 @@ export function CustomButton({
   loading = false,
   icon,
   iconSize = 24,
+  iconColor,
   contentStyle,
   props,
   children,
 }) {
   const { roundness, colors } = useTheme()
   const styles = createStyles(roundness, colors, primary)
+
+  // Use provided iconColor or default based on mode
+  const defaultIconColor = primary ? colors.onPrimary : colors.primary
+  const finalIconColor = iconColor || defaultIconColor
+
   return (
     <Button
       mode={primary ? "contained" : "outlined"}
@@ -25,9 +31,11 @@ export function CustomButton({
       onPress={onPress}
       loading={loading}
       disabled={loading}
-      icon={() => (
-        <Icon source={icon} size={iconSize} color={colors.onPrimary} />
-      )}
+      icon={
+        icon
+          ? () => <Icon source={icon} size={iconSize} color={finalIconColor} />
+          : undefined
+      }
       contentStyle={contentStyle}
       labelStyle={{ fontFamily: "Alegreya-Medium", fontSize: 17 }}
       {...props}

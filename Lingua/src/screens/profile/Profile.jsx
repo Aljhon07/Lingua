@@ -3,16 +3,15 @@ import { fetchProfile } from "@services/directus/rest"
 import { useEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
 import DataContainer from "@components/layouts/DataContainer"
-import { Image, StyleSheet, View } from "react-native"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { Section } from "@components/atoms/Section"
+import { StyleSheet, ScrollView, Alert } from "react-native"
+import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
-import { ThemeSelector } from "@components/molecules/ThemeSelector"
-import { Text, useTheme } from "react-native-paper"
 import { useAuthContext } from "@context/AuthProvider"
+import ProfileHeader from "./components/ProfileHeader"
+import ProfileSettings from "./components/ProfileSettings"
+import ProfileActions from "./components/ProfileActions"
 
-export default function Profile() {
-  const profileImage = require("@assets/images/default_profile.png")
+export default function Profile({ navigation }) {
   const { colors } = useTheme()
   const styles = createStyles(colors)
   const { getQueryState, executeQuery } = useQueryState()
@@ -23,7 +22,52 @@ export default function Profile() {
     executeQuery("profile", fetchProfile)
   }, [])
 
-  console.log("Profile: ", profile)
+  const handleTermsPress = () => {
+    navigation?.navigate?.("TermsAndConditions", { from: "Profile" })
+  }
+
+  const handlePrivacyPress = () => {
+    navigation?.navigate?.("PrivacyPolicy", { from: "Profile" })
+  }
+
+  const handleAboutPress = () => {
+    Alert.alert(
+      "About Lingua",
+      "Lingua is your comprehensive language learning and travel companion app. Our mission is to break down language barriers and make travel more accessible and enjoyable for everyone.\n\n• Learn languages with interactive lessons\n• Translate text and speech in real-time\n• Book flights and travel packages\n• Access offline content\n• Connect with native speakers\n\nVersion 1.0.0\nDeveloped with ❤️ for language learners worldwide.",
+      [{ text: "OK" }]
+    )
+  }
+
+  const handleHelpPress = () => {
+    navigation?.navigate?.("HelpCenter")
+  }
+
+  const handleContactPress = () => {
+    navigation?.navigate?.("ContactSupport")
+  }
+
+  const handleEditPress = () => {
+    console.log("Navigate to Edit Profile")
+  }
+
+  const handleLogoutPress = () => {
+    Alert.alert(
+      "Confirm Logout",
+      "Are you sure you want to log out of your account?",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+        },
+        {
+          text: "Logout",
+          style: "destructive",
+          onPress: signOut,
+        },
+      ]
+    )
+  }
+
   return (
     <SafeAreaView style={styles.screen}>
       <DataContainer
@@ -31,40 +75,23 @@ export default function Profile() {
         error={profile.error}
         data={profile.data}
       >
-        <View style={styles.profileContainer}>
-          <Image source={profileImage} style={styles.profile} />
-          <Text variant="titleLarge">
-            {profile.data?.first_name} {profile.data?.last_name}
-          </Text>
-        </View>
-        <CustomButton primary>Edit Profile</CustomButton>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <ProfileHeader profile={profile.data} onEditPress={handleEditPress} />
 
-        <Section
-          headline="Theme"
-          headlineVariant="labelLarge"
-          contentContainerStyle={{
-            flex: 0,
-            padding: 0,
-            backgroundColor: "transparent",
-          }}
-          sectionStyle={{ flex: 0 }}
-        >
-          <ThemeSelector />
-        </Section>
-        <Section
-          headline="Account"
-          headlineVariant="labelLarge"
-          contentContainerStyle={{ flex: 0, padding: 0 }}
-        >
-          <CustomButton
-            primary
-            style={styles.logOutButton}
-            textStyle={styles.logOutText}
-            onPress={signOut}
-          >
-            Log Out
-          </CustomButton>
-        </Section>
+          <ProfileSettings
+            onTermsPress={handleTermsPress}
+            onPrivacyPress={handlePrivacyPress}
+            onAboutPress={handleAboutPress}
+            onHelpPress={handleHelpPress}
+            onContactPress={handleContactPress}
+          />
+
+          <ProfileActions onLogoutPress={handleLogoutPress} />
+        </ScrollView>
       </DataContainer>
     </SafeAreaView>
   )
@@ -74,25 +101,13 @@ const createStyles = (colors) =>
   StyleSheet.create({
     screen: {
       flex: 1,
-      gap: spacing.lg,
-      paddingHorizontal: spacing.lg,
+      backgroundColor: colors.background,
     },
-    profileContainer: {
-      flex: 0,
-      justifyContent: "center",
-      alignItems: "center",
+    scrollView: {
+      flex: 1,
     },
-
-    profile: {
-      aspectRatio: 1,
-      height: 100,
-      padding: 0,
-      borderRadius: 75,
-    },
-    logOutButton: {
-      backgroundColor: colors.errorContainer,
-    },
-    logOutText: {
-      color: colors.onErrorContainer,
+    scrollContent: {
+      padding: spacing.lg,
+      paddingBottom: spacing.xl,
     },
   })

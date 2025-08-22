@@ -19,7 +19,7 @@ export default function Header({ getPackages, countries }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: "Japan",
+    destination: "",
     minBudget: null,
     maxBudget: null,
   })
