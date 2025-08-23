@@ -1,34 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { Text, IconButton, useTheme } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
-import { spacing } from "@constants/globalStyles";
-import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
+import React, { useEffect, useState } from "react"
+import { Text, IconButton, useTheme, TextInput } from "react-native-paper"
+import { StyleSheet, View } from "react-native"
+import { spacing } from "@constants/globalStyles"
+import { useSpeechRecognition } from "@hooks/useSpeechRecognition"
 
-export default function SpeechRecog() {
-  const { colors } = useTheme();
-  const { handleRecord, isRecording, transcript } = useSpeechRecognition();
-  const styles = createStyles(colors);
+export default function SpeechRecog({ inputMode }) {
+  const { colors } = useTheme()
+  const { handleRecord, isRecording, transcript } = useSpeechRecognition()
+  const [textInput, setTextInput] = useState("")
+  const styles = createStyles(colors)
+
+  // Preserve text when switching modes
+  const currentText = inputMode === "speech" ? transcript : textInput
 
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
         <Text variant="bodyLarge" style={styles.transcript}>
-          {isRecording
-            ? "Listening..."
-            : transcript || "Press the button to start recording"}
+          {inputMode === "speech"
+            ? isRecording
+              ? "Listening..."
+              : transcript || "Press the button to start recording"
+            : textInput || "Type your message below"}
         </Text>
       </View>
-      <View style={styles.wrapper}>
-        <IconButton
-          icon={isRecording ? "stop" : "microphone"}
-          size={70}
-          iconColor={colors.primary}
-          onPress={handleRecord}
-          style={styles.microphoneIcon}
-        />
-      </View>
+
+      {inputMode === "speech" ? (
+        <View style={styles.wrapper}>
+          <IconButton
+            icon={isRecording ? "stop" : "microphone"}
+            size={70}
+            iconColor={colors.primary}
+            onPress={handleRecord}
+            style={styles.microphoneIcon}
+          />
+        </View>
+      ) : (
+        <View style={styles.textInputWrapper}>
+          <TextInput
+            mode="outlined"
+            placeholder="Type your message here..."
+            value={textInput}
+            onChangeText={setTextInput}
+            multiline
+            style={styles.textInput}
+          />
+        </View>
+      )}
     </View>
-  );
+  )
 }
 
 const createStyles = (colors) =>
@@ -36,15 +56,22 @@ const createStyles = (colors) =>
     container: {
       flex: 1,
       justifyContent: "space-between",
-      padding: spacing.lg,
     },
     wrapper: {
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
     },
+    textInputWrapper: {
+      flex: 1,
+      justifyContent: "flex-end",
+      paddingBottom: spacing.lg,
+    },
     transcript: {
       textAlign: "center",
+    },
+    textInput: {
+      minHeight: 100,
     },
     microphoneIcon: {
       borderWidth: 1,
@@ -55,4 +82,4 @@ const createStyles = (colors) =>
       maxHeight: 200,
       borderRadius: "100%",
     },
-  });
+  })
