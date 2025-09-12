@@ -5,8 +5,10 @@ import BackButton from "@components/molecules/BackButton"
 import BookingDetails from "../BookingDetails"
 import Checkout from "../Checkout"
 import StripeApp from "../components/StripePay"
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 
 const Stack = createStackNavigator()
+const Tab = createMaterialTopTabNavigator()
 
 export default function BookingDetailsNavigation() {
   const { colors } = useTheme()

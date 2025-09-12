@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react"
 import { View, Alert, Button } from "react-native"
 import { StripeProvider, usePaymentSheet } from "@stripe/stripe-react-native"
-import { domain } from "@constants/api"
+import { domain, server } from "@constants/api"
 import { CustomButton } from "@components/molecules/CustomButton"
 import { patchBooking } from "@services/directus/rest"
 import { useNavigation } from "@react-navigation/native"
 
-const API_URL = `http://${domain}:5000`
+const API_URL = server.baseURL
 
 export default function StripePay({ price, bookingId }) {
   const { initPaymentSheet, presentPaymentSheet } = usePaymentSheet()

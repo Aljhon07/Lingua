@@ -38,7 +38,7 @@ export default function Vocabulary({ vocab }) {
         }}
         onPress={playSound}
       >
-        <View style={{ gap: spacing.sm, alignSelf: "flex-start" }}>
+        <View style={{ gap: spacing.sm, width: "100%" }}>
           <View style={{ flexDirection: "row", gap: spacing.md }}>
             <Text
               variant="bodyLarge"

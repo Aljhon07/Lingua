@@ -22,7 +22,7 @@ export default function PaidBooking({ bookingId }) {
         "fields=pnr,gate,passengers.name,passengers.ticket_number,passengers.seat,date_created,ticket.*,ticket.return_ticket.*",
     })
   }, [])
-  console.log(JSON.stringify(bookingDetails, null, 2))
+
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
       <DataContainer
