@@ -4,9 +4,9 @@ import { useNavigation } from "@react-navigation/native"
 import ProfileNavigation from "../profile/navigation/ProfileNavigation"
 import Translator from "../translator/Translator"
 import BookingHistory from "../bookings/BookingHistory"
-import LessonNavigation from "../language-learning/navigations/LessonNavigation"
 import Explore from "../travel-package-listing/Explore"
 import LessonList from "../language-learning/LessonList"
+import PhrasebookButton from "@components/atoms/PhrasebookButton"
 
 const Tab = createBottomTabNavigator()
 
@@ -41,7 +41,7 @@ export default function MainTab() {
       />
       <Tab.Screen
         component={Translator}
-        name="Translator"
+        name="Translate"
         listeners={() => ({
           tabPress: (e) => {
             // e.preventDefault()
@@ -52,6 +52,8 @@ export default function MainTab() {
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
           ),
+          headerRight: () => <PhrasebookButton />,
+          headerShown: true
         }}
       />
       <Tab.Screen

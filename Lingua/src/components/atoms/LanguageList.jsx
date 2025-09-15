@@ -3,7 +3,7 @@ import { View } from "react-native"
 import { Text } from "react-native-paper"
 import { Dropdown } from "react-native-paper-dropdown"
 
-export function LanguageList({ label = "Select Language" }) {
+export function LanguageList({ label = "Select Language", hideMenuHeader=true }) {
   const { languages, onSelectLanguage, selectedLanguage } = useLanguageContext()
 
   if (!languages) {
@@ -15,7 +15,8 @@ export function LanguageList({ label = "Select Language" }) {
       mode="outlined"
       label={label}
       value={selectedLanguage?.code}
-      hideMenuHeader={true}
+      hideMenuHeader={hideMenuHeader}
+      
       options={languages.map((language) => ({
         label: language.name,
         value: language.code,
