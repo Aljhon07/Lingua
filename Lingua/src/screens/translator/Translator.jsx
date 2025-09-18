@@ -1,79 +1,56 @@
-import { StyleSheet, View, Animated, Keyboard } from "react-native"
-import { Text, IconButton, ActivityIndicator, useTheme } from "react-native-paper"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { useState, useRef, useEffect } from "react"
-import { spacing } from "@constants/globalStyles"
-import TranslationBox from "./components/TranslationBox"
-import * as Speech from 'expo-speech';
-import { LANGUAGES } from './constants/languages';
-import Phrasebook from "./PhraseBook"
-import { LanguageList } from "@components/atoms/LanguageList";
+import { StyleSheet, View, Animated, Keyboard } from "react-native";
+import {
+  IconButton,
+  useTheme,
+} from "react-native-paper";
+import { useState, useEffect } from "react";
+import { spacing } from "@constants/globalStyles";
+import TranslationBox from "./components/TranslationBox";
+import * as Speech from "expo-speech";
+import Phrasebook from "./PhraseBook";
 import { useLanguageContext } from "@context/LanguageProvider";
+import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
+import { transcribeAudioDeepgram } from "@services/deepgram";
+import { transcribeAudio } from "@services/speech";
 
 export default function Translator() {
-  const { languages, selectedLanguage, onSelectLanguage } = useLanguageContext();
-  const [sourceText, setSourceText] = useState('');
-  const [translatedText, setTranslatedText] = useState('');
-  const [sourceLanguage, setSourceLanguage] = useState(selectedLanguage?.code || 'en');
-  const [targetLanguage, setTargetLanguage] = useState('es');
-  
+  const { languages, selectedLanguage, onSelectLanguage } =
+    useLanguageContext();
+  const [sourceText, setSourceText] = useState();
+  const [translatedText, setTranslatedText] = useState("");
+  const [sourceLanguage, setSourceLanguage] = useState(
+    "en"
+  );
+  const [targetLanguage, setTargetLanguage] = useState("ja");
+
   const handleSourceLanguageChange = (language) => {
     setSourceLanguage(language.code);
   };
-  
+
   const handleTargetLanguageChange = (language) => {
     setTargetLanguage(language.code);
   };
-  const [isListening, setIsListening] = useState(false);
   const [isTranslating, setIsTranslating] = useState(false);
   const [showPhrasebook, setShowPhrasebook] = useState(false);
-  const [recognition, setRecognition] = useState(null);
 
-  // Initialize speech recognition
+  const {
+    isRecording,
+    isProcessing,
+    transcript,
+    handleRecord: handleSpeechRecognition,
+  } = useSpeechRecognition();
+
+  // Update source text when transcript changes
   useEffect(() => {
-    const initSpeechRecognition = async () => {
-      try {
-        const { SpeechRecognition } = await import('expo-speech');
-        setRecognition(SpeechRecognition);
-      } catch (error) {
-        console.error('Speech recognition not available', error);
-      }
-    };
-    initSpeechRecognition();
-  }, []);
-
-  const handleSpeechRecognition = async () => {
-    if (!recognition) return;
-
-    try {
-      if (isListening) {
-        await recognition.stopListeningAsync();
-        setIsListening(false);
-        return;
-      }
-
-      setIsListening(true);
-      const result = await recognition.recognizeAsync({
-        language: sourceLanguage,
-        onResult: (event) => {
-          setSourceText(event.value[0]);
-        },
-      });
-      
-      if (result) {
-        setSourceText(result[0]);
-        translateText(result[0]);
-      }
-    } catch (error) {
-      console.error('Speech recognition error:', error);
-    } finally {
-      setIsListening(false);
+    if (transcript && transcript !== "Processing...") {
+      console.log("Transcript received:", transcript);
+      setSourceText(transcript);
     }
-  };
+  }, [transcript]);
 
   const translateText = async (text) => {
     if (!text.trim()) {
-      setTranslatedText('');
+      setTranslatedText("");
       return;
     }
 
@@ -82,27 +59,27 @@ export default function Translator() {
       // TODO: Replace with your actual translation API call
       // const response = await yourTranslationAPI(text, sourceLanguage, targetLanguage);
       // setTranslatedText(response.translatedText);
-      
+
       // Mock translation for now
       setTimeout(() => {
-        setTranslatedText(`Translated: ${text} (${sourceLanguage} → ${targetLanguage})`);
+        setTranslatedText(`${sourceText}`);
         setIsTranslating(false);
       }, 500);
     } catch (error) {
-      console.error('Translation error:', error);
+      console.error("Translation error:", error);
       setIsTranslating(false);
     }
   };
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (sourceText !== '') {
+      if (sourceText !== "") {
         translateText(sourceText);
       } else {
-        setTranslatedText('');
+        setTranslatedText("");
       }
     }, 300);
-    
+
     return () => clearTimeout(timer);
   }, [sourceText]);
 
@@ -117,9 +94,8 @@ export default function Translator() {
     setTargetLanguage(newTarget);
     setSourceText(translatedText);
     setTranslatedText(sourceText);
-    
-    // Update the selected language in the context
-    const newSelectedLang = languages?.find(lang => lang.code === newSource);
+
+    const newSelectedLang = languages?.find((lang) => lang.code === newSource);
     if (newSelectedLang) {
       onSelectLanguage(newSelectedLang);
     }
@@ -131,46 +107,57 @@ export default function Translator() {
     }
   };
 
+  const handleTranscribe = () => {
+    if (sourceLanguage == "en") {
+      console.log(sourceLanguage)
+      handleSpeechRecognition(transcribeAudio);
+    } else {
+      console.log("Using Deepgram")
+      handleSpeechRecognition(transcribeAudioDeepgram);
+    }
+  };
+
   const clearAll = () => {
-    setSourceText('');
-    setTranslatedText('');
+    setSourceText("");
+    setTranslatedText("");
   };
 
   const { colors } = useTheme();
-  
+
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
-      
-
       <View style={styles.translatorContainer}>
         <View style={styles.translationBoxes}>
           <TranslationBox
             value={sourceText}
             onChangeText={handleTextChange}
-            onSpeech={handleSpeechRecognition}
+            onSpeech={handleTranscribe}
             isSource={true}
-            placeholder="Enter text or tap the mic to speak"
-            onClear={clearAll}
-            showClear={true}
+            isRecording={isRecording}
+            placeholder="Enter text or tap the microphone to speak"
+            showClear={!!sourceText}
+            onClear={() => setSourceText("")}
             sourceLanguage={sourceLanguage}
-            targetLanguage={targetLanguage}
             onLanguageChange={handleSourceLanguageChange}
-            languages={languages.filter(lang => lang.code !== targetLanguage)}
+            languages={languages}
             label="From"
           />
-          
+
           <View style={styles.swapButtonContainer}>
             <IconButton
               icon="swap-vertical"
               size={24}
               onPress={swapLanguages}
-              style={[styles.swapButton, { backgroundColor: colors.surfaceVariant }]}
+              style={[
+                styles.swapButton,
+                { backgroundColor: colors.surfaceVariant },
+              ]}
               iconColor={colors.onSurfaceVariant}
             />
           </View>
 
           <TranslationBox
-            value={isTranslating ? 'Translating...' : translatedText}
+            value={isTranslating ? "Translating..." : translatedText}
             onSpeech={speakTranslatedText}
             isSource={false}
             placeholder="Translation will appear here"
@@ -178,7 +165,7 @@ export default function Translator() {
             sourceLanguage={sourceLanguage}
             targetLanguage={targetLanguage}
             onLanguageChange={handleTargetLanguageChange}
-            languages={languages.filter(lang => lang.code !== sourceLanguage)}
+            languages={languages.filter((lang) => lang.code !== sourceLanguage)}
             label="To"
           />
         </View>
@@ -195,19 +182,19 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     padding: spacing.md,
     paddingBottom: spacing.sm,
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: spacing.sm,
     borderBottomWidth: 1,
   },
@@ -232,7 +219,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   swapButtonContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginVertical: -spacing.sm,
     zIndex: 1,
   },
@@ -250,4 +237,4 @@ const styles = StyleSheet.create({
   phrasebookIcon: {
     margin: 0,
   },
-})
+});

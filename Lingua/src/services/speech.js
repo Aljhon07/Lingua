@@ -7,6 +7,7 @@ export const transcribeAudio = async (audioUri) => {
   try {
     const formData = new FormData();
 
+    console.log("Transcribing audio...");
     console.log("Audio file URI:", audioUri);
     formData.append("audio", {
       uri: audioUri,

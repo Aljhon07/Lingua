@@ -38,6 +38,7 @@ export default function Phrasebook({ visible, setVisible }) {
         noDataMessage={"No phrases found"}
       >
         <StyledSurface>
+          <LanguageList />
           <FlatList
             data={phraseState.data}
             keyExtractor={(item) => item.id.toString()}

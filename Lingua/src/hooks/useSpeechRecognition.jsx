@@ -96,7 +96,7 @@ export const useSpeechRecognition = () => {
     }
   };
 
-  const stopRecording = async () => {
+  const stopRecording = async (transcribeFn) => {
     if (!srState.isRecording) return;
     setSrState((prevState) => ({
       ...prevState,
@@ -113,7 +113,7 @@ export const useSpeechRecognition = () => {
         throw new Error("No recording URI found");
       }
 
-      const res = await transcribeAudio(uri);
+      const res = await transcribeFn(uri);
       if (res.status !== 200 || res.error) {
         console.log(res);
         throw new Error(res.message);
@@ -122,7 +122,7 @@ export const useSpeechRecognition = () => {
         ...prevState,
         isRecording: false,
         isProcessing: false,
-        transcription: res.data.transcript || "No transcription available",
+        transcription: res.data.transcript[0] || "No transcription available",
       }));
     } catch (error) {
       console.log("Error: " + error);
@@ -139,11 +139,12 @@ export const useSpeechRecognition = () => {
       }));
     }
   };
-  const handleRecord = async () => {
+  const handleRecord = async (transcribeFn) => {
     if (srState.isProcessing) return;
 
+    console.log(transcribeFn)
     if (srState.isRecording) {
-      await stopRecording();
+      await stopRecording(transcribeFn);
     } else {
       await startRecording();
     }
