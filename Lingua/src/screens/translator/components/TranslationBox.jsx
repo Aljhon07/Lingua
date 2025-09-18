@@ -44,9 +44,8 @@ const TranslationBox = ({
       <LanguageList
         label={label}
         hideMenuHeader={false}
-        useGlobalContext={false}
         callbackFn={onLanguageChange}
-        lang={isSource ? sourceLanguage : ""}
+        lang={isSource ? sourceLanguage : targetLanguage}
       />
       <View style={containerStyle}>
         <TextInput

@@ -11,7 +11,7 @@ import { fetchBookings } from "@services/directus/rest"
 export default function BookingList({ bookings }) {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
-  const { executeQuery } = useQueryState()
+  const { executeQuery, getQueryState } = useQueryState()
 
   const getBookingHistory = useCallback(() => {
     executeQuery(

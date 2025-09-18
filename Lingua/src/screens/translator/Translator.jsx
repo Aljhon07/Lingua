@@ -22,16 +22,25 @@ export default function Translator() {
     "en"
   );
   const [targetLanguage, setTargetLanguage] = useState("ja");
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [showPhrasebook, setShowPhrasebook] = useState(false);
 
   const handleSourceLanguageChange = (language) => {
-    setSourceLanguage(language.code);
+    console.log("Test src: ", typeof language);
+    const langCode = typeof language === 'string' ? language : language?.code;
+    console.log(`Change src: ${langCode}`);
+    if (langCode) {
+      setSourceLanguage(langCode);
+    }
   };
 
   const handleTargetLanguageChange = (language) => {
-    setTargetLanguage(language.code);
+    const langCode = typeof language === 'string' ? language : language?.code;
+    console.log(`Change tgt: ${langCode}`);
+    if (langCode) {
+      setTargetLanguage(langCode);
+    }
   };
-  const [isTranslating, setIsTranslating] = useState(false);
-  const [showPhrasebook, setShowPhrasebook] = useState(false);
 
   const {
     isRecording,
@@ -88,14 +97,21 @@ export default function Translator() {
   };
 
   const swapLanguages = () => {
-    const newSource = targetLanguage;
-    const newTarget = sourceLanguage;
-    setSourceLanguage(newSource);
-    setTargetLanguage(newTarget);
-    setSourceText(translatedText);
-    setTranslatedText(sourceText);
+    // Store the current values first
+    const currentSource = sourceLanguage;
+    const currentTarget = targetLanguage;
 
-    const newSelectedLang = languages?.find((lang) => lang.code === newSource);
+    // Update the state with the swapped values
+    setSourceLanguage(currentTarget);
+    setTargetLanguage(currentSource);
+
+    // Clear the text fields
+    const currentSourceText = sourceText;
+    setSourceText(translatedText || "");
+    setTranslatedText(currentSourceText || "");
+
+    // Update the selected language in context if needed
+    const newSelectedLang = languages?.find((lang) => lang.code === currentTarget);
     if (newSelectedLang) {
       onSelectLanguage(newSelectedLang);
     }
@@ -108,11 +124,15 @@ export default function Translator() {
   };
 
   const handleTranscribe = () => {
-    if (sourceLanguage == "en") {
-      console.log(sourceLanguage)
+    setSourceText("Recording...")
+    console.log("Current source language:", sourceLanguage);
+    console.log("Type of sourceLanguage:", typeof sourceLanguage);
+
+    if (!sourceLanguage || sourceLanguage === "en") {
+      console.log("Using Default");
       handleSpeechRecognition(transcribeAudio);
     } else {
-      console.log("Using Deepgram")
+      console.log("Using Deepgram");
       handleSpeechRecognition(transcribeAudioDeepgram);
     }
   };
@@ -135,7 +155,7 @@ export default function Translator() {
             isSource={true}
             isRecording={isRecording}
             placeholder="Enter text or tap the microphone to speak"
-            showClear={!!sourceText}
+            showClear={sourceText}
             onClear={() => setSourceText("")}
             sourceLanguage={sourceLanguage}
             onLanguageChange={handleSourceLanguageChange}

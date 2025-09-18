@@ -13,10 +13,16 @@ export const transcribeAudioDeepgram = async (audioUri) => {
     });
     
     // Convert base64 to ArrayBuffer
-    const audioBytes = Uint8Array.from(atob(base64Audio), c => c.charCodeAt(0));
     
+    const binaryString = atob(base64Audio); 
+    const len = binaryString.length;
+    const buffer = new Uint8Array(len);
+
+    for (let i = 0; i < len; i++) {
+      buffer[i] = binaryString.charCodeAt(i);
+    }
     const { result, error } = await deepgram.listen.prerecorded.transcribeFile(
-      audioBytes.buffer,
+      buffer,
       {
         model: "nova-3",
         smart_format: true,

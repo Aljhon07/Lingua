@@ -7,7 +7,8 @@ import { useState } from "react";
 export function LanguageList({
   label = "Select Language",
   hideMenuHeader = true,
-  lang
+  lang,
+  callbackFn
 }) {
   const { languages, onSelectLanguage, selectedLanguage } =
     useLanguageContext();
@@ -34,7 +35,8 @@ export function LanguageList({
         if (filteredLanguage) {
           if (localValue) {
             console.log("Setting local value to", value);
-            setLocalValue(value);
+            callbackFn(value)
+            setLocalValue(value)
           } else {
             console.log("Setting selected language to", filteredLanguage);
             onSelectLanguage(filteredLanguage);
