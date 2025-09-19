@@ -6,7 +6,7 @@ import { LanguageList } from "@components/atoms/LanguageList";
 const TranslationBox = ({
   value,
   onChangeText,
-  onSpeech,
+  callbackFn,
   isSource = true,
   isRecording = false,
   placeholder = "",
@@ -72,11 +72,11 @@ const TranslationBox = ({
             <View style={styles.actionButton} />
           )}
 
-          {onSpeech && (
+          {callbackFn && (
             <IconButton
               icon={isRecording ? "stop" : (isSource ? "microphone" : "volume-high")}
               size={20}
-              onPress={onSpeech}
+              onPress={() => callbackFn(isSource ? sourceLanguage : targetLanguage)}
               style={styles.actionButton}
               disabled={!editable && !value}
               iconColor={isRecording ? colors.error : colors.onSurface}

@@ -10,8 +10,8 @@ import * as Speech from "expo-speech";
 import Phrasebook from "./PhraseBook";
 import { useLanguageContext } from "@context/LanguageProvider";
 import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
-import { transcribeAudioDeepgram } from "@services/deepgram";
-import { transcribeAudio } from "@services/speech";
+import { useSpeechSynthesis } from "@hooks/useSpeechSynthesis";
+import { usePlayback } from "@hooks/usePlayback";
 
 export default function Translator() {
   const { languages, selectedLanguage, onSelectLanguage } =
@@ -25,30 +25,19 @@ export default function Translator() {
   const [isTranslating, setIsTranslating] = useState(false);
   const [showPhrasebook, setShowPhrasebook] = useState(false);
 
-  const handleSourceLanguageChange = (language) => {
-    console.log("Test src: ", typeof language);
-    const langCode = typeof language === 'string' ? language : language?.code;
-    console.log(`Change src: ${langCode}`);
-    if (langCode) {
-      setSourceLanguage(langCode);
-    }
-  };
-
-  const handleTargetLanguageChange = (language) => {
-    const langCode = typeof language === 'string' ? language : language?.code;
-    console.log(`Change tgt: ${langCode}`);
-    if (langCode) {
-      setTargetLanguage(langCode);
-    }
-  };
-
   const {
     isRecording,
     isProcessing,
     transcript,
-    handleRecord: handleSpeechRecognition,
+    handleRecord,
   } = useSpeechRecognition();
 
+  const {
+    audioUrl,
+    handleSynthesize,
+  } = useSpeechSynthesis();
+
+  const { playSound } = usePlayback()
   // Update source text when transcript changes
   useEffect(() => {
     if (transcript && transcript !== "Processing...") {
@@ -56,6 +45,24 @@ export default function Translator() {
       setSourceText(transcript);
     }
   }, [transcript]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (sourceText !== "") {
+        translateText(sourceText);
+      } else {
+        setTranslatedText("");
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [sourceText]);
+
+  useEffect(() => {
+    if (audioUrl) {
+      playSound(audioUrl);
+    }
+  }, [audioUrl]);
 
   const translateText = async (text) => {
     if (!text.trim()) {
@@ -80,17 +87,31 @@ export default function Translator() {
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (sourceText !== "") {
-        translateText(sourceText);
-      } else {
-        setTranslatedText("");
-      }
-    }, 300);
+  const handleSourceLanguageChange = (language) => {
+    console.log("Test src: ", typeof language);
+    const langCode = typeof language === 'string' ? language : language?.code;
+    console.log(`Change src: ${langCode}`);
+    if (langCode) {
+      setSourceLanguage(langCode);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, [sourceText]);
+  const handleTargetLanguageChange = (language) => {
+    const langCode = typeof language === 'string' ? language : language?.code;
+    console.log(`Change tgt: ${langCode}`);
+    if (langCode) {
+      setTargetLanguage(langCode);
+    }
+  };
+
+
+  const handleSpeechSynthesis = () => {
+    handleSynthesize(translatedText, targetLanguage);
+  };
+
+  const handleSpeechRecognition = () => {
+    handleRecord(sourceLanguage);
+  };
 
   const handleTextChange = (text) => {
     setSourceText(text);
@@ -123,20 +144,6 @@ export default function Translator() {
     }
   };
 
-  const handleTranscribe = () => {
-    setSourceText("Recording...")
-    console.log("Current source language:", sourceLanguage);
-    console.log("Type of sourceLanguage:", typeof sourceLanguage);
-
-    if (!sourceLanguage || sourceLanguage === "en") {
-      console.log("Using Default");
-      handleSpeechRecognition(transcribeAudio);
-    } else {
-      console.log("Using Deepgram");
-      handleSpeechRecognition(transcribeAudioDeepgram);
-    }
-  };
-
   const clearAll = () => {
     setSourceText("");
     setTranslatedText("");
@@ -151,13 +158,14 @@ export default function Translator() {
           <TranslationBox
             value={sourceText}
             onChangeText={handleTextChange}
-            onSpeech={handleTranscribe}
+            callbackFn={handleSpeechRecognition}
             isSource={true}
             isRecording={isRecording}
             placeholder="Enter text or tap the microphone to speak"
             showClear={sourceText}
             onClear={() => setSourceText("")}
             sourceLanguage={sourceLanguage}
+            targetLanguage={targetLanguage}
             onLanguageChange={handleSourceLanguageChange}
             languages={languages}
             label="From"
@@ -178,7 +186,7 @@ export default function Translator() {
 
           <TranslationBox
             value={isTranslating ? "Translating..." : translatedText}
-            onSpeech={speakTranslatedText}
+            callbackFn={handleSpeechSynthesis}
             isSource={false}
             placeholder="Translation will appear here"
             editable={false}

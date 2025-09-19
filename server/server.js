@@ -2,6 +2,9 @@ require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
+const multer = require("multer")
+const upload = multer({ dest: "uploads/" })
+const { transcribeFile, synthesizeAudio } = require("./services/speech");
 
 const app = express()
 app.use(express.json())
@@ -21,6 +24,12 @@ app.post("/create-payment-intent", async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 })
+
+
+
+
+app.post("/transcribe", upload.single("audio"), transcribeFile);
+app.post("/synthesize", synthesizeAudio);
 
 app.get("/", (req, res) => {
   res.send("Hello World!")

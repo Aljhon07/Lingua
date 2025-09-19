@@ -1,9 +1,23 @@
+import { synthesizeText } from "@services/speech";
 import { useState } from "react";
 
 
+export const useSpeechSynthesis = (text, lang) => {
+    const [audioUrl, setAudioUrl] = useState(null);
 
-export const useSpeechSynthesis = () => {
+    const handleSynthesize = async (text, lang) => {
+        try {
+            const response = await synthesizeText(text, lang);
+            const audioUrl = response.data.audioUrl;
+            setAudioUrl(audioUrl);
+            setIsSpeaking(true);
+        } catch (error) {
+            console.error("Error in synthesizeText:", error);
+        }
+    };
 
-    const [isSpeaking, setIsSpeaking] = useState(false);
 
+    return {
+        audioUrl, handleSynthesize
+    };
 };

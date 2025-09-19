@@ -8,7 +8,8 @@ export function LanguageList({
   label = "Select Language",
   hideMenuHeader = true,
   lang,
-  callbackFn
+  callbackFn,
+  isSource = false
 }) {
   const { languages, onSelectLanguage, selectedLanguage } =
     useLanguageContext();
@@ -33,7 +34,7 @@ export function LanguageList({
           (language) => language.code === value
         );
         if (filteredLanguage) {
-          if (localValue) {
+          if (lang) {
             console.log("Setting local value to", value);
             callbackFn(value)
             setLocalValue(value)

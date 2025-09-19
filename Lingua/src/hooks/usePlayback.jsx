@@ -5,7 +5,10 @@ export const usePlayback = (audioUrl) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const playSound = async () => {
+  const playSound = async (playAudioUrl) => {
+
+    audioUrl = audioUrl ? audioUrl : playAudioUrl;
+
     if (sound) {
       await sound.stopAsync();
       await sound.unloadAsync();
