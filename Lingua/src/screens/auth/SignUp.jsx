@@ -1,10 +1,17 @@
-import AuthenticationForm from "@components/layouts/AuthenticationLayout";
-import SignUpForm from "@components/organisms/SignUpForm";
+import { View, StyleSheet } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
+import SignUpForm from "@components/organisms/SignUpForm"
 
-export default function SignIn({ navigation }) {
+export default function SignUp({ navigation }) {
   return (
-    <AuthenticationForm>
+    <SafeAreaView style={styles.container}>
       <SignUpForm navigation={navigation} />
-    </AuthenticationForm>
-  );
+    </SafeAreaView>
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})

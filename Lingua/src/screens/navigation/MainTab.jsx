@@ -1,17 +1,17 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import Profile from "../profile/Profile";
-import Translator from "../translator/Translator";
-import BookingHistory from "../bookings/BookingHistory";
-import LessonNavigation from "../language-learning/navigations/LessonNavigation";
-import Explore from "../travel-package-listing/Explore";
-import LessonList from "../language-learning/LessonList";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
+import { useNavigation } from "@react-navigation/native"
+import ProfileNavigation from "../profile/navigation/ProfileNavigation"
+import Translator from "../translator/Translator"
+import BookingHistory from "../bookings/BookingHistory"
+import Explore from "../travel-package-listing/Explore"
+import LessonList from "../language-learning/LessonList"
+import PhrasebookButton from "@components/atoms/PhrasebookButton"
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
 
 export default function MainTab() {
-  const { navigate } = useNavigation();
+  const { navigate } = useNavigation()
 
   return (
     <Tab.Navigator
@@ -41,17 +41,19 @@ export default function MainTab() {
       />
       <Tab.Screen
         component={Translator}
-        name="Translator"
+        name="Translate"
         listeners={() => ({
           tabPress: (e) => {
             // e.preventDefault()
-            navigate("Translator");
+            navigate("Translator")
           },
         })}
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
           ),
+          headerRight: () => <PhrasebookButton />,
+          headerShown: true
         }}
       />
       <Tab.Screen
@@ -66,7 +68,7 @@ export default function MainTab() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileNavigation}
         options={{
           tabBarIcon: ({ color }) => (
             <Feather name="user" size={24} color={color} />
@@ -74,5 +76,5 @@ export default function MainTab() {
         }}
       />
     </Tab.Navigator>
-  );
+  )
 }

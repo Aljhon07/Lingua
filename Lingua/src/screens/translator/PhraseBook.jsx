@@ -10,10 +10,11 @@ import Modal from "react-native-modal"
 import { CustomButton } from "@components/molecules/CustomButton"
 import { Text, useTheme } from "react-native-paper"
 import StyledSurface from "@components/atoms/StyledSurface"
+import { usePhrasebook } from "@context/PhrasebookProvider"
 
 export default function Phrasebook({ visible, setVisible }) {
   const { selectedLanguage } = useLanguageContext()
-
+  const { showPhrasebook, setShowPhrasebook } = usePhrasebook()
   const { colors } = useTheme()
   const { getQueryState, executeQuery } = useQueryState("phrasebook")
   const phraseState = getQueryState("phrasebook")
@@ -28,7 +29,7 @@ export default function Phrasebook({ visible, setVisible }) {
   }, [selectedLanguage])
 
   return (
-    <Modal visible={visible}>
+    <Modal visible={showPhrasebook}>
       <DataContainer
         data={phraseState.data}
         isLoading={phraseState.isLoading}
@@ -37,6 +38,7 @@ export default function Phrasebook({ visible, setVisible }) {
         noDataMessage={"No phrases found"}
       >
         <StyledSurface>
+          <LanguageList />
           <FlatList
             data={phraseState.data}
             keyExtractor={(item) => item.id.toString()}
@@ -55,7 +57,7 @@ export default function Phrasebook({ visible, setVisible }) {
             style={{
               backgroundColor: colors.errorContainer,
             }}
-            onPress={() => setVisible(false)}
+            onPress={() => setShowPhrasebook(false)}
           >
             <Text>Close</Text>
           </CustomButton>
