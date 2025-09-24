@@ -1,47 +1,50 @@
-import { CustomButton } from "@components/molecules/CustomButton";
-import { border, spacing } from "@constants/globalStyles";
-import { usePlayback } from "@hooks/usePlayback";
-import { useState, useEffect } from "react";
-import { Image, StyleSheet, View } from "react-native";
-import { Button, Text } from "react-native-paper";
-import { cloudinary } from "@constants/api";
+import { CustomButton } from "@components/molecules/CustomButton"
+import { border, spacing } from "@constants/globalStyles"
+import { usePlayback } from "@hooks/usePlayback"
+import { useState, useEffect } from "react"
+import { Image, StyleSheet, View } from "react-native"
+import { Button, Text } from "react-native-paper"
+import { cloudinary } from "@constants/api"
 
 export function GuessTheWord({ choices, onPress }) {
-  const [isIncorrect, setIsIncorrect] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const [isIncorrect, setIsIncorrect] = useState(false)
+  const [selected, setSelected] = useState(null)
   useEffect(() => {
-    setIsIncorrect(false);
-    setSelected(null);
-  }, [choices]);
+    setIsIncorrect(false)
+    setSelected(null)
+  }, [choices])
 
   const { vocab: answer } = choices.filter(
     (choice) => choice.isCorrect === true
-  )[0];
+  )[0]
 
-  const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`;
-  console.log("Audio: ", audio);
-  const { playSound, isPlaying } = usePlayback(audio);
+  const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`
+  console.log("Audio: ", audio)
+  const { playSound, isPlaying } = usePlayback(audio)
 
   const handlePress = ({ id, isCorrect }) => {
-    setIsIncorrect(!isCorrect);
-    setSelected(id);
+    setIsIncorrect(!isCorrect)
+    setSelected(id)
     setTimeout(() => {
-      onPress({ id, isCorrect });
-    }, 200);
-  };
+      onPress({ id, isCorrect })
+    }, 200)
+  }
 
   const renderChoices = () => {
     return choices.map((choice, index) => {
-      const { vocab, isCorrect } = choice;
-      const { image } = vocab;
+      const { vocab, isCorrect } = choice
+      const { image } = vocab
       // console.log("Vocab: ", JSON.stringify(vocab, null, 2), isCorrect);
-      const imgSrc = image || require("@assets/images/placeholder.jpg");
+      let imgSrc = require("@assets/images/placeholder.jpg")
+      if (image) {
+        imgSrc = cloudinary.images + image + ".png"
+      }
       const buttonStyle =
         vocab.id == selected
           ? !isIncorrect
             ? styles.correct
             : styles.incorrect
-          : "";
+          : ""
       return (
         <CustomButton
           style={[
@@ -79,9 +82,9 @@ export function GuessTheWord({ choices, onPress }) {
             <Text variant="titleMedium">{vocab?.word}</Text>
           </View>
         </CustomButton>
-      );
-    });
-  };
+      )
+    })
+  }
 
   return (
     <View style={{ flex: 1, gap: spacing.lg }}>
@@ -119,7 +122,7 @@ export function GuessTheWord({ choices, onPress }) {
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -129,4 +132,4 @@ const styles = StyleSheet.create({
   incorrect: {
     borderColor: "red",
   },
-});
+})

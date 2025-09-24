@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { StyleSheet, View, TextInput } from "react-native";
-import { IconButton, useTheme, Text } from "react-native-paper";
-import { spacing } from "@constants/globalStyles";
-import { LanguageList } from "@components/atoms/LanguageList";
+import React, { useState } from "react"
+import { StyleSheet, View, TextInput } from "react-native"
+import { IconButton, useTheme, Text } from "react-native-paper"
+import { spacing } from "@constants/globalStyles"
+import { LanguageList } from "@components/atoms/LanguageList"
 const TranslationBox = ({
   value,
   onChangeText,
   callbackFn,
   isSource = true,
-  isRecording = false,
   placeholder = "",
   editable = true,
   showClear = false,
@@ -16,28 +15,27 @@ const TranslationBox = ({
   sourceLanguage,
   targetLanguage,
   onLanguageChange,
+  icon,
+  iconColor,
   languages = [],
   label = "",
 }) => {
-  const { colors } = useTheme();
-  const styles = createStyles(colors, spacing, editable);
+  const { colors } = useTheme()
+  const styles = createStyles(colors, spacing, editable)
 
   const containerStyle = [
     styles.container,
     { borderColor: colors.outline },
     !editable && styles.disabledContainer,
-  ];
+  ]
 
   const inputStyle = [
     styles.input,
     { color: colors.onSurface },
     !editable && styles.disabledInput,
-  ];
+  ]
 
-  const footerStyle = [
-    styles.footer,
-    { borderTopColor: colors.outline },
-  ];
+  const footerStyle = [styles.footer, { borderTopColor: colors.outline }]
 
   return (
     <>
@@ -74,19 +72,21 @@ const TranslationBox = ({
 
           {callbackFn && (
             <IconButton
-              icon={isRecording ? "stop" : (isSource ? "microphone" : "volume-high")}
+              icon={icon}
               size={20}
-              onPress={() => callbackFn(isSource ? sourceLanguage : targetLanguage)}
+              onPress={() =>
+                callbackFn(isSource ? sourceLanguage : targetLanguage)
+              }
               style={styles.actionButton}
               disabled={!editable && !value}
-              iconColor={isRecording ? colors.error : colors.onSurface}
+              iconColor={iconColor}
             />
           )}
         </View>
       </View>
     </>
-  );
-};
+  )
+}
 
 const createStyles = (colors, spacing, editable) => {
   return StyleSheet.create({
@@ -124,7 +124,7 @@ const createStyles = (colors, spacing, editable) => {
       height: 40,
       paddingHorizontal: spacing.xs,
     },
-  });
-};
+  })
+}
 
-export default TranslationBox;
+export default TranslationBox

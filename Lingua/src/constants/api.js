@@ -1,6 +1,6 @@
 export const domain = "209.97.162.95"
 // export const domain = "10.0.2.2";
-export const localIP = "172.20.10.2"
+export const localIP = "192.168.68.109"
 
 export const directus = {
   baseURL: `http://${domain}`,
