@@ -23,9 +23,27 @@ export default function LessonList() {
     executeQuery("lesson", fetchLessons)
   }, [])
 
+  const tryAgainComponent = (
+    <View style={{ marginBottom: spacing.lg }}>
+      <Text style={{ textAlign: "center", marginBottom: spacing.md }}>
+        Unable to fetch lessons. Please check your connection.
+      </Text>
+      <Text
+        style={{ textAlign: "center", color: "blue" }}
+        onPress={() => {
+          executeQuery("lesson", fetchLessons)
+        }}
+      >
+        Try Again
+      </Text>
+    </View>
+  )
   return (
     <SafeAreaView style={styles.container}>
-      <Text variant="headlineLarge" style={{ textAlign: "center", marginBottom: spacing.lg }}>
+      <Text
+        variant="headlineLarge"
+        style={{ textAlign: "center", marginBottom: spacing.lg }}
+      >
         Every Lesson Brings You Closer to Fluency
       </Text>
       <DataContainer
@@ -34,11 +52,18 @@ export default function LessonList() {
         data={lesson.data}
         noDataMessage={"No Lessons Found"}
         errorMessage={"Error Fetching Lessons"}
+        errorComponent={tryAgainComponent}
       >
         <LanguageList />
         <FlatList
           data={lesson.data}
           keyExtractor={(item) => item.id.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={lesson.loading}
+              onRefresh={() => executeQuery("lesson", fetchLessons)}
+            />
+          }
           renderItem={({ item }) => (
             <LessonCard
               title={`${item.name}`}

@@ -9,9 +9,11 @@ import { useLanguageContext } from "@context/LanguageProvider"
 import { useSpeechRecognition } from "@hooks/useSpeechRecognition"
 import { useSpeechSynthesis } from "@hooks/useSpeechSynthesis"
 import { usePlayback } from "@hooks/usePlayback"
+import { useProfileContext } from "@context/ProfileProvider"
 
 export default function Translator() {
   const { languages, selectedLanguage, onSelectLanguage } = useLanguageContext()
+  const { profile } = useProfileContext()
   const [sourceText, setSourceText] = useState()
   const [translatedText, setTranslatedText] = useState("")
   const [sourceLanguage, setSourceLanguage] = useState("en")
@@ -20,7 +22,7 @@ export default function Translator() {
   const [showPhrasebook, setShowPhrasebook] = useState(false)
 
   const { isRecording, isProcessing, transcript, handleRecord } =
-    useSpeechRecognition()
+    useSpeechRecognition(profile?.id)
 
   const { audioUrl, handleSynthesize } = useSpeechSynthesis()
 

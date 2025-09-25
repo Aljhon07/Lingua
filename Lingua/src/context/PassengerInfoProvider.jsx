@@ -6,14 +6,14 @@ import React from "react"
 
 export default function PassengerInfoProvider({ children }) {
   const [contacts, setContacts] = useState({
-    phoneNumber: "09123456789",
-    emailAddress: "paimon@gmail.com",
+    phoneNumber: "",
+    emailAddress: "",
   })
   const [ticket, setTicket] = useState(null)
   const [paymentMethod, setPaymentMethod] = useState("Credit Card")
   const [passengers, setPassengers] = useState([
     {
-      name: "Aljhon",
+      name: "",
       documents: [],
     },
   ])

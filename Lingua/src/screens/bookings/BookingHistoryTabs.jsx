@@ -11,7 +11,7 @@ import { StyleSheet } from "react-native"
 
 const Tab = createMaterialTopTabNavigator()
 
-function BookingTabScreen({ status, bookings }) {
+function BookingTabScreen({ status, bookings, getBookingHistory }) {
   const filteredBookings = useMemo(() => {
     if (!bookings?.data?.data) return []
 
@@ -32,6 +32,7 @@ function BookingTabScreen({ status, bookings }) {
         ...bookings,
         data: { data: filteredBookings },
       }}
+      getBookingHistory={getBookingHistory}
     />
   )
 }
@@ -42,13 +43,13 @@ export default function BookingHistoryTabs() {
   const { getQueryState, executeQuery } = useQueryState()
   const bookingHistory = getQueryState("booking-history")
 
-  const getBookingHistory = useCallback(() => {
+  const getBookingHistory = () => {
     executeQuery(
       "booking-history",
       fetchBookings,
       "fields=*,passengers,ticket.price,ticket.travel_package.name&sort=-date_updated"
     )
-  }, [executeQuery])
+  }
 
   // Only fetch on initial mount - no more refetching on navigation
   useEffect(() => {
@@ -83,22 +84,42 @@ export default function BookingHistoryTabs() {
         }}
       >
         <Tab.Screen name="All" options={{ title: "All" }}>
-          {() => <BookingTabScreen status="All" bookings={bookingHistory} />}
+          {() => (
+            <BookingTabScreen
+              status="All"
+              bookings={bookingHistory}
+              getBookingHistory={getBookingHistory}
+            />
+          )}
         </Tab.Screen>
 
         <Tab.Screen name="Pending" options={{ title: "Pending" }}>
           {() => (
-            <BookingTabScreen status="Pending" bookings={bookingHistory} />
+            <BookingTabScreen
+              status="Pending"
+              bookings={bookingHistory}
+              getBookingHistory={getBookingHistory}
+            />
           )}
         </Tab.Screen>
 
         <Tab.Screen name="Paid" options={{ title: "Paid" }}>
-          {() => <BookingTabScreen status="Paid" bookings={bookingHistory} />}
+          {() => (
+            <BookingTabScreen
+              status="Paid"
+              bookings={bookingHistory}
+              getBookingHistory={getBookingHistory}
+            />
+          )}
         </Tab.Screen>
 
         <Tab.Screen name="Cancelled" options={{ title: "Cancelled" }}>
           {() => (
-            <BookingTabScreen status="Cancelled" bookings={bookingHistory} />
+            <BookingTabScreen
+              status="Cancelled"
+              bookings={bookingHistory}
+              getBookingHistory={getBookingHistory}
+            />
           )}
         </Tab.Screen>
       </Tab.Navigator>
