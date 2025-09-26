@@ -54,10 +54,6 @@ What actually happened...
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text variant="headlineSmall" style={styles.title}>
-          Contact Support
-        </Text>
-
         <Text variant="bodyMedium" style={styles.description}>
           We're here to help! Choose how you'd like to get in touch with our
           support team.

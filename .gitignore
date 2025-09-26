@@ -3,3 +3,6 @@ directus-playground
 vosk
 *.txt
 scp/
+android/
+ios/
+web/

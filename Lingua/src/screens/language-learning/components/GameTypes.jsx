@@ -19,8 +19,11 @@ export function GuessTheWord({ choices, handleAnswer }) {
   )[0]
 
   const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`
+  const sentence_audio = `${cloudinary.audio}${answer.translations[0].audio_sentence}.mp3`
   console.log("Audio: ", audio)
   const { playSound, isPlaying } = usePlayback(audio)
+  const { playSound: playSentence, isPlaying: isSentencePlaying } =
+    usePlayback(sentence_audio)
 
   const handlePress = ({ id, isCorrect }) => {
     console.log("Pressed: ", id, isCorrect)
@@ -139,7 +142,10 @@ export function GuessTheWord({ choices, handleAnswer }) {
                     <Text variant="bodyLarge" style={{ marginTop: spacing.md }}>
                       Translation:
                     </Text>
-                    <Playable playSound={playSound} isPlaying={isPlaying}>
+                    <Playable
+                      playSound={playSentence}
+                      isPlaying={isSentencePlaying}
+                    >
                       <View>
                         <Text
                           variant="bodyMedium"

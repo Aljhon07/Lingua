@@ -30,7 +30,6 @@ export default function Translator() {
   // Update source text when transcript changes
   useEffect(() => {
     if (transcript && transcript !== "Processing...") {
-      console.log("Transcript received:", transcript)
       setSourceText(transcript)
     }
   }, [transcript])

@@ -21,15 +21,15 @@ export const usePlayback = (audioUrl) => {
       )
       setSound(newSound)
 
-      // newSound.setOnPlaybackStatusUpdate((status) => {
-      //   if (status.didJustFinish) {
-      //     setIsPlaying(false)
-      //   }
-      // })
+      newSound.setOnPlaybackStatusUpdate((status) => {
+        if (status.didJustFinish) {
+          setIsPlaying(false)
+        }
+      })
     } catch (error) {
       console.error("Audio playback error:", error)
-    } finally {
       setIsPlaying(false)
+    } finally {
     }
   }
 
