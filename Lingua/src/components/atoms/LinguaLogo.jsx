@@ -4,7 +4,6 @@ export function LinguaLogo({ style, light = false }) {
   const logo_light = require("@assets/images/lingua_light.png")
   const logo_dark = require("@assets/images/lingua_dark.png")
   const theme = Appearance.getColorScheme()
-  console.log(theme)
   const logo = theme == "light" ? logo_light : logo_dark
   return <Image source={logo} style={[styles.image, style]} />
 }

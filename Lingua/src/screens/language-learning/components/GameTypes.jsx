@@ -123,11 +123,17 @@ export function GuessTheWord({ choices, handleAnswer }) {
               <View>
                 {isCorrect ? (
                   <>
-                    <Text variant="bodyLarge" style={{ marginTop: spacing.md }}>
+                    <Text
+                      variant="bodyLarge"
+                      style={{ marginTop: spacing.md, wordBreak: "break-word" }}
+                    >
                       Sample Sentence:
                     </Text>
 
-                    <Text variant="bodyMedium" style={{ fontStyle: "italic" }}>
+                    <Text
+                      variant="bodyMedium"
+                      style={{ fontStyle: "italic", wordBreak: "break-word" }}
+                    >
                       {answer.sentence}
                     </Text>
                     <Text variant="bodyLarge" style={{ marginTop: spacing.md }}>
