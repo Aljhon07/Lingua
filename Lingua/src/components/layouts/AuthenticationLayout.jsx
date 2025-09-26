@@ -30,10 +30,9 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: spacing.sm,
     width: "100%",
+    justifyContent: "center",
   },
-  content: {
-    flex: 1,
-  },
+  content: {},
   logo: {
     width: "80%",
     alignSelf: "center",

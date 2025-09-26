@@ -169,12 +169,8 @@ export default function SignUpForm({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
+  container: {},
+  scrollView: {},
   scrollContent: {
     flexGrow: 1,
     alignItems: "center",
