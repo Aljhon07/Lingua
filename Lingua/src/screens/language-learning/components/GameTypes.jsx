@@ -1,10 +1,14 @@
-import { border, spacing } from "@constants/globalStyles"
+import { spacing } from "@constants/globalStyles"
 import { usePlayback } from "@hooks/usePlayback"
 import { useState, useEffect } from "react"
-import { Image, StyleSheet, View } from "react-native"
-import { Button, Icon, Text, TouchableRipple } from "react-native-paper"
+import { StyleSheet, View } from "react-native"
+import { Button, Text } from "react-native-paper"
 import { cloudinary } from "@constants/api"
 import Playable from "./Playable"
+import { Asset } from "expo-asset"
+
+const correctSfx =
+  Asset.fromModule(require("@assets/audio/correct.mp3")).uri + ".mp3"
 
 export function GuessTheWord({ choices, handleAnswer }) {
   const [isCorrect, setIsCorrect] = useState(false)
@@ -24,9 +28,11 @@ export function GuessTheWord({ choices, handleAnswer }) {
   const { playSound, isPlaying } = usePlayback(audio)
   const { playSound: playSentence, isPlaying: isSentencePlaying } =
     usePlayback(sentence_audio)
+  const { playSound: playSfx } = usePlayback()
 
   const handlePress = ({ id, isCorrect }) => {
     console.log("Pressed: ", id, isCorrect)
+
     setIsCorrect(isCorrect)
     setSelected(id)
   }

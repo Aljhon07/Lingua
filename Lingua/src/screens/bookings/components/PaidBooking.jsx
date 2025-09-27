@@ -2,15 +2,22 @@ import StyledSurface from "@components/atoms/StyledSurface"
 import DataContainer from "@components/layouts/DataContainer"
 import { spacing } from "@constants/globalStyles"
 import { useQueryState } from "@hooks/useQueryState"
+import { useNavigation } from "@react-navigation/native"
 import { fetchBookingDetails } from "@services/directus/rest"
 import { formatTimeStamp } from "@utils/formatDate"
 import React, { useEffect } from "react"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, Touchable, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
-import { Text } from "react-native-paper"
+import {
+  Button,
+  Icon,
+  IconButton,
+  Text,
+  TouchableRipple,
+} from "react-native-paper"
 import Ticket from "src/screens/flight-booking/components/Ticket"
 
-export default function PaidBooking({ bookingId }) {
+export default function PaidBooking({ bookingId, navigation }) {
   const { executeQuery, getQueryState } = useQueryState()
   const bookingDetails = getQueryState("bookingDetails")
   const booking = bookingDetails.data?.data
@@ -95,6 +102,14 @@ export default function PaidBooking({ bookingId }) {
           })}
         </ScrollView>
       </DataContainer>
+
+      <IconButton
+        icon={"notebook"}
+        mode="contained"
+        onPress={() => navigation.navigate("CustomizeItinerary", { bookingId })}
+        size={28}
+        style={{ position: "absolute", bottom: 10, right: 20 }}
+      />
     </View>
   )
 }

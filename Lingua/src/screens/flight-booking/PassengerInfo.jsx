@@ -1,37 +1,49 @@
-import DataContainer from "@components/layouts/DataContainer";
-import { fetchTicketDetails } from "@services/directus/rest";
-import React, { useEffect } from "react";
-import Ticket from "./components/Ticket";
-import PaddedView from "@components/atoms/PaddedView";
-import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
-import { spacing } from "@constants/globalStyles";
-import PassengerInputContainer from "./components/PassengerInputContainer";
-import { useQueryState } from "@hooks/useQueryState";
-import { usePassengerInfoContext } from "@context/PassengerInfoProvider";
-import { useNavigation } from "@react-navigation/native";
-import ContactInput from "./components/ContactInput";
-import { ScrollView } from "react-native-gesture-handler";
-import PaymentMethodInput from "./components/PaymentMethodInput";
-import { CustomButton } from "@components/molecules/CustomButton";
-import { Text } from "react-native-paper";
+import DataContainer from "@components/layouts/DataContainer"
+import { fetchTicketDetails } from "@services/directus/rest"
+import React, { useEffect } from "react"
+import Ticket from "./components/Ticket"
+import PaddedView from "@components/atoms/PaddedView"
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
+import { spacing } from "@constants/globalStyles"
+import PassengerInputContainer from "./components/PassengerInputContainer"
+import { useQueryState } from "@hooks/useQueryState"
+import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
+import { useNavigation } from "@react-navigation/native"
+import ContactInput from "./components/ContactInput"
+import { ScrollView } from "react-native-gesture-handler"
+import PaymentMethodInput from "./components/PaymentMethodInput"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { Text } from "react-native-paper"
 
 export default function PassengerInfo({ route }) {
-  const { id } = route.params;
-  const { passengers } = usePassengerInfoContext();
+  const { id } = route.params
+  const { passengers, contacts, emailAddress } = usePassengerInfoContext()
 
-  const navigation = useNavigation();
+  const navigation = useNavigation()
 
-  const { executeQuery, getQueryState } = useQueryState();
+  const { executeQuery, getQueryState } = useQueryState()
 
-  const ticket = getQueryState("ticketDetails");
-  const styles = createStyle();
+  const ticket = getQueryState("ticketDetails")
+  const styles = createStyle()
 
   const handleGoToSummary = () => {
-    navigation.navigate("Summary", { id, passengers });
-  };
+    if (passengers[0].name.trim() === "") {
+      alert("Please add at least one passenger.")
+      return
+    }
+    if (!contacts.phoneNumber) {
+      alert("Please enter a contact phone number.")
+      return
+    }
+    if (!contacts.emailAddress) {
+      alert("Please enter a contact email address.")
+      return
+    }
+    navigation.navigate("Summary", { id, passengers })
+  }
   useEffect(() => {
-    executeQuery("ticketDetails", fetchTicketDetails, { id });
-  }, []);
+    executeQuery("ticketDetails", fetchTicketDetails, { id })
+  }, [])
 
   return (
     <PaddedView style={styles.screen}>
@@ -56,7 +68,7 @@ export default function PassengerInfo({ route }) {
         </CustomButton>
       </DataContainer>
     </PaddedView>
-  );
+  )
 }
 
 const createStyle = (colors) =>
@@ -72,4 +84,4 @@ const createStyle = (colors) =>
       marginBottom: spacing.lg,
       gap: spacing.lg,
     },
-  });
+  })

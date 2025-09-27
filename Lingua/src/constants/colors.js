@@ -1,15 +1,15 @@
 const commonColors = {
-  primary: "rgb(245, 124, 0)",
+  primary: "rgba(0, 254, 144, 1)",
   success: "rgb(99, 255, 99)",
   link: "rgb(36, 80, 255)",
   warning: "rgb(255, 71, 71)",
 }
 
 const lightTheme = {
-  primary: "rgb(245, 124, 0)", // Primary color adjusted to #f57c00 (Orange)
+  primary: "rgba(0, 126, 71, 1)", // Primary color adjusted to #f57c00 (Orange)
   onPrimary: "rgb(255, 255, 255)", // Text color on primary (white)
 
-  primaryContainer: "rgb(245, 124, 0)", // Same as primary color
+  primaryContainer: "rgba(0, 126, 71, 1)", // Same as primary color
   onPrimaryContainer: "rgb(255, 255, 255)", // Text color on primary container (white)
 
   secondary: "rgb(75, 98, 104)", // Secondary color
@@ -65,10 +65,10 @@ const lightTheme = {
 }
 
 const darkTheme = {
-  primary: "rgb(245, 124, 0)", // #f57c00
+  primary: "rgba(0, 254, 144, 1)", // #f57c00
   onPrimary: "rgb(0, 0, 0)", // Dark text on primary
 
-  primaryContainer: "rgb(245, 124, 0)", // Same as primary color
+  primaryContainer: "rgba(0, 254, 144, 1)", // Same as primary color
   onPrimaryContainer: "rgb(0, 0, 0)", // Text color on primary container (black)
 
   secondary: "rgb(75, 98, 104)", // Secondary color
@@ -103,7 +103,7 @@ const darkTheme = {
   inverseSurface: "rgb(225, 227, 228)", // Light inverse surface color
   inverseOnSurface: "rgb(46, 49, 50)", // Dark text on inverse surface
 
-  inversePrimary: "rgb(245, 124, 0)", // Same as primary color (for inverse)
+  inversePrimary: "rgba(0, 254, 144, 1)", // Same as primary color (for inverse)
 
   elevation: {
     level0: "transparent",
