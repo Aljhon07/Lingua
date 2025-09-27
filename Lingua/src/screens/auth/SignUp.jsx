@@ -1,17 +1,17 @@
 import { View, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import SignUpForm from "@components/organisms/SignUpForm"
+import { LinguaLogo } from "@components/atoms/LinguaLogo"
+import AuthenticationForm from "@components/layouts/AuthenticationLayout"
 
 export default function SignUp({ navigation }) {
   return (
-    <SafeAreaView style={styles.container}>
+    <AuthenticationForm>
       <SignUpForm navigation={navigation} />
-    </SafeAreaView>
+    </AuthenticationForm>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: {},
 })

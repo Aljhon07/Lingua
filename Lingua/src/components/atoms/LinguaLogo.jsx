@@ -1,11 +1,12 @@
+import { useThemeContext } from "@context/ThemeProvider"
 import { Appearance, Image, StyleSheet } from "react-native"
 
-export function LinguaLogo({ style, light = false }) {
+export function LinguaLogo({ style }) {
   const logo_light = require("@assets/images/lingua_light.png")
   const logo_dark = require("@assets/images/lingua_dark.png")
-  const theme = Appearance.getColorScheme()
-  console.log(theme)
-  const logo = theme == "light" ? logo_light : logo_dark
+  const { themePreference } = useThemeContext()
+  console.log("Theme: ", themePreference)
+  const logo = themePreference == "light" ? logo_dark : logo_light
   return <Image source={logo} style={[styles.image, style]} />
 }
 

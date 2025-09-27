@@ -29,8 +29,6 @@ export default function SignInForm({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <Text>{domain}</Text>
-
         <TextInput
           mode="outlined"
           style={styles.inputField}

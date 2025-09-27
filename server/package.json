@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@deepgram/sdk": "^4.11.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "multer": "^2.0.2",
     "nodemon": "^3.1.10",
     "stripe": "^17.7.0"
   },

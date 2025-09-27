@@ -2,10 +2,17 @@ import { useLanguageContext } from "@context/LanguageProvider"
 import { View } from "react-native"
 import { Text } from "react-native-paper"
 import { Dropdown } from "react-native-paper-dropdown"
+import { useState } from "react"
 
-export function LanguageList({ label = "Select Language" }) {
+export function LanguageList({
+  label = "Select Language",
+  hideMenuHeader = true,
+  lang,
+  callbackFn,
+  isSource = false,
+}) {
   const { languages, onSelectLanguage, selectedLanguage } = useLanguageContext()
-
+  const [localValue, setLocalValue] = useState(lang)
   if (!languages) {
     return <Text>Loading...</Text>
   }
@@ -14,8 +21,8 @@ export function LanguageList({ label = "Select Language" }) {
     <Dropdown
       mode="outlined"
       label={label}
-      value={selectedLanguage?.code}
-      hideMenuHeader={true}
+      value={localValue ? localValue : selectedLanguage?.code}
+      hideMenuHeader={hideMenuHeader}
       options={languages.map((language) => ({
         label: language.name,
         value: language.code,
@@ -25,7 +32,14 @@ export function LanguageList({ label = "Select Language" }) {
           (language) => language.code === value
         )
         if (filteredLanguage) {
-          onSelectLanguage(filteredLanguage)
+          if (lang) {
+            console.log("Setting local value to", value)
+            callbackFn(value)
+            setLocalValue(value)
+          } else {
+            console.log("Setting selected language to", filteredLanguage)
+            onSelectLanguage(filteredLanguage)
+          }
         }
       }}
     />
