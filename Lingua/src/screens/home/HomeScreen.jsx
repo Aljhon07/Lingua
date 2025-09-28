@@ -21,8 +21,8 @@ export default function HomeScreen() {
       >
         <Greeting />
         <LatestTicket />
-        <TipsSection />
         <ShortcutIcons />
+        <TipsSection />
         <RecommendedPackages />
       </ScrollView>
     </SafeAreaView>

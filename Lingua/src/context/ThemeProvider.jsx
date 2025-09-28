@@ -103,7 +103,7 @@ export default function ThemeProvider({ children }) {
         setThemePreference: setThemePreferenceAndSave,
       }}
     >
-      <PaperProvider theme={state.theme}>
+      <PaperProvider key={state.themePreference} theme={state.theme}>
         <StatusBar
           style={state.themePreference === "dark" ? "light" : "dark"}
         />

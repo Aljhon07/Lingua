@@ -1,7 +1,6 @@
 import { StyleSheet, Alert, Linking, Platform } from "react-native"
 import { useTheme, List, Divider, Switch } from "react-native-paper"
 import { Section } from "@components/atoms/Section"
-import { useThemeContext } from "@context/ThemeProvider"
 import { spacing } from "@constants/globalStyles"
 import { useState } from "react"
 
@@ -13,15 +12,8 @@ export default function ProfileSettings({
   onContactPress,
 }) {
   const { colors } = useTheme()
-  const { themePreference, setThemePreference } = useThemeContext()
   const styles = createStyles(colors)
   const [notificationsEnabled, setNotificationsEnabled] = useState(true)
-
-  const isDarkTheme = themePreference === "dark"
-
-  const handleThemeToggle = (value) => {
-    setThemePreference(value ? "dark" : "light")
-  }
 
   const handleReportBug = () => {
     const emailBody = `
@@ -59,24 +51,6 @@ What actually happened...
         contentContainerStyle={styles.sectionContent}
         style={styles.section}
       >
-        <List.Item
-          title="Dark Theme"
-          description="Switch between light and dark mode"
-          left={(props) => (
-            <List.Icon
-              {...props}
-              icon="theme-light-dark"
-              color={colors.primary}
-            />
-          )}
-          right={() => (
-            <Switch value={isDarkTheme} onValueChange={handleThemeToggle} />
-          )}
-          style={styles.listItem}
-        />
-
-        <Divider style={styles.divider} />
-
         <List.Item
           title="Notifications"
           description="Receive push notifications"
