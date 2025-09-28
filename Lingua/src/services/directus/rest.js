@@ -140,11 +140,10 @@ export const fetchBookingDetails = async ({ id, filter }) => {
   }
 }
 
-export const patchBooking = async ({ id, paymentId }) => {
+export const payBooking = async ({ id, paymentId }) => {
   try {
-    console.log("Updating Booking...", paymentId, " : ", id)
     const { data } = await fetchBookingDetails({ id })
-    console.log(data)
+    console.log("Updating Booking...", paymentId, " : ", id)
     const updateBooking = generateBookingDetails(data)
     console.log(JSON.stringify(updateBooking, null, 2))
     const res = await axiosInstance.patch(`/items/booking/${id}`, {
@@ -155,15 +154,19 @@ export const patchBooking = async ({ id, paymentId }) => {
     console.log("Booking Updated")
     return res.data.data
   } catch (error) {
-    throw new Error(logError("patchBooking", error))
+    console.error("Error paying booking:", error)
+    throw new Error(logError("payBooking", error))
   }
 }
 
-export const fetchTickets = async (id) => {
+export const fetchTickets = async (id, filter) => {
   try {
     console.log("Fetching tickets...")
+    const filter = filter
+      ? filter
+      : "sort=departure_schedule&fields=*,travel_package.country.name,return_ticket.type,return_ticket.id,return_ticket.departure_schedule,return_ticket.departure_location,return_ticket.arrival_location,return_ticket.arrival_schedule"
     const res = await axiosInstance.get(
-      `/items/ticket?filter[travel_package]=${id}&sort=departure_schedule&fields=*,travel_package.country.name,return_ticket.type,return_ticket.id,return_ticket.departure_schedule,return_ticket.departure_location,return_ticket.arrival_location,return_ticket.arrival_schedule`
+      `/items/ticket?filter[travel_package]=${id}&${filter}`
     )
     console.log("Tickets Fetched")
     return res.data.data
@@ -247,5 +250,62 @@ export const fetchPhrases = async ({ lang }) => {
     return res.data.data
   } catch (error) {
     throw new Error(logError("fetchPhrases", error))
+  }
+}
+
+export const fetchUserItinerary = async (filter) => {
+  console.log("Filter: ", filter)
+  try {
+    console.log("Fetching User Itinerary...")
+    const res = await axiosInstance.get(`/items/user_itinerary?${filter}`)
+    console.log("User Itinerary Fetched")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("fetchUserItinerary", error))
+  }
+}
+export const createUserItinerary = async (bookingId) => {
+  try {
+    console.log("Creating User Itinerary...")
+    const { data: bookingDetails } = await fetchBookingDetails({
+      id: bookingId,
+      filter:
+        "fields=ticket.travel_package.itinerary.overview,ticket.travel_package.itinerary.activities.*,ticket.travel_package.itinerary.id,ticket.travel_package.itinerary.dayNumber",
+    })
+
+    const formattedData = bookingDetails.ticket.travel_package.itinerary.map(
+      (item) => ({
+        destination: item.id,
+        title: `${item.overview}`,
+        order: item.dayNumber,
+        activity: item.activities.map((activity, index) => ({
+          name: activity.name,
+          order: index,
+        })),
+      })
+    )
+
+    const res = await axiosInstance.post("/items/user_itinerary", {
+      booking: bookingId,
+      itinerary: formattedData,
+    })
+    console.log("User Itinerary Created")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("createUserItinerary", error))
+  }
+}
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+export const patchUserItinerary = async ({ id, data }) => {
+  // console.log(JSON.stringify(data, null, 2))
+  try {
+    console.log("Updating User Itinerary...")
+    sleep(1000)
+    const res = await axiosInstance.patch(`/items/user_itinerary/${id}`, data)
+    console.log("User Itinerary Updated")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("updateUserItinerary", error))
   }
 }

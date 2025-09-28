@@ -15,8 +15,10 @@ import { useNavigation } from "@react-navigation/native"
 export default function LessonList() {
   const navigation = useNavigation()
   const { getQueryState, executeQuery } = useQueryState()
+
   const styles = createStyles()
   const lesson = getQueryState("lesson")
+
   const { selectedLanguage } = useLanguageContext()
 
   useEffect(() => {

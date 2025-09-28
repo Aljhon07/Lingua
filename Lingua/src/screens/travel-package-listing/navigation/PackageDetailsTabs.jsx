@@ -18,11 +18,10 @@ export default function PackageDetailsTabs({ packageDetails }) {
         initialParams={packageDetails}
       />
       <TopTab.Screen
-        name="Tips & Recommendations"
+        name="Cultural Tips"
         component={PackageTips}
         initialParams={packageDetails}
       />
-
     </TopTab.Navigator>
   )
 }

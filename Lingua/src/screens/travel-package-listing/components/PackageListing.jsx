@@ -40,7 +40,9 @@ export default function PackageListing({
               />
             }
             data={packagesState.data}
-            renderItem={({ item }) => <PackageCard item={item} />}
+            renderItem={({ item }) => (
+              <PackageCard item={item} horizontal={false} />
+            )}
             keyExtractor={(item) => item.id.toString()}
           />
         </Section>

@@ -99,7 +99,7 @@ What actually happened...
           />
         </Section>
 
-        <Card style={styles.card}>
+        {/* <Card style={styles.card}>
           <Card.Content>
             <Text variant="titleMedium" style={styles.cardTitle}>
               Support Hours
@@ -131,7 +131,7 @@ What actually happened...
               🐛 bugs@lingua.com
             </Text>
           </Card.Content>
-        </Card>
+        </Card> */}
       </ScrollView>
     </View>
   )

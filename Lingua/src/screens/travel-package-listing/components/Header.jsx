@@ -63,10 +63,6 @@ export default function Header({ getPackages, countries }) {
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
 
-      <Text variant="headlineLarge">
-        Adventure is calling, {profile.first_name}! Where to go next?
-      </Text>
-
       <View style={styles.wrapper}>
         <View style={styles.countryFilterRow}>
           <View style={styles.countryDropdown}>

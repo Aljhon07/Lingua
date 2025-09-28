@@ -3,7 +3,7 @@ import { View, Alert, Button } from "react-native"
 import { StripeProvider, usePaymentSheet } from "@stripe/stripe-react-native"
 import { domain, server } from "@constants/api"
 import { CustomButton } from "@components/molecules/CustomButton"
-import { patchBooking } from "@services/directus/rest"
+import { payBooking } from "@services/directus/rest"
 import { useNavigation } from "@react-navigation/native"
 
 const API_URL = server.baseURL
@@ -66,11 +66,11 @@ export default function StripePay({ price, bookingId }) {
       if (error) {
         return
       }
-      await patchBooking({ id: bookingId, paymentId: pid })
+      await payBooking({ id: bookingId, paymentId: pid })
       Alert.alert("Success", "Payment Successful", [
         {
           text: "OK",
-          onPress: () => navigation.navigate("MainTab", { screen: "Bookings" }),
+          onPress: () => navigation.navigate("MainTab", { screen: "Home" }),
         },
       ])
     } catch (error) {
