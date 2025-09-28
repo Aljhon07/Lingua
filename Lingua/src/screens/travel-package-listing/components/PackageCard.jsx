@@ -1,7 +1,7 @@
 import React from "react"
 import { cloudinary } from "@constants/api"
 import { ImageBackground, Pressable, StyleSheet, View } from "react-native"
-import { Text, IconButton, useTheme } from "react-native-paper"
+import { Text, IconButton, useTheme, Button } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 
@@ -30,11 +30,15 @@ export function PackageCard({ item }) {
             </Text>
             <Text variant="titleSmall">{item.name}</Text>
           </View>
-          <IconButton
+          <Button
+            mode="contained"
+            contentStyle={{ flexDirection: "row-reverse" }}
             onPress={handleNavigate}
             icon={"open-in-new"}
             iconColor={colors.primary}
-          />
+          >
+            View Details
+          </Button>
         </View>
       </ImageBackground>
     </Pressable>

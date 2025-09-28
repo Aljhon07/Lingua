@@ -56,6 +56,44 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
     handleChanges(newChanges)
   }
 
+  const removeActivity = (activityId) => {
+    setData((prevData) => prevData.filter((act) => act.id !== activityId))
+    const newChanges = {
+      ...changes,
+      itinerary: changes.itinerary.map((it) =>
+        it.id === itineraryId
+          ? {
+              ...it,
+              activity: it.activity.filter((act) => act.id !== activityId),
+            }
+          : it
+      ),
+    }
+    handleChanges(newChanges)
+  }
+
+  const handleActivityChange = (updatedActivity) => {
+    const updatedData = data.map((act) =>
+      act.id === updatedActivity.id ? updatedActivity : act
+    )
+    setData(updatedData)
+
+    const newChanges = {
+      ...changes,
+      itinerary: changes.itinerary.map((it) =>
+        it.id === itineraryId
+          ? {
+              ...it,
+              activity: it.activity.map((act) =>
+                act.id === updatedActivity.id ? updatedActivity : act
+              ),
+            }
+          : it
+      ),
+    }
+
+    handleChanges(newChanges)
+  }
   return (
     <StyledSurface style={styles.cardContainer} elevation={2}>
       <View style={styles.cardHeader}>
@@ -79,6 +117,8 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
                   drag={drag}
                   isActive={isActive}
                   isEditing={isEditing}
+                  removeActivity={removeActivity}
+                  handleActivityChange={handleActivityChange}
                 />
               )}
             />

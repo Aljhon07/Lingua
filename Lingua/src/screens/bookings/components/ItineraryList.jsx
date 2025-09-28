@@ -9,7 +9,6 @@ import { update } from "lodash"
 import { CustomButton } from "@components/molecules/CustomButton"
 
 export default function ItineraryList({ itinerary: data }) {
-  console.log(data)
   const { booking: bookingId, id: userItineraryId, itinerary } = data
   const {
     editing,

@@ -104,27 +104,39 @@ export default function Translator() {
     setSourceText(text)
   }
 
+  console.log("Target: ", targetLanguage, "\nSource: ", sourceLanguage)
   const swapLanguages = () => {
-    // Store the current values first
-    const currentSource = sourceLanguage
-    const currentTarget = targetLanguage
-
-    // Update the state with the swapped values
-    setSourceLanguage(currentTarget)
-    setTargetLanguage(currentSource)
-
-    // Clear the text fields
-    const currentSourceText = sourceText
-    setSourceText(translatedText || "")
-    setTranslatedText(currentSourceText || "")
-
-    // Update the selected language in context if needed
-    const newSelectedLang = languages?.find(
-      (lang) => lang.code === currentTarget
-    )
-    if (newSelectedLang) {
-      onSelectLanguage(newSelectedLang)
+    // Don't swap if translation is in progress to avoid confusion
+    if (isTranslating) {
+      console.log("Cannot swap languages while translation is in progress")
+      return
     }
+
+    // Store the current values before swapping
+    const currentSourceText = ""
+    const currentTranslatedText = ""
+    const currentSourceLanguage = sourceLanguage
+    const currentTargetLanguage = targetLanguage
+
+    // Swap the languages
+    setSourceLanguage(currentTargetLanguage)
+    setTargetLanguage(currentSourceLanguage)
+
+    // Swap the text content - what was translated becomes the new source
+    // and what was source becomes the new translated text
+    setSourceText(currentTranslatedText)
+    setTranslatedText(currentSourceText)
+
+    // Note: We don't update the global language context here because
+    // the translator should manage its own language states independently
+    // The LanguageList components will update automatically via their lang props
+
+    // console.log("Languages swapped:", {
+    //   newSource: currentTargetLanguage,
+    //   newTarget: currentSourceLanguage,
+    //   newSourceText: currentTranslatedText,
+    //   newTranslatedText: currentSourceText,
+    // })
   }
 
   const speakTranslatedText = () => {

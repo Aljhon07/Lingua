@@ -2,7 +2,7 @@ import { useLanguageContext } from "@context/LanguageProvider"
 import { View } from "react-native"
 import { Text } from "react-native-paper"
 import { Dropdown } from "react-native-paper-dropdown"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 export function LanguageList({
   label = "Select Language",
@@ -13,10 +13,17 @@ export function LanguageList({
 }) {
   const { languages, onSelectLanguage, selectedLanguage } = useLanguageContext()
   const [localValue, setLocalValue] = useState(lang)
-  if (!languages) {
-    return <Text>Loading...</Text>
-  }
 
+  // Update localValue when the lang prop changes (e.g., during language swap)
+  useEffect(() => {
+    setLocalValue(lang)
+  }, [lang])
+
+  console.log(
+    "Rendering LanguageList with lang: ",
+    isSource ? "<Source Language>" : "<Target Language>",
+    lang
+  )
   return (
     <Dropdown
       mode="outlined"
