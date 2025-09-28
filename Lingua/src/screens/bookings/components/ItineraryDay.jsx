@@ -38,9 +38,12 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
   }
 
   const addActivity = () => {
+    // Generate temporary ID for newly created activities (negative numbers to avoid conflicts)
+    const tempId = -Date.now() - Math.random()
     const newActivity = {
       name: "New Activity",
       order: data.length,
+      tempId, // Temporary ID for tracking before backend save
     }
 
     setData((prevData) => [...prevData, newActivity])
@@ -56,15 +59,29 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
     handleChanges(newChanges)
   }
 
-  const removeActivity = (activityId) => {
-    setData((prevData) => prevData.filter((act) => act.id !== activityId))
+  const removeActivity = (activityToRemove) => {
+    // Handle both saved items (with id) and unsaved items (with tempId)
+    const filterFn = (act) => {
+      // For saved activities: compare by id
+      if (activityToRemove.id && act.id) {
+        return act.id !== activityToRemove.id
+      }
+      // For newly created activities: compare by tempId
+      if (activityToRemove.tempId && act.tempId) {
+        return act.tempId !== activityToRemove.tempId
+      }
+      // Fallback: compare by reference (should not happen with proper IDs)
+      return act !== activityToRemove
+    }
+
+    setData((prevData) => prevData.filter(filterFn))
     const newChanges = {
       ...changes,
       itinerary: changes.itinerary.map((it) =>
         it.id === itineraryId
           ? {
               ...it,
-              activity: it.activity.filter((act) => act.id !== activityId),
+              activity: it.activity.filter(filterFn),
             }
           : it
       ),
@@ -73,8 +90,19 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
   }
 
   const handleActivityChange = (updatedActivity) => {
+    // Handle both saved activities (id) and unsaved activities (tempId)
+    const matchFn = (act) => {
+      if (updatedActivity.id && act.id) {
+        return act.id === updatedActivity.id
+      }
+      if (updatedActivity.tempId && act.tempId) {
+        return act.tempId === updatedActivity.tempId
+      }
+      return false
+    }
+
     const updatedData = data.map((act) =>
-      act.id === updatedActivity.id ? updatedActivity : act
+      matchFn(act) ? updatedActivity : act
     )
     setData(updatedData)
 
@@ -85,7 +113,7 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
           ? {
               ...it,
               activity: it.activity.map((act) =>
-                act.id === updatedActivity.id ? updatedActivity : act
+                matchFn(act) ? updatedActivity : act
               ),
             }
           : it
@@ -109,7 +137,13 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
           <GestureHandlerRootView style={styles.listContainer}>
             <DraggableFlatList
               data={data}
-              keyExtractor={(item, index) => `${item.name}_${index}`}
+              keyExtractor={(item, index) =>
+                item.id
+                  ? `saved_${item.id}`
+                  : item.tempId
+                  ? `temp_${item.tempId}`
+                  : `fallback_${index}`
+              }
               onDragEnd={handleDragEnd}
               renderItem={({ item, drag, isActive }) => (
                 <ItineraryActivity
@@ -134,7 +168,13 @@ function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
           <View style={styles.listContainer}>
             <FlatList
               data={data}
-              keyExtractor={(item, index) => `${item.name}_${index}`}
+              keyExtractor={(item, index) =>
+                item.id
+                  ? `saved_${item.id}`
+                  : item.tempId
+                  ? `temp_${item.tempId}`
+                  : `fallback_${index}`
+              }
               renderItem={({ item }) => (
                 <ItineraryActivity activity={item} isEditing={isEditing} />
               )}

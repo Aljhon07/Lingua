@@ -103,13 +103,15 @@ export default function PaidBooking({ bookingId, navigation }) {
         </ScrollView>
       </DataContainer>
 
-      <IconButton
+      <Button
         icon={"notebook"}
         mode="contained"
         onPress={() => navigation.navigate("CustomizeItinerary", { bookingId })}
         size={28}
         style={{ position: "absolute", bottom: 10, right: 20 }}
-      />
+      >
+        View Itinerary
+      </Button>
     </View>
   )
 }

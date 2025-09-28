@@ -27,7 +27,8 @@ function ItineraryActivity({
   }
 
   const handleRemove = () => {
-    removeActivity(activity.id)
+    // Pass the entire activity object to handle both saved (id) and unsaved (tempId) items
+    removeActivity(activity)
   }
 
   return (
