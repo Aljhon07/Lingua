@@ -44,16 +44,19 @@ const TranslationBox = ({
         hideMenuHeader={false}
         callbackFn={onLanguageChange}
         lang={isSource ? sourceLanguage : targetLanguage}
+        isSource={isSource}
       />
       <View style={containerStyle}>
         <TextInput
           style={inputStyle}
           value={value}
-          onChangeText={onChangeText}
+          onChangeText={isSource ? onChangeText : null}
           placeholder={placeholder}
           placeholderTextColor={colors.onSurfaceDisabled}
           multiline
-          editable={editable}
+          scrollEnabled={true}
+          caretHidden={!editable}
+          showSoftInputOnFocus={!editable}
           textAlignVertical="top"
         />
 

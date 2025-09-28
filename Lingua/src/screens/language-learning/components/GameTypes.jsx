@@ -1,16 +1,20 @@
-import { CustomButton } from "@components/molecules/CustomButton"
-import { border, spacing } from "@constants/globalStyles"
+import { spacing } from "@constants/globalStyles"
 import { usePlayback } from "@hooks/usePlayback"
 import { useState, useEffect } from "react"
-import { Image, StyleSheet, View } from "react-native"
+import { StyleSheet, View } from "react-native"
 import { Button, Text } from "react-native-paper"
 import { cloudinary } from "@constants/api"
+import Playable from "./Playable"
+import { Asset } from "expo-asset"
 
-export function GuessTheWord({ choices, onPress }) {
-  const [isIncorrect, setIsIncorrect] = useState(false)
+const correctSfx =
+  Asset.fromModule(require("@assets/audio/correct.mp3")).uri + ".mp3"
+
+export function GuessTheWord({ choices, handleAnswer }) {
+  const [isCorrect, setIsCorrect] = useState(false)
   const [selected, setSelected] = useState(null)
   useEffect(() => {
-    setIsIncorrect(false)
+    setIsCorrect(false)
     setSelected(null)
   }, [choices])
 
@@ -19,108 +23,169 @@ export function GuessTheWord({ choices, onPress }) {
   )[0]
 
   const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`
+  const sentence_audio = `${cloudinary.audio}${answer.translations[0].audio_sentence}.mp3`
   console.log("Audio: ", audio)
   const { playSound, isPlaying } = usePlayback(audio)
+  const { playSound: playSentence, isPlaying: isSentencePlaying } =
+    usePlayback(sentence_audio)
+  const { playSound: playSfx } = usePlayback()
 
   const handlePress = ({ id, isCorrect }) => {
-    setIsIncorrect(!isCorrect)
+    console.log("Pressed: ", id, isCorrect)
+
+    setIsCorrect(isCorrect)
     setSelected(id)
-    setTimeout(() => {
-      onPress({ id, isCorrect })
-    }, 200)
   }
 
+  const handleNext = () => {
+    setSelected(null)
+    setIsCorrect(false)
+    handleAnswer({ selected, isCorrect })
+  }
   const renderChoices = () => {
     return choices.map((choice, index) => {
       const { vocab, isCorrect } = choice
       const { image } = vocab
-      // console.log("Vocab: ", JSON.stringify(vocab, null, 2), isCorrect);
+      console.log("Vocab: ", JSON.stringify(vocab, null, 2), isCorrect)
       let imgSrc = require("@assets/images/placeholder.jpg")
       if (image) {
         imgSrc = cloudinary.images + image + ".png"
       }
-      const buttonStyle =
-        vocab.id == selected
-          ? !isIncorrect
-            ? styles.correct
-            : styles.incorrect
-          : ""
+
       return (
-        <CustomButton
-          style={[
-            {
-              width: "48%",
-              height: "48%",
-            },
-            buttonStyle,
-          ]}
+        <Button
+          mode="outlined"
           key={index}
           onPress={() => handlePress({ id: vocab.id, isCorrect })}
         >
-          <View
-            style={{
-              alignItems: "center",
-              gap: spacing.sm,
-              flex: 1,
-            }}
-          >
-            <View
-              style={{
-                flex: 1,
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                source={imgSrc}
-                style={{
-                  height: "80%",
-                  resizeMode: "contain",
-                  borderRadius: border.lg,
-                }}
-              />
-            </View>
-            <Text variant="titleMedium">{vocab?.word}</Text>
-          </View>
-        </CustomButton>
+          <Text variant="bodyLarge">{vocab?.word}</Text>
+        </Button>
       )
     })
   }
 
   return (
     <View style={{ flex: 1, gap: spacing.lg }}>
-      <Text style={{ textAlign: "center" }} variant="titleLarge">
-        Translate the word
-      </Text>
-      <View style={{ gap: spacing.lg, flex: 1 }}>
-        <CustomButton
-          icon={"volume-source"}
-          iconSize={32}
-          style={{
-            width: "auto",
-            alignSelf: "flex-start",
-            borderWidth: 0,
-            borderBottomWidth: 1,
-          }}
-          onPress={playSound}
-        >
-          <Text variant="titleLarge">
-            {answer.translations[0].translated_word} -
-            {answer.translations[0].word_transliteration}
+      {selected == null ? (
+        <>
+          <Text variant="titleLarge" style={{ textAlign: "center" }}>
+            Translate the word
           </Text>
-        </CustomButton>
-        <View
-          style={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            alignContent: "center",
-            justifyContent: "center",
-            gap: spacing.md,
-            flex: 1,
-          }}
-        >
-          {renderChoices()}
-        </View>
-      </View>
+          <View style={{ gap: spacing.lg, flex: 1 }}>
+            <Playable playSound={playSound} isPlaying={isPlaying}>
+              <View>
+                <Text variant="headlineSmall">
+                  {answer.translations[0].translated_word}
+                </Text>
+                <Text variant="bodyMedium">
+                  {answer.translations[0].word_transliteration}
+                </Text>
+              </View>
+            </Playable>
+
+            <View
+              style={{
+                flexDirection: "column",
+                alignContent: "center",
+                gap: spacing.md,
+                flex: 1,
+              }}
+            >
+              {renderChoices()}
+            </View>
+          </View>
+        </>
+      ) : (
+        <>
+          <View
+            style={{
+              flex: 1,
+              gap: spacing.lg,
+            }}
+          >
+            <>
+              <View>
+                <Text
+                  variant="headlineMedium"
+                  style={{
+                    color: isCorrect ? "green" : "red",
+                  }}
+                >
+                  {isCorrect ? "Correct!" : "Oops! Incorrect!"}
+                </Text>
+                <Text variant="bodyLarge">Question:</Text>
+                <Playable
+                  playSound={() => playSound(audio)}
+                  isPlaying={isPlaying}
+                >
+                  <View>
+                    <Text variant="headlineSmall">
+                      {answer.translations[0].translated_word}
+                    </Text>
+                    <Text variant="bodyMedium">
+                      {answer.translations[0].word_transliteration}
+                    </Text>
+                  </View>
+                </Playable>
+              </View>
+
+              <View>
+                {isCorrect ? (
+                  <>
+                    <Text
+                      variant="bodyLarge"
+                      style={{ marginTop: spacing.md, wordBreak: "break-word" }}
+                    >
+                      Sample Sentence:
+                    </Text>
+
+                    <Text
+                      variant="bodyMedium"
+                      style={{ fontStyle: "italic", wordBreak: "break-word" }}
+                    >
+                      {answer.sentence}
+                    </Text>
+                    <Text variant="bodyLarge" style={{ marginTop: spacing.md }}>
+                      Translation:
+                    </Text>
+                    <Playable
+                      playSound={playSentence}
+                      isPlaying={isSentencePlaying}
+                    >
+                      <View>
+                        <Text
+                          variant="bodyMedium"
+                          style={{ fontStyle: "italic" }}
+                        >
+                          {answer.translations[0].translated_sentence}
+                        </Text>
+                        <Text variant="bodyMedium">
+                          {answer.translations[0].sentence_transliteration}
+                        </Text>
+                      </View>
+                    </Playable>
+                  </>
+                ) : (
+                  <>
+                    <Text variant="bodyLarge" style={{ marginTop: spacing.md }}>
+                      Correct answer:
+                    </Text>
+                    <Text
+                      variant="bodyLarge"
+                      style={{ fontSize: 20, fontWeight: "bold" }}
+                    >
+                      {answer.word}
+                    </Text>
+                  </>
+                )}
+              </View>
+            </>
+          </View>
+          <Button mode="contained" onPress={handleNext}>
+            Next
+          </Button>
+        </>
+      )}
     </View>
   )
 }
@@ -128,8 +193,10 @@ export function GuessTheWord({ choices, onPress }) {
 const styles = StyleSheet.create({
   correct: {
     borderColor: "green",
+    borderWidth: 2,
   },
   incorrect: {
     borderColor: "red",
+    borderWidth: 2,
   },
 })

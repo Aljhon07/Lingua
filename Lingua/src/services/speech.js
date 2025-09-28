@@ -3,15 +3,16 @@ import { logError } from "@utils/errorLogger"
 import { domain } from "@constants/api"
 import { localIP } from "@constants/api"
 
-export const transcribeAudio = async (audioUri, lang = "en") => {
-  let srEndpoint = `http://${localIP}:5000/transcribe`
+export const transcribeAudio = async (audioUri, lang = "en", userId) => {
+  let srEndpoint = `http://${domain}:5000/transcribe`
   if (lang === "en") {
-    srEndpoint = `http://${localIP}:8080/transcribe`
+    srEndpoint = `http://${domain}:8080/transcribe`
   }
   try {
     const formData = new FormData()
 
     formData.append("language", lang)
+    formData.append("userId", userId)
     formData.append("audio", {
       uri: audioUri,
       name: "recording.m4a",

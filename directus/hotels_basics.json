@@ -1,0 +1,280 @@
+{
+  "name": "Hotel Basics",
+  "description": "Common hotel-related words and phrases for check-ins, room services, and travel situations.",
+  "order": 1,
+  "vocabularies": [
+    {
+      "word": "Reception",
+      "definition": "The front desk where guests check in and ask for help.",
+      "sentence": "I went to the reception to check in.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "フロント",
+          "translated_sentence": "私はフロントでチェックインしました。",
+          "word_transliteration": "Furonto",
+          "sentence_transliteration": "Watashi wa furonto de chekku-in shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "前台",
+          "translated_sentence": "我去前台办理入住。",
+          "word_transliteration": "Qiántái",
+          "sentence_transliteration": "Wǒ qù qiántái bàn lùzhù."
+        }
+      ]
+    },
+    {
+      "word": "Key Card",
+      "definition": "A card used to open your hotel room.",
+      "sentence": "I took the key card to my room.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "キーカード",
+          "translated_sentence": "私は部屋に行くためにキーカードを取りました。",
+          "word_transliteration": "Kī kādo",
+          "sentence_transliteration": "Watashi wa heya ni iku tame ni kī kādo o torimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "房卡",
+          "translated_sentence": "我拿了房卡去我的房间。",
+          "word_transliteration": "Fángkǎ",
+          "sentence_transliteration": "Wǒ ná le fángkǎ qù wǒ de fángjiān."
+        }
+      ]
+    },
+    {
+      "word": "Check-in",
+      "definition": "The process of registering at a hotel.",
+      "sentence": "I arrived early to check in.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "チェックイン",
+          "translated_sentence": "私は早くチェックインしました。",
+          "word_transliteration": "Chekku-in",
+          "sentence_transliteration": "Watashi wa hayaku chekku-in shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "入住",
+          "translated_sentence": "我提前到达办理入住。",
+          "word_transliteration": "Rùzhù",
+          "sentence_transliteration": "Wǒ tíqián dàodá bàn lùzhù."
+        }
+      ]
+    },
+    {
+      "word": "Room Service",
+      "definition": "Service that delivers food or items to your hotel room.",
+      "sentence": "I ordered breakfast through room service.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "ルームサービス",
+          "translated_sentence": "私はルームサービスで朝食を注文しました。",
+          "word_transliteration": "Rūmu sābisu",
+          "sentence_transliteration": "Watashi wa rūmu sābisu de chōshoku o chūmon shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "客房服务",
+          "translated_sentence": "我通过客房服务订了早餐。",
+          "word_transliteration": "Kèfáng fúwù",
+          "sentence_transliteration": "Wǒ tōngguò kèfáng fúwù dìng le zǎocān."
+        }
+      ]
+    },
+    {
+      "word": "Luggage",
+      "definition": "Bags and suitcases that travelers bring.",
+      "sentence": "I carried my luggage to the room.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "荷物",
+          "translated_sentence": "私は荷物を部屋に運びました。",
+          "word_transliteration": "Nimotsu",
+          "sentence_transliteration": "Watashi wa nimotsu o heya ni hakobimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "行李",
+          "translated_sentence": "我把行李搬到房间。",
+          "word_transliteration": "Xínglǐ",
+          "sentence_transliteration": "Wǒ bǎ xínglǐ bān dào fángjiān."
+        }
+      ]
+    },
+    {
+      "word": "Reservation",
+      "definition": "An arrangement made in advance to secure a hotel room.",
+      "sentence": "I confirmed my reservation online.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "予約",
+          "translated_sentence": "私はオンラインで予約を確認しました。",
+          "word_transliteration": "Yoyaku",
+          "sentence_transliteration": "Watashi wa onrain de yoyaku o kakunin shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "预订",
+          "translated_sentence": "我在网上确认了预订。",
+          "word_transliteration": "Yùdìng",
+          "sentence_transliteration": "Wǒ zài wǎngshàng quèrèn le yùdìng."
+        }
+      ]
+    },
+    {
+      "word": "Elevator",
+      "definition": "A machine for moving between floors in a building.",
+      "sentence": "I took the elevator to the fifth floor.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "エレベーター",
+          "translated_sentence": "私はエレベーターで5階に行きました。",
+          "word_transliteration": "Erebētā",
+          "sentence_transliteration": "Watashi wa erebētā de go-kai ni ikimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "电梯",
+          "translated_sentence": "我坐电梯去五楼。",
+          "word_transliteration": "Diàntī",
+          "sentence_transliteration": "Wǒ zuò diàntī qù wǔ lóu."
+        }
+      ]
+    },
+    {
+      "word": "Reservation",
+      "definition": "An arrangement made in advance to secure a hotel room.",
+      "sentence": "I confirmed my reservation online.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "予約",
+          "translated_sentence": "私はオンラインで予約を確認しました。",
+          "word_transliteration": "Yoyaku",
+          "sentence_transliteration": "Watashi wa onrain de yoyaku o kakunin shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "预订",
+          "translated_sentence": "我在网上确认了预订。",
+          "word_transliteration": "Yùdìng",
+          "sentence_transliteration": "Wǒ zài wǎngshàng quèrèn le yùdìng."
+        }
+      ]
+    },
+    {
+      "word": "Elevator",
+      "definition": "A machine for moving between floors in a building.",
+      "sentence": "I took the elevator to the fifth floor.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "エレベーター",
+          "translated_sentence": "私はエレベーターで5階に行きました。",
+          "word_transliteration": "Erebētā",
+          "sentence_transliteration": "Watashi wa erebētā de go-kai ni ikimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "电梯",
+          "translated_sentence": "我坐电梯去五楼。",
+          "word_transliteration": "Diàntī",
+          "sentence_transliteration": "Wǒ zuò diàntī qù wǔ lóu."
+        }
+      ]
+    },
+    {
+      "word": "Reservation",
+      "definition": "An arrangement made in advance to secure a hotel room.",
+      "sentence": "I confirmed my reservation online.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "予約",
+          "translated_sentence": "私はオンラインで予約を確認しました。",
+          "word_transliteration": "Yoyaku",
+          "sentence_transliteration": "Watashi wa onrain de yoyaku o kakunin shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "预订",
+          "translated_sentence": "我在网上确认了预订。",
+          "word_transliteration": "Yùdìng",
+          "sentence_transliteration": "Wǒ zài wǎngshàng quèrèn le yùdìng."
+        }
+      ]
+    },
+    {
+      "word": "Elevator",
+      "definition": "A machine for moving between floors in a building.",
+      "sentence": "I took the elevator to the fifth floor.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "エレベーター",
+          "translated_sentence": "私はエレベーターで5階に行きました。",
+          "word_transliteration": "Erebētā",
+          "sentence_transliteration": "Watashi wa erebētā de go-kai ni ikimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "电梯",
+          "translated_sentence": "我坐电梯去五楼。",
+          "word_transliteration": "Diàntī",
+          "sentence_transliteration": "Wǒ zuò diàntī qù wǔ lóu."
+        }
+      ]
+    },
+    {
+      "word": "Reservation",
+      "definition": "An arrangement made in advance to secure a hotel room.",
+      "sentence": "I confirmed my reservation online.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "予約",
+          "translated_sentence": "私はオンラインで予約を確認しました。",
+          "word_transliteration": "Yoyaku",
+          "sentence_transliteration": "Watashi wa onrain de yoyaku o kakunin shimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "预订",
+          "translated_sentence": "我在网上确认了预订。",
+          "word_transliteration": "Yùdìng",
+          "sentence_transliteration": "Wǒ zài wǎngshàng quèrèn le yùdìng."
+        }
+      ]
+    },
+    {
+      "word": "Elevator",
+      "definition": "A machine for moving between floors in a building.",
+      "sentence": "I took the elevator to the fifth floor.",
+      "translations": [
+        {
+          "language": 1,
+          "translated_word": "エレベーター",
+          "translated_sentence": "私はエレベーターで5階に行きました。",
+          "word_transliteration": "Erebētā",
+          "sentence_transliteration": "Watashi wa erebētā de go-kai ni ikimashita."
+        },
+        {
+          "language": 3,
+          "translated_word": "电梯",
+          "translated_sentence": "我坐电梯去五楼。",
+          "word_transliteration": "Diàntī",
+          "sentence_transliteration": "Wǒ zuò diàntī qù wǔ lóu."
+        }
+      ]
+    }
+  ]
+}

@@ -8,18 +8,10 @@ import BookingOverview from "./BookingOverview"
 import { useQueryState } from "@hooks/useQueryState"
 import { fetchBookings } from "@services/directus/rest"
 
-export default function BookingList({ bookings }) {
+export default function BookingList({ bookings, getBookingHistory }) {
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
   const { executeQuery, getQueryState } = useQueryState()
-
-  const getBookingHistory = useCallback(() => {
-    executeQuery(
-      "booking-history",
-      fetchBookings,
-      "fields=*,passengers,ticket.price,ticket.travel_package.name&sort=-date_updated"
-    )
-  }, [executeQuery])
 
   return (
     <DataContainer

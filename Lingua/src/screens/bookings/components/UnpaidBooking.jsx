@@ -10,9 +10,7 @@ import PassengerSummary from "src/screens/flight-booking/components/PassengerSum
 import TicketSummary from "src/screens/flight-booking/components/TicketSummary"
 import PaymentMethodSummary from "src/screens/flight-booking/components/PaymentMethodSummary"
 import ContactSummary from "src/screens/flight-booking/components/ContactSummary"
-import { CustomButton } from "@components/molecules/CustomButton"
 import { useNavigation } from "@react-navigation/native"
-import StripeApp from "./StripePay"
 import StripePay from "./StripePay"
 
 export default function UnpaidBooking({ bookingId }) {

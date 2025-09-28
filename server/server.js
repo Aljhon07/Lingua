@@ -27,7 +27,6 @@ app.post("/create-payment-intent", async (req, res) => {
 
 app.post("/transcribe", upload.single("audio"), transcribeFile)
 app.post("/synthesize", synthesizeAudio)
-
 app.get("/", (req, res) => {
   res.send("Hello World!")
 })

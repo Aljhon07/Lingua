@@ -3,7 +3,7 @@ import { Audio } from "expo-av"
 import { transcribeAudio } from "@services/speech"
 import { Alert } from "react-native"
 
-export const useSpeechRecognition = () => {
+export const useSpeechRecognition = (userId) => {
   const [srState, setSrState] = useState({
     isRecording: false,
     isProcessing: false,
@@ -113,7 +113,7 @@ export const useSpeechRecognition = () => {
         throw new Error("No recording URI found")
       }
 
-      const res = await transcribeAudio(uri, lang)
+      const res = await transcribeAudio(uri, lang, userId)
       if (res.status !== 200 || res.error) {
         console.log(res)
         throw new Error(res.message)

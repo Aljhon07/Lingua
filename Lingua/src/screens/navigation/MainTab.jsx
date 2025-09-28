@@ -6,6 +6,7 @@ import Translator from "../translator/Translator"
 import BookingHistory from "../bookings/BookingHistory"
 import Explore from "../travel-package-listing/Explore"
 import LessonList from "../language-learning/LessonList"
+import HomeScreen from "../home/HomeScreen.jsx"
 import PhrasebookButton from "@components/atoms/PhrasebookButton"
 
 const Tab = createBottomTabNavigator()
@@ -15,12 +16,21 @@ export default function MainTab() {
 
   return (
     <Tab.Navigator
-      initialRouteName="Explore"
+      initialRouteName="Home"
       screenOptions={({ route }) => ({
         headerShown: false,
         headerTransparent: false,
       })}
     >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="home" size={24} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Explore"
         component={Explore}
@@ -42,18 +52,12 @@ export default function MainTab() {
       <Tab.Screen
         component={Translator}
         name="Translate"
-        listeners={() => ({
-          tabPress: (e) => {
-            // e.preventDefault()
-            navigate("Translator")
-          },
-        })}
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
           ),
           headerRight: () => <PhrasebookButton />,
-          headerShown: true
+          headerShown: true,
         }}
       />
       <Tab.Screen
