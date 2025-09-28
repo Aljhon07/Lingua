@@ -6,6 +6,7 @@ import RootNavigator from "@navigation/RootNavigator";
 import ProfileProvider from "@context/ProfileProvider";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LanguageProvider } from "@context/LanguageProvider";
+import { PhrasebookProvider } from "@context/PhrasebookProvider";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -27,9 +28,11 @@ export default function App() {
       <ProfileProvider>
         <AuthProvider>
           <LanguageProvider>
-            <ThemeProvider>
-              <RootNavigator />
-            </ThemeProvider>
+            <PhrasebookProvider>
+              <ThemeProvider>
+                <RootNavigator />
+              </ThemeProvider>
+            </PhrasebookProvider>
           </LanguageProvider>
         </AuthProvider>
       </ProfileProvider>

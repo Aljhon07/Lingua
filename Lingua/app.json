@@ -4,12 +4,12 @@
     "slug": "Lingua",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/app_icon.png",
     "userInterfaceStyle": "light",
     "platforms": ["android"],
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/lingua_dark.png",
+      "image": "./assets/app_icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,8 +18,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/app_icon.png",
+        "backgroundColor": "#000000"
       },
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [
@@ -31,7 +31,7 @@
       "package": "com.unknown067.Lingua"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/app_icon.png"
     },
     "plugins": [
       "expo-secure-store",

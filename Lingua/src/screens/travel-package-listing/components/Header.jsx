@@ -19,7 +19,7 @@ export default function Header({ getPackages, countries }) {
   const [isCollapsed, setIsCollapsed] = useState(true)
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: "Japan",
+    destination: "",
     minBudget: null,
     maxBudget: null,
   })
@@ -62,10 +62,6 @@ export default function Header({ getPackages, countries }) {
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
-
-      <Text variant="headlineLarge">
-        Adventure is calling, {profile.first_name}! Where to go next?
-      </Text>
 
       <View style={styles.wrapper}>
         <View style={styles.countryFilterRow}>

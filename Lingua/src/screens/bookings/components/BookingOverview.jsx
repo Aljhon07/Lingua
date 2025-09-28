@@ -9,7 +9,6 @@ import { border, spacing } from "@constants/globalStyles"
 
 export default function BookingOverview({ item }) {
   const navigation = useNavigation()
-  console.log("TItem: ", JSON.stringify(item))
   const { colors, roundness } = useTheme()
   const styles = createStyles(colors, roundness)
   const { ticket, passengers } = item
@@ -25,12 +24,16 @@ export default function BookingOverview({ item }) {
   }
 
   const getStatusStyle = () => {
-    if (item.status === "Approved" || item.status === "Paid") {
+    const { status } = item
+
+    if (status === "Paid") {
       return styles.approved
-    } else if (item.status === "For Approval") {
+    } else if (["For Approval", "Approved"].includes(status)) {
       return styles.pending
-    } else {
+    } else if (["Cancelled", "Rejected"].includes(status)) {
       return styles.cancel
+    } else {
+      return styles.pending // default
     }
   }
   return (

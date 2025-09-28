@@ -1,36 +1,35 @@
-import { StyleSheet, View } from "react-native";
-import { spacing } from "@constants/globalStyles";
-import { LinkText } from "@components/atoms/LinkText";
-import { useInputChange } from "@hooks/useInputChange";
-import { useAuthContext } from "@context/AuthProvider";
-import { Text, TextInput, useTheme } from "react-native-paper";
-import { useToggle } from "@hooks/useToggle";
-import { CustomButton } from "@components/molecules/CustomButton";
-import { domain } from "@constants/api";
-import { useState } from "react";
-import { set } from "lodash";
+import { Keyboard, StyleSheet, View } from "react-native"
+import { spacing } from "@constants/globalStyles"
+import { LinkText } from "@components/atoms/LinkText"
+import { useInputChange } from "@hooks/useInputChange"
+import { useAuthContext } from "@context/AuthProvider"
+import { Text, TextInput, useTheme } from "react-native-paper"
+import { useToggle } from "@hooks/useToggle"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { domain } from "@constants/api"
+import { useState } from "react"
+import { set } from "lodash"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
-    email: "",
-    password: "",
-  });
-  const [message, setMessage] = useState(null);
-  const [visible, toggleVisiblity] = useToggle();
-  const { loading, signIn } = useAuthContext();
-  const { colors } = useTheme();
+    email: "demo@gmail.com",
+    password: "demo123",
+  })
+  const [message, setMessage] = useState(null)
+  const [visible, toggleVisiblity] = useToggle()
+  const { loading, signIn } = useAuthContext()
+  const { colors } = useTheme()
 
   const handleSignIn = async () => {
-    setMessage(null);
-    const res = await signIn(credentials);
-    setMessage(res);
-  };
+    Keyboard.dismiss()
+    setMessage(null)
+    const res = await signIn(credentials)
+    setMessage(res)
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <Text>{domain}</Text>
-
         <TextInput
           mode="outlined"
           style={styles.inputField}
@@ -83,16 +82,26 @@ export default function SignInForm({ navigation }) {
           <LinkText style={styles.centerText}>Forgot Password?</LinkText>
         </View>
       </View>
+
+      <View style={styles.termsContainer}>
+        <LinkText
+          style={styles.termsText}
+          onPress={() =>
+            navigation.navigate("TermsAndConditions", { from: "SignIn" })
+          }
+        >
+          Terms and Conditions
+        </LinkText>
+      </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    gap: spacing.xl,
+    minHeight: 400,
   },
-
   wrapper: {
     justifyContent: "center",
     gap: spacing.sm,
@@ -101,8 +110,18 @@ const styles = StyleSheet.create({
     padding: spacing.lg,
     width: "90%",
     gap: spacing.lg,
+    marginBottom: spacing.xl,
   },
   centerText: {
     textAlign: "center",
   },
-});
+  termsContainer: {
+    alignItems: "center",
+    paddingVertical: spacing.lg,
+    marginTop: spacing.lg,
+  },
+  termsText: {
+    textAlign: "center",
+    fontSize: 12,
+  },
+})

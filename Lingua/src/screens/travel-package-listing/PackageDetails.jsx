@@ -61,7 +61,7 @@ export default function PackageDetails({ route, navigation }) {
             icon={"arrow-right-thin"}
             contentStyle={{ flexDirection: "row-reverse" }}
           >
-            <Text variant="titleMedium" style={{ color: colors.onPrimary }}>
+            <Text variant="titleSmall" style={{ color: colors.onPrimary }}>
               Book Now
             </Text>
           </CustomButton>
