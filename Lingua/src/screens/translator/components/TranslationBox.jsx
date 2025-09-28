@@ -49,11 +49,13 @@ const TranslationBox = ({
         <TextInput
           style={inputStyle}
           value={value}
-          onChangeText={onChangeText}
+          onChangeText={isSource ? onChangeText : null}
           placeholder={placeholder}
           placeholderTextColor={colors.onSurfaceDisabled}
           multiline
-          editable={editable}
+          scrollEnabled={true}
+          caretHidden={!editable}
+          showSoftInputOnFocus={!editable}
           textAlignVertical="top"
         />
 

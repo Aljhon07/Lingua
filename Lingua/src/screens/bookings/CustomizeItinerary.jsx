@@ -4,10 +4,11 @@ import {
   createUserItinerary,
   fetchUserItinerary,
 } from "@services/directus/rest"
-import { set } from "lodash"
 import React, { use, useEffect } from "react"
 import { View } from "react-native"
 import { Text } from "react-native-paper"
+import ItineraryList from "./components/ItineraryList"
+import CustomItineraryProvider from "@context/CustomItineraryProvider"
 
 function CustomizeItinerary({ navigation, route }) {
   const { bookingId } = route.params
@@ -19,7 +20,7 @@ function CustomizeItinerary({ navigation, route }) {
   } = useQueryState()
   const userItinerary = getQueryState("userItinerary")
   const createItineraryState = getCreateItineraryState("createItinerary")
-  const itineraryQueryString = `filter[booking][_eq]=${bookingId}&fields=booking,itinerary.order,itinerary.title,itinerary.activity.order,itinerary.activity.name,itinerary.activity.notes`
+  const itineraryQueryString = `filter[booking][_eq]=${bookingId}&fields=id,booking,itinerary.order,itinerary.id,itinerary.activity.id,itinerary.title,itinerary.activity.order,itinerary.activity.name,itinerary.activity.notes`
   useEffect(() => {
     ;(async () => {
       console.log("Executing Query...")
@@ -48,20 +49,27 @@ function CustomizeItinerary({ navigation, route }) {
     })()
   }, [])
 
-  console.log(
-    "User Itinerary State:",
-    JSON.stringify(userItinerary.data, null, 2)
-  )
   if (creating && createItineraryState.loading) {
     return <Text>Creating Itinerary...</Text>
   }
 
   return (
-    <DataContainer
-      loading={userItinerary.loading}
-      error={userItinerary.error}
-      data={userItinerary.data}
-    ></DataContainer>
+    <CustomItineraryProvider>
+      <View style={{ flex: 1 }}>
+        <DataContainer
+          loading={userItinerary.loading}
+          error={userItinerary.error}
+          data={userItinerary.data}
+        >
+          {userItinerary?.data?.length > 0 && (
+            <ItineraryList
+              itinerary={userItinerary.data[0]}
+              bookingId={bookingId}
+            />
+          )}
+        </DataContainer>
+      </View>
+    </CustomItineraryProvider>
   )
 }
 

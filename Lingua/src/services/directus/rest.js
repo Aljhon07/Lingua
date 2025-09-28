@@ -140,17 +140,6 @@ export const fetchBookingDetails = async ({ id, filter }) => {
   }
 }
 
-export const fetchUserItineraries = async (filter) => {
-  try {
-    console.log("Fetching User Itineraries...")
-    const res = await axiosInstance.get(`/items/itinerary?${filter}`)
-    console.log("User Itineraries Fetched")
-    return res.data.data
-  } catch (error) {
-    throw new Error(logError("fetchUserItineraries", error))
-  }
-}
-
 export const payBooking = async ({ id, paymentId }) => {
   try {
     const { data } = await fetchBookingDetails({ id })
@@ -284,11 +273,10 @@ export const createUserItinerary = async (bookingId) => {
         "fields=ticket.travel_package.itinerary.overview,ticket.travel_package.itinerary.activities.*,ticket.travel_package.itinerary.id,ticket.travel_package.itinerary.dayNumber",
     })
 
-    console.log("Booking Details: ", JSON.stringify(bookingDetails, null, 2))
     const formattedData = bookingDetails.ticket.travel_package.itinerary.map(
       (item) => ({
         destination: item.id,
-        title: `Day ${item.dayNumber} - ${item.overview}`,
+        title: `${item.overview}`,
         order: item.dayNumber,
         activity: item.activities.map((activity, index) => ({
           name: activity.name,
@@ -297,7 +285,6 @@ export const createUserItinerary = async (bookingId) => {
       })
     )
 
-    console.log("Formatted Data: ", JSON.stringify(formattedData, null, 2))
     const res = await axiosInstance.post("/items/user_itinerary", {
       booking: bookingId,
       itinerary: formattedData,
@@ -306,5 +293,19 @@ export const createUserItinerary = async (bookingId) => {
     return res.data.data
   } catch (error) {
     throw new Error(logError("createUserItinerary", error))
+  }
+}
+
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+export const patchUserItinerary = async ({ id, data }) => {
+  // console.log(JSON.stringify(data, null, 2))
+  try {
+    console.log("Updating User Itinerary...")
+    sleep(1000)
+    const res = await axiosInstance.patch(`/items/user_itinerary/${id}`, data)
+    console.log("User Itinerary Updated")
+    return res.data.data
+  } catch (error) {
+    throw new Error(logError("updateUserItinerary", error))
   }
 }

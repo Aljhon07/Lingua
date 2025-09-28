@@ -42,18 +42,12 @@ export default function MainTab() {
       <Tab.Screen
         component={Translator}
         name="Translate"
-        listeners={() => ({
-          tabPress: (e) => {
-            // e.preventDefault()
-            navigate("Translator")
-          },
-        })}
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
           ),
           headerRight: () => <PhrasebookButton />,
-          headerShown: true
+          headerShown: true,
         }}
       />
       <Tab.Screen
