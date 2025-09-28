@@ -1,7 +1,7 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
 import { PackageOverview } from "../PackageOverview"
 import { PackageItinerary } from "../PackageItinerary"
-
+import PackageTips from "../components/PackageTips"
 const TopTab = createMaterialTopTabNavigator()
 
 export default function PackageDetailsTabs({ packageDetails }) {
@@ -15,6 +15,11 @@ export default function PackageDetailsTabs({ packageDetails }) {
       <TopTab.Screen
         name="Itinerary"
         component={PackageItinerary}
+        initialParams={packageDetails}
+      />
+      <TopTab.Screen
+        name="Cultural Tips"
+        component={PackageTips}
         initialParams={packageDetails}
       />
     </TopTab.Navigator>

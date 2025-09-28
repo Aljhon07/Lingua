@@ -28,23 +28,35 @@ export function PackageOverview({ route }) {
             ))}
         </View>
 
-        <Section headline="Description" headlineVariant="titleSmall">
-          <Text variant="bodyMedium" style={styles.text}>
+        <Section headline="Description" headlineVariant="titleMedium">
+          <Text variant="bodyLarge" style={styles.text}>
             {packageDetails.description}
           </Text>
         </Section>
 
-        <Section headline="Inclusions" headlineVariant="titleSmall">
-          <Text variant="bodyMedium" style={styles.text}>
-            {packageDetails.features.inclusions}
-          </Text>
-        </Section>
+        {packageDetails.features.inclusions && (
+          <Section headline="Inclusions" headlineVariant="titleMedium">
+            {packageDetails.features.inclusions
+              .split("\n")
+              .map((inclusion, index) => (
+                <Text key={index} variant="bodyLarge" style={styles.text}>
+                  - {inclusion}
+                </Text>
+              ))}
+          </Section>
+        )}
 
-        <Section headline="Exclusions" headlineVariant="titleSmall">
-          <Text variant="bodyMedium" style={styles.text}>
-            {packageDetails.features.exclusions}
-          </Text>
-        </Section>
+        {packageDetails.features.exclusions && (
+          <Section headline="Exclusions" headlineVariant="titleMedium">
+            {packageDetails.features.exclusions
+              .split("\n")
+              .map((exclusion, index) => (
+                <Text key={index} variant="bodyLarge" style={styles.text}>
+                  - {exclusion}
+                </Text>
+              ))}
+          </Section>
+        )}
       </PaddedView>
     </ScrollView>
   )

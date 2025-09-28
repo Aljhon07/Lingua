@@ -8,6 +8,7 @@ export default function DataContainer({
   children,
   errorMessage,
   noDataMessage,
+  errorComponent,
 }) {
   const { colors } = useTheme()
 
@@ -26,11 +27,16 @@ export default function DataContainer({
   if (error) {
     return (
       <View style={styles.container}>
-        <Text style={{ color: colors.error }}>
-          {errorMessage || "Error loading data"}
-        </Text>
+        {errorComponent}
+        {!errorComponent && (
+          <>
+            <Text style={{ color: colors.error }}>
+              {errorMessage || "Error loading data"}
+            </Text>
 
-        <Text>{data}</Text>
+            <Text>{data}</Text>
+          </>
+        )}
       </View>
     )
   }
@@ -43,7 +49,6 @@ export default function DataContainer({
     )
   }
 
-  console.log("Data Container: ")
   return <>{children}</>
 }
 

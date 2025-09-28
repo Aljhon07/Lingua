@@ -1,4 +1,11 @@
-import { ScrollView, StyleSheet, Alert, Linking, Platform } from "react-native"
+import {
+  ScrollView,
+  StyleSheet,
+  Alert,
+  Linking,
+  Platform,
+  View,
+} from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { Text, useTheme, List, Card, Button } from "react-native-paper"
 import { Section } from "@components/atoms/Section"
@@ -9,7 +16,7 @@ export default function ContactSupport({ navigation }) {
   const styles = createStyles(colors)
 
   const handleEmailSupport = () => {
-    Linking.openURL("mailto:support@lingua-app.com?subject=Support Request")
+    Linking.openURL("mailto:support@lingua.com?subject=Support Request")
   }
 
   const handlePhoneSupport = () => {
@@ -38,19 +45,15 @@ What actually happened...
     `
 
     Linking.openURL(
-      `mailto:bugs@lingua-app.com?subject=Bug Report&body=${encodeURIComponent(
+      `mailto:bugs@lingua.com?subject=Bug Report&body=${encodeURIComponent(
         emailBody
       )}`
     )
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text variant="headlineSmall" style={styles.title}>
-          Contact Support
-        </Text>
-
         <Text variant="bodyMedium" style={styles.description}>
           We're here to help! Choose how you'd like to get in touch with our
           support team.
@@ -96,7 +99,7 @@ What actually happened...
           />
         </Section>
 
-        <Card style={styles.card}>
+        {/* <Card style={styles.card}>
           <Card.Content>
             <Text variant="titleMedium" style={styles.cardTitle}>
               Support Hours
@@ -119,18 +122,18 @@ What actually happened...
               Contact Information
             </Text>
             <Text variant="bodyMedium" style={styles.cardText}>
-              📧 support@lingua-app.com
+              📧 support@lingua.com
             </Text>
             <Text variant="bodyMedium" style={styles.cardText}>
               📞 +1 (234) 567-8900
             </Text>
             <Text variant="bodyMedium" style={styles.cardText}>
-              🐛 bugs@lingua-app.com
+              🐛 bugs@lingua.com
             </Text>
           </Card.Content>
-        </Card>
+        </Card> */}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -169,6 +172,7 @@ const createStyles = (colors) =>
     card: {
       marginBottom: spacing.lg,
       backgroundColor: colors.surface,
+      borderRadius: spacing.md,
     },
     cardTitle: {
       marginBottom: spacing.sm,

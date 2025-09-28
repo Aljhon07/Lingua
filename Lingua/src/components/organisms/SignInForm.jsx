@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native"
+import { Keyboard, StyleSheet, View } from "react-native"
 import { spacing } from "@constants/globalStyles"
 import { LinkText } from "@components/atoms/LinkText"
 import { useInputChange } from "@hooks/useInputChange"
@@ -12,8 +12,8 @@ import { set } from "lodash"
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
-    email: "",
-    password: "",
+    email: "demo@gmail.com",
+    password: "demo123",
   })
   const [message, setMessage] = useState(null)
   const [visible, toggleVisiblity] = useToggle()
@@ -21,6 +21,7 @@ export default function SignInForm({ navigation }) {
   const { colors } = useTheme()
 
   const handleSignIn = async () => {
+    Keyboard.dismiss()
     setMessage(null)
     const res = await signIn(credentials)
     setMessage(res)
@@ -29,8 +30,6 @@ export default function SignInForm({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.form}>
-        <Text>{domain}</Text>
-
         <TextInput
           mode="outlined"
           style={styles.inputField}

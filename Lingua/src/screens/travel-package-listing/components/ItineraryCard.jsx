@@ -21,7 +21,7 @@ export function ItineraryCard({ item }) {
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
             <Text variant="bodyLarge" style={styles.activities}>
-              {item.name}
+              - {item.name}
             </Text>
           )}
         />

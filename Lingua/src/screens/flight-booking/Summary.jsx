@@ -38,7 +38,7 @@ export default function Summary({ route }) {
       [
         {
           text: "OK",
-          onPress: () => navigation.navigate("MainTab", { screen: "Bookings" }),
+          onPress: () => navigation.navigate("MainTab", { screen: "Home" }),
         },
       ]
     )

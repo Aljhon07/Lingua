@@ -12,7 +12,7 @@ export default function AuthNavigation() {
     <Stack.Navigator
       initialRouteName="Auth"
       screenOptions={{
-        headerLeft: () => null,
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -22,40 +22,10 @@ export default function AuthNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        options={{
-          title: "Sign In",
-
-          headerTitleAlign: "center",
-        }}
-        name="SignIn"
-        component={SignIn}
-      />
-      <Stack.Screen
-        options={{
-          title: "Sign Up",
-
-          headerTitleAlign: "center",
-        }}
-        name="SignUp"
-        component={SignUp}
-      />
-      <Stack.Screen
-        options={{
-          title: "Terms and Conditions",
-          headerTitleAlign: "center",
-        }}
-        name="TermsAndConditions"
-        component={TermsAndConditions}
-      />
-      <Stack.Screen
-        options={{
-          title: "Privacy Policy",
-          headerTitleAlign: "center",
-        }}
-        name="PrivacyPolicy"
-        component={PrivacyPolicy}
-      />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
     </Stack.Navigator>
   )
 }

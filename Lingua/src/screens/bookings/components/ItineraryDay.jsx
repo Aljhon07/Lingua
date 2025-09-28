@@ -1,0 +1,224 @@
+import React, { useState } from "react"
+import { View, StyleSheet } from "react-native"
+import DraggableFlatList from "react-native-draggable-flatlist"
+import { Text, Surface, useTheme, Button } from "react-native-paper"
+import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler"
+import { spacing } from "@constants/globalStyles"
+import ItineraryActivity from "./ItineraryActivity"
+import StyledSurface from "@components/atoms/StyledSurface"
+import { useCustomItinerary } from "@context/CustomItineraryProvider"
+
+function ItineraryDay({ itinerary, onActivitiesReorder, isEditing }) {
+  const { colors, roundness } = useTheme()
+  const { handleChanges, changes } = useCustomItinerary()
+  const {
+    title,
+    activity: activities,
+    id: itineraryId,
+    order: dayNumber,
+  } = itinerary
+
+  const styles = createStyles(colors, roundness)
+  const [data, setData] = useState(activities.sort((a, b) => a.order - b.order))
+
+  const handleDragEnd = ({ data: newData }) => {
+    const updatedData = newData.map((item, index) => ({
+      ...item,
+      order: index,
+    }))
+
+    const reorderedItinerary = changes.itinerary.map((it) =>
+      it.id == itineraryId ? { ...it, activity: updatedData } : it
+    )
+    handleChanges({
+      ...changes,
+      itinerary: reorderedItinerary,
+    })
+    setData(updatedData)
+  }
+
+  const addActivity = () => {
+    // Generate temporary ID for newly created activities (negative numbers to avoid conflicts)
+    const tempId = -Date.now() - Math.random()
+    const newActivity = {
+      name: "New Activity",
+      order: data.length,
+      tempId, // Temporary ID for tracking before backend save
+    }
+
+    setData((prevData) => [...prevData, newActivity])
+
+    const newChanges = {
+      ...changes,
+      itinerary: changes.itinerary.map((it, idx) =>
+        it.id === itineraryId
+          ? { ...it, activity: [...it.activity, newActivity] }
+          : it
+      ),
+    }
+    handleChanges(newChanges)
+  }
+
+  const removeActivity = (activityToRemove) => {
+    // Handle both saved items (with id) and unsaved items (with tempId)
+    const filterFn = (act) => {
+      // For saved activities: compare by id
+      if (activityToRemove.id && act.id) {
+        return act.id !== activityToRemove.id
+      }
+      // For newly created activities: compare by tempId
+      if (activityToRemove.tempId && act.tempId) {
+        return act.tempId !== activityToRemove.tempId
+      }
+      // Fallback: compare by reference (should not happen with proper IDs)
+      return act !== activityToRemove
+    }
+
+    setData((prevData) => prevData.filter(filterFn))
+    const newChanges = {
+      ...changes,
+      itinerary: changes.itinerary.map((it) =>
+        it.id === itineraryId
+          ? {
+              ...it,
+              activity: it.activity.filter(filterFn),
+            }
+          : it
+      ),
+    }
+    handleChanges(newChanges)
+  }
+
+  const handleActivityChange = (updatedActivity) => {
+    // Handle both saved activities (id) and unsaved activities (tempId)
+    const matchFn = (act) => {
+      if (updatedActivity.id && act.id) {
+        return act.id === updatedActivity.id
+      }
+      if (updatedActivity.tempId && act.tempId) {
+        return act.tempId === updatedActivity.tempId
+      }
+      return false
+    }
+
+    const updatedData = data.map((act) =>
+      matchFn(act) ? updatedActivity : act
+    )
+    setData(updatedData)
+
+    const newChanges = {
+      ...changes,
+      itinerary: changes.itinerary.map((it) =>
+        it.id === itineraryId
+          ? {
+              ...it,
+              activity: it.activity.map((act) =>
+                matchFn(act) ? updatedActivity : act
+              ),
+            }
+          : it
+      ),
+    }
+
+    handleChanges(newChanges)
+  }
+  return (
+    <StyledSurface style={styles.cardContainer} elevation={2}>
+      <View style={styles.cardHeader}>
+        <Text variant="titleSmall" style={styles.day}>
+          Day {dayNumber}
+        </Text>
+        <Text variant="headlineSmall" style={styles.dayTitle}>
+          {title}
+        </Text>
+      </View>
+      <View style={styles.cardContent}>
+        {isEditing ? (
+          <GestureHandlerRootView style={styles.listContainer}>
+            <DraggableFlatList
+              data={data}
+              keyExtractor={(item, index) =>
+                item.id
+                  ? `saved_${item.id}`
+                  : item.tempId
+                  ? `temp_${item.tempId}`
+                  : `fallback_${index}`
+              }
+              onDragEnd={handleDragEnd}
+              renderItem={({ item, drag, isActive }) => (
+                <ItineraryActivity
+                  activity={item}
+                  drag={drag}
+                  isActive={isActive}
+                  isEditing={isEditing}
+                  removeActivity={removeActivity}
+                  handleActivityChange={handleActivityChange}
+                />
+              )}
+            />
+            <Button
+              mode="outlined"
+              style={styles.addActivity}
+              onPress={addActivity}
+            >
+              Add Activity
+            </Button>
+          </GestureHandlerRootView>
+        ) : (
+          <View style={styles.listContainer}>
+            <FlatList
+              data={data}
+              keyExtractor={(item, index) =>
+                item.id
+                  ? `saved_${item.id}`
+                  : item.tempId
+                  ? `temp_${item.tempId}`
+                  : `fallback_${index}`
+              }
+              renderItem={({ item }) => (
+                <ItineraryActivity activity={item} isEditing={isEditing} />
+              )}
+            />
+          </View>
+        )}
+      </View>
+    </StyledSurface>
+  )
+}
+
+const createStyles = (colors, roundness) =>
+  StyleSheet.create({
+    cardContainer: {
+      borderRadius: roundness,
+      margin: spacing.md,
+      marginHorizontal: spacing.lg,
+      padding: 0,
+      overflow: "hidden",
+    },
+    day: {
+      color: colors.secondary,
+    },
+    cardHeader: {
+      padding: spacing.lg,
+      paddingBottom: spacing.md,
+      backgroundColor: colors.primary,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.outlineVariant,
+    },
+    dayTitle: {
+      color: colors.onPrimaryContainer,
+      fontWeight: "700",
+    },
+    cardContent: {
+      paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.lg,
+    },
+    listContainer: {
+      flex: 1,
+    },
+    addActivity: {
+      borderStyle: "dashed",
+    },
+  })
+
+export default ItineraryDay
