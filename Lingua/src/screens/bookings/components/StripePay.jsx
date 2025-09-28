@@ -70,7 +70,7 @@ export default function StripePay({ price, bookingId }) {
       Alert.alert("Success", "Payment Successful", [
         {
           text: "OK",
-          onPress: () => navigation.navigate("MainTab", { screen: "Bookings" }),
+          onPress: () => navigation.navigate("MainTab", { screen: "Home" }),
         },
       ])
     } catch (error) {

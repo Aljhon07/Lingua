@@ -15,8 +15,8 @@ const CombinedDarkTheme = {
   colors: {
     ...NavigationDarkTheme.colors,
     ...MD3DarkTheme.colors,
-    ...darkTheme,
     ...commonColors,
+    ...darkTheme,
   },
 }
 const CombinedLightTheme = {
@@ -28,8 +28,8 @@ const CombinedLightTheme = {
   colors: {
     ...NavigationDefaultTheme.colors,
     ...MD3LightTheme.colors,
-    ...lightTheme,
     ...commonColors,
+    ...lightTheme,
   },
 }
 
