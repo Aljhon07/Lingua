@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
-import { StyleSheet } from "react-native"
-import { useTheme } from "react-native-paper"
+import { StyleSheet, View } from "react-native"
+import { Button, Text, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 import { useQueryState } from "@hooks/useQueryState"
@@ -33,6 +33,23 @@ export default function LatestTicket() {
 
   const latestBooking = bookingHistory.data?.data?.[0]
 
+  const noBookings = () => {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          gap: spacing.md,
+        }}
+      >
+        <Text variant="bodyLarge">No bookings found.</Text>
+        <Button mode="contained" onPress={() => navigation.navigate("Explore")}>
+          Browse Packages
+        </Button>
+      </View>
+    )
+  }
   return (
     <PaddedView>
       <Section
@@ -46,7 +63,7 @@ export default function LatestTicket() {
           loading={bookingHistory.loading}
           error={bookingHistory.error}
           data={latestBooking}
-          noDataMessage="No bookings found."
+          noDataMessage={noBookings()}
         >
           {latestBooking && <BookingOverview item={latestBooking} />}
         </DataContainer>

@@ -7,6 +7,8 @@ import Translator from "../translator/Translator"
 import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation"
 import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation"
 import LessonNavigation from "../language-learning/navigations/LessonNavigation"
+import ProfileNavigation from "../profile/navigation/ProfileNavigation"
+import BookingHistory from "../bookings/BookingHistory"
 
 const Stack = createStackNavigator()
 
@@ -51,6 +53,20 @@ export default function MainNavigation() {
         component={LessonNavigation}
         options={{
           animation: "scale_from_center",
+        }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={ProfileNavigation}
+        options={{
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="Bookings"
+        component={BookingHistory}
+        options={{
+          animation: "slide_from_right",
         }}
       />
     </Stack.Navigator>

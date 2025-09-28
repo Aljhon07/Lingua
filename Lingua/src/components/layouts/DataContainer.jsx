@@ -44,7 +44,11 @@ export default function DataContainer({
   if (!data || data.length === 0) {
     return (
       <View style={styles.container}>
-        <Text>{noDataMessage || "No data available"}</Text>
+        {typeof noDataMessage === "string" ? (
+          <Text>{noDataMessage || "No data available"}</Text>
+        ) : (
+          noDataMessage
+        )}
       </View>
     )
   }

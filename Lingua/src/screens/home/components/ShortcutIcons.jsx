@@ -1,7 +1,12 @@
 import React from "react"
 import { StyleSheet, View, Pressable } from "react-native"
 import { Text, useTheme } from "react-native-paper"
-import { MaterialIcons, SimpleLineIcons, Feather } from "@expo/vector-icons"
+import {
+  MaterialIcons,
+  SimpleLineIcons,
+  Feather,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons"
 import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 import PaddedView from "@components/atoms/PaddedView"
@@ -16,51 +21,25 @@ export default function ShortcutIcons() {
     {
       id: 1,
       icon: (
-        <SimpleLineIcons name="microphone" size={24} color={colors.primary} />
+        <MaterialCommunityIcons
+          name="ticket-confirmation"
+          size={24}
+          color={colors.primary}
+        />
       ),
-      label: "Translate",
-      onPress: () => navigation.navigate("Translate"),
-    },
-    {
-      id: 2,
-      icon: (
-        <MaterialIcons name="travel-explore" size={24} color={colors.primary} />
-      ),
-      label: "Explore",
-      onPress: () => navigation.navigate("Explore"),
-    },
-    {
-      id: 3,
-      icon: (
-        <SimpleLineIcons name="book-open" size={24} color={colors.primary} />
-      ),
-      label: "Bookings",
+      label: "Purchases",
       onPress: () => navigation.navigate("Bookings"),
     },
     {
-      id: 4,
-      icon: (
-        <SimpleLineIcons name="graduation" size={24} color={colors.primary} />
-      ),
-      label: "Learn",
-      onPress: () => navigation.navigate("LessonsNavigation"),
+      id: 2,
+      icon: <MaterialIcons name="map" size={24} color={colors.primary} />,
+      label: "Itinerary",
+      onPress: () => navigation.navigate("Bookings"),
     },
     {
-      id: 5,
+      id: 3,
       icon: <Feather name="user" size={24} color={colors.primary} />,
-      label: "Profile",
-      onPress: () => navigation.navigate("Profile"),
-    },
-    {
-      id: 6,
-      icon: <Feather name="user" size={24} color={colors.primary} />,
-      label: "Profile",
-      onPress: () => navigation.navigate("Profile"),
-    },
-    {
-      id: 7,
-      icon: <Feather name="user" size={24} color={colors.primary} />,
-      label: "Profile",
+      label: "Accounts",
       onPress: () => navigation.navigate("Profile"),
     },
   ]

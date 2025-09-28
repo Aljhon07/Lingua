@@ -8,7 +8,7 @@ import { useNavigation } from "@react-navigation/native"
 
 const API_URL = server.baseURL
 
-export default function StripePay({ price, bookingId }) {
+export default function StripePay({ price, bookingId, style }) {
   const { initPaymentSheet, presentPaymentSheet } = usePaymentSheet()
   const [ready, setReady] = useState(false)
   const [pid, setPid] = useState(null)
@@ -80,7 +80,12 @@ export default function StripePay({ price, bookingId }) {
 
   return (
     <StripeProvider publishableKey="pk_test_51R8ZnKGf6UlwzrtkBAwHrtbXeQDkckp83C9aU7ORThvjYvOkTL2GHONfiihivD1ix3ManQrmzrTvZV4J1Eqg7AMg00pkfxgvCA">
-      <CustomButton onPress={handlePayPress} disabled={!ready} primary>
+      <CustomButton
+        onPress={handlePayPress}
+        disabled={!ready}
+        style={{ margin: 16 }}
+        primary
+      >
         Pay Now
       </CustomButton>
     </StripeProvider>

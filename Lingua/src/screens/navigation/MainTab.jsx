@@ -41,15 +41,6 @@ export default function MainTab() {
         }}
       />
       <Tab.Screen
-        component={BookingHistory}
-        name="Bookings"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="book-open" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
         component={Translator}
         name="Translate"
         options={{
@@ -60,6 +51,7 @@ export default function MainTab() {
           headerShown: true,
         }}
       />
+
       <Tab.Screen
         name="LessonsNavigation"
         component={LessonList}
@@ -67,15 +59,6 @@ export default function MainTab() {
           title: "Learn",
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="graduation" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileNavigation}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Feather name="user" size={24} color={color} />
           ),
         }}
       />

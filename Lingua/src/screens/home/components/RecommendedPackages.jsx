@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { StyleSheet, View } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
-import { useTheme } from "react-native-paper"
+import { FlatList, RefreshControl } from "react-native-gesture-handler"
+import { IconButton, useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 import { useQueryState } from "@hooks/useQueryState"
@@ -30,10 +30,19 @@ export default function RecommendedPackages() {
     <PaddedView>
       <Section
         headline="Recommended Packages"
+        sectionStyle={{ minHeight: 200 }}
         headlineVariant="titleMedium"
         contentContainerStyle={styles.section}
         actionLabel="View All"
         onAction={handleViewAllPackages}
+        rightComponent={
+          <IconButton
+            icon="reload"
+            onPress={() =>
+              executeQuery("recommended-packages", fetchPackages, "limit=3")
+            }
+          ></IconButton>
+        }
       >
         <DataContainer
           loading={packagesState.loading}
