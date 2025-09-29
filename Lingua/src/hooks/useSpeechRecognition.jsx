@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Audio } from "expo-av"
 import { transcribeAudio } from "@services/speech"
-import { Alert } from "react-native"
+import { Alert, Platform, Linking } from "react-native"
 
 export const useSpeechRecognition = (userId) => {
   const [srState, setSrState] = useState({
@@ -22,7 +22,22 @@ export const useSpeechRecognition = (userId) => {
   }, [])
 
   const openAppSettings = async () => {
-    await Linking.openSettings()
+    try {
+      if (Platform.OS === "android") {
+        // For Android, try to open app-specific settings directly
+        const canOpen = await Linking.canOpenURL("app-settings:")
+        if (canOpen) {
+          await Linking.openURL("app-settings:")
+        } else {
+          // Fallback to general app settings
+          await Linking.openSettings()
+        }
+      }
+    } catch (error) {
+      console.error("Error opening settings:", error)
+      // Fallback to general settings if specific settings fail
+      await Linking.openSettings()
+    }
   }
 
   const requestPermission = async () => {
@@ -30,26 +45,41 @@ export const useSpeechRecognition = (userId) => {
       const { status, canAskAgain } = await Audio.getPermissionsAsync()
       console.log("Permission status:", status)
       console.log("Can ask again:", canAskAgain)
-      if (status == "denied" && !canAskAgain) {
-        Alert.alert(
-          "Permission Denied",
-          "Please enable microphone permissions in settings.",
-          [
-            {
-              text: "Cancel",
-              style: "cancel",
-            },
-            {
-              text: "Settings",
-              onPress: () => openAppSettings(),
-            },
-          ],
-          { cancelable: false }
-        )
+
+      // If permission is already granted, return immediately
+      if (status === "granted") {
+        return status
       }
-      if (status !== "granted") {
+
+      // If permission can still be requested, try to request it
+      if (status !== "granted" && canAskAgain) {
         const { status: newStatus } = await Audio.requestPermissionsAsync()
         return newStatus
+      }
+
+      // If permission is permanently denied (canAskAgain is false)
+      if (status === "denied" && !canAskAgain) {
+        return new Promise((resolve) => {
+          Alert.alert(
+            "Microphone Permission Required",
+            "Microphone access is required for speech recognition. Please enable it in your app settings.",
+            [
+              {
+                text: "Cancel",
+                style: "cancel",
+                onPress: () => resolve("denied"),
+              },
+              {
+                text: "Settings",
+                onPress: async () => {
+                  await openAppSettings()
+                  resolve("denied") // Still return denied as user needs to manually enable
+                },
+              },
+            ],
+            { cancelable: false }
+          )
+        })
       }
 
       return status
@@ -62,8 +92,12 @@ export const useSpeechRecognition = (userId) => {
   const startRecording = async () => {
     try {
       const status = await requestPermission()
-      if (status == "denied") {
-        setTranscript("Permission to access microphone was denied")
+      if (status !== "granted") {
+        setSrState((prevState) => ({
+          ...prevState,
+          transcription:
+            "Microphone permission is required for speech recognition",
+        }))
         return
       }
       setSrState((prevState) => ({
@@ -120,7 +154,7 @@ export const useSpeechRecognition = (userId) => {
         ...prevState,
         isRecording: false,
         isProcessing: false,
-        transcription: res.data.transcript || "No transcription available",
+        transcription: res.data.transcript || "No transcription.",
       }))
     } catch (error) {
       console.log("Error: " + error)

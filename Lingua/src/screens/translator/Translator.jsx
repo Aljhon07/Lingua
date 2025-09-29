@@ -36,7 +36,7 @@ export default function Translator() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (sourceText !== "") {
+      if (sourceText !== "No transcription." && sourceText) {
         translateText(sourceText)
       } else {
         setTranslatedText("")
