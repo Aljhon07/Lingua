@@ -9,6 +9,7 @@ import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavig
 import LessonNavigation from "../language-learning/navigations/LessonNavigation"
 import ProfileNavigation from "../profile/navigation/ProfileNavigation"
 import BookingHistory from "../bookings/BookingHistory"
+import ItineraryScreen from "../home/ItineraryScreen"
 
 const Stack = createStackNavigator()
 
@@ -65,6 +66,13 @@ export default function MainNavigation() {
       <Stack.Screen
         name="Bookings"
         component={BookingHistory}
+        options={{
+          animation: "slide_from_right",
+        }}
+      />
+      <Stack.Screen
+        name="ItineraryScreen"
+        component={ItineraryScreen}
         options={{
           animation: "slide_from_right",
         }}

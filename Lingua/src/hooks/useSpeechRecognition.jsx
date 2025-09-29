@@ -22,11 +22,7 @@ export const useSpeechRecognition = (userId) => {
   }, [])
 
   const openAppSettings = async () => {
-    if (Platform.OS === "ios") {
-      await Linking.openURL("app-settings:")
-    } else {
-      await Linking.openSettings()
-    }
+    await Linking.openSettings()
   }
 
   const requestPermission = async () => {

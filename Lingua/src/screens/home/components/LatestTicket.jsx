@@ -5,7 +5,7 @@ import { spacing } from "@constants/globalStyles"
 import { useNavigation } from "@react-navigation/native"
 import { useQueryState } from "@hooks/useQueryState"
 import { fetchBookings } from "@services/directus/rest"
-import BookingOverview from "../../bookings/components/BookingOverview"
+import RichBookingCard from "../../bookings/components/RichBookingCard"
 import PaddedView from "@components/atoms/PaddedView"
 import { Section } from "@components/atoms/Section"
 import DataContainer from "@components/layouts/DataContainer"
@@ -22,7 +22,7 @@ export default function LatestTicket() {
       executeQuery(
         "latest-booking",
         fetchBookings,
-        "fields=*,passengers,ticket.price,ticket.travel_package.name&sort=-date_updated&limit=1"
+        "fields=id,status,date_created,ticket.*,ticket.travel_package.name,passengers.*&sort=-date_updated&limit=1"
       )
     }
   }, [])
@@ -65,7 +65,9 @@ export default function LatestTicket() {
           data={latestBooking}
           noDataMessage={noBookings()}
         >
-          {latestBooking && <BookingOverview item={latestBooking} />}
+          {latestBooking && (
+            <RichBookingCard booking={latestBooking} showActionHint={false} />
+          )}
         </DataContainer>
       </Section>
     </PaddedView>

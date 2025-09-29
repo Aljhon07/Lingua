@@ -34,7 +34,7 @@ export default function ShortcutIcons() {
       id: 2,
       icon: <MaterialIcons name="map" size={24} color={colors.primary} />,
       label: "Itinerary",
-      onPress: () => navigation.navigate("Bookings"),
+      onPress: () => navigation.navigate("ItineraryScreen"),
     },
     {
       id: 3,
