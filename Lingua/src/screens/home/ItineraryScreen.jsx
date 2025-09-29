@@ -1,37 +1,37 @@
-import React, { useEffect } from "react"
-import { StyleSheet, View, FlatList, Pressable } from "react-native"
-import { Text, useTheme } from "react-native-paper"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { useNavigation } from "@react-navigation/native"
-import { RefreshControl } from "react-native"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
+import React, { useEffect } from "react";
+import { StyleSheet, View, FlatList, Pressable } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { RefreshControl } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import { spacing } from "@constants/globalStyles"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchBookings } from "@services/directus/rest"
-import DataContainer from "@components/layouts/DataContainer"
-import StyledSurface from "@components/atoms/StyledSurface"
+import { spacing } from "@constants/globalStyles";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchBookings } from "@services/directus/rest";
+import DataContainer from "@components/layouts/DataContainer";
+import StyledSurface from "@components/atoms/StyledSurface";
 
 export default function ItineraryScreen() {
-  const navigation = useNavigation()
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
-  const { getQueryState, executeQuery } = useQueryState()
-  const bookingsState = getQueryState("itinerary-bookings")
+  const navigation = useNavigation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+  const { getQueryState, executeQuery } = useQueryState();
+  const bookingsState = getQueryState("itinerary-bookings");
 
   const getItineraryBookings = () => {
     executeQuery(
       "itinerary-bookings",
       fetchBookings,
       "fields=id,status,date_created,ticket.*,ticket.travel_package.name,passengers.*&filter[status][_eq]=Paid&sort=-date_updated"
-    )
-  }
+    );
+  };
 
   useEffect(() => {
     if (!bookingsState.data && !bookingsState.loading) {
-      getItineraryBookings()
+      getItineraryBookings();
     }
-  }, [])
+  }, []);
 
   const handleBookingPress = (bookingId) => {
     navigation.navigate("BookingDetailsNavigation", {
@@ -39,8 +39,8 @@ export default function ItineraryScreen() {
       params: {
         bookingId: bookingId,
       },
-    })
-  }
+    });
+  };
 
   const renderBookingItem = ({ item }) => (
     <Pressable
@@ -72,9 +72,9 @@ export default function ItineraryScreen() {
         </View>
       </StyledSurface>
     </Pressable>
-  )
+  );
 
-  const renderSeparator = () => <View style={styles.separator} />
+  const renderSeparator = () => <View style={styles.separator} />;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -89,7 +89,24 @@ export default function ItineraryScreen() {
         loading={bookingsState.loading}
         error={bookingsState.error}
         data={bookingsState.data?.data}
-        noDataMessage="No paid bookings found. Complete a booking to see your itinerary here!"
+        noDataMessage={
+          <View style={{ alignItems: "center", paddingHorizontal: spacing.lg }}>
+            <Text
+              variant="titleSmall"
+              style={{ marginBottom: spacing.md, textAlign: "center" }}
+            >
+              No paid bookings found. Complete a booking to see your itinerary
+              here!
+            </Text>
+            <Button
+              icon={"arrow-right"}
+              contentStyle={{ flexDirection: "row-reverse" }}
+              onPress={() => navigation.navigate("Bookings")}
+            >
+              Go to Bookings
+            </Button>
+          </View>
+        }
       >
         <FlatList
           data={bookingsState.data?.data}
@@ -108,7 +125,7 @@ export default function ItineraryScreen() {
         />
       </DataContainer>
     </SafeAreaView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -169,4 +186,4 @@ const createStyles = (colors) =>
     bookingId: {
       color: colors.onSurfaceVariant,
     },
-  })
+  });

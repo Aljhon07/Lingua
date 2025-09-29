@@ -1,8 +1,8 @@
-import React, { useState } from "react"
-import { StyleSheet, View, TextInput } from "react-native"
-import { IconButton, useTheme, Text } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { LanguageList } from "@components/atoms/LanguageList"
+import React, { useState } from "react";
+import { StyleSheet, View, TextInput } from "react-native";
+import { IconButton, useTheme, Text } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { LanguageList } from "@components/atoms/LanguageList";
 const TranslationBox = ({
   value,
   onChangeText,
@@ -20,22 +20,22 @@ const TranslationBox = ({
   languages = [],
   label = "",
 }) => {
-  const { colors } = useTheme()
-  const styles = createStyles(colors, spacing, editable)
+  const { colors } = useTheme();
+  const styles = createStyles(colors, spacing, editable);
 
   const containerStyle = [
     styles.container,
     { borderColor: colors.outline },
     !editable && styles.disabledContainer,
-  ]
+  ];
 
   const inputStyle = [
     styles.input,
     { color: colors.onSurface },
     !editable && styles.disabledInput,
-  ]
+  ];
 
-  const footerStyle = [styles.footer, { borderTopColor: colors.outline }]
+  const footerStyle = [styles.footer, { borderTopColor: colors.outline }];
 
   return (
     <>
@@ -55,8 +55,6 @@ const TranslationBox = ({
           placeholderTextColor={colors.onSurfaceDisabled}
           multiline
           scrollEnabled={true}
-          caretHidden={!editable}
-          showSoftInputOnFocus={!editable}
           textAlignVertical="top"
         />
 
@@ -88,8 +86,8 @@ const TranslationBox = ({
         </View>
       </View>
     </>
-  )
-}
+  );
+};
 
 const createStyles = (colors, spacing, editable) => {
   return StyleSheet.create({
@@ -127,7 +125,7 @@ const createStyles = (colors, spacing, editable) => {
       height: 40,
       paddingHorizontal: spacing.xs,
     },
-  })
-}
+  });
+};
 
-export default TranslationBox
+export default TranslationBox;

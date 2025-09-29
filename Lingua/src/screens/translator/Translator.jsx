@@ -1,131 +1,133 @@
-import { StyleSheet, View, Animated, Keyboard } from "react-native"
-import { IconButton, useTheme } from "react-native-paper"
-import { useState, useEffect } from "react"
-import { spacing } from "@constants/globalStyles"
-import TranslationBox from "./components/TranslationBox"
-import * as Speech from "expo-speech"
-import Phrasebook from "./PhraseBook"
-import { useLanguageContext } from "@context/LanguageProvider"
-import { useSpeechRecognition } from "@hooks/useSpeechRecognition"
-import { useSpeechSynthesis } from "@hooks/useSpeechSynthesis"
-import { usePlayback } from "@hooks/usePlayback"
-import { useProfileContext } from "@context/ProfileProvider"
-
+import { StyleSheet, View, Animated, Keyboard } from "react-native";
+import { IconButton, useTheme } from "react-native-paper";
+import { useState, useEffect } from "react";
+import { spacing } from "@constants/globalStyles";
+import TranslationBox from "./components/TranslationBox";
+import * as Speech from "expo-speech";
+import Phrasebook from "./PhraseBook";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
+import { useSpeechSynthesis } from "@hooks/useSpeechSynthesis";
+import { usePlayback } from "@hooks/usePlayback";
+import { useProfileContext } from "@context/ProfileProvider";
+import { translateText as translate } from "@services/speech";
+import { set } from "lodash";
 export default function Translator() {
-  const { languages, selectedLanguage, onSelectLanguage } = useLanguageContext()
-  const { profile } = useProfileContext()
-  const [sourceText, setSourceText] = useState()
-  const [translatedText, setTranslatedText] = useState("")
-  const [sourceLanguage, setSourceLanguage] = useState("en")
-  const [targetLanguage, setTargetLanguage] = useState("ja")
-  const [isTranslating, setIsTranslating] = useState(false)
-  const [showPhrasebook, setShowPhrasebook] = useState(false)
+  const { languages, selectedLanguage, onSelectLanguage } =
+    useLanguageContext();
+  const { profile } = useProfileContext();
+  const [sourceText, setSourceText] = useState();
+  const [translatedText, setTranslatedText] = useState("");
+  const [sourceLanguage, setSourceLanguage] = useState("en");
+  const [targetLanguage, setTargetLanguage] = useState("ja");
+  const [isTranslating, setIsTranslating] = useState(false);
+  const [showPhrasebook, setShowPhrasebook] = useState(false);
 
   const { isRecording, isProcessing, transcript, handleRecord } =
-    useSpeechRecognition(profile?.id)
+    useSpeechRecognition(profile?.id);
 
-  const { audioUrl, handleSynthesize } = useSpeechSynthesis()
+  const { audioUrl, handleSynthesize } = useSpeechSynthesis();
 
-  const { playSound } = usePlayback()
+  const { playSound } = usePlayback();
   // Update source text when transcript changes
   useEffect(() => {
     if (transcript && transcript !== "Processing...") {
-      setSourceText(transcript)
+      setSourceText(transcript);
     }
-  }, [transcript])
+  }, [transcript]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       if (sourceText !== "No transcription." && sourceText) {
-        translateText(sourceText)
+        translateText(sourceText);
       } else {
-        setTranslatedText("")
+        setTranslatedText("");
       }
-    }, 300)
+    }, 300);
 
-    return () => clearTimeout(timer)
-  }, [sourceText])
+    return () => clearTimeout(timer);
+  }, [sourceText]);
 
   useEffect(() => {
     if (audioUrl) {
-      playSound(audioUrl)
+      playSound(audioUrl);
     }
-  }, [audioUrl])
+  }, [audioUrl]);
 
   const translateText = async (text) => {
     if (!text.trim()) {
-      setTranslatedText("")
-      return
+      setTranslatedText("");
+      setIsTranslating(false);
+      return;
     }
 
-    setIsTranslating(true)
+    setIsTranslating(true);
     try {
-      // TODO: Replace with your actual translation API call
-      // const response = await yourTranslationAPI(text, sourceLanguage, targetLanguage);
-      // setTranslatedText(response.translatedText);
-
-      // Mock translation for now
+      const response = await translate(text, {
+        from: sourceLanguage,
+        to: targetLanguage,
+      });
+      console.log(response);
       setTimeout(() => {
-        setTranslatedText(`${sourceText}`)
-        setIsTranslating(false)
-      }, 500)
+        setTranslatedText(response);
+        setIsTranslating(false);
+      }, 750);
     } catch (error) {
-      console.error("Translation error:", error)
-      setIsTranslating(false)
+      console.error("Translation error:", error);
+      setIsTranslating(false);
     }
-  }
+  };
 
   const handleSourceLanguageChange = (language) => {
-    console.log("Test src: ", typeof language)
-    const langCode = typeof language === "string" ? language : language?.code
-    console.log(`Change src: ${langCode}`)
+    console.log("Test src: ", typeof language);
+    const langCode = typeof language === "string" ? language : language?.code;
+    console.log(`Change src: ${langCode}`);
     if (langCode) {
-      setSourceLanguage(langCode)
+      setSourceLanguage(langCode);
     }
-  }
+  };
 
   const handleTargetLanguageChange = (language) => {
-    const langCode = typeof language === "string" ? language : language?.code
-    console.log(`Change tgt: ${langCode}`)
+    const langCode = typeof language === "string" ? language : language?.code;
+    console.log(`Change tgt: ${langCode}`);
     if (langCode) {
-      setTargetLanguage(langCode)
+      setTargetLanguage(langCode);
     }
-  }
+  };
 
   const handleSpeechSynthesis = () => {
-    handleSynthesize(translatedText, targetLanguage)
-  }
+    handleSynthesize(translatedText, targetLanguage);
+  };
 
   const handleSpeechRecognition = () => {
-    handleRecord(sourceLanguage)
-  }
+    handleRecord(sourceLanguage);
+  };
 
   const handleTextChange = (text) => {
-    setSourceText(text)
-  }
+    setSourceText(text);
+  };
 
-  console.log("Target: ", targetLanguage, "\nSource: ", sourceLanguage)
   const swapLanguages = () => {
     // Don't swap if translation is in progress to avoid confusion
     if (isTranslating) {
-      console.log("Cannot swap languages while translation is in progress")
-      return
+      console.log("Cannot swap languages while translation is in progress");
+      return;
     }
 
     // Store the current values before swapping
-    const currentSourceText = ""
-    const currentTranslatedText = ""
-    const currentSourceLanguage = sourceLanguage
-    const currentTargetLanguage = targetLanguage
+    const currentSourceText = "";
+    const currentTranslatedText = "";
+    const currentSourceLanguage = sourceLanguage;
+    const currentTargetLanguage = targetLanguage;
 
     // Swap the languages
-    setSourceLanguage(currentTargetLanguage)
-    setTargetLanguage(currentSourceLanguage)
+    setSourceLanguage(currentTargetLanguage);
+    setTargetLanguage(currentSourceLanguage);
 
     // Swap the text content - what was translated becomes the new source
     // and what was source becomes the new translated text
-    setSourceText(currentTranslatedText)
-    setTranslatedText(currentSourceText)
+    setSourceText(currentTranslatedText);
+    setTranslatedText(currentSourceText);
 
     // Note: We don't update the global language context here because
     // the translator should manage its own language states independently
@@ -137,20 +139,20 @@ export default function Translator() {
     //   newSourceText: currentTranslatedText,
     //   newTranslatedText: currentSourceText,
     // })
-  }
+  };
 
   const speakTranslatedText = () => {
     if (translatedText) {
-      Speech.speak(translatedText, { language: targetLanguage })
+      Speech.speak(translatedText, { language: targetLanguage });
     }
-  }
+  };
 
   const clearAll = () => {
-    setSourceText("")
-    setTranslatedText("")
-  }
+    setSourceText("");
+    setTranslatedText("");
+  };
 
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
@@ -207,7 +209,7 @@ export default function Translator() {
 
       <Phrasebook visible={showPhrasebook} setVisible={setShowPhrasebook} />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -271,4 +273,4 @@ const styles = StyleSheet.create({
   phrasebookIcon: {
     margin: 0,
   },
-})
+});

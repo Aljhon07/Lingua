@@ -1,8 +1,8 @@
-import { useLanguageContext } from "@context/LanguageProvider"
-import { View } from "react-native"
-import { Text } from "react-native-paper"
-import { Dropdown } from "react-native-paper-dropdown"
-import { useState, useEffect } from "react"
+import { useLanguageContext } from "@context/LanguageProvider";
+import { View } from "react-native";
+import { Text } from "react-native-paper";
+import { Dropdown } from "react-native-paper-dropdown";
+import { useState, useEffect } from "react";
 
 export function LanguageList({
   label = "Select Language",
@@ -11,19 +11,20 @@ export function LanguageList({
   callbackFn,
   isSource = false,
 }) {
-  const { languages, onSelectLanguage, selectedLanguage } = useLanguageContext()
-  const [localValue, setLocalValue] = useState(lang)
+  const { languages, onSelectLanguage, selectedLanguage } =
+    useLanguageContext();
+  const [localValue, setLocalValue] = useState(lang);
 
   // Update localValue when the lang prop changes (e.g., during language swap)
   useEffect(() => {
-    setLocalValue(lang)
-  }, [lang])
+    setLocalValue(lang);
+  }, [lang]);
 
-  console.log(
-    "Rendering LanguageList with lang: ",
-    isSource ? "<Source Language>" : "<Target Language>",
-    lang
-  )
+  // console.log(
+  //   "Rendering LanguageList with lang: ",
+  //   isSource ? "<Source Language>" : "<Target Language>",
+  //   lang
+  // )
   return (
     <Dropdown
       mode="outlined"
@@ -37,18 +38,18 @@ export function LanguageList({
       onSelect={(value) => {
         const filteredLanguage = languages.find(
           (language) => language.code === value
-        )
+        );
         if (filteredLanguage) {
           if (lang) {
-            console.log("Setting local value to", value)
-            callbackFn(value)
-            setLocalValue(value)
+            console.log("Setting local value to", value);
+            callbackFn(value);
+            setLocalValue(value);
           } else {
-            console.log("Setting selected language to", filteredLanguage)
-            onSelectLanguage(filteredLanguage)
+            console.log("Setting selected language to", filteredLanguage);
+            onSelectLanguage(filteredLanguage);
           }
         }
       }}
     />
-  )
+  );
 }
