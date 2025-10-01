@@ -1,30 +1,39 @@
-import StyledSurface from "@components/atoms/StyledSurface"
-import DataContainer from "@components/layouts/DataContainer"
-import { spacing } from "@constants/globalStyles"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchBookingDetails } from "@services/directus/rest"
-import React, { useEffect } from "react"
-import { ScrollView } from "react-native-gesture-handler"
-import { Text } from "react-native-paper"
-import PassengerSummary from "src/screens/flight-booking/components/PassengerSummary"
-import TicketSummary from "src/screens/flight-booking/components/TicketSummary"
-import PaymentMethodSummary from "src/screens/flight-booking/components/PaymentMethodSummary"
-import ContactSummary from "src/screens/flight-booking/components/ContactSummary"
-import { useNavigation } from "@react-navigation/native"
-import StripePay from "./StripePay"
+import StyledSurface from "@components/atoms/StyledSurface";
+import DataContainer from "@components/layouts/DataContainer";
+import { spacing } from "@constants/globalStyles";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchBookingDetails } from "@services/directus/rest";
+import React, { useEffect } from "react";
+import { ScrollView } from "react-native-gesture-handler";
+import { Text } from "react-native-paper";
+import PassengerSummary from "src/screens/flight-booking/components/PassengerSummary";
+import TicketSummary from "src/screens/flight-booking/components/TicketSummary";
+import PaymentMethodSummary from "src/screens/flight-booking/components/PaymentMethodSummary";
+import ContactSummary from "src/screens/flight-booking/components/ContactSummary";
+import { useNavigation } from "@react-navigation/native";
+import StripePay from "./StripePay";
 
 export default function UnpaidBooking({ bookingId }) {
-  const { executeQuery, getQueryState } = useQueryState()
-  const bookingDetails = getQueryState("bookingDetails")
-  const booking = bookingDetails.data?.data
-  const navigation = useNavigation()
-  useEffect(() => {
+  const { executeQuery, getQueryState, refreshQuery } = useQueryState();
+  const bookingDetails = getQueryState("bookingDetails");
+  const booking = bookingDetails.data?.data;
+  const navigation = useNavigation();
+
+  const fetchBookingData = () => {
     executeQuery("bookingDetails", fetchBookingDetails, {
       id: bookingId,
       filter:
         "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,ticket.*,ticket.return_ticket.*",
-    })
-  }, [])
+    });
+  };
+
+  const handleRefreshBooking = () => {
+    fetchBookingData();
+  };
+
+  useEffect(() => {
+    fetchBookingData();
+  }, []);
 
   // const handleCheckout = () => {
   //   navigation.navigate("Checkout", {
@@ -60,8 +69,9 @@ export default function UnpaidBooking({ bookingId }) {
         <StripePay
           price={booking?.passengers.length * booking?.ticket.price}
           bookingId={bookingId}
+          onPaymentSuccess={handleRefreshBooking}
         />
       )}
     </DataContainer>
-  )
+  );
 }

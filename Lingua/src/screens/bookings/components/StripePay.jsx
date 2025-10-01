@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react"
-import { View, Alert, Button } from "react-native"
-import { StripeProvider, usePaymentSheet } from "@stripe/stripe-react-native"
-import { domain, server } from "@constants/api"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { payBooking } from "@services/directus/rest"
-import { useNavigation } from "@react-navigation/native"
+import React, { useEffect, useState } from "react";
+import { View, Alert, Button } from "react-native";
+import { StripeProvider, usePaymentSheet } from "@stripe/stripe-react-native";
+import { domain, server } from "@constants/api";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { payBooking } from "@services/directus/rest";
+import { useNavigation } from "@react-navigation/native";
+import { useQueryState } from "@hooks/useQueryState";
 
-const API_URL = server.baseURL
+const API_URL = server.baseURL;
 
-export default function StripePay({ price, bookingId, style }) {
-  const { initPaymentSheet, presentPaymentSheet } = usePaymentSheet()
-  const [ready, setReady] = useState(false)
-  const [pid, setPid] = useState(null)
-  const navigation = useNavigation()
+export default function StripePay({
+  price,
+  bookingId,
+  style,
+  onPaymentSuccess,
+}) {
+  const { initPaymentSheet, presentPaymentSheet } = usePaymentSheet();
+  const [ready, setReady] = useState(false);
+  const [pid, setPid] = useState(null);
+  const navigation = useNavigation();
+  const { invalidateQuery } = useQueryState();
 
   const fetchPaymentIntentClientSecret = async () => {
     try {
@@ -24,21 +31,21 @@ export default function StripePay({ price, bookingId, style }) {
         body: JSON.stringify({
           amount: price,
         }),
-      })
-      setPid(clientSecret)
-      const { clientSecret, error } = await response.json()
-      return { clientSecret, error }
+      });
+      setPid(clientSecret);
+      const { clientSecret, error } = await response.json();
+      return { clientSecret, error };
     } catch (e) {
-      console.error("Error fetching payment intent:", e)
-      return { clientSecret: null, error: e }
+      console.error("Error fetching payment intent:", e);
+      return { clientSecret: null, error: e };
     }
-  }
+  };
 
   const initializePaymentSheet = async () => {
-    const { clientSecret, error } = await fetchPaymentIntentClientSecret()
+    const { clientSecret, error } = await fetchPaymentIntentClientSecret();
 
     if (error || !clientSecret) {
-      throw new Error("Check your network connection.")
+      throw new Error("Check your network connection.");
     }
 
     const { error: initError } = await initPaymentSheet({
@@ -49,34 +56,44 @@ export default function StripePay({ price, bookingId, style }) {
           country: "PH",
         },
       },
-    })
+    });
 
     if (initError) {
-      throw new Error("Init Error.")
+      throw new Error("Init Error.");
     } else {
-      setReady(true)
+      setReady(true);
     }
-  }
+  };
 
   const handlePayPress = async () => {
     try {
-      await initializePaymentSheet()
+      await initializePaymentSheet();
 
-      const { error } = await presentPaymentSheet()
+      const { error } = await presentPaymentSheet();
       if (error) {
-        return
+        return;
       }
-      await payBooking({ id: bookingId, paymentId: pid })
+      await payBooking({ id: bookingId, paymentId: pid });
+
+      // Refresh the booking data after successful payment
+      if (onPaymentSuccess) {
+        onPaymentSuccess();
+      }
+
+      // Invalidate related queries to ensure fresh data across the app
+      invalidateQuery("latest-booking");
+      invalidateQuery("itinerary-bookings");
+
       Alert.alert("Success", "Payment Successful", [
         {
           text: "OK",
           onPress: () => navigation.navigate("MainTab", { screen: "Home" }),
         },
-      ])
+      ]);
     } catch (error) {
-      Alert.alert("Error", error.message)
+      Alert.alert("Error", error.message);
     }
-  }
+  };
 
   return (
     <StripeProvider publishableKey="pk_test_51R8ZnKGf6UlwzrtkBAwHrtbXeQDkckp83C9aU7ORThvjYvOkTL2GHONfiihivD1ix3ManQrmzrTvZV4J1Eqg7AMg00pkfxgvCA">
@@ -89,5 +106,5 @@ export default function StripePay({ price, bookingId, style }) {
         Pay Now
       </CustomButton>
     </StripeProvider>
-  )
+  );
 }

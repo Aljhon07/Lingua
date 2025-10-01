@@ -68,8 +68,8 @@ export default function Translator() {
         to: targetLanguage,
       });
       console.log(response);
+      setTranslatedText(response);
       setTimeout(() => {
-        setTranslatedText(response);
         setIsTranslating(false);
       }, 750);
     } catch (error) {
