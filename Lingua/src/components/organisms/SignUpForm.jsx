@@ -6,16 +6,20 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-} from "react-native"
-import { spacing } from "@constants/globalStyles"
-import { useInputChange } from "@hooks/useInputChange"
-import { useAuthContext } from "@context/AuthProvider"
-import { TextInput, Text, useTheme } from "react-native-paper"
-import { LinkText } from "@components/atoms/LinkText"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { TermsCheckbox } from "@components/molecules/TermsCheckbox"
-import { useToggle } from "@hooks/useToggle"
-import { useState } from "react"
+} from "react-native";
+import { spacing } from "@constants/globalStyles";
+import { useInputChange } from "@hooks/useInputChange";
+import { useAuthContext } from "@context/AuthProvider";
+import { TextInput, Text, useTheme } from "react-native-paper";
+import { LinkText } from "@components/atoms/LinkText";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { TermsCheckbox } from "@components/molecules/TermsCheckbox";
+import { useToggle } from "@hooks/useToggle";
+import { useEffect, useState } from "react";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+
+import { configureGoogleSignIn } from "@utils/googleSignInConfigure";
+import { set } from "lodash";
 
 export default function SignUpForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
@@ -24,47 +28,80 @@ export default function SignUpForm({ navigation }) {
     firstName: "",
     lastName: "",
     confirmPassword: "",
-  })
-  const [visible, toggleVisiblity] = useToggle()
-  const [termsAccepted, setTermsAccepted] = useState(false)
-  const { signUp } = useAuthContext()
-  const { colors } = useTheme()
+  });
+  const [visible, toggleVisiblity] = useToggle();
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const { signUp, contextGoogleSignIn } = useAuthContext();
+  const { colors } = useTheme();
+  const [currentUser, setCurrentUser] = useState(null);
+  const getCurrentUser = async () => {
+    GoogleSignin.configure({
+      webClientId:
+        "244085597277-ark35u401giihpl8vd629697no9374ao.apps.googleusercontent.com",
+    });
+    try {
+      const user = await GoogleSignin.getCurrentUser();
+      setCurrentUser(user);
+      console.log(JSON.stringify(user, null, 2));
+    } catch (error) {
+      console.error("Error getting current user", error);
+    }
+  };
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      await getCurrentUser();
+    };
+    fetchCurrentUser();
+  }, []);
 
+  const handleSignIn = async () => {
+    await contextGoogleSignIn({ force: true });
+  };
   const handleSignUp = async () => {
     if (!termsAccepted) {
       Alert.alert(
         "Terms and Conditions",
         "Please accept the Terms and Conditions to continue with sign up.",
         [{ text: "OK" }]
-      )
-      return
+      );
+      return;
     }
 
-    if (credentials.password !== credentials.confirmPassword) {
-      Alert.alert(
-        "Password Mismatch",
-        "Passwords do not match. Please check and try again.",
-        [{ text: "OK" }]
-      )
-      return
-    }
+    // if (credentials.password !== credentials.confirmPassword) {
+    //   Alert.alert(
+    //     "Password Mismatch",
+    //     "Passwords do not match. Please check and try again.",
+    //     [{ text: "OK" }]
+    //   );
+    //   return;
+    // }
 
-    if (
-      !credentials.email ||
-      !credentials.password ||
-      !credentials.firstName ||
-      !credentials.lastName
-    ) {
-      Alert.alert(
-        "Missing Information",
-        "Please fill in all required fields.",
-        [{ text: "OK" }]
-      )
-      return
-    }
+    // if (
+    //   !credentials.email ||
+    //   !credentials.password ||
+    //   !credentials.firstName ||
+    //   !credentials.lastName
+    // ) {
+    //   Alert.alert(
+    //     "Missing Information",
+    //     "Please fill in all required fields.",
+    //     [{ text: "OK" }]
+    //   );
+    //   return;
+    // }
 
-    signUp(credentials)
-  }
+    signUp({
+      email: currentUser?.user ? currentUser?.user?.email : credentials.email,
+      password: currentUser?.user ? currentUser?.idToken : credentials.password,
+      firstName: currentUser?.user
+        ? currentUser?.user?.givenName
+        : credentials.firstName,
+      lastName: currentUser?.user
+        ? currentUser?.user?.familyName
+        : credentials.lastName,
+      user: currentUser,
+    });
+  };
 
   return (
     <KeyboardAvoidingView
@@ -83,7 +120,11 @@ export default function SignUpForm({ navigation }) {
             mode="outlined"
             style={styles.inputField}
             label="First Name"
-            value={credentials.firstName}
+            value={
+              currentUser?.user
+                ? currentUser?.user?.givenName
+                : credentials.firstName
+            }
             onChangeText={(text) => handleInputChange("firstName", text)}
             returnKeyType="next"
           />
@@ -91,11 +132,15 @@ export default function SignUpForm({ navigation }) {
             mode="outlined"
             style={styles.inputField}
             label="Last Name"
-            value={credentials.lastName}
+            value={
+              currentUser?.user
+                ? currentUser?.user?.familyName
+                : credentials.lastName
+            }
             onChangeText={(text) => handleInputChange("lastName", text)}
             returnKeyType="next"
           />
-          <TextInput
+          {/* <TextInput
             mode="outlined"
             style={styles.inputField}
             label="Email"
@@ -137,7 +182,7 @@ export default function SignUpForm({ navigation }) {
             onChangeText={(text) => handleInputChange("confirmPassword", text)}
             returnKeyType="done"
             onSubmitEditing={() => Keyboard.dismiss()}
-          />
+          /> */}
 
           <TermsCheckbox
             checked={termsAccepted}
@@ -155,17 +200,15 @@ export default function SignUpForm({ navigation }) {
             <CustomButton primary onPress={handleSignUp}>
               Sign Up
             </CustomButton>
-            <Text style={styles.centerText}>
+            {/* <Text style={styles.centerText}>
               Already have an account?{" "}
-              <LinkText onPress={() => navigation.replace("SignIn")}>
-                Sign In
-              </LinkText>
-            </Text>
+              <LinkText onPress={handleSignIn}>Sign In</LinkText>
+            </Text> */}
           </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -189,4 +232,4 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: "center",
   },
-})
+});

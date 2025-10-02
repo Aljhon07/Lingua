@@ -3,7 +3,7 @@ const commonColors = {
   success: "rgb(99, 255, 99)",
   link: "rgb(36, 80, 255)",
   warning: "rgb(255, 71, 71)",
-}
+};
 
 const lightTheme = {
   primary: "rgba(12, 107, 66, 1)",
@@ -26,9 +26,9 @@ const lightTheme = {
   onSuccessContainer: "rgb(0, 98, 50)",
 
   error: "rgb(186, 26, 26)",
-  onError: "rgb(255, 255, 255)",
-  errorContainer: "rgb(255, 218, 214)",
-  onErrorContainer: "rgb(65, 14, 11)",
+  onError: "rgba(255, 233, 233, 1)",
+  errorContainer: "rgba(236, 84, 68, 1)",
+  onErrorContainer: "rgba(250, 217, 216, 1)",
 
   background: "rgb(251, 252, 253)",
   onBackground: "rgb(33, 37, 41)", // darker gray for text on white
@@ -62,7 +62,7 @@ const lightTheme = {
   surfaceDisabled: "rgba(33, 37, 41, 0.12)",
   onSurfaceDisabled: "rgba(33, 37, 41, 0.38)",
   backdrop: "rgba(41, 50, 52, 0.4)",
-}
+};
 
 const darkTheme = {
   primary: "rgba(0, 254, 144, 1)", // #f57c00
@@ -117,6 +117,6 @@ const darkTheme = {
   surfaceDisabled: "rgba(225, 227, 228, 0.12)",
   onSurfaceDisabled: "rgba(225, 227, 228, 0.38)",
   backdrop: "rgba(41, 50, 52, 0.4)",
-}
+};
 
-export { darkTheme, lightTheme, commonColors }
+export { darkTheme, lightTheme, commonColors };

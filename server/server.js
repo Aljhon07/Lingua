@@ -10,6 +10,7 @@ const { translateText } = require("./services/translate");
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use("/user", require("./routes/directus_auth"));
 
 app.post("/create-payment-intent", async (req, res) => {
   try {

@@ -1,13 +1,13 @@
 export const domain = "209.97.162.95";
 // export const domain = "10.0.2.2";
-export const localIP = "172.20.10.3";
+export const localIP = "192.168.1.161";
 
 export const directus = {
   baseURL: `http://${domain}`,
 };
 
 export const server = {
-  baseURL: `http://${domain}:5000`,
+  baseURL: `http://${localIP}:5000`,
 };
 export const cloudinary = {
   baseURL: "https://res.cloudinary.com/dlwnraplb",
