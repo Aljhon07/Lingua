@@ -1,277 +1,282 @@
-import { axiosInstance } from "@utils/axiosInstance"
-import { logError } from "@utils/errorLogger"
-import { generateBookingDetails } from "@utils/ticketDetailsGenerator"
-
+import { server } from "@constants/api";
+import { axiosInstance } from "@utils/axiosInstance";
+import * as SecureStorage from "expo-secure-store";
+import { logError } from "@utils/errorLogger";
+import { generateBookingDetails } from "@utils/ticketDetailsGenerator";
 export const searchPackages = async (searchQuery) => {
-  console.log("Searching...")
+  console.log("Searching...");
   try {
     const res = await axiosInstance.get(
       `/items/travel_package?search=${searchQuery}`
-    )
-    console.log("Search Successful")
-    return res.data.data
+    );
+    console.log("Search Successful");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("searchPackages", error))
+    throw new Error(logError("searchPackages", error));
   }
-}
+};
 
 export const fetchProfile = async (filter = "") => {
-  console.log("Fetching Profile...")
+  console.log("Fetching Profile...");
   try {
-    const res = await axiosInstance.get(`/users/me?${filter}`)
-    console.log("Profile Fetched")
-    return res.data.data
+    const res = await axiosInstance.get(`/users/me?${filter}`);
+    console.log("Profile Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("getProfile", error))
+    throw new Error(logError("getProfile", error));
   }
-}
+};
 
 export const fetchCountries = async () => {
   try {
-    console.log("Fetching Countries...")
-    const res = await axiosInstance.get("/items/country?fields=name&sort=name")
-    console.log("Countries Fetched")
+    console.log("Fetching Countries...");
+    const res = await axiosInstance.get("/items/country?fields=name&sort=name");
+    console.log("Countries Fetched");
 
     const countries = res.data.data.map((country) => ({
       label: country.name,
       value: country.name,
-    }))
+    }));
 
-    return countries
+    return countries;
   } catch (error) {
-    throw new Error(logError("getCountries", error))
+    throw new Error(logError("getCountries", error));
   }
-}
+};
 
 export const fetchPackages = async (filter) => {
   try {
-    console.log("Fetching Packages...")
+    console.log("Fetching Packages...");
     const res = await axiosInstance.get(
       `/items/travel_package?fields=id,name,country.name,cover,price&${filter}`
-    )
-    console.log("Packages Fetched")
-    return res.data.data
+    );
+    console.log("Packages Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("getPackages", error))
+    throw new Error(logError("getPackages", error));
   }
-}
+};
 
 export const fetchPackageDetails = async (id) => {
   try {
-    console.log("Fetching Package Details...", id)
+    console.log("Fetching Package Details...", id);
     const res = await axiosInstance.get(
       `/items/travel_package/${id}?fields=*,itinerary.*,features.*`
-    )
-    console.log("Package Details Fetched")
-    return res.data.data
+    );
+    console.log("Package Details Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("getPackageDetails", error))
+    throw new Error(logError("getPackageDetails", error));
   }
-}
+};
 
 export const fetchPackageItinerary = async (id) => {
   try {
-    console.log("Fetching Package Itinerary...", id)
+    console.log("Fetching Package Itinerary...", id);
     const res = await axiosInstance.get(
       `/items/destination?filter[travel_package][id][_eq]=${id}&sort=dayNumber&fields=image,overview,activities.name,dayNumber`
-    )
-    console.log("Package Itinerary Fetched")
-    return res.data.data
+    );
+    console.log("Package Itinerary Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchPackageItinerary", error))
+    throw new Error(logError("fetchPackageItinerary", error));
   }
-}
+};
 
-export const postBooking = async (data) => {
-  const { ticket, price, paymentMethod, contacts, passengers } = data
+export const postBooking = async ({ info: data }) => {
+  const { ticket, price, paymentMethod, contacts, passengers } = data;
   const formattedInfo = {
     ticket: ticket,
-    price: price,
     payment_method: paymentMethod,
     phone_number: contacts.phoneNumber,
     email_address: contacts.emailAddress,
     passengers,
-    status: "Approved",
-  }
+  };
 
   try {
-    console.log("Uploading Booking...")
-    const res = await axiosInstance.post("/items/booking", formattedInfo)
+    console.log("Uploading Booking...");
+    const accessToken = await SecureStorage.getItemAsync("accessToken");
+    const res = await axiosInstance.post(
+      `${server.baseURL}/directus-extensions/create-booking`,
+      formattedInfo,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
     const resData = {
       status: res.status,
       data: res.data.data,
-    }
-    return resData
+    };
+    return resData;
   } catch (error) {
-    logError("postBooking", error)
-    return error
+    logError("postBooking", error);
+    return error;
   }
-}
+};
 
 export const fetchBookings = async (filter) => {
   try {
-    console.log("Fetching Bookings...")
-    const res = await axiosInstance.get(`/items/booking?${filter}`)
-    console.log("Bookings Fetched")
+    console.log("Fetching Bookings...");
+    const res = await axiosInstance.get(`/items/booking?${filter}`);
+    console.log("Bookings Fetched");
     const resData = {
       status: res.status,
       data: res.data.data,
-    }
-    return resData
+    };
+    return resData;
   } catch (error) {
-    const err = logError("postBooking", error)
-    return err
+    const err = logError("postBooking", error);
+    return err;
   }
-}
+};
 
 export const fetchBookingDetails = async ({ id, filter }) => {
   try {
-    console.log("Fetching Booking Details...")
-    const res = await axiosInstance.get(`/items/booking/${id}?${filter}`)
-    console.log("Booking Details Fetched")
+    console.log("Fetching Booking Details...");
+    const res = await axiosInstance.get(`/items/booking/${id}?${filter}`);
+    console.log("Booking Details Fetched");
     const resData = {
       status: res.status,
       data: res.data.data,
-    }
-    return resData
+    };
+    return resData;
   } catch (error) {
-    logError("postBooking", error)
-    return error
+    logError("postBooking", error);
+    return error;
   }
-}
+};
 
 export const payBooking = async ({ id, paymentId }) => {
   try {
-    const { data } = await fetchBookingDetails({ id })
-    console.log("Updating Booking...", paymentId, " : ", id)
-    const updateBooking = generateBookingDetails(data)
-    console.log(JSON.stringify(updateBooking, null, 2))
-    const res = await axiosInstance.patch(`/items/booking/${id}`, {
-      status: "Paid",
-      payment_id: paymentId,
-      ...updateBooking,
-    })
-    console.log("Booking Updated")
-    return res.data.data
+    console.log("Paying Booking...");
+    const res = await axiosInstance.post(
+      `${server.baseURL}/directus-extensions/pay-booking`,
+      { id, paymentId }
+    );
+    console.log(JSON.stringify(res.data.data, null, 2));
+    return res.data.data;
   } catch (error) {
-    console.error("Error paying booking:", error)
-    throw new Error(logError("payBooking", error))
+    console.error("Error paying booking:", error);
+    throw new Error(logError("payBooking", error));
   }
-}
+};
 
 export const fetchTickets = async (id, filter) => {
   try {
-    console.log("Fetching tickets...")
+    console.log("Fetching tickets...");
     const filter = filter
       ? filter
-      : "sort=departure_schedule&fields=*,travel_package.country.name,return_ticket.type,return_ticket.id,return_ticket.departure_schedule,return_ticket.departure_location,return_ticket.arrival_location,return_ticket.arrival_schedule"
+      : "sort=departure_schedule&fields=*,travel_package.country.name,return_ticket.type,return_ticket.id,return_ticket.departure_schedule,return_ticket.departure_location,return_ticket.arrival_location,return_ticket.arrival_schedule";
     const res = await axiosInstance.get(
       `/items/ticket?filter[travel_package]=${id}&${filter}`
-    )
-    console.log("Tickets Fetched")
-    return res.data.data
+    );
+    console.log("Tickets Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("getTickets", error))
+    throw new Error(logError("getTickets", error));
   }
-}
+};
 
 export const fetchTicketDetails = async ({
   id,
   filter = "?fields=*,return_ticket.*",
 }) => {
   try {
-    console.log("Fetching Ticket Details...")
-    const res = await axiosInstance.get(`/items/ticket/${id}${filter}`)
-    console.log("Ticket Details Fetched")
-    return res.data.data
+    console.log("Fetching Ticket Details...");
+    const res = await axiosInstance.get(`/items/ticket/${id}${filter}`);
+    console.log("Ticket Details Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("getTicketDetails", error))
+    throw new Error(logError("getTicketDetails", error));
   }
-}
+};
 
 export const fetchLanguages = async () => {
   try {
-    console.log("Fetching Languages...")
-    const res = await axiosInstance.get("/items/languages?fields=code,name,id")
-    console.log("Languages Fetched")
-    return res.data
+    console.log("Fetching Languages...");
+    const res = await axiosInstance.get("/items/languages?fields=code,name,id");
+    console.log("Languages Fetched");
+    return res.data;
   } catch (error) {
-    throw new Error(logError("fetchLanguages", error))
+    throw new Error(logError("fetchLanguages", error));
   }
-}
+};
 
 export const fetchLessons = async (filter) => {
   try {
-    console.log("Fetching Lessons...")
-    const res = await axiosInstance.get(`/items/lesson?${filter}&sort=order`)
-    console.log("Lessons Fetched")
-    return res.data.data
+    console.log("Fetching Lessons...");
+    const res = await axiosInstance.get(`/items/lesson?${filter}&sort=order`);
+    console.log("Lessons Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchLessons", error))
+    throw new Error(logError("fetchLessons", error));
   }
-}
+};
 
 export const fetchVocabulary = async ({ id, lang }) => {
   try {
-    console.log("Fetching Vocabulary...")
+    console.log("Fetching Vocabulary...");
     const res = await axiosInstance.get(
       `/items/vocabulary?filter[lesson][_eq]=${id}&filter[translations][language][code][_eq]=${lang}&fields=id,word,sentence,definition,image,audio,translations.*,translations.language.*&deep[translations][_filter][language][code][_eq]=${lang}`
-    )
-    console.log(JSON.stringify(res.data.data, null, 2))
+    );
+    console.log(JSON.stringify(res.data.data, null, 2));
 
-    return res.data.data
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchVocabulary", error))
+    throw new Error(logError("fetchVocabulary", error));
   }
-}
+};
 
 export const fetchQuestions = async ({ id, lang }) => {
   try {
-    console.log("Fetching Questions...")
+    console.log("Fetching Questions...");
     const res = await axiosInstance.get(
       `/items/question?filter[lesson][_eq]=${id}&fields=question,type,answer.word,answer.sentence,answer.audio,answer.image,answer.translations.*&deep[answer][translations][_filter][language][code][_eq]=${lang}`
-    )
-    console.log("Questions", JSON.stringify(res.data.data, null, 2))
+    );
+    console.log("Questions", JSON.stringify(res.data.data, null, 2));
 
-    return res.data.data
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchQuestions", error))
+    throw new Error(logError("fetchQuestions", error));
   }
-}
+};
 
 export const fetchPhrases = async ({ lang }) => {
   try {
-    console.log("Fetching Phrases...")
+    console.log("Fetching Phrases...");
     const res = await axiosInstance.get(
       `/items/phrase?fields=id,phrase,translation.translation,translation.transliteration,translation.audio,translation.language.*&deep[translation][_filter][language][code][_eq]=${lang}`
-    )
+    );
 
-    console.log(JSON.stringify(res.data.data, null, 2))
-    return res.data.data
+    console.log(JSON.stringify(res.data.data, null, 2));
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchPhrases", error))
+    throw new Error(logError("fetchPhrases", error));
   }
-}
+};
 
 export const fetchUserItinerary = async (filter) => {
-  console.log("Filter: ", filter)
+  console.log("Filter: ", filter);
   try {
-    console.log("Fetching User Itinerary...")
-    const res = await axiosInstance.get(`/items/user_itinerary?${filter}`)
-    console.log("User Itinerary Fetched")
-    return res.data.data
+    console.log("Fetching User Itinerary...");
+    const res = await axiosInstance.get(`/items/user_itinerary?${filter}`);
+    console.log("User Itinerary Fetched");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("fetchUserItinerary", error))
+    throw new Error(logError("fetchUserItinerary", error));
   }
-}
+};
 export const createUserItinerary = async (bookingId) => {
   try {
-    console.log("Creating User Itinerary...")
+    console.log("Creating User Itinerary...");
     const { data: bookingDetails } = await fetchBookingDetails({
       id: bookingId,
       filter:
         "fields=ticket.travel_package.itinerary.overview,ticket.travel_package.itinerary.activities.*,ticket.travel_package.itinerary.id,ticket.travel_package.itinerary.dayNumber",
-    })
+    });
 
     const formattedData = bookingDetails.ticket.travel_package.itinerary.map(
       (item) => ({
@@ -283,29 +288,29 @@ export const createUserItinerary = async (bookingId) => {
           order: index,
         })),
       })
-    )
+    );
 
     const res = await axiosInstance.post("/items/user_itinerary", {
       booking: bookingId,
       itinerary: formattedData,
-    })
-    console.log("User Itinerary Created")
-    return res.data.data
+    });
+    console.log("User Itinerary Created");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("createUserItinerary", error))
+    throw new Error(logError("createUserItinerary", error));
   }
-}
+};
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export const patchUserItinerary = async ({ id, data }) => {
   // console.log(JSON.stringify(data, null, 2))
   try {
-    console.log("Updating User Itinerary...")
-    sleep(1000)
-    const res = await axiosInstance.patch(`/items/user_itinerary/${id}`, data)
-    console.log("User Itinerary Updated")
-    return res.data.data
+    console.log("Updating User Itinerary...");
+    sleep(1000);
+    const res = await axiosInstance.patch(`/items/user_itinerary/${id}`, data);
+    console.log("User Itinerary Updated");
+    return res.data.data;
   } catch (error) {
-    throw new Error(logError("updateUserItinerary", error))
+    throw new Error(logError("updateUserItinerary", error));
   }
-}
+};

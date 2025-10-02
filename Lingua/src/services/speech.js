@@ -5,7 +5,7 @@ import { domain, localIP, server } from "@constants/api";
 export const transcribeAudio = async (audioUri, lang = "en", userId) => {
   let srEndpoint = `http://${domain}:5000/transcribe`;
   if (lang === "en") {
-    srEndpoint = `http://${localIP}:8080/transcribe`;
+    srEndpoint = `http://${domain}:8080/transcribe`;
   }
   try {
     const formData = new FormData();

@@ -2,7 +2,6 @@ const { createClient } = require("@deepgram/sdk");
 const fs = require("fs");
 const { TranslationServiceClient } = require("@google-cloud/translate");
 
-// Instantiates a client
 const translationClient = new TranslationServiceClient();
 
 const projectId = "lingua-473610";

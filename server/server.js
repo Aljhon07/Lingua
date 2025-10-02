@@ -6,18 +6,21 @@ const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const { transcribeFile, synthesizeAudio } = require("./services/speech");
 const { translateText } = require("./services/translate");
+const axiosInstance = require("./utils/axiosInstance");
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/user", require("./routes/directus_auth"));
+app.use("/directus-extensions", require("./routes/directus_extension"));
 
 app.post("/create-payment-intent", async (req, res) => {
   try {
-    const { amount, currency = "php" } = req.body;
+    const { currency = "php", bookingId } = req.body;
+    const { data } = await axiosInstance.get("/items/booking/" + bookingId);
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100,
+      amount: data.data.total_price * 100,
       currency: currency,
       payment_method_types: ["card"],
     });

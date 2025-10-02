@@ -12,6 +12,7 @@ import { usePlayback } from "@hooks/usePlayback";
 import { useProfileContext } from "@context/ProfileProvider";
 import { translateText as translate } from "@services/speech";
 import { set } from "lodash";
+import { ScrollView } from "react-native-gesture-handler";
 export default function Translator() {
   const { languages, selectedLanguage, onSelectLanguage } =
     useLanguageContext();
@@ -155,7 +156,9 @@ export default function Translator() {
   const { colors } = useTheme();
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <ScrollView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <View style={styles.translatorContainer}>
         <View style={styles.translationBoxes}>
           <TranslationBox
@@ -208,7 +211,7 @@ export default function Translator() {
       </View>
 
       <Phrasebook visible={showPhrasebook} setVisible={setShowPhrasebook} />
-    </View>
+    </ScrollView>
   );
 }
 

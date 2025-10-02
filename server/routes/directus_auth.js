@@ -2,16 +2,9 @@ const router = require("express").Router();
 const axios = require("axios");
 const { OAuth2Client } = require("google-auth-library");
 const { v4: randomUUID } = require("uuid");
+const axiosInstance = require("../utils/axiosInstance");
 
 const client = new OAuth2Client(process.env.GOOGLE_OAUTH_CLIENT_ID);
-const axiosInstance = axios.create({
-  baseURL: `${process.env.DIRECTUS_SERVER_URL}`,
-  timeout: 9500,
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${process.env.DIRECTUS_STATIC_TOKEN}`,
-  },
-});
 
 router.post("/google-sign-in", async (req, res) => {
   console.log(JSON.stringify(req.body, null, 2));

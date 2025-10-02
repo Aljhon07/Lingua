@@ -68,6 +68,7 @@ export default function Auth({ navigation }) {
         onPress={handleGoogleSignIn}
         mode="outlined"
         loading={loading}
+        disabled={loading}
         icon={"google"}
         iconColor="black"
         style={{

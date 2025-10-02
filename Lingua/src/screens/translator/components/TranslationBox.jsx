@@ -62,7 +62,7 @@ const TranslationBox = ({
           {editable && showClear && value ? (
             <IconButton
               icon="close"
-              size={20}
+              size={26}
               onPress={onClear}
               style={styles.actionButton}
               iconColor={colors.onSurface}
@@ -74,7 +74,7 @@ const TranslationBox = ({
           {callbackFn && (
             <IconButton
               icon={icon}
-              size={20}
+              size={26}
               onPress={() =>
                 callbackFn(isSource ? sourceLanguage : targetLanguage)
               }

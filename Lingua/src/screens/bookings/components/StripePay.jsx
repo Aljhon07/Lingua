@@ -22,15 +22,14 @@ export default function StripePay({
   const { invalidateQuery } = useQueryState();
 
   const fetchPaymentIntentClientSecret = async () => {
+    console.log(bookingId);
     try {
       const response = await fetch(`${API_URL}/create-payment-intent`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          amount: price,
-        }),
+        body: JSON.stringify({ bookingId, currency: "php" }),
       });
       setPid(clientSecret);
       const { clientSecret, error } = await response.json();

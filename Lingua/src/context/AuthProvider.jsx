@@ -67,7 +67,6 @@ export default function AuthProvider({ children }) {
         data = userData;
       }
       const { user, idToken } = data;
-      console.log(idToken);
       const res = await googleSignIn({ email: user.email, idToken });
 
       console.log("Auth Res: ", res);
@@ -109,10 +108,12 @@ export default function AuthProvider({ children }) {
         "Auth SignUp: ",
         JSON.stringify({ email, password, firstName, lastName, user }, null, 2)
       );
+      lastName = lastName || " ";
+      firstName = firstName || " ";
       const res = await signUp(email, password, firstName, lastName);
 
       // contextSignIn({ email, password });
-      contextGoogleSignIn({ user });
+      contextGoogleSignIn({ data: user });
     } catch (error) {
       console.error("Auth", error);
       setLoading(false);
@@ -121,6 +122,7 @@ export default function AuthProvider({ children }) {
 
   const contextSignOut = async () => {
     try {
+      configureGoogleSignIn();
       await GoogleSignin.signOut();
       await SecureStorage.deleteItemAsync("accessToken");
       delete axiosInstance.defaults.headers.common["Authorization"];

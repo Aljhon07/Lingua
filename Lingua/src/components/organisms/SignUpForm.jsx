@@ -10,7 +10,7 @@ import {
 import { spacing } from "@constants/globalStyles";
 import { useInputChange } from "@hooks/useInputChange";
 import { useAuthContext } from "@context/AuthProvider";
-import { TextInput, Text, useTheme } from "react-native-paper";
+import { TextInput, Text, useTheme, Button } from "react-native-paper";
 import { LinkText } from "@components/atoms/LinkText";
 import { CustomButton } from "@components/molecules/CustomButton";
 import { TermsCheckbox } from "@components/molecules/TermsCheckbox";
@@ -31,7 +31,7 @@ export default function SignUpForm({ navigation }) {
   });
   const [visible, toggleVisiblity] = useToggle();
   const [termsAccepted, setTermsAccepted] = useState(false);
-  const { signUp, contextGoogleSignIn } = useAuthContext();
+  const { signUp, contextGoogleSignIn, loading } = useAuthContext();
   const { colors } = useTheme();
   const [currentUser, setCurrentUser] = useState(null);
   const getCurrentUser = async () => {
@@ -96,9 +96,7 @@ export default function SignUpForm({ navigation }) {
       firstName: currentUser?.user
         ? currentUser?.user?.givenName
         : credentials.firstName,
-      lastName: currentUser?.user
-        ? currentUser?.user?.familyName
-        : credentials.lastName,
+      lastName: currentUser?.user ? currentUser?.user?.familyName : "",
       user: currentUser,
     });
   };
@@ -197,9 +195,14 @@ export default function SignUpForm({ navigation }) {
           />
 
           <View style={styles.wrapper}>
-            <CustomButton primary onPress={handleSignUp}>
+            <Button
+              mode="contained"
+              loading={loading}
+              disabled={loading}
+              onPress={handleSignUp}
+            >
               Sign Up
-            </CustomButton>
+            </Button>
             {/* <Text style={styles.centerText}>
               Already have an account?{" "}
               <LinkText onPress={handleSignIn}>Sign In</LinkText>

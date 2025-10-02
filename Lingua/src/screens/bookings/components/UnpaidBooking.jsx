@@ -23,7 +23,7 @@ export default function UnpaidBooking({ bookingId }) {
     executeQuery("bookingDetails", fetchBookingDetails, {
       id: bookingId,
       filter:
-        "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,ticket.*,ticket.return_ticket.*",
+        "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,ticket.*,ticket.return_ticket.*,total_price",
     });
   };
 
@@ -63,6 +63,7 @@ export default function UnpaidBooking({ bookingId }) {
           ticket={booking?.ticket}
           returnTicket={booking?.ticket.return_ticket[0]}
           passengersCount={booking?.passengers.length}
+          total_price={booking?.total_price}
         />
       </ScrollView>
       {booking?.status === "Approved" && (
