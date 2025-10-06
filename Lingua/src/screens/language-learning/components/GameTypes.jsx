@@ -1,55 +1,53 @@
-import { spacing } from "@constants/globalStyles"
-import { usePlayback } from "@hooks/usePlayback"
-import { useState, useEffect } from "react"
-import { StyleSheet, View } from "react-native"
-import { Button, Text } from "react-native-paper"
-import { cloudinary } from "@constants/api"
-import Playable from "./Playable"
-import { Asset } from "expo-asset"
+import { spacing } from "@constants/globalStyles";
+import { usePlayback } from "@hooks/usePlayback";
+import { useState, useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, Text } from "react-native-paper";
+import { cloudinary } from "@constants/api";
+import Playable from "./Playable";
+import { Asset } from "expo-asset";
 
 const correctSfx =
-  Asset.fromModule(require("@assets/audio/correct.mp3")).uri + ".mp3"
+  Asset.fromModule(require("@assets/audio/correct.mp3")).uri + ".mp3";
 
 export function GuessTheWord({ choices, handleAnswer }) {
-  const [isCorrect, setIsCorrect] = useState(false)
-  const [selected, setSelected] = useState(null)
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [selected, setSelected] = useState(null);
   useEffect(() => {
-    setIsCorrect(false)
-    setSelected(null)
-  }, [choices])
+    setIsCorrect(false);
+    setSelected(null);
+  }, [choices]);
 
   const { vocab: answer } = choices.filter(
     (choice) => choice.isCorrect === true
-  )[0]
+  )[0];
 
-  const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`
-  const sentence_audio = `${cloudinary.audio}${answer.translations[0].audio_sentence}.mp3`
-  console.log("Audio: ", audio)
-  const { playSound, isPlaying } = usePlayback(audio)
+  const audio = `${cloudinary.audio}${answer.translations[0].audio}.mp3`;
+  const sentence_audio = `${cloudinary.audio}${answer.translations[0].audio_sentence}.mp3`;
+  const { playSound, isPlaying } = usePlayback(audio);
   const { playSound: playSentence, isPlaying: isSentencePlaying } =
-    usePlayback(sentence_audio)
-  const { playSound: playSfx } = usePlayback()
+    usePlayback(sentence_audio);
+  const { playSound: playSfx } = usePlayback();
 
   const handlePress = ({ id, isCorrect }) => {
-    console.log("Pressed: ", id, isCorrect)
+    console.log("Pressed: ", id, isCorrect);
 
-    setIsCorrect(isCorrect)
-    setSelected(id)
-  }
+    setIsCorrect(isCorrect);
+    setSelected(id);
+  };
 
   const handleNext = () => {
-    setSelected(null)
-    setIsCorrect(false)
-    handleAnswer({ selected, isCorrect })
-  }
+    setSelected(null);
+    setIsCorrect(false);
+    handleAnswer({ selected, isCorrect });
+  };
   const renderChoices = () => {
     return choices.map((choice, index) => {
-      const { vocab, isCorrect } = choice
-      const { image } = vocab
-      console.log("Vocab: ", JSON.stringify(vocab, null, 2), isCorrect)
-      let imgSrc = require("@assets/images/placeholder.jpg")
+      const { vocab, isCorrect } = choice;
+      const { image } = vocab;
+      let imgSrc = require("@assets/images/placeholder.jpg");
       if (image) {
-        imgSrc = cloudinary.images + image + ".png"
+        imgSrc = cloudinary.images + image + ".png";
       }
 
       return (
@@ -60,9 +58,9 @@ export function GuessTheWord({ choices, handleAnswer }) {
         >
           <Text variant="bodyLarge">{vocab?.word}</Text>
         </Button>
-      )
-    })
-  }
+      );
+    });
+  };
 
   return (
     <View style={{ flex: 1, gap: spacing.lg }}>
@@ -187,7 +185,7 @@ export function GuessTheWord({ choices, handleAnswer }) {
         </>
       )}
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -199,4 +197,4 @@ const styles = StyleSheet.create({
     borderColor: "red",
     borderWidth: 2,
   },
-})
+});

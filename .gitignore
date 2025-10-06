@@ -6,3 +6,4 @@ scp/
 android/
 ios/
 web/
+server/output/*.mp3

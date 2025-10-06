@@ -1,13 +1,9 @@
 const { createClient } = require("@deepgram/sdk");
 const fs = require("fs");
+const path = require("path");
+
 const { TranslationServiceClient } = require("@google-cloud/translate");
-
-const translationClient = new TranslationServiceClient();
-
-const projectId = "lingua-473610";
-const location = "global";
-const text = "Hello, world!";
-
+const textToSpeech = require("@google-cloud/text-to-speech");
 const deepgram = createClient("68be34e3ae7bfb10c767c92a1840817e87ec9e30");
 const transcribeFile = async (req, res) => {
   try {
@@ -40,55 +36,56 @@ const transcribeFile = async (req, res) => {
     if (req.file) fs.unlinkSync(req.file.path);
   }
 };
+const GOOGLE_CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 
-const synthesizeAudio = async (req, res) => {
-  const { text, lang } = req.body;
+const outputDir = path.resolve(__dirname, "../output");
+const client = new textToSpeech.TextToSpeechClient({
+  credentials: GOOGLE_CREDENTIALS,
+  projectId: GOOGLE_CREDENTIALS.project_id,
+});
 
-  console.log(lang, text);
-  const response = await deepgram.speak.request(
-    { text },
-    {
-      language: lang,
-      model: "aura-2-thalia-en",
-      encoding: "linear16",
-      container: "wav",
-    }
-  );
-
-  const stream = await response.getStream();
-  const headers = await response.getHeaders();
-  if (stream) {
-    // STEP 4: Convert the stream to an audio buffer
-    const buffer = await getAudioBuffer(stream);
-    // STEP 5: Write the audio buffer to a file
-    fs.writeFile("output.wav", buffer, (err) => {
-      if (err) {
-        console.error("Error writing audio to file:", err);
-      } else {
-        console.log("Audio file written to output.wav");
-      }
-    });
-  } else {
-    console.error("Error generating audio:", stream);
-  }
-  if (headers) {
-    console.log("Headers:", headers);
-  }
+const languageVoiceMap = {
+  en: { languageCode: "en-US", voiceName: "en-US-Neural2-C" },
+  ja: { languageCode: "ja-JP", voiceName: "ja-JP-Chirp3-HD-Sulafat" },
+  zh: { languageCode: "cmn-CN", voiceName: "cmn-CN-Chirp3-HD-Achernar" },
+  ko: { languageCode: "ko-KR", voiceName: "ko-KR-Chirp3-HD-Achernar" },
+  vi: { languageCode: "vi-VN", voiceName: "vi-VN-Chirp3-HD-Achernar" },
+  id: { languageCode: "id-ID", voiceName: "id-ID-Chirp3-HD-Aoede" },
+  th: { languageCode: "th-TH", voiceName: "th-TH-Chirp3-HD-Achernar" },
 };
 
-const getAudioBuffer = async (response) => {
-  const reader = response.getReader();
-  const chunks = [];
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    chunks.push(value);
+const synthesizeAudio = async (req, res) => {
+  try {
+    const { text, language = "en" } = req.body;
+    const voice = {
+      languageCode: languageVoiceMap[language].languageCode,
+      ssmlGender: "FEMALE",
+      name: languageVoiceMap[language].voiceName,
+    };
+
+    const request = {
+      input: { text: text },
+      voice,
+      audioConfig: { audioEncoding: "MP3" },
+    };
+
+    const [response] = await client.synthesizeSpeech(request);
+
+    const outputDir = path.resolve(__dirname, "../output");
+    if (!fs.existsSync(outputDir)) {
+      fs.mkdirSync(outputDir, { recursive: true });
+    }
+
+    const uuid = Date.now().toString();
+    const savePath = path.join(outputDir, `${uuid}.mp3`);
+
+    await fs.promises.writeFile(savePath, response.audioContent, "binary");
+
+    res.send({ audio: uuid + ".mp3" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Synthesis failed" });
   }
-  const dataArray = chunks.reduce(
-    (acc, chunk) => Uint8Array.from([...acc, ...chunk]),
-    new Uint8Array(0)
-  );
-  return Buffer.from(dataArray.buffer);
 };
 
 module.exports = { transcribeFile, synthesizeAudio };

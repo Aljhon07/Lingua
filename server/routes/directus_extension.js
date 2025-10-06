@@ -68,4 +68,31 @@ router.post("/pay-booking", async (req, res) => {
   }
 });
 
+router.post("/send-email", async (req, res) => {
+  try {
+    const emailRes = await axiosInstance.post(
+      "/send-email",
+      req.body,
+      req.body
+    );
+    console.log("Email Sent");
+    return res.status(200).json({ data: emailRes.data.data });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+router.post("/send-notification", async (req, res) => {
+  try {
+    const notificationRes = await axiosInstance.post(
+      "/send-notification",
+      req.body,
+      req.body
+    );
+    console.log("Notification Sent");
+    return res.status(200).json({ data: notificationRes.data.data });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 module.exports = router;

@@ -18,7 +18,7 @@ export default function VocabularyList({ id, title }) {
   const styles = createStyles(colors, roundness);
   const { executeQuery, getQueryState } = useQueryState();
   const vocabulary = getQueryState("vocabulary");
-  const { handleVocabList } = useLessonContext();
+  const { handleVocabList, setLessonId } = useLessonContext();
   const { selectedLanguage } = useLanguageContext();
   const navigation = useNavigation();
   const [shuffledData, setShuffledData] = useState([]);
@@ -30,6 +30,7 @@ export default function VocabularyList({ id, title }) {
         lang: selectedLanguage.code,
       });
     })();
+    setLessonId(id);
   }, [selectedLanguage]);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export default function VocabularyList({ id, title }) {
         <FlatList
           data={shuffledData}
           renderItem={(item) => {
-            return <Vocabulary vocab={item.item} />;
+            return <Vocabulary vocab={item.item} lessonId={id} />;
           }}
         />
         <CustomButton primary onPress={handleQuizNavigation}>

@@ -1,29 +1,41 @@
-import { useEffect } from "react"
-import { StyleSheet, View } from "react-native"
-import { FlatList, RefreshControl } from "react-native-gesture-handler"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { spacing } from "@constants/globalStyles"
-import { LessonCard } from "./components/LessonCard"
-import { useQueryState } from "@hooks/useQueryState"
-import DataContainer from "@components/layouts/DataContainer"
-import { fetchLessons } from "@services/directus/rest"
-import { Text } from "react-native-paper"
-import { LanguageList } from "@components/atoms/LanguageList"
-import { useLanguageContext } from "@context/LanguageProvider"
-import { useNavigation } from "@react-navigation/native"
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { FlatList, RefreshControl } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { spacing } from "@constants/globalStyles";
+import { LessonCard } from "./components/LessonCard";
+import { useQueryState } from "@hooks/useQueryState";
+import DataContainer from "@components/layouts/DataContainer";
+import { fetchLessons } from "@services/directus/rest";
+import { Text } from "react-native-paper";
+import { LanguageList } from "@components/atoms/LanguageList";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { useNavigation } from "@react-navigation/native";
+import { useUserProgressContext } from "@context/UserProgressProvider";
+
+export function LessonListWrapper() {
+  return <LessonList />;
+}
 
 export default function LessonList() {
-  const navigation = useNavigation()
-  const { getQueryState, executeQuery } = useQueryState()
+  const navigation = useNavigation();
+  const { getQueryState, executeQuery } = useQueryState();
 
-  const styles = createStyles()
-  const lesson = getQueryState("lesson")
+  const { userProgress, getUserProgress, lessonProgressState } =
+    useUserProgressContext();
+  const styles = createStyles();
+  const lesson = getQueryState("lesson");
 
-  const { selectedLanguage } = useLanguageContext()
+  const { selectedLanguage } = useLanguageContext();
 
   useEffect(() => {
-    executeQuery("lesson", fetchLessons)
-  }, [])
+    fetchLessonDetails();
+    getUserProgress();
+  }, []);
+
+  const fetchLessonDetails = async () => {
+    executeQuery("lesson", fetchLessons);
+  };
 
   const tryAgainComponent = (
     <View style={{ marginBottom: spacing.lg }}>
@@ -33,13 +45,13 @@ export default function LessonList() {
       <Text
         style={{ textAlign: "center", color: "blue" }}
         onPress={() => {
-          executeQuery("lesson", fetchLessons)
+          executeQuery("lesson", fetchLessons);
         }}
       >
         Try Again
       </Text>
     </View>
-  )
+  );
   return (
     <SafeAreaView style={styles.container}>
       <Text
@@ -49,8 +61,8 @@ export default function LessonList() {
         Every Lesson Brings You Closer to Fluency
       </Text>
       <DataContainer
-        loading={lesson.loading}
-        error={lesson.error}
+        loading={lesson.loading && lessonProgressState.loading}
+        error={lesson.error || lessonProgressState.error}
         data={lesson.data}
         noDataMessage={"No Lessons Found"}
         errorMessage={"Error Fetching Lessons"}
@@ -63,7 +75,10 @@ export default function LessonList() {
           refreshControl={
             <RefreshControl
               refreshing={lesson.loading}
-              onRefresh={() => executeQuery("lesson", fetchLessons)}
+              onRefresh={() => {
+                executeQuery("lesson", fetchLessons);
+                getUserProgress();
+              }}
             />
           }
           renderItem={({ item }) => (
@@ -79,7 +94,7 @@ export default function LessonList() {
         />
       </DataContainer>
     </SafeAreaView>
-  )
+  );
 }
 
 const createStyles = () =>
@@ -89,4 +104,4 @@ const createStyles = () =>
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl,
     },
-  })
+  });

@@ -8,6 +8,7 @@ export const directus = {
 
 export const server = {
   baseURL: `http://${localIP}:5000`,
+  output: `http://${localIP}:5000/output/`,
 };
 export const cloudinary = {
   baseURL: "https://res.cloudinary.com/dlwnraplb",

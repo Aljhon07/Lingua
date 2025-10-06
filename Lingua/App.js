@@ -7,6 +7,8 @@ import ProfileProvider from "@context/ProfileProvider";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { LanguageProvider } from "@context/LanguageProvider";
 import { PhrasebookProvider } from "@context/PhrasebookProvider";
+import LessonProvider from "@context/LessonProvider";
+import UserProgressProvider from "@context/UserProgressProvider";
 
 export default function App() {
   const [loaded] = useFonts({
@@ -29,9 +31,11 @@ export default function App() {
         <AuthProvider>
           <LanguageProvider>
             <PhrasebookProvider>
-              <ThemeProvider>
-                <RootNavigator />
-              </ThemeProvider>
+              <UserProgressProvider>
+                <ThemeProvider>
+                  <RootNavigator />
+                </ThemeProvider>
+              </UserProgressProvider>
             </PhrasebookProvider>
           </LanguageProvider>
         </AuthProvider>

@@ -9,21 +9,19 @@ import GameManager from "./components/GameManager";
 
 export default function Quiz({ route, navigation }) {
   const { id, title } = route.params;
-  const { executeQuery, getQueryState } = useQueryState();
-  const questions = getQueryState("questions");
+  // const { executeQuery, getQueryState } = useQueryState();
+  // const questions = getQueryState("questions");
   const { vocabList } = useLessonContext();
-  const { selectedLanguage } = useLanguageContext();
+  // const { selectedLanguage } = useLanguageContext();
 
-  console.log("Vocabulary List: ", JSON.stringify(vocabList, null, 2));
+  // useEffect(() => {
+  //   (async () => {
+  //     await executeQuery("questions", fetchQuestions, {
+  //       id,
+  //       lang: selectedLanguage.code,
+  //     });
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    (async () => {
-      await executeQuery("questions", fetchQuestions, {
-        id,
-        lang: selectedLanguage.code,
-      });
-    })();
-  }, []);
-
-  return <GameManager vocabList={vocabList} />;
+  return <GameManager vocabList={vocabList} lessonId={id} />;
 }

@@ -46,6 +46,7 @@ export default function Summary({ route }) {
   useEffect(() => {
     setTicket(id);
     executeQuery("ticketDetails", fetchTicketDetails, { id });
+    console.log(JSON.stringify(passengers, null, 2));
   }, []);
   return (
     <View style={styles.screen}>

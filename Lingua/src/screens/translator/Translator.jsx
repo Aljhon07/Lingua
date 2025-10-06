@@ -10,9 +10,9 @@ import { useSpeechRecognition } from "@hooks/useSpeechRecognition";
 import { useSpeechSynthesis } from "@hooks/useSpeechSynthesis";
 import { usePlayback } from "@hooks/usePlayback";
 import { useProfileContext } from "@context/ProfileProvider";
-import { translateText as translate } from "@services/speech";
-import { set } from "lodash";
+import { synthesizeText, translateText as translate } from "@services/speech";
 import { ScrollView } from "react-native-gesture-handler";
+import { server } from "@constants/api";
 export default function Translator() {
   const { languages, selectedLanguage, onSelectLanguage } =
     useLanguageContext();
@@ -29,7 +29,7 @@ export default function Translator() {
 
   const { audioUrl, handleSynthesize } = useSpeechSynthesis();
 
-  const { playSound } = usePlayback();
+  const { playSound, isPlaying } = usePlayback();
   // Update source text when transcript changes
   useEffect(() => {
     if (transcript && transcript !== "Processing...") {
@@ -96,10 +96,6 @@ export default function Translator() {
     }
   };
 
-  const handleSpeechSynthesis = () => {
-    handleSynthesize(translatedText, targetLanguage);
-  };
-
   const handleSpeechRecognition = () => {
     handleRecord(sourceLanguage);
   };
@@ -142,9 +138,14 @@ export default function Translator() {
     // })
   };
 
-  const speakTranslatedText = () => {
-    if (translatedText) {
-      Speech.speak(translatedText, { language: targetLanguage });
+  const speakTranslatedText = async () => {
+    console.log("Speak text:", translatedText);
+    const audioName = await synthesizeText(translatedText, targetLanguage);
+    console.log(audioName);
+    const audioUrl = `${server.output}/${audioName}`;
+    console.log(audioUrl);
+    if (audioName) {
+      playSound(audioUrl);
     }
   };
 
@@ -195,7 +196,7 @@ export default function Translator() {
 
           <TranslationBox
             value={isTranslating ? "Translating..." : translatedText}
-            callbackFn={handleSpeechSynthesis}
+            callbackFn={speakTranslatedText}
             isSource={false}
             icon={isProcessing ? "loading" : "volume-high"}
             iconColor={isProcessing ? colors.disabled : colors.onSurface}
@@ -206,6 +207,7 @@ export default function Translator() {
             onLanguageChange={handleTargetLanguageChange}
             languages={languages.filter((lang) => lang.code !== sourceLanguage)}
             label="To"
+            isPlaying={isPlaying}
           />
         </View>
       </View>

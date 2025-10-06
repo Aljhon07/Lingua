@@ -117,6 +117,55 @@ export const postBooking = async ({ info: data }) => {
   }
 };
 
+export const postUserProgress = async ({ lesson, recent_score }) => {
+  console.log(lesson, recent_score);
+  try {
+    console.log("Creating User Progress...");
+    const res = await axiosInstance.post(`/items/user_lesson_progress`, {
+      lesson: lesson,
+      recent_score: recent_score,
+    });
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("createUserProgress", error));
+  }
+};
+
+export const patchUserProgress = async ({
+  progressId,
+  recent_score,
+  language,
+}) => {
+  const data = { recent_score: recent_score };
+  try {
+    console.log("Updating User Progress...");
+    const res = await axiosInstance.patch(
+      `/items/user_lesson_progress/${progressId}`,
+      data
+    );
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("updateUserProgress", error));
+  }
+};
+
+export const fetchUserProgress = async (id = "") => {
+  console.log("Fetching User Progress...");
+  let queryString = "";
+  try {
+    if (id) {
+      queryString = `?filter[lesson][_eq]=${id}`;
+    }
+    const res = await axiosInstance.get(
+      `/items/user_lesson_progress${queryString}`
+    );
+    console.log(res.data.data);
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("fetchUserProgress", error));
+  }
+};
+
 export const fetchBookings = async (filter) => {
   try {
     console.log("Fetching Bookings...");
@@ -303,10 +352,9 @@ export const createUserItinerary = async (bookingId) => {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 export const patchUserItinerary = async ({ id, data }) => {
-  // console.log(JSON.stringify(data, null, 2))
+  console.log(JSON.stringify(data, null, 2));
   try {
     console.log("Updating User Itinerary...");
-    sleep(1000);
     const res = await axiosInstance.patch(`/items/user_itinerary/${id}`, data);
     console.log("User Itinerary Updated");
     return res.data.data;

@@ -1,40 +1,40 @@
-import { LanguageList } from "@components/atoms/LanguageList"
-import DataContainer from "@components/layouts/DataContainer"
-import { useLanguageContext } from "@context/LanguageProvider"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchPhrases } from "@services/directus/rest"
-import React, { useEffect } from "react"
-import Phrase from "./components/Phrase"
+import { LanguageList } from "@components/atoms/LanguageList";
+import DataContainer from "@components/layouts/DataContainer";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchPhrases } from "@services/directus/rest";
+import React, { useEffect } from "react";
+import Phrase from "./components/Phrase";
 import {
   FlatList,
   View,
   StyleSheet,
   TouchableWithoutFeedback,
   ScrollView,
-} from "react-native"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { Text, useTheme, Portal } from "react-native-paper"
-import { usePhrasebook } from "@context/PhrasebookProvider"
+} from "react-native";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { Text, useTheme, Portal } from "react-native-paper";
+import { usePhrasebook } from "@context/PhrasebookProvider";
 
 export default function Phrasebook() {
-  const { selectedLanguage } = useLanguageContext()
-  const { showPhrasebook, setShowPhrasebook } = usePhrasebook()
-  const { colors } = useTheme()
-  const { getQueryState, executeQuery } = useQueryState("phrasebook")
-  const phraseState = getQueryState("phrasebook")
+  const { selectedLanguage } = useLanguageContext();
+  const { showPhrasebook, setShowPhrasebook } = usePhrasebook();
+  const { colors } = useTheme();
+  const { getQueryState, executeQuery } = useQueryState("phrasebook");
+  const phraseState = getQueryState("phrasebook");
 
   useEffect(() => {
     if (showPhrasebook) {
       const getPhrases = async () => {
         await executeQuery("phrasebook", fetchPhrases, {
           lang: selectedLanguage.code,
-        })
-      }
-      getPhrases()
+        });
+      };
+      getPhrases();
     }
-  }, [selectedLanguage, showPhrasebook])
+  }, [selectedLanguage, showPhrasebook]);
 
-  if (!showPhrasebook) return null
+  if (!showPhrasebook) return null;
 
   return (
     <Portal>
@@ -72,6 +72,7 @@ export default function Phrasebook() {
                     phrase={item.phrase}
                     translation={item.translation[0]?.translation}
                     translatedAudio={item.translation[0]?.audio}
+                    selectedLanguage={selectedLanguage}
                   />
                 )}
                 style={{ marginVertical: 8 }}
@@ -89,7 +90,7 @@ export default function Phrasebook() {
         </View>
       </View>
     </Portal>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -118,4 +119,4 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     zIndex: 1000,
   },
-})
+});

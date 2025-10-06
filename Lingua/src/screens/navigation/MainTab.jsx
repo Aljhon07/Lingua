@@ -1,18 +1,16 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import ProfileNavigation from "../profile/navigation/ProfileNavigation"
-import Translator from "../translator/Translator"
-import BookingHistory from "../bookings/BookingHistory"
-import Explore from "../travel-package-listing/Explore"
-import LessonList from "../language-learning/LessonList"
-import HomeScreen from "../home/HomeScreen.jsx"
-import PhrasebookButton from "@components/atoms/PhrasebookButton"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Translator from "../translator/Translator";
+import Explore from "../travel-package-listing/Explore";
+import { LessonListWrapper } from "../language-learning/LessonList";
+import HomeScreen from "../home/HomeScreen.jsx";
+import PhrasebookButton from "@components/atoms/PhrasebookButton";
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
 
   return (
     <Tab.Navigator
@@ -54,7 +52,7 @@ export default function MainTab() {
 
       <Tab.Screen
         name="LessonsNavigation"
-        component={LessonList}
+        component={LessonListWrapper}
         options={{
           title: "Learn",
           tabBarIcon: ({ color }) => (
@@ -63,5 +61,5 @@ export default function MainTab() {
         }}
       />
     </Tab.Navigator>
-  )
+  );
 }

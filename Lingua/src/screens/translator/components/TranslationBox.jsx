@@ -17,8 +17,8 @@ const TranslationBox = ({
   onLanguageChange,
   icon,
   iconColor,
-  languages = [],
   label = "",
+  isPlaying = false,
 }) => {
   const { colors } = useTheme();
   const styles = createStyles(colors, spacing, editable);
@@ -79,7 +79,7 @@ const TranslationBox = ({
                 callbackFn(isSource ? sourceLanguage : targetLanguage)
               }
               style={styles.actionButton}
-              disabled={!editable && !value}
+              disabled={(!editable && !value) || isPlaying}
               iconColor={iconColor}
             />
           )}
