@@ -6,6 +6,7 @@ import Explore from "../travel-package-listing/Explore";
 import { LessonListWrapper } from "../language-learning/LessonList";
 import HomeScreen from "../home/HomeScreen.jsx";
 import PhrasebookButton from "@components/atoms/PhrasebookButton";
+import { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
 

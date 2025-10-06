@@ -42,7 +42,7 @@ export function LessonCard({
           {findUserProgressByLessonId(lessonId)?.recent_score != undefined
             ? `Last Score: ${
                 findUserProgressByLessonId(lessonId)?.recent_score
-              }`
+              }%`
             : "Not Started Yet"}
         </Text>
       </View>

@@ -18,15 +18,31 @@ export const searchPackages = async (searchQuery) => {
 
 export const fetchProfile = async (filter = "") => {
   console.log("Fetching Profile...");
+  console.log("Query String:", filter);
   try {
     const res = await axiosInstance.get(`/users/me?${filter}`);
     console.log("Profile Fetched");
+    console.log(JSON.stringify(res.data.data, null, 2));
     return res.data.data;
   } catch (error) {
     throw new Error(logError("getProfile", error));
   }
 };
 
+export const updateOnboardingStatus = async ({
+  onboarding_completed = true,
+}) => {
+  try {
+    console.log("Updating Onboarding Status...");
+    const res = await axiosInstance.patch("/users/me", {
+      onboarding_completed: onboarding_completed,
+    });
+    console.log("Onboarding Status Updated");
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("updateOnboardingStatus", error));
+  }
+};
 export const fetchCountries = async () => {
   try {
     console.log("Fetching Countries...");

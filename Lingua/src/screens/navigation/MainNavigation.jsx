@@ -1,20 +1,21 @@
-import { createStackNavigator } from "@react-navigation/stack"
-import { useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
+import { createStackNavigator } from "@react-navigation/stack";
+import { useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
 
-import MainTab from "./MainTab"
-import Translator from "../translator/Translator"
-import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation"
-import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation"
-import LessonNavigation from "../language-learning/navigations/LessonNavigation"
-import ProfileNavigation from "../profile/navigation/ProfileNavigation"
-import BookingHistory from "../bookings/BookingHistory"
-import ItineraryScreen from "../home/ItineraryScreen"
+import MainTab from "./MainTab";
+import Translator from "../translator/Translator";
+import PackageDetailsNavigation from "../travel-package-listing/navigation/PackageDetailsNavigation";
+import BookingDetailsNavigation from "../bookings/navigation/BookingDetailsNavigation";
+import LessonNavigation from "../language-learning/navigations/LessonNavigation";
+import ProfileNavigation from "../profile/navigation/ProfileNavigation";
+import BookingHistory from "../bookings/BookingHistory";
+import ItineraryScreen from "../home/ItineraryScreen";
+import { OnboardingNavigation } from "../onboarding";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function MainNavigation() {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
@@ -38,6 +39,7 @@ export default function MainNavigation() {
           animation: "reveal_from_bottom",
         }}
       /> */}
+      <Stack.Screen name="Onboarding" component={OnboardingNavigation} />
       <Stack.Screen
         options={{
           animation: "scale_from_center",
@@ -78,5 +80,5 @@ export default function MainNavigation() {
         }}
       />
     </Stack.Navigator>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AuthProvider from "@context/AuthProvider.jsx";
 import { useFonts } from "expo-font";
 import ThemeProvider from "@context/ThemeProvider";
@@ -9,6 +9,7 @@ import { LanguageProvider } from "@context/LanguageProvider";
 import { PhrasebookProvider } from "@context/PhrasebookProvider";
 import LessonProvider from "@context/LessonProvider";
 import UserProgressProvider from "@context/UserProgressProvider";
+import { resetOnboarding } from "src/screens/onboarding/utils/onboardingUtils";
 
 export default function App() {
   const [loaded] = useFonts({
