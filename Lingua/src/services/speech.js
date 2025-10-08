@@ -3,7 +3,7 @@ import { logError } from "@utils/errorLogger";
 import { domain, localIP, server } from "@constants/api";
 
 export const transcribeAudio = async (audioUri, lang = "en", userId) => {
-  let srEndpoint = `http://${localIP}:5000/transcribe`;
+  let srEndpoint = `http://${domain}:5000/transcribe`;
   if (lang === "en") {
     srEndpoint = `http://${domain}:8080/transcribe`;
   }
@@ -34,7 +34,7 @@ export const transcribeAudio = async (audioUri, lang = "en", userId) => {
 };
 
 export const synthesizeText = async (text, lang) => {
-  let ssEndpoint = `http://${localIP}:5000/synthesize`;
+  let ssEndpoint = `http://${domain}:5000/synthesize`;
   try {
     const response = await axios.post(ssEndpoint, {
       text,

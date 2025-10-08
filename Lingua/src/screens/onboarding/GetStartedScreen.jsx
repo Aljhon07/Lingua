@@ -9,6 +9,7 @@ import OnboardingButtons from "./components/OnboardingButtons";
 import TopSkipButton from "./components/TopSkipButton";
 import { spacing } from "@constants/globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { updateOnboardingStatus } from "@services/directus/rest";
 
 const GetStartedScreen = ({ navigation }) => {
   const { colors } = useTheme();
@@ -16,19 +17,8 @@ const GetStartedScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
 
   const handleGetStarted = async () => {
-    setLoading(true);
-    try {
-      // Mark onboarding as completed
-      await AsyncStorage.setItem("onboarding_completed", "true");
-
-      // We'll need to force a re-render of the root navigator
-      // For now, just complete the onboarding and let the parent handle it
-      console.log("Onboarding completed");
-    } catch (error) {
-      console.error("Error completing onboarding:", error);
-    } finally {
-      setLoading(false);
-    }
+    navigation.navigate("MainTab", { screen: "Home" });
+    await updateOnboardingStatus(true);
   };
 
   const handleBack = () => {
@@ -38,8 +28,6 @@ const GetStartedScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <ProgressIndicator totalSteps={3} currentStep={2} />
-      {/* No skip button on the final screen */}
-
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -79,8 +67,8 @@ const GetStartedScreen = ({ navigation }) => {
             </View>
 
             <Text variant="bodyMedium" style={styles.description}>
-              Start practicing vocabulary, planning trips, and communicating
-              with confidence.
+              Start practicing vocabulary, planning your trips, and
+              communicating with confidence.
             </Text>
           </View>
         </PaddedView>

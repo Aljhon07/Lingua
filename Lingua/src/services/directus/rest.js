@@ -64,7 +64,7 @@ export const fetchPackages = async (filter) => {
   try {
     console.log("Fetching Packages...");
     const res = await axiosInstance.get(
-      `/items/travel_package?fields=id,name,country.name,cover,price&${filter}`
+      `/items/travel_package?fields=id,tags,name,country.name,cover,price&${filter}`
     );
     console.log("Packages Fetched");
     return res.data.data;
@@ -376,5 +376,16 @@ export const patchUserItinerary = async ({ id, data }) => {
     return res.data.data;
   } catch (error) {
     throw new Error(logError("updateUserItinerary", error));
+  }
+};
+
+export const fetchAllTags = async () => {
+  try {
+    console.log("Fetching All Tags...");
+    const res = await axiosInstance.get("/items/tags?fields=id,name");
+    console.log("All Tags Fetched");
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("fetchAllTags", error));
   }
 };

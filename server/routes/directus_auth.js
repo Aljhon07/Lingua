@@ -48,11 +48,7 @@ router.post("/google-sign-in", async (req, res) => {
         "updateResponse = ",
         JSON.stringify(updateResponse.data, null, 2)
       );
-      console.log("static_token = ", updateResponse.data?.data?.static_token);
-      console.log(
-        "updateResponse.status is function:",
-        typeof updateResponse.status === "function"
-      );
+
       return res.json({
         access_token: staticToken,
       });

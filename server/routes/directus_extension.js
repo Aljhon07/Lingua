@@ -25,7 +25,6 @@ router.post("/create-booking", async (req, res) => {
       },
     });
 
-    console.log("Booking Created");
     return res.status(200).json({ data: bookingRes.data.data });
   } catch (error) {
     throw new Error(error);

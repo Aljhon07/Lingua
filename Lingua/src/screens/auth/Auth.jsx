@@ -1,9 +1,7 @@
 import { View } from "react-native";
 import { LinguaLogo } from "@components/atoms/LinguaLogo";
 import { Button, Text } from "react-native-paper";
-import { useEffect } from "react";
 import { useAuthContext } from "@context/AuthProvider";
-import { GoogleSigninButton } from "@react-native-google-signin/google-signin";
 
 export default function Auth({ navigation }) {
   const { contextGoogleSignIn, loading, signOut } = useAuthContext();
