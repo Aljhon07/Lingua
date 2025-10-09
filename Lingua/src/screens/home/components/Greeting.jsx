@@ -1,22 +1,22 @@
-import React from "react"
-import { StyleSheet, View } from "react-native"
-import { Text, useTheme, IconButton } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { useProfileContext } from "@context/ProfileProvider"
-import { useThemeContext } from "@context/ThemeProvider"
-import PaddedView from "@components/atoms/PaddedView"
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Text, useTheme, IconButton } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { useProfileContext } from "@context/ProfileProvider";
+import { useThemeContext } from "@context/ThemeProvider";
+import PaddedView from "@components/atoms/PaddedView";
 
 export default function Greeting() {
-  const { profile } = useProfileContext()
-  const { colors } = useTheme()
-  const { themePreference, setThemePreference } = useThemeContext()
-  const styles = createStyles(colors)
+  const { profile } = useProfileContext();
+  const { colors } = useTheme();
+  const { themePreference, setThemePreference } = useThemeContext();
+  const styles = createStyles(colors);
 
-  const isDarkTheme = themePreference === "dark"
+  const isDarkTheme = themePreference === "dark";
 
   const handleThemeToggle = () => {
-    setThemePreference(isDarkTheme ? "light" : "dark")
-  }
+    setThemePreference(isDarkTheme ? "light" : "dark");
+  };
 
   return (
     <PaddedView style={styles.greetingContainer}>
@@ -38,7 +38,7 @@ export default function Greeting() {
         />
       </View>
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -67,4 +67,4 @@ const createStyles = (colors) =>
       margin: 0,
       backgroundColor: colors.surfaceVariant,
     },
-  })
+  });

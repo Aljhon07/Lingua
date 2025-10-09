@@ -25,7 +25,6 @@ export default function ProfileActions({ onLogoutPress }) {
 const createStyles = (colors) =>
   StyleSheet.create({
     logoutContainer: {
-      marginTop: spacing.xl,
       paddingTop: spacing.xl,
     },
     logOutButton: {

@@ -1,8 +1,8 @@
-import { StyleSheet, Alert, Linking, Platform } from "react-native"
-import { useTheme, List, Divider, Switch } from "react-native-paper"
-import { Section } from "@components/atoms/Section"
-import { spacing } from "@constants/globalStyles"
-import { useState } from "react"
+import { StyleSheet, Alert, Linking, Platform } from "react-native";
+import { useTheme, List, Divider, Switch } from "react-native-paper";
+import { Section } from "@components/atoms/Section";
+import { spacing } from "@constants/globalStyles";
+import { useState } from "react";
 
 export default function ProfileSettings({
   onTermsPress,
@@ -11,9 +11,9 @@ export default function ProfileSettings({
   onHelpPress,
   onContactPress,
 }) {
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
 
   const handleReportBug = () => {
     const emailBody = `
@@ -34,18 +34,18 @@ What you expected to happen...
 
 Actual Behavior:
 What actually happened...
-    `
+    `;
 
     Linking.openURL(
       `mailto:bugs@lingua-app.com?subject=Bug Report&body=${encodeURIComponent(
         emailBody
       )}`
-    )
-  }
+    );
+  };
 
   return (
     <>
-      <Section
+      {/* <Section
         headline="Preferences"
         headlineVariant="titleMedium"
         contentContainerStyle={styles.sectionContent}
@@ -65,7 +65,7 @@ What actually happened...
           )}
           style={styles.listItem}
         />
-      </Section>
+      </Section> */}
 
       <Section
         headline="Account & Legal"
@@ -179,7 +179,7 @@ What actually happened...
         />
       </Section>
     </>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -198,4 +198,4 @@ const createStyles = (colors) =>
       marginLeft: 56,
       backgroundColor: colors.outlineVariant,
     },
-  })
+  });

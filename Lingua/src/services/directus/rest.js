@@ -229,6 +229,75 @@ export const payBooking = async ({ id, paymentId }) => {
   }
 };
 
+export const fetchUserNotifications = async (filter) => {
+  try {
+    console.log("Fetching User Notifications...");
+    const res = await axiosInstance.get(
+      `/items/user_notification?sort=-date_created&fields=title,message,id,seen,date_created,booking&${filter}`
+    );
+    console.log("User Notifications Fetched");
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("fetchUserNotifications", error));
+  }
+};
+
+export const patchNotificationSeen = async (id) => {
+  try {
+    console.log("Updating Notification Seen Status...");
+    const res = await axiosInstance.patch(`/items/user_notification/${id}`, {
+      seen: true,
+    });
+    console.log("Notification Seen Status Updated");
+    return res.data.data;
+  } catch (error) {
+    console.error("Error updating notification seen status:", error);
+    throw new Error(logError("updateNotificationSeen", error));
+  }
+};
+export const patchNotificationId = async (notificationId) => {
+  try {
+    console.log("Updating Notification ID...");
+    const res = await axiosInstance.patch("/users/me", {
+      notification_id: notificationId,
+    });
+    console.log("Notification ID Updated");
+    return res.data.data;
+  } catch (error) {
+    console.error("Error updating notification ID:", error);
+    throw new Error(logError("updateNotificationId", error));
+  }
+};
+
+export const markAllNotificationsAsRead = async () => {
+  try {
+    console.log("Marking all notifications as read...");
+    // First fetch all unread notifications
+    const unreadNotifications = await axiosInstance.get(
+      `/items/user_notification?filter[seen][_eq]=false&fields=id`
+    );
+
+    if (unreadNotifications.data.data.length === 0) {
+      console.log("No unread notifications found");
+      return { data: [] };
+    }
+
+    // Batch update all unread notifications
+    const updatePromises = unreadNotifications.data.data.map((notification) =>
+      axiosInstance.patch(`/items/user_notification/${notification.id}`, {
+        seen: true,
+      })
+    );
+
+    await Promise.all(updatePromises);
+    console.log("All notifications marked as read");
+    return { data: unreadNotifications.data.data };
+  } catch (error) {
+    console.error("Error marking all notifications as read:", error);
+    throw new Error(logError("markAllNotificationsAsRead", error));
+  }
+};
+
 export const fetchTickets = async (id, filter) => {
   try {
     console.log("Fetching tickets...");
@@ -273,7 +342,9 @@ export const fetchLanguages = async () => {
 export const fetchLessons = async (filter) => {
   try {
     console.log("Fetching Lessons...");
-    const res = await axiosInstance.get(`/items/lesson?${filter}&sort=order`);
+    const res = await axiosInstance.get(
+      `/items/lesson?${filter}&sort=order&filter[archived][_eq]=false`
+    );
     console.log("Lessons Fetched");
     return res.data.data;
   } catch (error) {

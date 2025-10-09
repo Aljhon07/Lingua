@@ -1,30 +1,30 @@
-import React, { useCallback, useMemo, useEffect } from "react"
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
-import { useTheme } from "react-native-paper"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchBookings } from "@services/directus/rest"
-import BookingList from "./components/BookingList"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Text } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { StyleSheet } from "react-native"
+import React, { useCallback, useMemo, useEffect } from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTheme } from "react-native-paper";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchBookings } from "@services/directus/rest";
+import BookingList from "./components/BookingList";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { StyleSheet } from "react-native";
 
-const Tab = createMaterialTopTabNavigator()
+const Tab = createMaterialTopTabNavigator();
 
 function BookingTabScreen({ status, bookings, getBookingHistory }) {
   const filteredBookings = useMemo(() => {
-    if (!bookings?.data?.data) return []
+    if (!bookings?.data?.data) return [];
 
     return bookings.data.data.filter((booking) => {
-      if (status === "All") return true
+      if (status === "All") return true;
       if (status === "Pending")
-        return ["For Approval", "Approved"].includes(booking.status)
-      if (status === "Paid") return booking.status === "Paid"
+        return ["For Approval", "Approved"].includes(booking.status);
+      if (status === "Paid") return booking.status === "Paid";
       if (status === "Cancelled")
-        return ["Cancelled", "Rejected"].includes(booking.status)
-      return booking.status === status
-    })
-  }, [bookings?.data?.data, status])
+        return ["Cancelled", "Rejected"].includes(booking.status);
+      return booking.status === status;
+    });
+  }, [bookings?.data?.data, status]);
 
   return (
     <BookingList
@@ -34,29 +34,29 @@ function BookingTabScreen({ status, bookings, getBookingHistory }) {
       }}
       getBookingHistory={getBookingHistory}
     />
-  )
+  );
 }
 
 export default function BookingHistoryTabs() {
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
-  const { getQueryState, executeQuery } = useQueryState()
-  const bookingHistory = getQueryState("booking-history")
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+  const { getQueryState, executeQuery } = useQueryState();
+  const bookingHistory = getQueryState("booking-history");
 
   const getBookingHistory = () => {
     executeQuery(
       "booking-history",
       fetchBookings,
-      "fields=id,status,date_created,ticket.*,ticket.travel_package.name,passengers.*&sort=-date_updated"
-    )
-  }
+      "fields=id,status,date_created,ticket.*,total_price,ticket.travel_package.name,passengers.*&sort=-date_updated"
+    );
+  };
 
   // Only fetch on initial mount - no more refetching on navigation
   useEffect(() => {
     if (!bookingHistory.data && !bookingHistory.loading) {
-      getBookingHistory()
+      getBookingHistory();
     }
-  }, []) // Empty dependency array - only runs once on mount
+  }, []); // Empty dependency array - only runs once on mount
 
   return (
     <SafeAreaView style={styles.container}>
@@ -124,7 +124,7 @@ export default function BookingHistoryTabs() {
         </Tab.Screen>
       </Tab.Navigator>
     </SafeAreaView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -138,4 +138,4 @@ const createStyles = (colors) =>
       paddingTop: spacing.xl,
       textAlign: "center",
     },
-  })
+  });

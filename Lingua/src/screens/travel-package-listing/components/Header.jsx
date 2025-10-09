@@ -1,64 +1,107 @@
-import PaddedView from "@components/atoms/PaddedView"
-import { IconButton, Text, TextInput, useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { Keyboard, StyleSheet, View } from "react-native"
-import { useState, useEffect } from "react"
+import PaddedView from "@components/atoms/PaddedView";
+import { IconButton, Text, TextInput, useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { Keyboard, StyleSheet, View, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
 import {
   en,
   registerTranslation,
   DatePickerInput,
-} from "react-native-paper-dates"
-import { useProfileContext } from "@context/ProfileProvider"
-import { StatusBar } from "expo-status-bar"
-import { Dropdown } from "react-native-paper-dropdown"
-import { CustomButton } from "@components/molecules/CustomButton"
+} from "react-native-paper-dates";
+import { useProfileContext } from "@context/ProfileProvider";
+import { StatusBar } from "expo-status-bar";
+import { Dropdown } from "react-native-paper-dropdown";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { SelectableTag } from "@components/atoms/SelectableTag";
+import { useTravelPackagesContext } from "@context/TravelPackagesProvider";
+import { set } from "lodash";
 
 export default function Header({ getPackages, countries }) {
-  registerTranslation("en", en)
-  const { profile } = useProfileContext()
-  const [isCollapsed, setIsCollapsed] = useState(true)
+  registerTranslation("en", en);
+  const { profile } = useProfileContext();
+  const { tags } = useTravelPackagesContext();
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
     destination: "",
     minBudget: null,
     maxBudget: null,
-  })
+    selectedTags: [],
+  });
 
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+
+  // Function to build query string from all filters
+  const buildQueryString = () => {
+    const queryParts = [];
+
+    // Price filters
+    const minBudget = filter.minBudget || 0;
+    const maxBudget = filter.maxBudget || 999999;
+    queryParts.push(`filter[price][_gte]=${minBudget}`);
+    queryParts.push(`filter[price][_lte]=${maxBudget}`);
+
+    // Country filter
+    if (filter.destination) {
+      queryParts.push(`filter[country][name][_eq]=${filter.destination}`);
+    }
+
+    // Tags filter - format: tags=1,2,3
+    if (filter.selectedTags.length > 0) {
+      const tagIds = filter.selectedTags.join(",");
+      queryParts.push(`filter[tags][id][_in]=${tagIds}`);
+    }
+
+    return queryParts.join("&");
+  };
+
+  // Function to handle tag selection
+  const toggleTag = (tagId) => {
+    setFilter((prevFilter) => {
+      const selectedTags = [...prevFilter.selectedTags];
+      const tagIndex = selectedTags.indexOf(tagId);
+
+      if (tagIndex > -1) {
+        selectedTags.splice(tagIndex, 1);
+      } else {
+        selectedTags.push(tagId);
+      }
+
+      return {
+        ...prevFilter,
+        selectedTags,
+      };
+    });
+  };
 
   useEffect(() => {
-    if (filter.destination) {
-      handleSearch()
-    } else {
-      let queries = `filter[price][_gte]=${
-        filter.minBudget || 0
-      }&filter[price][_lte]=${filter.maxBudget || 999999}`
-      getPackages(queries)
-    }
-  }, [filter.destination])
+    const queries = buildQueryString();
+    console.log("Filter queries: ", queries);
+    getPackages(queries);
+  }, [
+    filter.destination,
+    filter.selectedTags,
+    filter.minBudget,
+    filter.maxBudget,
+  ]);
 
   const handleSearch = () => {
-    if (!filter.destination) {
-      alert("Please select a destination")
-      return
-    }
-    if (filter.minBudget > filter.maxBudget) {
-      alert("Minimum budget cannot be greater than maximum budget")
-      return
-    }
-    let queries = `filter[price][_gte]=${
-      filter.minBudget || 0
-    }&filter[price][_lte]=${filter.maxBudget || 999999}`
-
-    Keyboard.dismiss()
-    if (filter.destination) {
-      queries += `&filter[country][name][_eq]=${filter.destination}`
+    if (
+      filter.minBudget &&
+      filter.maxBudget &&
+      filter.minBudget > filter.maxBudget
+    ) {
+      alert("Minimum budget cannot be greater than maximum budget");
+      return;
     }
 
-    console.log("Filter: ", queries)
-    getPackages(queries)
-  }
+    Keyboard.dismiss();
+    const queries = buildQueryString();
+    console.log("Search Filter: ", queries);
+    getPackages(queries);
+    setIsCollapsed(true);
+  };
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
@@ -76,7 +119,7 @@ export default function Header({ getPackages, countries }) {
                 setFilter({
                   ...filter,
                   destination: value,
-                })
+                });
               }}
             />
           </View>
@@ -134,6 +177,29 @@ export default function Header({ getPackages, countries }) {
                 left={<TextInput.Affix text="₱ " />}
               />
             </View>
+
+            {tags.length > 0 && (
+              <View style={styles.tagsSection}>
+                <Text variant="titleSmall" style={styles.sectionTitle}>
+                  Filter by Tags
+                </Text>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.tagsContainer}
+                >
+                  {tags.map((tag) => (
+                    <SelectableTag
+                      key={tag.id}
+                      label={tag.name}
+                      isSelected={filter.selectedTags.includes(tag.id)}
+                      onPress={() => toggleTag(tag.id)}
+                      style={styles.tagItem}
+                    />
+                  ))}
+                </ScrollView>
+              </View>
+            )}
           </>
         )}
       </View>
@@ -143,7 +209,7 @@ export default function Header({ getPackages, countries }) {
         </CustomButton>
       )}
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -175,4 +241,18 @@ const createStyles = (colors) =>
       marginBottom: spacing.xs,
       borderRadius: spacing.md,
     },
-  })
+    tagsSection: {
+      gap: spacing.sm,
+    },
+    sectionTitle: {
+      color: colors.onBackground,
+      fontWeight: "500",
+    },
+    tagsContainer: {
+      gap: spacing.sm,
+      paddingRight: spacing.lg,
+    },
+    tagItem: {
+      marginRight: spacing.sm,
+    },
+  });

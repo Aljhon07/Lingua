@@ -13,6 +13,7 @@ import { OnboardingNavigation } from "../onboarding";
 import React, { useEffect } from "react";
 import { fetchProfile } from "@services/directus/rest";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Notifications from "../notifications/Notifications";
 
 const Stack = createStackNavigator();
 
@@ -111,6 +112,7 @@ export default function MainNavigation() {
           animation: "slide_from_right",
         }}
       />
+      <Stack.Screen name="Notifications" component={Notifications} />
     </Stack.Navigator>
   );
 }

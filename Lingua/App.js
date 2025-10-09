@@ -9,6 +9,7 @@ import { LanguageProvider } from "@context/LanguageProvider";
 import { PhrasebookProvider } from "@context/PhrasebookProvider";
 import LessonProvider from "@context/LessonProvider";
 import UserProgressProvider from "@context/UserProgressProvider";
+import TravelPackagesProvider from "@context/TravelPackagesProvider";
 import { resetOnboarding } from "src/screens/onboarding/utils/onboardingUtils";
 
 export default function App() {
@@ -33,9 +34,11 @@ export default function App() {
           <LanguageProvider>
             <PhrasebookProvider>
               <UserProgressProvider>
-                <ThemeProvider>
-                  <RootNavigator />
-                </ThemeProvider>
+                <TravelPackagesProvider>
+                  <ThemeProvider>
+                    <RootNavigator />
+                  </ThemeProvider>
+                </TravelPackagesProvider>
               </UserProgressProvider>
             </PhrasebookProvider>
           </LanguageProvider>

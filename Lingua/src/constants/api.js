@@ -7,13 +7,14 @@ export const directus = {
 };
 
 export const server = {
-  baseURL: `http://${localIP}:5000`,
-  output: `http://${localIP}:5000/output/`,
+  baseURL: `http://${domain}:5000`,
+  output: `http://${domain}:5000/output/`,
 };
 export const cloudinary = {
   baseURL: "https://res.cloudinary.com/dlwnraplb",
   imagePath: `/image/upload/v1733513766/`,
   audioPath: `/raw/upload/v1733513766/`,
+  filePath: `/file/upload/v1733513766/`,
 
   get images() {
     return this.baseURL + this.imagePath;

@@ -1,37 +1,37 @@
-import React, { useEffect } from "react"
-import { StyleSheet, View } from "react-native"
-import { Button, Text, useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { useNavigation } from "@react-navigation/native"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchBookings } from "@services/directus/rest"
-import RichBookingCard from "../../bookings/components/RichBookingCard"
-import PaddedView from "@components/atoms/PaddedView"
-import { Section } from "@components/atoms/Section"
-import DataContainer from "@components/layouts/DataContainer"
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button, Text, useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { useNavigation } from "@react-navigation/native";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchBookings } from "@services/directus/rest";
+import RichBookingCard from "../../bookings/components/RichBookingCard";
+import PaddedView from "@components/atoms/PaddedView";
+import { Section } from "@components/atoms/Section";
+import DataContainer from "@components/layouts/DataContainer";
 
 export default function LatestTicket() {
-  const navigation = useNavigation()
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
-  const { getQueryState, executeQuery } = useQueryState()
-  const bookingHistory = getQueryState("latest-booking")
+  const navigation = useNavigation();
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+  const { getQueryState, executeQuery } = useQueryState();
+  const bookingHistory = getQueryState("latest-booking");
 
   useEffect(() => {
     if (!bookingHistory.data && !bookingHistory.loading) {
       executeQuery(
         "latest-booking",
         fetchBookings,
-        "fields=id,status,date_created,ticket.*,ticket.travel_package.name,passengers.*&sort=-date_updated&limit=1"
-      )
+        "fields=id,status,date_created,ticket.*,total_price,ticket.travel_package.name,passengers.*&sort=-date_updated&limit=1"
+      );
     }
-  }, [])
+  }, []);
 
   const handleNavigateToBookings = () => {
-    navigation.navigate("Bookings")
-  }
+    navigation.navigate("Bookings");
+  };
 
-  const latestBooking = bookingHistory.data?.data?.[0]
+  const latestBooking = bookingHistory.data?.data?.[0];
 
   const noBookings = () => {
     return (
@@ -48,8 +48,8 @@ export default function LatestTicket() {
           Browse Packages
         </Button>
       </View>
-    )
-  }
+    );
+  };
   return (
     <PaddedView>
       <Section
@@ -71,7 +71,7 @@ export default function LatestTicket() {
         </DataContainer>
       </Section>
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -80,4 +80,4 @@ const createStyles = (colors) =>
       backgroundColor: "transparent",
       minHeight: 150,
     },
-  })
+  });

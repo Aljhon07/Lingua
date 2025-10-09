@@ -4,25 +4,14 @@ import { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Header from "./components/Header";
 import PackageListing from "./components/PackageListing";
-import { useQueryState } from "@hooks/useQueryState";
-import { fetchCountries, fetchPackages } from "@services/directus/rest";
+import { useTravelPackagesContext } from "@context/TravelPackagesProvider";
 
 export default function Explore() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [countries, setCountries] = useState([]);
-  const { executeQuery, getQueryState } = useQueryState();
-  const packagesState = getQueryState("packages");
-
-  const getPackages = (filter = null) => {
-    executeQuery("packages", fetchPackages, `${filter}`);
-  };
+  const { countries, getPackages, packagesState } = useTravelPackagesContext();
 
   useEffect(() => {
-    const getCountries = async () => {
-      const res = await fetchCountries();
-      setCountries(res);
-    };
-    getCountries();
+    // Initial fetch without filters
     getPackages();
   }, []);
 

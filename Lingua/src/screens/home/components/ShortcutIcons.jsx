@@ -1,21 +1,54 @@
-import React from "react"
-import { StyleSheet, View, Pressable } from "react-native"
-import { Text, useTheme } from "react-native-paper"
+import React from "react";
+import { StyleSheet, View, Pressable } from "react-native";
+import { Text, useTheme, Badge } from "react-native-paper";
 import {
   MaterialIcons,
   SimpleLineIcons,
   Feather,
   MaterialCommunityIcons,
-} from "@expo/vector-icons"
-import { spacing } from "@constants/globalStyles"
-import { useNavigation } from "@react-navigation/native"
-import PaddedView from "@components/atoms/PaddedView"
-import { Section } from "@components/atoms/Section"
+} from "@expo/vector-icons";
+import { spacing } from "@constants/globalStyles";
+import { useNavigation } from "@react-navigation/native";
+import { useNotificationHistory } from "@context/NotificationHistoryProvider";
+import PaddedView from "@components/atoms/PaddedView";
+import { Section } from "@components/atoms/Section";
 
 export default function ShortcutIcons() {
-  const navigation = useNavigation()
-  const { colors, roundness } = useTheme()
-  const styles = createStyles(colors, roundness)
+  const navigation = useNavigation();
+  const { colors, roundness } = useTheme();
+
+  // Safely get unread count with fallback
+  let unreadCount = 0;
+  try {
+    const notificationHistory = useNotificationHistory();
+    unreadCount = notificationHistory?.unreadCount || 0;
+  } catch (error) {
+    console.log("NotificationHistoryProvider not available");
+  }
+
+  const styles = createStyles(colors, roundness);
+
+  // Create notification icon with badge
+  const NotificationIcon = () => (
+    <View style={styles.notificationIconWrapper}>
+      <SimpleLineIcons name="bell" size={24} color={colors.primary} />
+      {unreadCount > 0 && (
+        <Badge
+          size={18}
+          style={[
+            styles.notificationBadge,
+            {
+              backgroundColor: colors.error,
+              color: colors.onError,
+            },
+          ]}
+          visible={true}
+        >
+          {unreadCount > 99 ? "99+" : unreadCount.toString()}
+        </Badge>
+      )}
+    </View>
+  );
 
   const shortcuts = [
     {
@@ -42,7 +75,13 @@ export default function ShortcutIcons() {
       label: "Accounts",
       onPress: () => navigation.navigate("Profile"),
     },
-  ]
+    {
+      id: 4,
+      icon: <NotificationIcon />,
+      label: "Notifications",
+      onPress: () => navigation.navigate("Notifications"),
+    },
+  ];
 
   return (
     <PaddedView>
@@ -67,7 +106,7 @@ export default function ShortcutIcons() {
         </View>
       </Section>
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors, roundness) =>
@@ -103,4 +142,23 @@ const createStyles = (colors, roundness) =>
       textAlign: "center",
       color: colors.onSurface,
     },
-  })
+    notificationIconWrapper: {
+      position: "relative",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    notificationBadge: {
+      position: "absolute",
+      top: -8,
+      right: -8,
+      minWidth: 18,
+      height: 18,
+      borderRadius: 9,
+      borderWidth: 2,
+      borderColor: colors.surface,
+      fontSize: 10,
+      fontWeight: "bold",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });

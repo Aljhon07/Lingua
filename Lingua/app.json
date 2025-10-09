@@ -21,6 +21,7 @@
         "foregroundImage": "./assets/app_icon.png",
         "backgroundColor": "#000000"
       },
+      "googleServicesFile": "./google-services.json",
       "softwareKeyboardLayoutMode": "pan",
       "permissions": [
         "android.permission.RECORD_AUDIO",
@@ -35,6 +36,7 @@
     },
     "plugins": [
       "expo-secure-store",
+      "expo-notifications",
       "@react-native-google-signin/google-signin",
       [
         "expo-image-picker",

@@ -1,20 +1,20 @@
-import React from "react"
-import { StyleSheet, View } from "react-native"
-import { Text, useTheme, TouchableRipple } from "react-native-paper"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import StyledSurface from "@components/atoms/StyledSurface"
-import { spacing, border } from "@constants/globalStyles"
-import { formatDate } from "@utils/formatDate"
-import { Pressable } from "react-native-gesture-handler"
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { Text, useTheme, TouchableRipple } from "react-native-paper";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import StyledSurface from "@components/atoms/StyledSurface";
+import { spacing, border } from "@constants/globalStyles";
+import { formatDate } from "@utils/formatDate";
+import { Pressable } from "react-native-gesture-handler";
 
 export default function RichBookingCard({ booking, showActionHint = false }) {
-  const { colors, roundness } = useTheme()
-  const navigation = useNavigation()
-  const styles = createStyles(colors, roundness)
-  const { ticket, passengers } = booking
+  const { colors, roundness } = useTheme();
+  const navigation = useNavigation();
+  const styles = createStyles(colors, roundness);
+  const { ticket, passengers } = booking;
 
-  const totalPrice = passengers.length * ticket.price
+  const totalPrice = passengers.length * ticket.price;
 
   const handlePress = () => {
     navigation.navigate("BookingDetailsNavigation", {
@@ -23,34 +23,34 @@ export default function RichBookingCard({ booking, showActionHint = false }) {
         bookingId: booking.id,
         status: booking.status,
       },
-    })
-  }
+    });
+  };
 
   const getStatusStyle = () => {
-    const { status } = booking
+    const { status } = booking;
 
     if (status === "Paid") {
       return {
         backgroundColor: colors.primaryContainer,
         color: colors.onPrimaryContainer,
-      }
+      };
     } else if (["For Approval", "Approved"].includes(status)) {
       return {
         backgroundColor: colors.tertiaryContainer,
         color: colors.onTertiaryContainer,
-      }
+      };
     } else if (["Cancelled", "Rejected"].includes(status)) {
       return {
         backgroundColor: colors.errorContainer,
         color: colors.onErrorContainer,
-      }
+      };
     } else {
       return {
         backgroundColor: colors.secondaryContainer,
         color: colors.onSecondaryContainer,
-      }
+      };
     }
-  }
+  };
 
   return (
     <Pressable
@@ -107,7 +107,7 @@ export default function RichBookingCard({ booking, showActionHint = false }) {
               color={colors.onSurfaceVariant}
             />
             <Text variant="bodyMedium" style={styles.detailText}>
-              Total: ₱{totalPrice.toLocaleString()}
+              Total: ₱{booking?.total_price?.toLocaleString()}
             </Text>
           </View>
         </View>
@@ -129,7 +129,7 @@ export default function RichBookingCard({ booking, showActionHint = false }) {
         </View>
       </StyledSurface>
     </Pressable>
-  )
+  );
 }
 
 const createStyles = (colors, roundness) =>
@@ -200,4 +200,4 @@ const createStyles = (colors, roundness) =>
       color: colors.primary,
       fontStyle: "italic",
     },
-  })
+  });

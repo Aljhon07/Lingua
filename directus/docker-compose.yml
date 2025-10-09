@@ -44,7 +44,7 @@ services:
       STORAGE_CLOUDINARY_ACCESS_MODE: ${STORAGE_CLOUDINARY_ACCESS_MODE}
       WEBSOCKETS_ENABLED: ${WEBSOCKETS_ENABLED}
       HOST: ${HOST}
-      
+      FILES_MAX_UPLOAD_SIZE: 1gb
+
 volumes:
   new_db_data:
-
