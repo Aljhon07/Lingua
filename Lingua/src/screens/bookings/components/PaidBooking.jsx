@@ -1,35 +1,47 @@
-import StyledSurface from "@components/atoms/StyledSurface"
-import DataContainer from "@components/layouts/DataContainer"
-import { spacing } from "@constants/globalStyles"
-import { useQueryState } from "@hooks/useQueryState"
-import { useNavigation } from "@react-navigation/native"
-import { fetchBookingDetails } from "@services/directus/rest"
-import { formatTimeStamp } from "@utils/formatDate"
-import React, { useEffect } from "react"
-import { StyleSheet, Touchable, View } from "react-native"
-import { ScrollView } from "react-native-gesture-handler"
+import StyledSurface from "@components/atoms/StyledSurface";
+import DataContainer from "@components/layouts/DataContainer";
+import { cloudinary } from "@constants/api";
+import { spacing } from "@constants/globalStyles";
+import { useQueryState } from "@hooks/useQueryState";
+import { useNavigation } from "@react-navigation/native";
+import { fetchBookingDetails } from "@services/directus/rest";
+import { formatTimeStamp } from "@utils/formatDate";
+import React, { useEffect } from "react";
+import { StyleSheet, Touchable, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
 import {
   Button,
   Icon,
   IconButton,
   Text,
   TouchableRipple,
-} from "react-native-paper"
-import Ticket from "src/screens/flight-booking/components/Ticket"
+} from "react-native-paper";
+import * as FileSystem from "expo-file-system";
+import Ticket from "src/screens/flight-booking/components/Ticket";
 
 export default function PaidBooking({ bookingId, navigation }) {
-  const { executeQuery, getQueryState } = useQueryState()
-  const bookingDetails = getQueryState("bookingDetails")
-  const booking = bookingDetails.data?.data
+  const { executeQuery, getQueryState } = useQueryState();
+  const bookingDetails = getQueryState("bookingDetails");
+  const booking = bookingDetails.data?.data;
 
   useEffect(() => {
     executeQuery("bookingDetails", fetchBookingDetails, {
       id: bookingId,
       filter:
-        "fields=pnr,gate,passengers.name,passengers.ticket_number,passengers.seat,date_created,ticket.*,ticket.return_ticket.*",
-    })
-  }, [])
+        "fields=pnr,gate,passengers.name,passengers.ticket_number,passengers.seat,date_created,ticket.*,ticket.return_ticket.*,booking_details_pdf",
+    });
+  }, []);
 
+  const handleDownloadPress = () => {
+    const url = cloudinary.images + booking?.booking_details_pdf + ".pdf";
+    FileSystem.downloadAsync(url, FileSystem.documentDirectory + "ticket.pdf")
+      .then(({ uri }) => {
+        console.log("Finished downloading to ", uri);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
       <DataContainer
@@ -41,10 +53,10 @@ export default function PaidBooking({ bookingId, navigation }) {
           {booking?.passengers.map((passenger, index) => {
             const { date, time } = formatTimeStamp(
               booking?.ticket.departure_schedule
-            )
+            );
             const { date: _date, time: _time } = formatTimeStamp(
               booking?.ticket.arrival_schedule
-            )
+            );
             return (
               <StyledSurface style={styles.surfaceContainer} key={index}>
                 <View>
@@ -98,22 +110,41 @@ export default function PaidBooking({ bookingId, navigation }) {
 
                 <View style={styles.row}></View>
               </StyledSurface>
-            )
+            );
           })}
         </ScrollView>
       </DataContainer>
-
-      <Button
-        icon={"notebook"}
-        mode="contained"
-        onPress={() => navigation.navigate("CustomizeItinerary", { bookingId })}
-        size={28}
-        style={{ position: "absolute", bottom: 10, right: 20 }}
+      <View
+        style={{
+          flexDirection: "row",
+          gap: 10,
+          marginBottom: spacing.lg,
+          marginHorizontal: spacing.lg,
+        }}
       >
-        View Itinerary
-      </Button>
+        <Button
+          icon={"notebook"}
+          mode="outlined"
+          onPress={() =>
+            navigation.navigate("CustomizeItinerary", { bookingId })
+          }
+          size={28}
+          style={{ flex: 1 }}
+        >
+          View Itinerary
+        </Button>
+        <Button
+          icon={"download"}
+          mode="contained"
+          onPress={handleDownloadPress}
+          size={28}
+          style={{ flex: 1 }}
+        >
+          Download Ticket
+        </Button>
+      </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -128,4 +159,4 @@ const styles = StyleSheet.create({
   arrivalDetailsTxt: {
     textAlign: "right",
   },
-})
+});

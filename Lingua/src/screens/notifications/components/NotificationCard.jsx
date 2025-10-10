@@ -51,7 +51,7 @@ export default function NotificationCard({
                     style={styles.title}
                     numberOfLines={1}
                   >
-                    {notification.title}
+                    {notification.title} #{notification.booking}
                   </Text>
                   <Text variant="bodySmall" style={styles.timestamp}>
                     {formatTimeAgo(notification.date_created)}

@@ -233,7 +233,7 @@ export const fetchUserNotifications = async (filter) => {
   try {
     console.log("Fetching User Notifications...");
     const res = await axiosInstance.get(
-      `/items/user_notification?sort=-date_created&fields=title,message,id,seen,date_created,booking&${filter}`
+      `/items/user_notification?sort=-date_created&fields=title,message,id,seen,date_created,booking&${filter}&limit=20`
     );
     console.log("User Notifications Fetched");
     return res.data.data;

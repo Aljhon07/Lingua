@@ -1,13 +1,14 @@
 import React, { useCallback, useMemo, useEffect } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useTheme } from "react-native-paper";
+import { useTheme, Appbar } from "react-native-paper";
 import { useQueryState } from "@hooks/useQueryState";
 import { fetchBookings } from "@services/directus/rest";
 import BookingList from "./components/BookingList";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text } from "react-native-paper";
+import { Text, View } from "react-native";
 import { spacing } from "@constants/globalStyles";
 import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -39,6 +40,7 @@ function BookingTabScreen({ status, bookings, getBookingHistory }) {
 
 export default function BookingHistoryTabs() {
   const { colors } = useTheme();
+  const navigation = useNavigation();
   const styles = createStyles(colors);
   const { getQueryState, executeQuery } = useQueryState();
   const bookingHistory = getQueryState("booking-history");
@@ -59,71 +61,78 @@ export default function BookingHistoryTabs() {
   }, []); // Empty dependency array - only runs once on mount
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.headline} variant="headlineLarge">
-        Every Booking Tells a Story – Here's Yours!
-      </Text>
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Bookings" titleStyle={styles.headerTitle} />
+      </Appbar.Header>
 
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            backgroundColor: colors.surface,
-          },
-          tabBarActiveTintColor: colors.primary,
-          tabBarInactiveTintColor: colors.onSurfaceVariant,
-          tabBarIndicatorStyle: {
-            backgroundColor: colors.primary,
-            height: 3,
-          },
-          tabBarLabelStyle: {
-            fontSize: 12,
-            fontWeight: "600",
-            textTransform: "none",
-          },
-          tabBarScrollEnabled: true,
-        }}
-      >
-        <Tab.Screen name="All" options={{ title: "All" }}>
-          {() => (
-            <BookingTabScreen
-              status="All"
-              bookings={bookingHistory}
-              getBookingHistory={getBookingHistory}
-            />
-          )}
-        </Tab.Screen>
+      <View style={styles.content}>
+        {/* <Text style={styles.headline} variant="headlineLarge">
+          Every Booking Tells a Story – Here's Yours!
+        </Text> */}
 
-        <Tab.Screen name="Pending" options={{ title: "Pending" }}>
-          {() => (
-            <BookingTabScreen
-              status="Pending"
-              bookings={bookingHistory}
-              getBookingHistory={getBookingHistory}
-            />
-          )}
-        </Tab.Screen>
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: {
+              backgroundColor: colors.surface,
+            },
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.onSurfaceVariant,
+            tabBarIndicatorStyle: {
+              backgroundColor: colors.primary,
+              height: 3,
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: "600",
+              textTransform: "none",
+            },
+            tabBarScrollEnabled: true,
+          }}
+        >
+          <Tab.Screen name="All" options={{ title: "All" }}>
+            {() => (
+              <BookingTabScreen
+                status="All"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
 
-        <Tab.Screen name="Paid" options={{ title: "Paid" }}>
-          {() => (
-            <BookingTabScreen
-              status="Paid"
-              bookings={bookingHistory}
-              getBookingHistory={getBookingHistory}
-            />
-          )}
-        </Tab.Screen>
+          <Tab.Screen name="Pending" options={{ title: "Pending" }}>
+            {() => (
+              <BookingTabScreen
+                status="Pending"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
 
-        <Tab.Screen name="Cancelled" options={{ title: "Cancelled" }}>
-          {() => (
-            <BookingTabScreen
-              status="Cancelled"
-              bookings={bookingHistory}
-              getBookingHistory={getBookingHistory}
-            />
-          )}
-        </Tab.Screen>
-      </Tab.Navigator>
-    </SafeAreaView>
+          <Tab.Screen name="Paid" options={{ title: "Paid" }}>
+            {() => (
+              <BookingTabScreen
+                status="Paid"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+
+          <Tab.Screen name="Cancelled" options={{ title: "Cancelled" }}>
+            {() => (
+              <BookingTabScreen
+                status="Cancelled"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </View>
+    </View>
   );
 }
 
@@ -131,11 +140,25 @@ const createStyles = (colors) =>
   StyleSheet.create({
     container: {
       flex: 1,
+      backgroundColor: colors.background,
+    },
+    header: {
+      backgroundColor: colors.surface,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+    headerTitle: {
+      color: colors.primary,
+      fontWeight: "600",
+    },
+    content: {
+      flex: 1,
     },
     headline: {
       marginBottom: spacing.lg,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl,
       textAlign: "center",
+      color: colors.primary,
     },
   });

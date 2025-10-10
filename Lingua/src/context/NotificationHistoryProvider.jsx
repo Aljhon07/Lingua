@@ -109,7 +109,7 @@ export const NotificationHistoryProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchNotifications();
-    }, 30000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);

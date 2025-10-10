@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, FlatList, RefreshControl, StyleSheet } from "react-native";
 import { Text, Button, useTheme, Appbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { spacing } from "@constants/globalStyles";
 import { useNotificationHistory } from "@context/NotificationHistoryProvider";
 import NotificationCard from "./components/NotificationCard";
-import DataContainer from "@components/layouts/DataContainer";
 import PaddedView from "@components/atoms/PaddedView";
 
 export default function Notifications({ navigation }) {
   const { colors } = useTheme();
+  const [refreshing, setRefreshing] = useState(false);
   const {
     notifications,
     unreadCount,
@@ -43,6 +43,15 @@ export default function Notifications({ navigation }) {
     }
   };
 
+  const handleRefresh = async () => {
+    setRefreshing(true);
+    try {
+      await refreshNotifications();
+    } finally {
+      setRefreshing(false);
+    }
+  };
+
   const renderNotificationItem = ({ item, index }) => (
     <NotificationCard
       notification={item}
@@ -63,7 +72,7 @@ export default function Notifications({ navigation }) {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Appbar.Header style={styles.header}>
         <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="Notifications" titleStyle={styles.headerTitle} />
@@ -76,52 +85,45 @@ export default function Notifications({ navigation }) {
         )}
       </Appbar.Header>
 
-      <DataContainer
-        data={notifications}
-        loading={notificationsState.loading}
-        error={notificationsState.error}
-        errorMessage="Failed to load notifications"
-        noDataComponent={renderEmptyState}
-      >
-        <View style={styles.content}>
-          {unreadCount > 0 && (
-            <PaddedView style={styles.headerSection}>
-              <View style={styles.unreadBadge}>
-                <Text variant="bodyMedium" style={styles.unreadText}>
-                  {unreadCount} unread notification{unreadCount > 1 ? "s" : ""}
-                </Text>
-                <Button
-                  mode="text"
-                  onPress={handleMarkAllAsRead}
-                  compact
-                  textColor={colors.primary}
-                  style={styles.markAllButton}
-                >
-                  Mark all as read
-                </Button>
-              </View>
-            </PaddedView>
-          )}
+      <View style={styles.content}>
+        {unreadCount > 0 && (
+          <PaddedView style={styles.headerSection}>
+            <View style={styles.unreadBadge}>
+              <Text variant="bodyMedium" style={styles.unreadText}>
+                {unreadCount} unread notification{unreadCount > 1 ? "s" : ""}
+              </Text>
+              <Button
+                mode="text"
+                onPress={handleMarkAllAsRead}
+                compact
+                textColor={colors.primary}
+                style={styles.markAllButton}
+              >
+                Mark all as read
+              </Button>
+            </View>
+          </PaddedView>
+        )}
 
-          <View style={styles.listWrapper}>
-            <FlatList
-              data={notifications}
-              renderItem={renderNotificationItem}
-              keyExtractor={(item) => item.id.toString()}
-              refreshControl={
-                <RefreshControl
-                  refreshing={notificationsState.loading}
-                  onRefresh={refreshNotifications}
-                  colors={[colors.primary]}
-                />
-              }
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={styles.listContainer}
-            />
-          </View>
+        <View style={styles.listWrapper}>
+          <FlatList
+            data={notifications}
+            renderItem={renderNotificationItem}
+            keyExtractor={(item) => item.id.toString()}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={handleRefresh}
+                colors={[colors.primary]}
+              />
+            }
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.listContainer}
+            ListEmptyComponent={renderEmptyState}
+          />
         </View>
-      </DataContainer>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }
 

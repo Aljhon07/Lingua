@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, FlatList, Pressable } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Button, Text, useTheme, Appbar } from "react-native-paper";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { RefreshControl } from "react-native";
@@ -77,54 +77,63 @@ export default function ItineraryScreen() {
   const renderSeparator = () => <View style={styles.separator} />;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.headline} variant="headlineLarge">
-        Your Travel Itineraries
-      </Text>
-      <Text style={styles.subtitle} variant="bodyLarge">
-        Manage and view your paid booking itineraries
-      </Text>
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Itinerary" titleStyle={styles.headerTitle} />
+      </Appbar.Header>
 
-      <DataContainer
-        loading={bookingsState.loading}
-        error={bookingsState.error}
-        data={bookingsState.data?.data}
-        noDataMessage={
-          <View style={{ alignItems: "center", paddingHorizontal: spacing.lg }}>
-            <Text
-              variant="titleSmall"
-              style={{ marginBottom: spacing.md, textAlign: "center" }}
-            >
-              No paid bookings found. Complete a booking to see your itinerary
-              here!
-            </Text>
-            <Button
-              icon={"arrow-right"}
-              contentStyle={{ flexDirection: "row-reverse" }}
-              onPress={() => navigation.navigate("Bookings")}
-            >
-              Go to Bookings
-            </Button>
-          </View>
-        }
-      >
-        <FlatList
+      <View style={styles.content}>
+        {/* <Text style={styles.headline} variant="headlineLarge">
+          Your Travel Itineraries
+        </Text> */}
+        <Text style={styles.subtitle} variant="bodyLarge">
+          Manage and view your paid booking itineraries
+        </Text>
+
+        <DataContainer
+          loading={bookingsState.loading}
+          error={bookingsState.error}
           data={bookingsState.data?.data}
-          renderItem={renderBookingItem}
-          keyExtractor={(item) => item.id}
-          ItemSeparatorComponent={renderSeparator}
-          refreshControl={
-            <RefreshControl
-              refreshing={bookingsState.loading}
-              onRefresh={getItineraryBookings}
-              colors={[colors.primary]}
-            />
+          noDataMessage={
+            <View
+              style={{ alignItems: "center", paddingHorizontal: spacing.lg }}
+            >
+              <Text
+                variant="titleSmall"
+                style={{ marginBottom: spacing.md, textAlign: "center" }}
+              >
+                No paid bookings found. Complete a booking to see your itinerary
+                here!
+              </Text>
+              <Button
+                icon={"arrow-right"}
+                contentStyle={{ flexDirection: "row-reverse" }}
+                onPress={() => navigation.navigate("Bookings")}
+              >
+                Go to Bookings
+              </Button>
+            </View>
           }
-          contentContainerStyle={styles.listContainer}
-          showsVerticalScrollIndicator={false}
-        />
-      </DataContainer>
-    </SafeAreaView>
+        >
+          <FlatList
+            data={bookingsState.data?.data}
+            renderItem={renderBookingItem}
+            keyExtractor={(item) => item.id}
+            ItemSeparatorComponent={renderSeparator}
+            refreshControl={
+              <RefreshControl
+                refreshing={bookingsState.loading}
+                onRefresh={getItineraryBookings}
+                colors={[colors.primary]}
+              />
+            }
+            contentContainerStyle={styles.listContainer}
+            showsVerticalScrollIndicator={false}
+          />
+        </DataContainer>
+      </View>
+    </View>
   );
 }
 
@@ -134,12 +143,24 @@ const createStyles = (colors) =>
       flex: 1,
       backgroundColor: colors.background,
     },
+    header: {
+      backgroundColor: colors.surface,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+    headerTitle: {
+      color: colors.primary,
+      fontWeight: "600",
+    },
+    content: {
+      flex: 1,
+    },
     headline: {
       marginBottom: spacing.sm,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.lg,
       textAlign: "center",
-      color: colors.onBackground,
+      color: colors.primary,
     },
     subtitle: {
       marginBottom: spacing.xl,
