@@ -3,11 +3,13 @@ import { createContext, useContext, useState } from "react";
 const PassengerInfoContext = createContext();
 
 import React from "react";
+import { useProfileContext } from "./ProfileProvider";
 
 export default function PassengerInfoProvider({ children }) {
+  const { profile } = useProfileContext();
   const [contacts, setContacts] = useState({
     phoneNumber: "",
-    emailAddress: "",
+    emailAddress: profile.email,
   });
   const [ticket, setTicket] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState("Credit Card");

@@ -5,7 +5,7 @@ import { fetchTicketDetails, postBooking } from "@services/directus/rest";
 import React, { useEffect } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { Text, useTheme } from "react-native-paper";
+import { Button, Text, useTheme } from "react-native-paper";
 import TicketSummary from "./components/TicketSummary";
 import PassengerSummary from "./components/PassengerSummary";
 import ContactSummary from "./components/ContactSummary";
@@ -72,11 +72,9 @@ export default function Summary({ route }) {
           </View>
         </ScrollView>
         <View style={{ padding: spacing.lg }}>
-          <CustomButton primary onPress={handlePlaceOrder}>
-            <Text variant="titleSmall" style={styles.text}>
-              Place Order
-            </Text>
-          </CustomButton>
+          <Button mode="contained" onPress={handlePlaceOrder}>
+            Place Order
+          </Button>
         </View>
       </DataContainer>
     </View>

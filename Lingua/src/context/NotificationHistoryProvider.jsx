@@ -107,11 +107,10 @@ export const NotificationHistoryProvider = ({ children }) => {
 
   // Refresh notifications every 30 seconds for real-time updates
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchNotifications();
-    }, 5000);
-
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   fetchNotifications();
+    // }, 5000);
+    // return () => clearInterval(interval);
   }, []);
 
   const value = {

@@ -3,26 +3,23 @@ import DataContainer from "@components/layouts/DataContainer";
 import { cloudinary } from "@constants/api";
 import { spacing } from "@constants/globalStyles";
 import { useQueryState } from "@hooks/useQueryState";
-import { useNavigation } from "@react-navigation/native";
+import { useFileDownload } from "@hooks/useFileDownload";
 import { fetchBookingDetails } from "@services/directus/rest";
 import { formatTimeStamp } from "@utils/formatDate";
-import React, { useEffect } from "react";
-import { StyleSheet, Touchable, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import {
-  Button,
-  Icon,
-  IconButton,
-  Text,
-  TouchableRipple,
-} from "react-native-paper";
+import { Button, Text, Snackbar } from "react-native-paper";
 import * as FileSystem from "expo-file-system";
-import Ticket from "src/screens/flight-booking/components/Ticket";
 
 export default function PaidBooking({ bookingId, navigation }) {
   const { executeQuery, getQueryState } = useQueryState();
   const bookingDetails = getQueryState("bookingDetails");
   const booking = bookingDetails.data?.data;
+  const [snackbarVisible, setSnackbarVisible] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+
+  const { isDownloading, downloadFile } = useFileDownload();
 
   useEffect(() => {
     executeQuery("bookingDetails", fetchBookingDetails, {
@@ -33,14 +30,27 @@ export default function PaidBooking({ bookingId, navigation }) {
   }, []);
 
   const handleDownloadPress = () => {
-    const url = cloudinary.images + booking?.booking_details_pdf + ".pdf";
-    FileSystem.downloadAsync(url, FileSystem.documentDirectory + "ticket.pdf")
-      .then(({ uri }) => {
-        console.log("Finished downloading to ", uri);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (!booking?.booking_details_pdf) {
+      setSnackbarMessage("No ticket available");
+      setSnackbarVisible(true);
+      return;
+    }
+
+    const url = cloudinary.images + booking.booking_details_pdf + ".pdf";
+    const filename = `ticket_${booking.pnr || Date.now()}.pdf`;
+
+    downloadFile(
+      url,
+      filename,
+      (message) => {
+        setSnackbarMessage(message);
+        setSnackbarVisible(true);
+      },
+      (error) => {
+        setSnackbarMessage(error);
+        setSnackbarVisible(true);
+      }
+    );
   };
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
@@ -134,15 +144,28 @@ export default function PaidBooking({ bookingId, navigation }) {
           View Itinerary
         </Button>
         <Button
-          icon={"download"}
+          icon={isDownloading ? "loading" : "download"}
           mode="contained"
           onPress={handleDownloadPress}
           size={28}
           style={{ flex: 1 }}
+          disabled={isDownloading || !booking?.booking_details_pdf}
+          loading={isDownloading}
         >
-          Download Ticket
+          {isDownloading ? "Downloading..." : "Download Ticket"}
         </Button>
       </View>
+      <Snackbar
+        visible={snackbarVisible}
+        onDismiss={() => setSnackbarVisible(false)}
+        duration={3000}
+        action={{
+          label: "OK",
+          onPress: () => setSnackbarVisible(false),
+        }}
+      >
+        {snackbarMessage}
+      </Snackbar>
     </View>
   );
 }

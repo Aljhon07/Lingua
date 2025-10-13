@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet, View } from "react-native"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { Text, useTheme, List, Searchbar } from "react-native-paper"
-import { Section } from "@components/atoms/Section"
-import { spacing } from "@constants/globalStyles"
-import { useState } from "react"
+import { ScrollView, StyleSheet, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, useTheme, List, Searchbar, Appbar } from "react-native-paper";
+import { Section } from "@components/atoms/Section";
+import { spacing } from "@constants/globalStyles";
+import { useState } from "react";
 
 const faqData = [
   {
@@ -21,21 +21,36 @@ const faqData = [
       },
     ],
   },
-]
+  {
+    category: "Bookings",
+    questions: [
+      {
+        question: "How do I view my booking history?",
+        answer:
+          "Go to 'Home' screen and tap 'Purchases' to access your booking history.",
+      },
+      {
+        question: "How do I cancel a booking?",
+        answer:
+          "To cancel a booking, you need to contact our support team. Please use the Contact Support option in your Profile settings for assistance with cancellations.",
+      },
+    ],
+  },
+];
 
 export default function FAQ({ navigation }) {
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
-  const [searchQuery, setSearchQuery] = useState("")
-  const [expandedItems, setExpandedItems] = useState({})
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [expandedItems, setExpandedItems] = useState({});
 
   const toggleExpanded = (categoryIndex, questionIndex) => {
-    const key = `${categoryIndex}-${questionIndex}`
+    const key = `${categoryIndex}-${questionIndex}`;
     setExpandedItems((prev) => ({
       ...prev,
       [key]: !prev[key],
-    }))
-  }
+    }));
+  };
 
   const filteredFAQ = faqData
     .map((category) => ({
@@ -46,15 +61,19 @@ export default function FAQ({ navigation }) {
           item.answer.toLowerCase().includes(searchQuery.toLowerCase())
       ),
     }))
-    .filter((category) => category.questions.length > 0)
+    .filter((category) => category.questions.length > 0);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text variant="headlineSmall" style={styles.title}>
-          Frequently Asked Questions
-        </Text>
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content
+          title="Frequently Asked Questions"
+          titleStyle={styles.headerTitle}
+        />
+      </Appbar.Header>
 
+      <ScrollView contentContainerStyle={styles.content}>
         <Searchbar
           placeholder="Search FAQ..."
           onChangeText={setSearchQuery}
@@ -71,8 +90,8 @@ export default function FAQ({ navigation }) {
             style={styles.section}
           >
             {category.questions.map((item, questionIndex) => {
-              const key = `${categoryIndex}-${questionIndex}`
-              const isExpanded = expandedItems[key]
+              const key = `${categoryIndex}-${questionIndex}`;
+              const isExpanded = expandedItems[key];
 
               return (
                 <View key={questionIndex}>
@@ -97,7 +116,7 @@ export default function FAQ({ navigation }) {
                     </View>
                   </List.Accordion>
                 </View>
-              )
+              );
             })}
           </Section>
         ))}
@@ -115,8 +134,8 @@ export default function FAQ({ navigation }) {
           </Text>
         </View>
       </ScrollView>
-    </SafeAreaView>
-  )
+    </View>
+  );
 }
 
 const createStyles = (colors) =>
@@ -174,4 +193,4 @@ const createStyles = (colors) =>
       color: colors.primary,
       fontWeight: "500",
     },
-  })
+  });

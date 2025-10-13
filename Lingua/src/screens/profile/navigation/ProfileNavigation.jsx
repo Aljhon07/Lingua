@@ -1,15 +1,15 @@
-import { createStackNavigator } from "@react-navigation/stack"
-import { useTheme } from "react-native-paper"
-import Profile from "../Profile"
-import TermsAndConditions from "../../auth/TermsAndConditions"
-import PrivacyPolicy from "../../auth/PrivacyPolicy"
-import FAQ from "../FAQ"
-import ContactSupport from "../ContactSupport"
+import { createStackNavigator } from "@react-navigation/stack";
+import { useTheme } from "react-native-paper";
+import Profile from "../Profile";
+import TermsAndConditions from "../../auth/TermsAndConditions";
+import PrivacyPolicy from "../../auth/PrivacyPolicy";
+import FAQ from "../FAQ";
+import ContactSupport from "../ContactSupport";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function ProfileNavigation() {
-  const { colors } = useTheme()
+  const { colors } = useTheme();
 
   return (
     <Stack.Navigator
@@ -54,8 +54,7 @@ export default function ProfileNavigation() {
         name="HelpCenter"
         component={FAQ}
         options={{
-          title: "FAQ",
-          headerBackTitleVisible: false,
+          headerShown: false,
         }}
       />
 
@@ -68,5 +67,5 @@ export default function ProfileNavigation() {
         }}
       />
     </Stack.Navigator>
-  )
+  );
 }

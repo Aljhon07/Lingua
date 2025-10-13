@@ -106,9 +106,13 @@ export const postBooking = async ({ info: data }) => {
     payment_method: paymentMethod,
     phone_number: contacts.phoneNumber,
     email_address: contacts.emailAddress,
-    passengers,
+    passengers: passengers.map((passenger) => ({
+      ...passenger,
+      documents: [],
+    })),
   };
 
+  console.log(JSON.stringify(formattedInfo, null, 2));
   try {
     console.log("Uploading Booking...");
     const accessToken = await SecureStorage.getItemAsync("accessToken");

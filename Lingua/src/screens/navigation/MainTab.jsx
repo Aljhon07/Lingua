@@ -7,11 +7,17 @@ import { LessonListWrapper } from "../language-learning/LessonList";
 import HomeScreen from "../home/HomeScreen.jsx";
 import PhrasebookButton from "@components/atoms/PhrasebookButton";
 import { useEffect } from "react";
+import { PerfMonitor } from "@utils/perfMonitor";
 
 const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
   const { navigate } = useNavigation();
+
+  useEffect(() => {
+    PerfMonitor.logAppLoad().catch(console.error);
+    console.log("MainTab mounted - app load tracking triggered");
+  }, []);
 
   return (
     <Tab.Navigator

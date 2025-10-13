@@ -11,6 +11,9 @@ import LessonProvider from "@context/LessonProvider";
 import UserProgressProvider from "@context/UserProgressProvider";
 import TravelPackagesProvider from "@context/TravelPackagesProvider";
 import { resetOnboarding } from "src/screens/onboarding/utils/onboardingUtils";
+import { PerfMonitor } from "@utils/perfMonitor";
+
+// Record app start time immediately
 
 export default function App() {
   const [loaded] = useFonts({
@@ -26,6 +29,7 @@ export default function App() {
   if (!loaded) {
     return null;
   }
+  PerfMonitor.initAppStart();
 
   return (
     <SafeAreaProvider>

@@ -37,7 +37,7 @@ What actually happened...
     `;
 
     Linking.openURL(
-      `mailto:bugs@lingua-app.com?subject=Bug Report&body=${encodeURIComponent(
+      `mailto:bugs@lingua.com?subject=Bug Report&body=${encodeURIComponent(
         emailBody
       )}`
     );
@@ -110,7 +110,7 @@ What actually happened...
       >
         <List.Item
           title="Version"
-          description="1.0.0"
+          description="1.1.0"
           left={(props) => (
             <List.Icon {...props} icon="information" color={colors.primary} />
           )}

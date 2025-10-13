@@ -22,7 +22,7 @@ app.use(cors());
 app.use("/user", require("./routes/directus_auth"));
 app.use("/directus-extensions", require("./routes/directus_extension"));
 app.use("/directus-send-notif", require("./routes/directus_notif"));
-
+app.use("/performance", require("./routes/performance"));
 app.post("/create-payment-intent", async (req, res) => {
   try {
     const { currency = "php", bookingId } = req.body;

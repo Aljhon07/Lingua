@@ -1,13 +1,13 @@
-import { View, StyleSheet } from "react-native"
-import { Text, useTheme, Avatar } from "react-native-paper"
-import { CustomButton } from "@components/molecules/CustomButton"
-import { MaterialCommunityIcons } from "@expo/vector-icons"
-import { spacing } from "@constants/globalStyles"
+import { View, StyleSheet } from "react-native";
+import { Text, useTheme, Avatar } from "react-native-paper";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { spacing } from "@constants/globalStyles";
 
 export default function ProfileHeader({ profile, onEditPress }) {
-  const profileImage = require("@assets/images/default_profile.png")
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
+  const profileImage = require("@assets/images/default_profile.png");
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
   return (
     <View style={styles.profileHeader}>
@@ -30,7 +30,7 @@ export default function ProfileHeader({ profile, onEditPress }) {
         {profile?.email}
       </Text>
 
-      <CustomButton
+      {/* <CustomButton
         mode="outlined"
         style={styles.editProfileButton}
         textColor={colors.primary}
@@ -39,9 +39,9 @@ export default function ProfileHeader({ profile, onEditPress }) {
         onPress={onEditPress}
       >
         Edit Profile
-      </CustomButton>
+      </CustomButton> */}
     </View>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -87,4 +87,4 @@ const createStyles = (colors) =>
       minWidth: 140,
       borderColor: colors.primary,
     },
-  })
+  });

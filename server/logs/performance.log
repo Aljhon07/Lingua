@@ -1,0 +1,6 @@
+{"type":"App Load","duration":996,"device":"SM-A266B","timestamp":"2025-10-10T13:31:27.793Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":942,"device":"SM-A266B","timestamp":"2025-10-10T13:31:57.115Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":961,"device":"SM-A266B","timestamp":"2025-10-10T13:32:15.315Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"Speech Recognition","duration":922,"device":"SM-A266B","timestamp":"2025-10-10T13:33:08.746Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"Speech Recognition","duration":715,"device":"SM-A266B","timestamp":"2025-10-10T13:33:20.378Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"Speech Recognition","duration":887,"device":"SM-A266B","timestamp":"2025-10-10T13:33:28.719Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
