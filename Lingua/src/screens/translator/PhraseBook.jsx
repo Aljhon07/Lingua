@@ -3,7 +3,7 @@ import DataContainer from "@components/layouts/DataContainer";
 import { useLanguageContext } from "@context/LanguageProvider";
 import { useQueryState } from "@hooks/useQueryState";
 import { fetchPhrases } from "@services/directus/rest";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef, useMemo } from "react";
 import Phrase from "./components/Phrase";
 import {
   FlatList,
@@ -13,7 +13,7 @@ import {
   ScrollView,
 } from "react-native";
 import { CustomButton } from "@components/molecules/CustomButton";
-import { Text, useTheme, Portal } from "react-native-paper";
+import { Text, useTheme, Portal, List } from "react-native-paper";
 import { usePhrasebook } from "@context/PhrasebookProvider";
 
 export default function Phrasebook() {
@@ -22,6 +22,20 @@ export default function Phrasebook() {
   const { colors } = useTheme();
   const { getQueryState, executeQuery } = useQueryState("phrasebook");
   const phraseState = getQueryState("phrasebook");
+
+  // Group phrases by category
+  const groupedPhrases = useMemo(() => {
+    if (!phraseState.data) return {};
+
+    return phraseState.data.reduce((acc, phrase) => {
+      const categoryName = phrase.category?.name || "Uncategorized";
+      if (!acc[categoryName]) {
+        acc[categoryName] = [];
+      }
+      acc[categoryName].push(phrase);
+      return acc;
+    }, {});
+  }, [phraseState.data]);
 
   useEffect(() => {
     if (showPhrasebook) {
@@ -64,20 +78,26 @@ export default function Phrasebook() {
               noDataMessage={"No phrases found"}
             >
               <LanguageList hideMenuHeader={false} />
-              <FlatList
-                data={phraseState.data}
-                keyExtractor={(item) => item.id.toString()}
-                renderItem={({ item }) => (
-                  <Phrase
-                    phrase={item.phrase}
-                    translation={item.translation[0]?.translation}
-                    translatedAudio={item.translation[0]?.audio}
-                    selectedLanguage={selectedLanguage}
-                  />
-                )}
-                style={{ marginVertical: 8 }}
-                scrollEnabled={false} // Scroll handled by parent ScrollView
-              />
+
+              {/* Render grouped phrases with collapsible categories */}
+              {Object.entries(groupedPhrases).map(([categoryName, phrases]) => (
+                <List.Accordion
+                  key={categoryName}
+                  title={categoryName}
+                  titleStyle={{ fontSize: 16, fontWeight: "bold" }}
+                  style={{ backgroundColor: colors.surface }}
+                >
+                  {phrases.map((item) => (
+                    <Phrase
+                      key={item.id}
+                      phrase={item.phrase}
+                      translation={item.translation[0]?.translation}
+                      translatedAudio={item.translation[0]?.audio}
+                      selectedLanguage={selectedLanguage}
+                    />
+                  ))}
+                </List.Accordion>
+              ))}
             </DataContainer>
 
             <CustomButton
