@@ -6,10 +6,6 @@ import PaddedView from "@components/atoms/PaddedView";
 
 export default function PackageTips({ route }) {
   const { data: packageDetails } = route.params;
-  console.log(
-    "PackageDetails in PackageTips:",
-    JSON.stringify(packageDetails.features, null, 2)
-  );
 
   const [tips, setTips] = useState(
     packageDetails.features.cultural_tips

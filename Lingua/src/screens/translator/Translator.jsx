@@ -1,5 +1,5 @@
 import { StyleSheet, View, Animated, Keyboard } from "react-native";
-import { IconButton, useTheme } from "react-native-paper";
+import { IconButton, useTheme, Text } from "react-native-paper";
 import { useState, useEffect } from "react";
 import { spacing } from "@constants/globalStyles";
 import TranslationBox from "./components/TranslationBox";
@@ -55,7 +55,11 @@ export default function Translator() {
     }
   }, [audioUrl]);
 
-  const translateText = async (text) => {
+  const translateText = async (
+    text,
+    customSourceLang = null,
+    customTargetLang = null
+  ) => {
     if (!text.trim()) {
       setTranslatedText("");
       setIsTranslating(false);
@@ -64,9 +68,12 @@ export default function Translator() {
 
     setIsTranslating(true);
     try {
+      const fromLang = customSourceLang || sourceLanguage;
+      const toLang = customTargetLang || targetLanguage;
+
       const response = await translate(text, {
-        from: sourceLanguage,
-        to: targetLanguage,
+        from: fromLang,
+        to: toLang,
       });
       console.log(response);
       setTranslatedText(response);
@@ -85,6 +92,10 @@ export default function Translator() {
     console.log(`Change src: ${langCode}`);
     if (langCode) {
       setSourceLanguage(langCode);
+      // Trigger translation with the new source language
+      if (sourceText && sourceText.trim()) {
+        translateText(sourceText, langCode, targetLanguage);
+      }
     }
   };
 
@@ -93,6 +104,10 @@ export default function Translator() {
     console.log(`Change tgt: ${langCode}`);
     if (langCode) {
       setTargetLanguage(langCode);
+      // Trigger translation with the new target language
+      if (sourceText && sourceText.trim()) {
+        translateText(sourceText, sourceLanguage, langCode);
+      }
     }
   };
 
@@ -180,6 +195,11 @@ export default function Translator() {
             languages={languages}
             label="From"
           />
+
+          <Text style={[styles.speechTip, { color: colors.onSurfaceVariant }]}>
+            💡 Tip: Speak clearly near your mic in a quiet space if possible for
+            best accuracy.
+          </Text>
 
           <View style={styles.swapButtonContainer}>
             <IconButton
@@ -277,5 +297,13 @@ const styles = StyleSheet.create({
   },
   phrasebookIcon: {
     margin: 0,
+  },
+  speechTip: {
+    fontSize: 12,
+    textAlign: "center",
+    marginTop: -spacing.md,
+    marginBottom: spacing.sm,
+    fontStyle: "italic",
+    paddingHorizontal: spacing.md,
   },
 });

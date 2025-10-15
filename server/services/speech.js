@@ -88,4 +88,4 @@ const synthesizeAudio = async (req, res) => {
   }
 };
 
-module.exports = { transcribeFile, synthesizeAudio };
+module.exports = { transcribeFile, synthesizeAudio, client };

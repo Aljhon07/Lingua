@@ -1,0 +1,40 @@
+{
+  "data": [
+    {
+      "phrase": "Do you speak english?",
+      "category": {
+        "name": "Starting the Journey / Departure"
+      },
+      "translation": [
+        {
+          "audio": "40f71bdf-6098-456d-bba3-cd13f2f5afc8",
+          "translation": "Anata wa eigo o hanashimasu ka?",
+          "transliteration": "???????????????????????????????????????"
+        },
+        {
+          "audio": null,
+          "translation": "N?? hu?? shu?? y??ngy?? ma?",
+          "transliteration": "?????????????????????"
+        }
+      ]
+    },
+    {
+      "phrase": "Thank You!",
+      "category": {
+        "name": "Arrival / Immigration / Customs"
+      },
+      "translation": [
+        {
+          "audio": "9dfc3b21-a116-49c1-929d-a42065d1ac52",
+          "translation": "Xi??xi??",
+          "transliteration": "??????"
+        },
+        {
+          "audio": "06abc792-6f39-403b-8e52-729bef4a9196",
+          "translation": "Arigat??",
+          "transliteration": "???????????????"
+        }
+      ]
+    }
+  ]
+}

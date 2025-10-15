@@ -14,7 +14,6 @@ import { Dropdown } from "react-native-paper-dropdown";
 import { CustomButton } from "@components/molecules/CustomButton";
 import { SelectableTag } from "@components/atoms/SelectableTag";
 import { useTravelPackagesContext } from "@context/TravelPackagesProvider";
-import { set } from "lodash";
 
 export default function Header({ getPackages, countries }) {
   registerTranslation("en", en);

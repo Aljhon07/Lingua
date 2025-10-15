@@ -13,7 +13,7 @@
     "multer": "^2.0.2",
     "nodemailer": "^7.0.9",
     "nodemon": "^3.1.10",
-    "pdfkit": "^0.17.2",
+    "puppeteer": "^24.25.0",
     "stripe": "^17.7.0",
     "uuid": "^13.0.0"
   },
@@ -23,7 +23,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "generate-audio": "node utils/runAudioGeneration.js"
   },
   "keywords": [],
   "author": "",

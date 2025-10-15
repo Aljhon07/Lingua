@@ -1,0 +1,700 @@
+[
+  {
+    "name": "Travel Greetings and Introductions",
+    "description": "Common greetings and introduction phrases useful when traveling.",
+    "order": 1,
+    "vocabularies": [
+      {
+        "word": "Hello",
+        "definition": "A greeting used to acknowledge someone's presence.",
+        "sentence": "Hello! Is this the check-in counter?",
+        "translations": [
+          {
+            "audio": "05f9d505-3acb-4fd3-942f-13fcaed908fe",
+            "audio_sentence": "9802e3f2-155d-4b66-ba2f-7c05a25db779",
+            "language": 1,
+            "sentence_transliteration": "Konnichiwa! Koko wa chekkuin kauntā desu ka?",
+            "translated_sentence": "こんにちは！ここはチェックインカウンターですか？",
+            "translated_word": "こんにちは",
+            "word_transliteration": "Konnichiwa"
+          },
+          {
+            "audio": "d5088262-3a1c-4d3b-8bbd-380a92ddcff4",
+            "audio_sentence": "2a3cf6e7-306e-4aaf-883d-37b9d0aa3275",
+            "language": 3,
+            "sentence_transliteration": "Nǐ hǎo! Zhè lǐ shì bàn dēng jī guì tái ma?",
+            "translated_sentence": "你好！这里是办登机柜台吗？",
+            "translated_word": "你好",
+            "word_transliteration": "Nǐ hǎo"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Hello! Is this the check-in counter?",
+            "translated_sentence": "Hello! Is this the check-in counter?",
+            "translated_word": "Hello",
+            "word_transliteration": "Hello"
+          },
+          {
+            "audio": "599fee8f-15b2-4d22-adb8-8bcef8b84251",
+            "audio_sentence": "d9301d68-42ac-4e55-95f3-de5795762492",
+            "language": 5,
+            "sentence_transliteration": "Annyeonghaseyo! Yeogi chekeu-in kaunteoyeyo?",
+            "translated_sentence": "안녕하세요! 여기 체크인 카운터예요?",
+            "translated_word": "안녕하세요",
+            "word_transliteration": "Annyeonghaseyo"
+          },
+          {
+            "audio": "7c99867a-7575-4718-b501-aec9b24065bb",
+            "audio_sentence": "047dd2ae-4668-425c-97db-9ad88dd12995",
+            "language": 6,
+            "sentence_transliteration": "Xin chào! Đây có phải là quầy check-in không?",
+            "translated_sentence": "Xin chào! Đây có phải là quầy check-in không?",
+            "translated_word": "Xin chào",
+            "word_transliteration": "Xin chào"
+          },
+          {
+            "audio": "ca8d5cb0-da9d-491d-83fb-b52c3db0dcad",
+            "audio_sentence": "9dffe25b-1b5a-48f9-8b65-7cc0db98a7bb",
+            "language": 7,
+            "sentence_transliteration": "Halo! Apakah ini konter check-in?",
+            "translated_sentence": "Halo! Apakah ini konter check-in?",
+            "translated_word": "Halo",
+            "word_transliteration": "Halo"
+          },
+          {
+            "audio": "20157399-61ad-4f91-9dde-43c32792d5a4",
+            "audio_sentence": "87ee8e5f-246e-4852-885b-ed1f35f931d3",
+            "language": 8,
+            "sentence_transliteration": "Sà-wàt-dii! Nîi khue thîi check-in rɯ̌ɯ plàao?",
+            "translated_sentence": "สวัสดี! นี่คือที่เช็คอินหรือเปล่า?",
+            "translated_word": "สวัสดี",
+            "word_transliteration": "Sà-wàt-dii"
+          }
+        ]
+      },
+      {
+        "word": "Hi",
+        "definition": "A casual greeting used to say hello.",
+        "sentence": "Hi! Can you help me with directions?",
+        "translations": [
+          {
+            "audio": "cfb529b6-a104-46e8-b1e6-66da57aefd73",
+            "audio_sentence": "00538b8b-64b0-42f1-8f51-b5987570a500",
+            "language": 1,
+            "sentence_transliteration": "Hai! Michi o oshiete kudasai?",
+            "translated_sentence": "ハイ！道を教えてください？",
+            "translated_word": "ハイ",
+            "word_transliteration": "Hai"
+          },
+          {
+            "audio": "3dc30c6a-a7a4-44bb-813d-9267776465a7",
+            "audio_sentence": "4fc83e33-b759-4b9a-be12-1d7f3efd33c7",
+            "language": 3,
+            "sentence_transliteration": "Hāi! Nǐ néng bāng wǒ zhǐ lù ma?",
+            "translated_sentence": "嗨！你能帮我指路吗？",
+            "translated_word": "嗨",
+            "word_transliteration": "Hāi"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Hi! Can you help me with directions?",
+            "translated_sentence": "Hi! Can you help me with directions?",
+            "translated_word": "Hi",
+            "word_transliteration": "Hi"
+          },
+          {
+            "audio": "8c104fbb-1ea8-4558-9ddb-0654711c6e1e",
+            "audio_sentence": "e1a73a3a-2b1e-47e2-bf1e-40ab1393c074",
+            "language": 5,
+            "sentence_transliteration": "Annyeong! Gil jom allyeo jusil su isseoyo?",
+            "translated_sentence": "안녕! 길 좀 알려주실 수 있어요?",
+            "translated_word": "안녕",
+            "word_transliteration": "Annyeong"
+          },
+          {
+            "audio": "8bf86c27-71f0-48d7-a708-8588806e0c8d",
+            "audio_sentence": "86b0bbd7-9349-4a99-be74-7778ba2531d2",
+            "language": 6,
+            "sentence_transliteration": "Chào! Bạn có thể chỉ đường cho tôi không?",
+            "translated_sentence": "Chào! Bạn có thể chỉ đường cho tôi không?",
+            "translated_word": "Chào",
+            "word_transliteration": "Chào"
+          },
+          {
+            "audio": "efdb24ff-b40f-450b-95e7-ff3120d44650",
+            "audio_sentence": "fac23d82-3a28-4fa8-b6e4-1cc9112913af",
+            "language": 7,
+            "sentence_transliteration": "Hai! Bisakah Anda membantu saya dengan petunjuk arah?",
+            "translated_sentence": "Hai! Bisakah Anda membantu saya dengan petunjuk arah?",
+            "translated_word": "Hai",
+            "word_transliteration": "Hai"
+          },
+          {
+            "audio": "411de042-a109-4a29-8194-0f05bd3484b6",
+            "audio_sentence": "c2e3c5ab-4479-4b10-8041-02d01d06cb8a",
+            "language": 8,
+            "sentence_transliteration": "Hāi! Khun chûai bòok thaang hâi dâi mái?",
+            "translated_sentence": "ไฮ! คุณช่วยบอกทางให้ได้ไหม?",
+            "translated_word": "ไฮ",
+            "word_transliteration": "Hāi"
+          }
+        ]
+      },
+      {
+        "word": "Good morning",
+        "definition": "A greeting used in the morning hours.",
+        "sentence": "Good morning! I have a reservation.",
+        "translations": [
+          {
+            "audio": "00e4c90a-d77a-4c5d-b920-9d9fc7864b2d",
+            "audio_sentence": "332f2958-8e81-46a5-8ac1-7a31b284de8c",
+            "language": 1,
+            "sentence_transliteration": "Ohayou gozaimasu! Yoyaku o totte imasu.",
+            "translated_sentence": "おはようございます！予約を取っています。",
+            "translated_word": "おはようございます",
+            "word_transliteration": "Ohayou gozaimasu"
+          },
+          {
+            "audio": "a100bebb-c201-4fee-9bb4-cac9e4282e3a",
+            "audio_sentence": "963abd13-6316-4101-9183-ffc6cc0348cc",
+            "language": 3,
+            "sentence_transliteration": "Zǎo shàng hǎo! Wǒ yǒu yù dìng.",
+            "translated_sentence": "早上好！我有预订。",
+            "translated_word": "早上好",
+            "word_transliteration": "Zǎo shàng hǎo"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Good morning! I have a reservation.",
+            "translated_sentence": "Good morning! I have a reservation.",
+            "translated_word": "Good morning",
+            "word_transliteration": "Good morning"
+          },
+          {
+            "audio": "a9f94768-5f72-4b0b-be32-bdb4df0d594f",
+            "audio_sentence": "65a876c3-1252-44c2-95ac-7d2dcb99fd35",
+            "language": 5,
+            "sentence_transliteration": "Joeun achim! Yeyageul haesseoyo.",
+            "translated_sentence": "좋은 아침! 예약을 했어요.",
+            "translated_word": "좋은 아침",
+            "word_transliteration": "Joeun achim"
+          },
+          {
+            "audio": "9d7cd132-874f-4027-b3ff-b128d7e1c5c7",
+            "audio_sentence": "b2a109e0-a828-4c74-82be-a7efc3d39fde",
+            "language": 6,
+            "sentence_transliteration": "Chào buổi sáng! Tôi có đặt chỗ.",
+            "translated_sentence": "Chào buổi sáng! Tôi có đặt chỗ.",
+            "translated_word": "Chào buổi sáng",
+            "word_transliteration": "Chào buổi sáng"
+          },
+          {
+            "audio": "acdfae7d-dd7a-4384-a30b-a7fa102a7f7f",
+            "audio_sentence": "05ef5475-b192-4db3-a036-c2d27905d37a",
+            "language": 7,
+            "sentence_transliteration": "Selamat pagi! Saya punya reservasi.",
+            "translated_sentence": "Selamat pagi! Saya punya reservasi.",
+            "translated_word": "Selamat pagi",
+            "word_transliteration": "Selamat pagi"
+          },
+          {
+            "audio": "6b62510e-fd47-48c1-be53-0f0ab3617e63",
+            "audio_sentence": "3f75045b-ccb8-459c-9e6c-9ea61abbf639",
+            "language": 8,
+            "sentence_transliteration": "Arun sawàt! Phǒm mii kaan jòng.",
+            "translated_sentence": "อรุณสวัสดิ์! ผมมีการจอง.",
+            "translated_word": "อรุณสวัสดิ์",
+            "word_transliteration": "Arun sawàt"
+          }
+        ]
+      },
+      {
+        "word": "Good afternoon",
+        "definition": "A greeting used in the afternoon.",
+        "sentence": "Good afternoon! Where is the taxi stand?",
+        "translations": [
+          {
+            "audio": "6f9e5c23-b1d5-4de2-bf1c-4d92c2a8619f",
+            "audio_sentence": "cc4d311f-2083-46de-8940-150ab4295fec",
+            "language": 1,
+            "sentence_transliteration": "Konnichiwa! Takushī noriba wa doko desu ka?",
+            "translated_sentence": "こんにちは！タクシー乗り場はどこですか？",
+            "translated_word": "こんにちは",
+            "word_transliteration": "Konnichiwa"
+          },
+          {
+            "audio": "1d63fc32-50bc-40fb-bff7-918c1f8bb067",
+            "audio_sentence": "731208cd-7f1f-4be6-9bbd-297b1b62ebbd",
+            "language": 3,
+            "sentence_transliteration": "Xià wǔ hǎo! Chū zū chē zhàn zài nǎ lǐ?",
+            "translated_sentence": "下午好！出租车站在哪里？",
+            "translated_word": "下午好",
+            "word_transliteration": "Xià wǔ hǎo"
+          },
+          {
+            "audio": "c14429a0-e733-4575-b632-70440488e37d",
+            "audio_sentence": "8a0ae83f-b485-4a45-b7b0-d91f2d295165",
+            "language": 5,
+            "sentence_transliteration": "Annyeonghaseyo! Taeksi seunggangjang eodi isseoyo?",
+            "translated_sentence": "안녕하세요! 택시 승강장 어디 있어요?",
+            "translated_word": "안녕하세요",
+            "word_transliteration": "Annyeonghaseyo"
+          },
+          {
+            "audio": "5dc9b3e0-51c6-4f46-b706-d60e33f5aa9e",
+            "audio_sentence": "c66c2ce0-c62e-456e-bb69-f0a2a693728d",
+            "language": 6,
+            "sentence_transliteration": "Chào buổi chiều! Bến taxi ở đâu?",
+            "translated_sentence": "Chào buổi chiều! Bến taxi ở đâu?",
+            "translated_word": "Chào buổi chiều",
+            "word_transliteration": "Chào buổi chiều"
+          },
+          {
+            "audio": "22cff43c-9cbc-4bbc-9dec-b8a8bfdf1ceb",
+            "audio_sentence": "0afd0afe-5bb3-4746-870e-ab0a80dc13fc",
+            "language": 7,
+            "sentence_transliteration": "Selamat siang! Dimana pangkalan taksi?",
+            "translated_sentence": "Selamat siang! Dimana pangkalan taksi?",
+            "translated_word": "Selamat siang",
+            "word_transliteration": "Selamat siang"
+          },
+          {
+            "audio": "0081034c-7dd2-4487-9754-c6b97f4b6805",
+            "audio_sentence": "f82a0574-56da-426b-897c-732b768582cc",
+            "language": 8,
+            "sentence_transliteration": "Sawàt-dii tawn baai! Thîi jòot taxi yùu thîi nǎi?",
+            "translated_sentence": "สวัสดีตอนบ่าย! ที่จอดแท็กซี่อยู่ที่ไหน?",
+            "translated_word": "สวัสดีตอนบ่าย",
+            "word_transliteration": "Sawàt-dii tawn baai"
+          }
+        ]
+      },
+      {
+        "word": "Good evening",
+        "definition": "A greeting used in the evening.",
+        "sentence": "Good evening! Can I book a tour for tomorrow?",
+        "translations": [
+          {
+            "audio": "7dada17a-54d7-4338-8097-31dc7a95153e",
+            "audio_sentence": "030e1dc5-ef6d-42a4-99cd-1090170e7064",
+            "language": 1,
+            "sentence_transliteration": "Konbanwa! Ashita no tsua o yoyaku dekimasu ka?",
+            "translated_sentence": "こんばんは！明日のツアーを予約できますか？",
+            "translated_word": "こんばんは",
+            "word_transliteration": "Konbanwa"
+          },
+          {
+            "audio": "4db8665b-336f-405a-8056-824c11023265",
+            "audio_sentence": "fa88d876-0c21-499f-ba99-540b399a9fe0",
+            "language": 3,
+            "sentence_transliteration": "Wǎn shàng hǎo! Wǒ kě yǐ yù dìng míng tiān de lǚ yóu ma?",
+            "translated_sentence": "晚上好！我可以预订明天的旅游吗？",
+            "translated_word": "晚上好",
+            "word_transliteration": "Wǎn shàng hǎo"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Good evening! Can I book a tour for tomorrow?",
+            "translated_sentence": "Good evening! Can I book a tour for tomorrow?",
+            "translated_word": "Good evening",
+            "word_transliteration": "Good evening"
+          },
+          {
+            "audio": "f1d950eb-9956-46bb-bc21-67046ad044aa",
+            "audio_sentence": "6f13310e-6613-47a3-8515-ba08d187f13a",
+            "language": 5,
+            "sentence_transliteration": "Joeun jeonyeok! Naeil tueoreul yeyakhal su isseoyo?",
+            "translated_sentence": "좋은 저녁! 내일 투어를 예약할 수 있어요?",
+            "translated_word": "좋은 저녁",
+            "word_transliteration": "Joeun jeonyeok"
+          },
+          {
+            "audio": "b3250929-6f69-4dc7-a1a2-0322f2ad80ed",
+            "audio_sentence": "c0d7bf56-2cfc-4f7b-bff3-c6b2e3264a6d",
+            "language": 6,
+            "sentence_transliteration": "Chào buổi tối! Tôi có thể đặt tour cho ngày mai không?",
+            "translated_sentence": "Chào buổi tối! Tôi có thể đặt tour cho ngày mai không?",
+            "translated_word": "Chào buổi tối",
+            "word_transliteration": "Chào buổi tối"
+          },
+          {
+            "audio": "d5f2a4a7-0c65-4343-ad89-f08cb861fbc2",
+            "audio_sentence": "a1779aa1-2d19-4ef6-95a8-d34cd7716b6f",
+            "language": 7,
+            "sentence_transliteration": "Selamat malam! Bisakah saya memesan tur untuk besok?",
+            "translated_sentence": "Selamat malam! Bisakah saya memesan tur untuk besok?",
+            "translated_word": "Selamat malam",
+            "word_transliteration": "Selamat malam"
+          },
+          {
+            "audio": "e853e942-66d7-4aa5-8fd0-a457c1017c03",
+            "audio_sentence": "8ce6183f-98ff-4628-ae93-2c7be1faf287",
+            "language": 8,
+            "sentence_transliteration": "Sawàt-dii tawn yen! Jòng thîao wai phruŋnii dâi mái?",
+            "translated_sentence": "สวัสดีตอนเย็น! จองเที่ยวไว้พรุ่งนี้ได้ไหม?",
+            "translated_word": "สวัสดีตอนเย็น",
+            "word_transliteration": "Sawàt-dii tawn yen"
+          }
+        ]
+      },
+      {
+        "word": "Goodbye",
+        "definition": "A farewell used when leaving someone.",
+        "sentence": "Goodbye! Thank you for your help.",
+        "translations": [
+          {
+            "audio": "35f99711-0d9c-46d5-81fe-d44d8073080e",
+            "audio_sentence": "7b3f93f7-4d1b-4a4f-8ec0-f78763d17011",
+            "language": 1,
+            "sentence_transliteration": "Sayounara! Tasukete kurete arigatou gozaimasu.",
+            "translated_sentence": "さようなら！助けてくれてありがとうございます。",
+            "translated_word": "さようなら",
+            "word_transliteration": "Sayounara"
+          },
+          {
+            "audio": "e7483b28-4c7f-4dae-bf91-bbede9ce53a1",
+            "audio_sentence": "cb54fd27-4b68-423c-9042-d3e01a4234cb",
+            "language": 3,
+            "sentence_transliteration": "Zài jiàn! Xiè xiè nǐ de bāng zhù.",
+            "translated_sentence": "再见！谢谢你的帮助。",
+            "translated_word": "再见",
+            "word_transliteration": "Zài jiàn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Goodbye! Thank you for your help.",
+            "translated_sentence": "Goodbye! Thank you for your help.",
+            "translated_word": "Goodbye",
+            "word_transliteration": "Goodbye"
+          },
+          {
+            "audio": "e74e84c1-598a-4da5-a6f4-96b3d303b8c0",
+            "audio_sentence": "23d174af-85a1-4846-ba1e-0a9da7d9975f",
+            "language": 5,
+            "sentence_transliteration": "Annyeonghi gaseyo! Dowajusyeoseo gamsahamnida.",
+            "translated_sentence": "안녕히 가세요! 도와주셔서 감사합니다.",
+            "translated_word": "안녕히 가세요",
+            "word_transliteration": "Annyeonghi gaseyo"
+          },
+          {
+            "audio": "560420ab-b977-4d71-b3e3-a75348fee076",
+            "audio_sentence": "7b921a9e-822a-4ac5-9aca-d40e6724bd70",
+            "language": 6,
+            "sentence_transliteration": "Chào tạm biệt! Cảm ơn bạn đã giúp đỡ.",
+            "translated_sentence": "Chào tạm biệt! Cảm ơn bạn đã giúp đỡ.",
+            "translated_word": "Chào tạm biệt",
+            "word_transliteration": "Chào tạm biệt"
+          },
+          {
+            "audio": "ece992a2-1d1b-4441-ba8a-aa9ca320e21f",
+            "audio_sentence": "71942e88-3616-4e1e-b53e-22fa228cb681",
+            "language": 7,
+            "sentence_transliteration": "Selamat tinggal! Terima kasih atas bantuan Anda.",
+            "translated_sentence": "Selamat tinggal! Terima kasih atas bantuan Anda.",
+            "translated_word": "Selamat tinggal",
+            "word_transliteration": "Selamat tinggal"
+          },
+          {
+            "audio": "325443f9-c7bf-4b31-bee1-c46ed6f38f2a",
+            "audio_sentence": "09cb43fb-f8e5-4a34-9ba0-226a2801d799",
+            "language": 8,
+            "sentence_transliteration": "Laa-gɔ̀ɔn! Khɔ̀ɔp-khun thîi chûai lɯ̌a.",
+            "translated_sentence": "ลาก่อน! ขอบคุณที่ช่วยเหลือ.",
+            "translated_word": "ลาก่อน",
+            "word_transliteration": "Laa-gɔ̀ɔn"
+          }
+        ]
+      },
+      {
+        "word": "See you",
+        "definition": "A casual way to say goodbye, indicating you'll meet again.",
+        "sentence": "See you at the airport later!",
+        "translations": [
+          {
+            "audio": "de3b24d0-6296-4be2-b2b1-e915abe3f4b4",
+            "audio_sentence": "b1296d1d-9b05-40fa-a035-52f895440920",
+            "language": 1,
+            "sentence_transliteration": "Mata ne! Kuukoo de mata ato de!",
+            "translated_sentence": "また会おう！空港でまた後で！",
+            "translated_word": "また会おう",
+            "word_transliteration": "Mata aimashou"
+          },
+          {
+            "audio": "e8a92d97-f3d8-4fb2-8945-cb1963a31e0d",
+            "audio_sentence": "54b770d1-6851-48a8-a8a8-453037127d36",
+            "language": 3,
+            "sentence_transliteration": "Zài jiàn! Děng yī xià zài jī chǎng jiàn!",
+            "translated_sentence": "再见！等一下在机场见！",
+            "translated_word": "再见",
+            "word_transliteration": "Zài jiàn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "See you at the airport later!",
+            "translated_sentence": "See you at the airport later!",
+            "translated_word": "See you",
+            "word_transliteration": "See you"
+          },
+          {
+            "audio": "ee0fd411-06ec-4c25-ad06-c7706d68131b",
+            "audio_sentence": "33b1bc86-0c02-4307-bd0f-45873f1ed098",
+            "language": 5,
+            "sentence_transliteration": "Tto bwayo! Gonghangeseo najunge bwayo!",
+            "translated_sentence": "또 봐요! 공항에서 나중에 봐요!",
+            "translated_word": "또 봐요",
+            "word_transliteration": "Tto bwayo"
+          },
+          {
+            "audio": "dfa23d68-eb65-41d9-9c37-254dabb539b1",
+            "audio_sentence": "fa01815c-00d1-4ba7-8326-1793ef76bc58",
+            "language": 6,
+            "sentence_transliteration": "Hẹn gặp lại! Gặp lại tại sân bay sau nhé!",
+            "translated_sentence": "Hẹn gặp lại! Gặp lại tại sân bay sau nhé!",
+            "translated_word": "Hẹn gặp lại",
+            "word_transliteration": "Hẹn gặp lại"
+          },
+          {
+            "audio": "1422590d-2560-4961-b911-e801e57a01a8",
+            "audio_sentence": "7013cfbe-cfc7-4072-b1c1-b60513f63dc6",
+            "language": 7,
+            "sentence_transliteration": "Sampai jumpa! Sampai jumpa di bandara nanti!",
+            "translated_sentence": "Sampai jumpa! Sampai jumpa di bandara nanti!",
+            "translated_word": "Sampai jumpa",
+            "word_transliteration": "Sampai jumpa"
+          },
+          {
+            "audio": "eaf71e63-570a-417b-a778-2f679f2ebf16",
+            "audio_sentence": "fb6b85fb-8229-49c1-84c8-f72351965227",
+            "language": 8,
+            "sentence_transliteration": "Laeo phóp gan! Phóp gan thîi sanaam bin thii lang!",
+            "translated_sentence": "แล้วพบกัน! พบกันที่สนามบินทีหลัง!",
+            "translated_word": "แล้วพบกัน",
+            "word_transliteration": "Laeo phóp gan"
+          }
+        ]
+      },
+      {
+        "word": "Nice to meet you",
+        "definition": "A phrase used when meeting someone for the first time.",
+        "sentence": "Nice to meet you! I'm visiting from another country.",
+        "translations": [
+          {
+            "audio": "34400ffb-8b5f-48d2-8ecd-b7e6fac843f8",
+            "audio_sentence": "ad88d970-e845-4295-93aa-f505535ff610",
+            "language": 1,
+            "sentence_transliteration": "Hajimemashite! Gaikoku kara kite imasu.",
+            "translated_sentence": "はじめまして！外国から来ています。",
+            "translated_word": "はじめまして",
+            "word_transliteration": "Hajimemashite"
+          },
+          {
+            "audio": "19928181-f0d9-49f8-a1e8-6f504ec80d53",
+            "audio_sentence": "543a522f-acb6-46c4-952b-e264fde0f265",
+            "language": 3,
+            "sentence_transliteration": "Hěn gāo xìng rèn shí nǐ! Wǒ cóng qí tā guó jiā lái cān guān.",
+            "translated_sentence": "很高兴认识你！我从其他国家来参观。",
+            "translated_word": "很高兴认识你",
+            "word_transliteration": "Hěn gāo xìng rèn shí nǐ"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Nice to meet you! I'm visiting from another country.",
+            "translated_sentence": "Nice to meet you! I'm visiting from another country.",
+            "translated_word": "Nice to meet you",
+            "word_transliteration": "Nice to meet you"
+          },
+          {
+            "audio": "22766227-559c-423d-a597-f8ab92da31c0",
+            "audio_sentence": "5b994b65-7a1c-47e8-ab65-76567b44b65e",
+            "language": 5,
+            "sentence_transliteration": "Mannaseo bangapseumnida! Dareun naraeseo wajyo.",
+            "translated_sentence": "만나서 반갑습니다! 다른 나라에서 왔어요.",
+            "translated_word": "만나서 반갑습니다",
+            "word_transliteration": "Mannaseo bangapseumnida"
+          },
+          {
+            "audio": "64ad4af0-554d-4df8-b2ed-3f72a5a492d2",
+            "audio_sentence": "ddbcc7b0-abbd-4f89-b6f9-314fd3ee6e74",
+            "language": 6,
+            "sentence_transliteration": "Rất vui được gặp bạn! Tôi đến từ nước khác.",
+            "translated_sentence": "Rất vui được gặp bạn! Tôi đến từ nước khác.",
+            "translated_word": "Rất vui được gặp bạn",
+            "word_transliteration": "Rất vui được gặp bạn"
+          },
+          {
+            "audio": "234e21f5-7eab-4f51-9cea-e68fd56e7e79",
+            "audio_sentence": "95a63839-95e6-42e7-8761-41f7bc98e5f2",
+            "language": 7,
+            "sentence_transliteration": "Senang berkenalan dengan Anda! Saya berkunjung dari negara lain.",
+            "translated_sentence": "Senang berkenalan dengan Anda! Saya berkunjung dari negara lain.",
+            "translated_word": "Senang berkenalan dengan Anda",
+            "word_transliteration": "Senang berkenalan dengan Anda"
+          },
+          {
+            "audio": "0c1a6ff0-1888-4be1-ac01-c98b5cf35d7b",
+            "audio_sentence": "584a8e26-6fca-4600-9ebf-902467e82d9e",
+            "language": 8,
+            "sentence_transliteration": "Dii jai thîi dâi rúu jàk! Phǒm maa thîao jaak prathêet ɯ̀ɯn.",
+            "translated_sentence": "ดีใจที่ได้รู้จัก! ผมมาเที่ยวจากประเทศอื่น.",
+            "translated_word": "ดีใจที่ได้รู้จัก",
+            "word_transliteration": "Dii jai thîi dâi rúu jàk"
+          }
+        ]
+      },
+      {
+        "word": "How are you?",
+        "definition": "A question to ask about someone's well-being.",
+        "sentence": "Hello! How are you today? Is the bus on time?",
+        "translations": [
+          {
+            "audio": "2ba0bce8-cdcf-4c08-a8df-36827a0d381c",
+            "audio_sentence": "bf6258d0-a3e6-4996-99f7-a988f78b7fdb",
+            "language": 1,
+            "sentence_transliteration": "Konnichiwa! Kyou wa ogenki desu ka? Basu wa jikan doori desu ka?",
+            "translated_sentence": "こんにちは！今日はお元気ですか？バスは時間通りですか？",
+            "translated_word": "お元気ですか",
+            "word_transliteration": "Ogenki desu ka"
+          },
+          {
+            "audio": "81d279fc-e57e-4ed7-96ad-f0294438cd14",
+            "audio_sentence": "eef7cf92-720e-4541-918d-ee7a996e1970",
+            "language": 3,
+            "sentence_transliteration": "Nǐ hǎo! Nǐ jīn tiān zěn me yàng? Gōng gòng qì chē zhǔn shí ma?",
+            "translated_sentence": "你好！你今天怎么样？公共汽车准时吗？",
+            "translated_word": "你怎么样",
+            "word_transliteration": "Nǐ zěn me yàng"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Hello! How are you today? Is the bus on time?",
+            "translated_sentence": "Hello! How are you today? Is the bus on time?",
+            "translated_word": "How are you?",
+            "word_transliteration": "How are you?"
+          },
+          {
+            "audio": "bcae1026-3bb8-46cc-9778-5c9080f40a92",
+            "audio_sentence": "8a2eaa3b-01cc-4114-8eb8-5ada92f1b7c2",
+            "language": 5,
+            "sentence_transliteration": "Annyeonghaseyo! Oneul eotteoseyo? Beoseuga jeongsigie wayo?",
+            "translated_sentence": "안녕하세요! 오늘 어떠세요? 버스가 정시에 와요?",
+            "translated_word": "어떠세요",
+            "word_transliteration": "Eotteoseyo"
+          },
+          {
+            "audio": "33587941-4687-4ef8-8314-56552c42438f",
+            "audio_sentence": "83750024-dc76-4855-819b-0d2b80b5b189",
+            "language": 6,
+            "sentence_transliteration": "Xin chào! Hôm nay bạn thế nào? Xe buýt có đúng giờ không?",
+            "translated_sentence": "Xin chào! Hôm nay bạn thế nào? Xe buýt có đúng giờ không?",
+            "translated_word": "Bạn thế nào",
+            "word_transliteration": "Bạn thế nào"
+          },
+          {
+            "audio": "e0845828-d79c-447f-9b5d-de69b8b9f4e6",
+            "audio_sentence": "b4f91635-63a8-47d7-b795-c86e0d88ae92",
+            "language": 7,
+            "sentence_transliteration": "Halo! Apa kabar hari ini? Apakah busnya tepat waktu?",
+            "translated_sentence": "Halo! Apa kabar hari ini? Apakah busnya tepat waktu?",
+            "translated_word": "Apa kabar",
+            "word_transliteration": "Apa kabar"
+          },
+          {
+            "audio": "76f4485b-215b-4f10-be75-ea067549e2c7",
+            "audio_sentence": "ac99e09a-9d3d-4996-a478-03ff6e186871",
+            "language": 8,
+            "sentence_transliteration": "Sà-wàt-dii! Wan nii pen yang ngai? Rót-mee maa trong weelaa mái?",
+            "translated_sentence": "สวัสดี! วันนี้เป็นยังไง? รถเมล์มาตรงเวลาไหม?",
+            "translated_word": "เป็นยังไง",
+            "word_transliteration": "Pen yang ngai"
+          }
+        ]
+      },
+      {
+        "word": "Excuse me",
+        "definition": "A polite way to get someone's attention or to pass by.",
+        "sentence": "Excuse me, could you tell me where the restroom is?",
+        "translations": [
+          {
+            "audio": "976f4912-6e45-4d55-b17b-e6f405ea8768",
+            "audio_sentence": "c8bc9166-df3b-4c5b-9951-8af85eac7c70",
+            "language": 1,
+            "sentence_transliteration": "Sumimasen, toire wa doko desu ka?",
+            "translated_sentence": "すみません、トイレはどこですか？",
+            "translated_word": "すみません",
+            "word_transliteration": "Sumimasen"
+          },
+          {
+            "audio": "43cd20cf-2bfa-4b9e-9ebf-03a01950cbea",
+            "audio_sentence": "5aecf51f-24dd-4b25-84e7-1ea4f637112b",
+            "language": 3,
+            "sentence_transliteration": "Bù hǎo yì si, nǐ néng gào su wǒ xǐ shǒu jiān zài nǎ lǐ ma?",
+            "translated_sentence": "不好意思，你能告诉我洗手间在哪里吗？",
+            "translated_word": "不好意思",
+            "word_transliteration": "Bù hǎo yì si"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 4,
+            "sentence_transliteration": "Excuse me, could you tell me where the restroom is?",
+            "translated_sentence": "Excuse me, could you tell me where the restroom is?",
+            "translated_word": "Excuse me",
+            "word_transliteration": "Excuse me"
+          },
+          {
+            "audio": "1e9cd8e9-24f4-47e8-8f2b-cb1053d95c5c",
+            "audio_sentence": "97c1e6e2-443b-4c98-a798-a49f1f2fa4ab",
+            "language": 5,
+            "sentence_transliteration": "Sillyehamnida, hwajangsil eodi inneunji allyeojusil su isseoyo?",
+            "translated_sentence": "실례합니다, 화장실 어디 있는지 알려주실 수 있어요?",
+            "translated_word": "실례합니다",
+            "word_transliteration": "Sillyehamnida"
+          },
+          {
+            "audio": "2d423dff-29ea-40a8-bd56-5d0c0826b9a0",
+            "audio_sentence": "5723386f-cd77-4c34-ae77-9f025163674e",
+            "language": 6,
+            "sentence_transliteration": "Xin lỗi, bạn có thể cho tôi biết phòng vệ sinh ở đâu không?",
+            "translated_sentence": "Xin lỗi, bạn có thể cho tôi biết phòng vệ sinh ở đâu không?",
+            "translated_word": "Xin lỗi",
+            "word_transliteration": "Xin lỗi"
+          },
+          {
+            "audio": "a9f946ad-ecc8-4222-bad5-f29fae92e39d",
+            "audio_sentence": "d0c47ca3-4d43-4cc3-8cec-40b431cee2c9",
+            "language": 7,
+            "sentence_transliteration": "Permisi, bisakah Anda memberi tahu saya dimana kamar mandi?",
+            "translated_sentence": "Permisi, bisakah Anda memberi tahu saya dimana kamar mandi?",
+            "translated_word": "Permisi",
+            "word_transliteration": "Permisi"
+          },
+          {
+            "audio": "681d5eff-56d5-42b4-9005-17015c3a145d",
+            "audio_sentence": "2deff294-77c3-47d1-be3a-6ab1c6013a3e",
+            "language": 8,
+            "sentence_transliteration": "Khɔ̌ɔ-thôot, chûai bɔ̀ɔk dâi mái wâa hɔ̂ŋ náam yùu thîi nǎi?",
+            "translated_sentence": "ขอโทษ ช่วยบอกได้ไหมว่าห้องน้ำอยู่ที่ไหน?",
+            "translated_word": "ขอโทษ",
+            "word_transliteration": "Khɔ̌ɔ-thôot"
+          }
+        ]
+      }
+    ]
+  }
+]

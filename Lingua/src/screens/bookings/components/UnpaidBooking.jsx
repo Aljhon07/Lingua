@@ -23,7 +23,7 @@ export default function UnpaidBooking({ bookingId }) {
     executeQuery("bookingDetails", fetchBookingDetails, {
       id: bookingId,
       filter:
-        "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,ticket.*,ticket.return_ticket.*,total_price",
+        "fields=phone_number,payment_method,email_address,status,date_created,passengers.name,passengers.return_seat,ticket.*,ticket.return_ticket.*,total_price",
     });
   };
 

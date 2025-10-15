@@ -7,7 +7,7 @@ import { LessonCard } from "./components/LessonCard";
 import { useQueryState } from "@hooks/useQueryState";
 import DataContainer from "@components/layouts/DataContainer";
 import { fetchLessons } from "@services/directus/rest";
-import { Text } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { LanguageList } from "@components/atoms/LanguageList";
 import { useLanguageContext } from "@context/LanguageProvider";
 import { useNavigation } from "@react-navigation/native";
@@ -42,14 +42,14 @@ export default function LessonList() {
       <Text style={{ textAlign: "center", marginBottom: spacing.md }}>
         Unable to fetch lessons. Please check your connection.
       </Text>
-      <Text
+      <Button
         style={{ textAlign: "center", color: "blue" }}
         onPress={() => {
           executeQuery("lesson", fetchLessons);
         }}
       >
         Try Again
-      </Text>
+      </Button>
     </View>
   );
   return (

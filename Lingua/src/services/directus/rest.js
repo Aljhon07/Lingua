@@ -64,7 +64,7 @@ export const fetchPackages = async (filter) => {
   try {
     console.log("Fetching Packages...");
     const res = await axiosInstance.get(
-      `/items/travel_package?fields=id,tags,name,country.name,cover,price&${filter}`
+      `/items/travel_package?fields=id,tags,name,country.name,cover,price&${filter}&sort=-date_created`
     );
     console.log("Packages Fetched");
     return res.data.data;
@@ -77,9 +77,12 @@ export const fetchPackageDetails = async (id) => {
   try {
     console.log("Fetching Package Details...", id);
     const res = await axiosInstance.get(
-      `/items/travel_package/${id}?fields=*,itinerary.*,features.*`
+      `/items/travel_package/${id}?fields=*,itinerary.*,features.*,tags.name,tags.id`
     );
-    console.log("Package Details Fetched");
+    console.log(
+      "Package Details Fetched ",
+      JSON.stringify(res.data.data, null, 2)
+    );
     return res.data.data;
   } catch (error) {
     throw new Error(logError("getPackageDetails", error));

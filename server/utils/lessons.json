@@ -1,0 +1,59 @@
+{
+  "lesson_1": {
+    "name": "Travel Greetings and Introductions",
+    "description": "Common greetings and introduction phrases useful when traveling.",
+    "order": 1,
+    "vocabularies": [
+      {
+        "word": "Hello",
+        "definition": "A greeting used to acknowledge someone’s presence.",
+        "sentence": "Hello! Is this the check-in counter?"
+      },
+      {
+        "word": "Hi",
+        "definition": "A casual greeting used to say hello.",
+        "sentence": "Hi! Can you help me with directions?"
+      },
+      {
+        "word": "Good morning",
+        "definition": "A greeting used in the morning hours.",
+        "sentence": "Good morning! I have a reservation."
+      },
+      {
+        "word": "Good afternoon",
+        "definition": "A greeting used in the afternoon.",
+        "sentence": "Good afternoon! Where is the taxi stand?"
+      },
+      {
+        "word": "Good evening",
+        "definition": "A greeting used in the evening.",
+        "sentence": "Good evening! Can I book a tour for tomorrow?"
+      },
+      {
+        "word": "Goodbye",
+        "definition": "A farewell used when leaving someone.",
+        "sentence": "Goodbye! Thank you for your help."
+      },
+      {
+        "word": "See you",
+        "definition": "A casual way to say goodbye, indicating you’ll meet again.",
+        "sentence": "See you at the airport later!"
+      },
+      {
+        "word": "Nice to meet you",
+        "definition": "A phrase used when meeting someone for the first time.",
+        "sentence": "Nice to meet you! I’m visiting from another country."
+      },
+      {
+        "word": "How are you?",
+        "definition": "A question to ask about someone’s well-being.",
+        "sentence": "Hello! How are you today? Is the bus on time?"
+      },
+      {
+        "word": "Excuse me",
+        "definition": "A polite way to get someone’s attention or to pass by.",
+        "sentence": "Excuse me, could you tell me where the restroom is?"
+      }
+    ]
+  }
+}

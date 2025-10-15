@@ -1,0 +1,37 @@
+{
+  "categories": [
+    {
+      "name": "Starting the Journey / Departure"
+    },
+    {
+      "name": "On the Way / Transportation"
+    },
+    {
+      "name": "Shopping / Markets"
+    },
+    {
+      "name": "Accommodation / Hotel"
+    },
+    {
+      "name": "Arrival / Immigration / Customs"
+    },
+    {
+      "name": "Sightseeing / Tourist Spots"
+    },
+    {
+      "name": "Polite Interactions / Small Talk"
+    },
+    {
+      "name": "Leaving / Farewell"
+    },
+    {
+      "name": "At the Airport / Transport Hub"
+    },
+    {
+      "name": "Eating / Restaurants"
+    },
+    {
+      "name": "Emergencies / Health"
+    }
+  ]
+}

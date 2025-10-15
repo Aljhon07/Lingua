@@ -27,6 +27,7 @@ function assignSeats(passengers) {
     id: passenger,
     ticket_number: generateTicketNumber(),
     seat: `${row}${seatLetters[startSeatIndex + index]}`,
+    return_seat: `${row + 1}${seatLetters[startSeatIndex + index]}`,
   }));
 }
 
