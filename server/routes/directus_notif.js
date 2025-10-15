@@ -427,7 +427,7 @@ const generateBookingHTML = (bookingData) => {
           </div>
           
           <div class="section">
-            <div class="section-title">Flight Details</div>
+            <div class="section-title">Outbound Flight</div>
             <div class="info-grid">
               <div class="info-item">
                 <div class="info-label">Ticket ID</div>
@@ -466,6 +466,59 @@ const generateBookingHTML = (bookingData) => {
               </div>
             </div>
           </div>
+          
+          ${
+            ticket.return_ticket && ticket.return_ticket[0]
+              ? `
+          <div class="section">
+            <div class="section-title">Return Flight</div>
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">Return Ticket ID</div>
+                <div class="info-value">${ticket.return_ticket[0].id}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">Flight Type</div>
+                <div class="info-value">${
+                  ticket.return_ticket[0].type || "Return"
+                }</div>
+              </div>
+            </div>
+            
+            <div class="flight-route">
+              <div class="location">
+                <div class="location-code">${
+                  ticket.return_ticket[0].departure_location
+                }</div>
+                <div class="location-name">Departure</div>
+              </div>
+              <div class="flight-arrow"></div>
+              <div class="location">
+                <div class="location-code">${
+                  ticket.return_ticket[0].arrival_location
+                }</div>
+                <div class="location-name">Arrival</div>
+              </div>
+            </div>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <div class="info-label">Departure Time</div>
+                <div class="info-value">${formatDate(
+                  ticket.return_ticket[0].departure_schedule
+                )}</div>
+              </div>
+              <div class="info-item">
+                <div class="info-label">Arrival Time</div>
+                <div class="info-value">${formatDate(
+                  ticket.return_ticket[0].arrival_schedule
+                )}</div>
+              </div>
+            </div>
+          </div>
+          `
+              : ""
+          }
           
           <div class="section">
             <div class="section-title">Passengers (${passengers.length})</div>
@@ -636,7 +689,7 @@ const createFallbackPDF = async (bookingData, outputPath) => {
       </div>
       
       <div class="section">
-        <h2>Flight Details</h2>
+        <h2>Outbound Flight</h2>
         <div><span class="label">Ticket ID:</span> <span class="value">${
           ticket.id
         }</span></div>
@@ -656,6 +709,34 @@ const createFallbackPDF = async (bookingData, outputPath) => {
           ticket.arrival_schedule
         ).toLocaleString()}</span></div>
       </div>
+      
+      ${
+        ticket.return_ticket && ticket.return_ticket[0]
+          ? `
+      <div class="section">
+        <h2>Return Flight</h2>
+        <div><span class="label">Return Ticket ID:</span> <span class="value">${
+          ticket.return_ticket[0].id
+        }</span></div>
+        <div><span class="label">Flight Type:</span> <span class="value">${
+          ticket.return_ticket[0].type || "Return"
+        }</span></div>
+        <div><span class="label">Departure:</span> <span class="value">${
+          ticket.return_ticket[0].departure_location
+        }</span></div>
+        <div><span class="label">Arrival:</span> <span class="value">${
+          ticket.return_ticket[0].arrival_location
+        }</span></div>
+        <div><span class="label">Departure Time:</span> <span class="value">${new Date(
+          ticket.return_ticket[0].departure_schedule
+        ).toLocaleString()}</span></div>
+        <div><span class="label">Arrival Time:</span> <span class="value">${new Date(
+          ticket.return_ticket[0].arrival_schedule
+        ).toLocaleString()}</span></div>
+      </div>
+      `
+          : ""
+      }
       
       <div class="section">
         <h2>Passengers (${passengers.length})</h2>
@@ -715,6 +796,7 @@ router.post("/booking", async (req, res) => {
     const { data: response } = await axiosInstance.get(
       `/items/booking/${bookingId}?fields=*,ticket.*,ticket.return_ticket.*,passengers.name,passengers.ticket_number,passengers.seat,passengers.return_seat,user_created.notification_id,user_created.id,ticket.travel_package.name,booking_details_pdf`
     );
+
     const bookingData = response.data;
     const status = bookingData.status;
     const notificationToken = bookingData.user_created?.notification_id;

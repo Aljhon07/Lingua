@@ -197,7 +197,7 @@ export default function Translator() {
           />
 
           <Text style={[styles.speechTip, { color: colors.onSurfaceVariant }]}>
-            💡 Tip: Speak clearly near your mic in a quiet space if possible for
+            Tip: Speak clearly near your mic in a quiet space if possible for
             best accuracy.
           </Text>
 

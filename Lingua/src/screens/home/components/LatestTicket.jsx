@@ -31,11 +31,11 @@ export default function LatestTicket() {
     fetchLatestBooking();
 
     // Set up auto-refresh every 5 seconds
-    // const interval = setInterval(() => {
-    //   fetchLatestBooking();
-    // }, 5000);
+    const interval = setInterval(() => {
+      fetchLatestBooking();
+    }, 5000);
 
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, []);
 
   // Update cached booking only when we have new data

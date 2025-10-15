@@ -32,7 +32,12 @@ const faqData = [
       {
         question: "How do I cancel a booking?",
         answer:
-          "To cancel a booking, you need to contact our support team. Please use the Contact Support option in your Profile settings for assistance with cancellations.",
+          "For unpaid bookings (status 'For Approval'), you can cancel directly by opening the booking details and tapping the 'Cancel Booking' button. For paid bookings, you must contact our customer support team for assistance with cancellations and refund processing.",
+      },
+      {
+        question: "Can I get a refund for cancelled bookings?",
+        answer:
+          "Refund eligibility depends on your booking status and our cancellation policy. For unpaid bookings cancelled before approval, no payment processing is involved. For paid bookings, please contact customer support to discuss refund options based on the timing of your cancellation.",
       },
     ],
   },

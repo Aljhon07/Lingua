@@ -99,7 +99,7 @@ export default function StripePay({
       <CustomButton
         onPress={handlePayPress}
         disabled={!ready}
-        style={{ margin: 16 }}
+        style={style || { margin: 16 }}
         primary
       >
         Pay Now

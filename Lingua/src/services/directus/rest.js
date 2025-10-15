@@ -387,11 +387,23 @@ export const fetchQuestions = async ({ id, lang }) => {
   }
 };
 
+export const fetchPhraseCategories = async () => {
+  try {
+    console.log("Fetching Phrase Categories...");
+    const res = await axiosInstance.get(
+      `/items/phrase_category?fields=id,name,importance&sort=importance`
+    );
+    console.log("Phrase Categories Fetched");
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("fetchPhraseCategories", error));
+  }
+};
 export const fetchPhrases = async ({ lang }) => {
   try {
     console.log("Fetching Phrases...");
     const res = await axiosInstance.get(
-      `/items/phrase?fields=id,phrase,translation.translation,translation.transliteration,translation.audio,translation.language.*&deep[translation][_filter][language][code][_eq]=${lang}`
+      `/items/phrase?fields=id,phrase,translation.translation,translation.transliteration,category.name,category.importance,translation.audio,translation.language.*&deep[translation][_filter][language][code][_eq]=${lang}`
     );
 
     console.log(JSON.stringify(res.data.data, null, 2));
@@ -465,5 +477,22 @@ export const fetchAllTags = async () => {
     return res.data.data;
   } catch (error) {
     throw new Error(logError("fetchAllTags", error));
+  }
+};
+
+export const cancelBooking = async (bookingId) => {
+  try {
+    console.log("Cancelling Booking...", bookingId);
+    const res = await axiosInstance.patch(`/items/booking/${bookingId}`, {
+      status: "Cancelled",
+    });
+    console.log("Booking Cancelled Successfully");
+    return {
+      status: res.status,
+      data: res.data.data,
+    };
+  } catch (error) {
+    console.error("Error cancelling booking:", error);
+    throw new Error(logError("cancelBooking", error));
   }
 };
