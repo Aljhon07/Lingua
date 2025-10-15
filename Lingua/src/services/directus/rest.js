@@ -60,6 +60,19 @@ export const fetchCountries = async () => {
   }
 };
 
+export const fetchRecommendedPackages = async () => {
+  try {
+    console.log("Fetching Recommended Packages...");
+    const res = await axiosInstance.get(
+      `/items/travel_package?fields=id,tags,name,country.name,cover,price&filter[featured][_eq]=true&sort=date_updated`
+    );
+    console.log("Recommended Packages Fetched");
+    return res.data.data;
+  } catch (error) {
+    throw new Error(logError("getRecommendedPackages", error));
+  }
+};
+
 export const fetchPackages = async (filter) => {
   try {
     console.log("Fetching Packages...");
