@@ -16,11 +16,11 @@ export default function ContactSupport({ navigation }) {
   const styles = createStyles(colors)
 
   const handleEmailSupport = () => {
-    Linking.openURL("mailto:support@lingua.com?subject=Support Request")
+    Linking.openURL("mailto:enquiry@flyershub.org?subject=Support Request")
   }
 
   const handlePhoneSupport = () => {
-    Linking.openURL("tel:+1234567890")
+    Linking.openURL("tel:(028) 731 7631")
   }
 
   const handleReportBug = () => {
