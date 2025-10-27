@@ -1,1 +1,10 @@
-[""]
+[
+    {
+        "Category": "Leaving / Farewell",
+        "phrase": ["Goodbye! Have a nice day.", "See you later.", "Take care!"]
+      },
+      {
+        "Category": "At the Airport / Transport Hub",
+        "phrase": ["Where is the information desk?", "Which way should I go?"]
+      }
+]

@@ -20,9 +20,18 @@ export default function Translator() {
   const [sourceText, setSourceText] = useState();
   const [translatedText, setTranslatedText] = useState("");
   const [sourceLanguage, setSourceLanguage] = useState("en");
-  const [targetLanguage, setTargetLanguage] = useState("ja");
+  const [targetLanguage, setTargetLanguage] = useState(
+    selectedLanguage?.code || "ja"
+  );
   const [isTranslating, setIsTranslating] = useState(false);
   const [showPhrasebook, setShowPhrasebook] = useState(false);
+
+  console.log(
+    "Translator render - selectedLanguage:",
+    selectedLanguage,
+    "targetLanguage:",
+    targetLanguage
+  );
 
   const { isRecording, isProcessing, transcript, handleRecord } =
     useSpeechRecognition(profile?.id);
@@ -30,6 +39,39 @@ export default function Translator() {
   const { audioUrl, handleSynthesize } = useSpeechSynthesis();
 
   const { playSound, isPlaying } = usePlayback();
+
+  // Sync target language with global language context changes
+  useEffect(() => {
+    console.log(
+      "Language sync useEffect - selectedLanguage:",
+      selectedLanguage,
+      "targetLanguage:",
+      targetLanguage
+    );
+    if (selectedLanguage?.code && selectedLanguage.code !== targetLanguage) {
+      console.log(
+        "Syncing target language from",
+        targetLanguage,
+        "to",
+        selectedLanguage.code
+      );
+      setTargetLanguage(selectedLanguage.code);
+
+      // If there's existing source text, re-translate it with the new target language
+      if (
+        sourceText &&
+        sourceText.trim() &&
+        sourceText !== "No transcription."
+      ) {
+        console.log(
+          "Re-translating existing text with new target language:",
+          selectedLanguage.code
+        );
+        translateText(sourceText, sourceLanguage, selectedLanguage.code);
+      }
+    }
+  }, [selectedLanguage?.code]);
+
   // Update source text when transcript changes
   useEffect(() => {
     if (transcript && transcript !== "Processing...") {
@@ -104,6 +146,18 @@ export default function Translator() {
     console.log(`Change tgt: ${langCode}`);
     if (langCode) {
       setTargetLanguage(langCode);
+
+      // Update the global language context to sync with language learning
+      if (typeof language === "object" && language?.code && language?.name) {
+        onSelectLanguage(language);
+      } else if (typeof language === "string") {
+        // Find the language object from the languages list
+        const languageObj = languages.find((lang) => lang.code === language);
+        if (languageObj) {
+          onSelectLanguage(languageObj);
+        }
+      }
+
       // Trigger translation with the new target language
       if (sourceText && sourceText.trim()) {
         translateText(sourceText, sourceLanguage, langCode);
@@ -136,14 +190,18 @@ export default function Translator() {
     setSourceLanguage(currentTargetLanguage);
     setTargetLanguage(currentSourceLanguage);
 
+    // Update global language context with the new target language
+    const newTargetLanguageObj = languages.find(
+      (lang) => lang.code === currentSourceLanguage
+    );
+    if (newTargetLanguageObj) {
+      onSelectLanguage(newTargetLanguageObj);
+    }
+
     // Swap the text content - what was translated becomes the new source
     // and what was source becomes the new translated text
     setSourceText(currentTranslatedText);
     setTranslatedText(currentSourceText);
-
-    // Note: We don't update the global language context here because
-    // the translator should manage its own language states independently
-    // The LanguageList components will update automatically via their lang props
 
     // console.log("Languages swapped:", {
     //   newSource: currentTargetLanguage,

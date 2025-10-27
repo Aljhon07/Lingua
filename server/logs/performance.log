@@ -4,3 +4,11 @@
 {"type":"Speech Recognition","duration":922,"device":"SM-A266B","timestamp":"2025-10-10T13:33:08.746Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
 {"type":"Speech Recognition","duration":715,"device":"SM-A266B","timestamp":"2025-10-10T13:33:20.378Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
 {"type":"Speech Recognition","duration":887,"device":"SM-A266B","timestamp":"2025-10-10T13:33:28.719Z","ip":"::ffff:192.168.1.7","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":6947,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T12:43:50.644Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":211627,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T12:47:15.323Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":368604,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T12:49:52.300Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":1224,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T13:00:40.837Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":52828,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T13:01:32.438Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":163171,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T13:03:22.781Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":280613,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T13:05:20.223Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}
+{"type":"App Load","duration":549204,"device":"sdk_gphone64_x86_64","timestamp":"2025-10-15T13:09:48.815Z","ip":"::ffff:192.168.1.161","userAgent":"okhttp/4.12.0"}

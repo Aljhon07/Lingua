@@ -14,11 +14,14 @@ import { Dropdown } from "react-native-paper-dropdown";
 import { CustomButton } from "@components/molecules/CustomButton";
 import { SelectableTag } from "@components/atoms/SelectableTag";
 import { useTravelPackagesContext } from "@context/TravelPackagesProvider";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { fetchCountryLanguage } from "@services/directus/rest";
 
 export default function Header({ getPackages, countries }) {
   registerTranslation("en", en);
   const { profile } = useProfileContext();
   const { tags } = useTravelPackagesContext();
+  const { languages, onSelectLanguage } = useLanguageContext();
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
@@ -30,6 +33,32 @@ export default function Header({ getPackages, countries }) {
 
   const { colors } = useTheme();
   const styles = createStyles(colors);
+
+  // Function to sync language based on selected destination
+  const syncLanguageFromDestination = async (countryName) => {
+    try {
+      console.log("Syncing language for destination:", countryName);
+      const countryLanguage = await fetchCountryLanguage(countryName);
+
+      if (countryLanguage && countryLanguage.code && languages.length > 0) {
+        const matchingLanguage = languages.find(
+          (lang) => lang.code === countryLanguage.code
+        );
+        if (matchingLanguage) {
+          console.log(
+            "Auto-setting language from destination:",
+            matchingLanguage
+          );
+          onSelectLanguage(matchingLanguage);
+          return true;
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error("Error syncing language from destination:", error);
+      return false;
+    }
+  };
 
   // Function to build query string from all filters
   const buildQueryString = () => {
@@ -114,11 +143,21 @@ export default function Header({ getPackages, countries }) {
               placeholder="Select Destination"
               options={countries}
               value={filter.destination}
-              onSelect={(value) => {
+              onSelect={async (value) => {
                 setFilter({
                   ...filter,
                   destination: value,
                 });
+
+                // Sync language with selected destination
+                if (value) {
+                  try {
+                    await syncLanguageFromDestination(value);
+                  } catch (error) {
+                    console.error("Error syncing destination language:", error);
+                    // Don't show error to user as it's not critical for filtering
+                  }
+                }
               }}
             />
           </View>

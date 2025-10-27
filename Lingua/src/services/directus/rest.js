@@ -60,6 +60,21 @@ export const fetchCountries = async () => {
   }
 };
 
+export const fetchCountryLanguage = async (countryName) => {
+  try {
+    console.log("Fetching Country Language for:", countryName);
+    const res = await axiosInstance.get(
+      `/items/country?fields=language.*&filter[name][_eq]=${countryName}&limit=1`
+    );
+    console.log("Country Language Fetched");
+    return res.data.data?.[0]?.language || null;
+  } catch (error) {
+    console.error("Error fetching country language:", error);
+    const err = logError("fetchCountryLanguage", error);
+    return null;
+  }
+};
+
 export const fetchRecommendedPackages = async () => {
   try {
     console.log("Fetching Recommended Packages...");
@@ -77,7 +92,7 @@ export const fetchPackages = async (filter) => {
   try {
     console.log("Fetching Packages...");
     const res = await axiosInstance.get(
-      `/items/travel_package?fields=id,tags,name,country.name,cover,price&${filter}&sort=-date_created`
+      `/items/travel_package?fields=id,tags,name,country.name,cover,price&${filter}&sort=-date_created,country.language`
     );
     console.log("Packages Fetched");
     return res.data.data;
@@ -246,6 +261,27 @@ export const payBooking = async ({ id, paymentId }) => {
   } catch (error) {
     console.error("Error paying booking:", error);
     throw new Error(logError("payBooking", error));
+  }
+};
+
+export const fetchLatestPaidBookingLanguage = async () => {
+  try {
+    console.log("Fetching Latest Paid Booking Language...");
+    const res = await axiosInstance.get(
+      `/items/booking?fields=ticket.travel_package.country.language.*&filter[status][_eq]=Paid&sort=-date_updated&limit=1`
+    );
+    console.log("Latest Paid Booking Language Fetched");
+    console.log(
+      "Booking language data:",
+      res.data.data?.[0]?.ticket?.travel_package?.country?.language
+    );
+    return (
+      res.data.data?.[0]?.ticket?.travel_package?.country?.language || null
+    );
+  } catch (error) {
+    console.error("Error fetching latest paid booking language:", error);
+    const err = logError("fetchLatestPaidBookingLanguage", error);
+    return null;
   }
 };
 

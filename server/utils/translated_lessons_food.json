@@ -1,0 +1,618 @@
+[
+  {
+    "name": "Food & Restaurants",
+    "description": "Vocabulary for ordering food, dining out, and communicating in restaurants while traveling.",
+    "vocabularies": [
+      {
+        "sentence": "Can I see the menu, please?",
+        "word": "Menu",
+        "definition": "A list of food and drink items available in a restaurant.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Menyū o misete kuremasu ka?",
+            "translated_sentence": "メニューを見せてくれますか？",
+            "translated_word": "メニュー",
+            "word_transliteration": "Menyū"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Qǐng gěi wǒ kàn yīxià càidān, hǎo ma?",
+            "translated_sentence": "请给我看一下菜单，好吗？",
+            "translated_word": "菜单",
+            "word_transliteration": "Càidān"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Menyu-reul bwa do doelkkayo?",
+            "translated_sentence": "메뉴를 봐도 될까요?",
+            "translated_word": "메뉴",
+            "word_transliteration": "Menyu"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Tôi có thể xem thực đơn được không ạ?",
+            "translated_sentence": "Tôi có thể xem thực đơn được không ạ?",
+            "translated_word": "Thực đơn",
+            "word_transliteration": "Thực đơn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Bisa saya lihat menunya?",
+            "translated_sentence": "Bisa saya lihat menunya?",
+            "translated_word": "Menu",
+            "word_transliteration": "Menu"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Chun dûu mae-noo dâi măi kráp/khâ?",
+            "translated_sentence": "ขอดูเมนูได้ไหมครับ/คะ?",
+            "translated_word": "เมนู",
+            "word_transliteration": "Mae-noo"
+          }
+        ]
+      },
+      {
+        "sentence": "The waiter brought our drinks quickly.",
+        "word": "Waiter",
+        "definition": "A person who serves food and drinks at a restaurant.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Uētā wa hayaku nomimono o mottekite kuremashita.",
+            "translated_sentence": "ウェイターは早く飲み物を持ってきてくれました。",
+            "translated_word": "ウェイター",
+            "word_transliteration": "Uētā"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Fúwùyuán hěn kuài jiù bǎ wǒmen de yǐnliào sòng lái le.",
+            "translated_sentence": "服务员很快就把我们的饮料送来了。",
+            "translated_word": "服务员",
+            "word_transliteration": "Fúwùyuán"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Weiteo-ga ppalli masil gajyeo-wasseoyo.",
+            "translated_sentence": "웨이터가 빨리 마실 가져왔어요.",
+            "translated_word": "웨이터",
+            "word_transliteration": "Weiteo"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Nhân viên phục vụ mang đồ uống đến rất nhanh.",
+            "translated_sentence": "Nhân viên phục vụ mang đồ uống đến rất nhanh.",
+            "translated_word": "Nhân viên phục vụ",
+            "word_transliteration": "Nhân viên phục vụ"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Pelayan dengan cepat membawa minuman kami.",
+            "translated_sentence": "Pelayan dengan cepat membawa minuman kami.",
+            "translated_word": "Pelayan",
+            "word_transliteration": "Pelayan"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Phûu bâan wéen lâi kâang nâm reo reo",
+            "translated_sentence": "พนักงานเสิร์ฟนำเครื่องดื่มมาเร็วมาก",
+            "translated_word": "พนักงานเสิร์ฟ",
+            "word_transliteration": "Phûu bâan sòep"
+          }
+        ]
+      },
+      {
+        "sentence": "Could I have a glass of water, please?",
+        "word": "Water",
+        "definition": "A drink that is essential for drinking.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Mizu o ippai kudasai.",
+            "translated_sentence": "水を一杯ください。",
+            "translated_word": "水",
+            "word_transliteration": "Mizu"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Qǐng gěi wǒ yì bēi shuǐ, hǎo ma?",
+            "translated_sentence": "请给我一杯水，好吗？",
+            "translated_word": "水",
+            "word_transliteration": "Shuǐ"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Mul han jan ju-se-yo.",
+            "translated_sentence": "물 한 잔 주세요.",
+            "translated_word": "물",
+            "word_transliteration": "Mul"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Cho tôi xin một ly nước được không ạ?",
+            "translated_sentence": "Cho tôi xin một ly nước được không ạ?",
+            "translated_word": "Nước",
+            "word_transliteration": "Nước"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Boleh saya minta segelas air?",
+            "translated_sentence": "Boleh saya minta segelas air?",
+            "translated_word": "Air",
+            "word_transliteration": "Air"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Khor nâm kêung nèung nóy dâi măi kráp/khâ?",
+            "translated_sentence": "ขอน้ำแก้วหนึ่งหน่อยได้ไหมครับ/คะ?",
+            "translated_word": "น้ำ",
+            "word_transliteration": "Nám"
+          }
+        ]
+      },
+      {
+        "sentence": "I like to try local food when I travel.",
+        "word": "Food",
+        "definition": "Anything that can be eaten.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashi wa ryokō suru toki ni wa itsumo dochira no tabemono o tabete mitai to omoimasu.",
+            "translated_sentence": "私は旅行する時にはいつもその土地の食べ物を食べてみたいと思います。",
+            "translated_word": "食べ物",
+            "word_transliteration": "Tabemono"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Wǒ xǐhuān zài lǚxíng shí chángshì dāngdì měishí.",
+            "translated_sentence": "我喜欢在旅行时尝试当地美食。",
+            "translated_word": "食物",
+            "word_transliteration": "Shíwù"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Yeohaeng hal ttae-neun hanguk eumsik-eul meogeo bogo sip-eoyo.",
+            "translated_sentence": "여행할 때는 한국 음식을 먹어 보고 싶어요.",
+            "translated_word": "음식",
+            "word_transliteration": "Eumsik"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Tôi thích thử các món ăn địa phương khi đi du lịch.",
+            "translated_sentence": "Tôi thích thử các món ăn địa phương khi đi du lịch.",
+            "translated_word": "Thức ăn",
+            "word_transliteration": "Thức ăn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Saya suka mencoba makanan lokal saat bepergian.",
+            "translated_sentence": "Saya suka mencoba makanan lokal saat bepergian.",
+            "translated_word": "Makanan",
+            "word_transliteration": "Makanan"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Chán chôrp lôok mâat a-hăan thông-tâang têe tîi nán thêeo-têe",
+            "translated_sentence": "ฉันชอบลิ้มรสอาหารท้องถิ่นที่เราท่องเที่ยว",
+            "translated_word": "อาหาร",
+            "word_transliteration": "A-hăan"
+          }
+        ]
+      },
+      {
+        "sentence": "I had eggs and toast for breakfast.",
+        "word": "Breakfast",
+        "definition": "The first meal of the day, usually eaten in the morning.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashi wa asagohan ni tamago to tōsuto o tabemashita.",
+            "translated_sentence": "私は朝ごはんに卵とトーストを食べました。",
+            "translated_word": "朝ごはん",
+            "word_transliteration": "Asagohan"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Wǒ zǎocān chīle jīdàn hé kǎomiànbāo.",
+            "translated_sentence": "我早餐吃了鸡蛋和烤面包。",
+            "translated_word": "早餐",
+            "word_transliteration": "Zǎocān"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Jeoneun achim-eul gyeran-gwa toseuteu-ro haesseoyo.",
+            "translated_sentence": "저는 아침을 계란과 토스트로 했어요.",
+            "translated_word": "아침",
+            "word_transliteration": "Achim"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Tôi đã ăn trứng và bánh mì nướng cho bữa sáng.",
+            "translated_sentence": "Tôi đã ăn trứng và bánh mì nướng cho bữa sáng.",
+            "translated_word": "Bữa sáng",
+            "word_transliteration": "Bữa sáng"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Saya sarapan dengan telur dan roti panggang.",
+            "translated_sentence": "Saya sarapan dengan telur dan roti panggang.",
+            "translated_word": "Sarapan",
+            "word_transliteration": "Sarapan"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Chán gin kài-lâi tông tòt-dtòt gàp bà-nì pûng gàp aahăan cháa",
+            "translated_sentence": "ฉันกินไข่ต้มกับขนมปังปิ้งเป็นอาหารเช้า",
+            "translated_word": "อาหารเช้า",
+            "word_transliteration": "Aahăan cháa"
+          }
+        ]
+      },
+      {
+        "sentence": "I usually eat a sandwich for lunch.",
+        "word": "Lunch",
+        "definition": "A meal eaten in the middle of the day.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashi wa taitei hirugohan ni sandoicchi o tabemasu.",
+            "translated_sentence": "私はたいてい昼ごはんにサンドイッチを食べます。",
+            "translated_word": "昼ごはん",
+            "word_transliteration": "Hirugohan"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Wǒ wǔfàn tōngcháng chī sānmíngzhì.",
+            "translated_sentence": "我午饭通常吃三明治。",
+            "translated_word": "午饭",
+            "word_transliteration": "Wǔfàn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Jeoneun neul jeomsim-eul saendeuwichi-reul meogeoyo.",
+            "translated_sentence": "저는 늘 점심을 샌드위치를 먹어요.",
+            "translated_word": "점심",
+            "word_transliteration": "Jeomsim"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Tôi thường ăn bánh mì kẹp cho bữa trưa.",
+            "translated_sentence": "Tôi thường ăn bánh mì kẹp cho bữa trưa.",
+            "translated_word": "Bữa trưa",
+            "word_transliteration": "Bữa trưa"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Saya biasanya makan sandwich untuk makan siang.",
+            "translated_sentence": "Saya biasanya makan sandwich untuk makan siang.",
+            "translated_word": "Makan siang",
+            "word_transliteration": "Makan siang"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Tûk-wan-níi chán gin sân-wìt dtaai aahăan tîang",
+            "translated_sentence": "ทุกวันนี้ฉันกินแซนวิชเป็นอาหารเที่ยง",
+            "translated_word": "อาหารเที่ยง",
+            "word_transliteration": "Aahăan tîang"
+          }
+        ]
+      },
+      {
+        "sentence": "We went to a nice restaurant for dinner.",
+        "word": "Dinner",
+        "definition": "The main meal of the day, usually in the evening.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashitachi wa yūshoku ni ii resutoran ni ikimashita.",
+            "translated_sentence": "私たちは夕食にいいレストランに行きました。",
+            "translated_word": "夕食",
+            "word_transliteration": "Yūshoku"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Wǒmen qùle yījiā hěn hǎo de cānguǎn chī wǎnfàn.",
+            "translated_sentence": "我们去了一家很好的餐馆吃晚饭。",
+            "translated_word": "晚饭",
+            "word_transliteration": "Wǎnfàn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Jeohuineun jeonyeogeul meokgo joh-eun sikdang-e gass-eoyo.",
+            "translated_sentence": "저희는 저녁을 먹고 좋은 식당에 갔어요.",
+            "translated_word": "저녁",
+            "word_transliteration": "Jeonyeok"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Chúng tôi đã đến một nhà hàng ngon để ăn tối.",
+            "translated_sentence": "Chúng tôi đã đến một nhà hàng ngon để ăn tối.",
+            "translated_word": "Bữa tối",
+            "word_transliteration": "Bữa tối"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Kami pergi ke restoran yang bagus untuk makan malam.",
+            "translated_sentence": "Kami pergi ke restoran yang bagus untuk makan malam.",
+            "translated_word": "Makan malam",
+            "word_transliteration": "Makan malam"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Rao bai raan aahăan dìi dîi gin kâo yèen",
+            "translated_sentence": "เราไปร้านอาหารดีๆ กินข้าวเย็น",
+            "translated_word": "อาหารเย็น",
+            "word_transliteration": "Aahăan yen"
+          }
+        ]
+      },
+      {
+        "sentence": "I would like a cup of coffee, please.",
+        "word": "Coffee",
+        "definition": "A hot drink made from roasted coffee beans.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Kōhī o ippai kudasai.",
+            "translated_sentence": "コーヒーを一杯ください。",
+            "translated_word": "コーヒー",
+            "word_transliteration": "Kōhī"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Qǐng gěi wǒ yì bēi kāfēi.",
+            "translated_sentence": "请给我一杯咖啡。",
+            "translated_word": "咖啡",
+            "word_transliteration": "Kāfēi"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Keopi han jan ju-se-yo.",
+            "translated_sentence": "커피 한 잔 주세요.",
+            "translated_word": "커피",
+            "word_transliteration": "Keopi"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Cho tôi một tách cà phê, làm ơn.",
+            "translated_sentence": "Cho tôi một tách cà phê, làm ơn.",
+            "translated_word": "Cà phê",
+            "word_transliteration": "Cà phê"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Saya ingin secangkir kopi, tolong.",
+            "translated_sentence": "Saya ingin secangkir kopi, tolong.",
+            "translated_word": "Kopi",
+            "word_transliteration": "Kopi"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Khor kaa-faeh nèung kûap nóy kráp/khâ",
+            "translated_sentence": "ขอกาแฟหนึ่งถ้วยหน่อยครับ/คะ",
+            "translated_word": "กาแฟ",
+            "word_transliteration": "Gaa-fae"
+          }
+        ]
+      },
+      {
+        "sentence": "Can I have some tea with sugar?",
+        "word": "Tea",
+        "definition": "A hot drink made by infusing leaves in boiling water.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Satō-iri no kōcha o kuremasu ka?",
+            "translated_sentence": "砂糖入りの紅茶をくれますか？",
+            "translated_word": "お茶",
+            "word_transliteration": "Ocha"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Wǒ kěyǐ yào yì bēi jiā táng de chá ma?",
+            "translated_sentence": "我可以要一杯加糖的茶吗？",
+            "translated_word": "茶",
+            "word_transliteration": "Chá"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Seulpeum-eul deo hae jul su isseoyo?",
+            "translated_sentence": "슬픔을 더 해 줄 수 있어요?",
+            "translated_word": "차",
+            "word_transliteration": "Cha"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Cho tôi một tách trà với đường được không ạ?",
+            "translated_sentence": "Cho tôi một tách trà với đường được không ạ?",
+            "translated_word": "Trà",
+            "word_transliteration": "Trà"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Boleh saya minta teh dengan gula?",
+            "translated_sentence": "Boleh saya minta teh dengan gula?",
+            "translated_word": "Teh",
+            "word_transliteration": "Teh"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Khor chaa nèung kûap sai nam-dtan nóy dâi măi kráp/khâ?",
+            "translated_sentence": "ขอชาหนึ่งถ้วยใส่น้ำตาลหน่อยได้ไหมครับ/คะ?",
+            "translated_word": "ชา",
+            "word_transliteration": "Chaa"
+          }
+        ]
+      },
+      {
+        "sentence": "Could we get the bill, please?",
+        "word": "Bill",
+        "definition": "A statement showing how much you need to pay at a restaurant.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Okanjō o onegaishimasu.",
+            "translated_sentence": "お勘定をお願いします。",
+            "translated_word": "お勘定",
+            "word_transliteration": "Okanjō"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 3,
+            "sentence_transliteration": "Máfán jiézhàng, xièxie.",
+            "translated_sentence": "麻烦结账，谢谢。",
+            "translated_word": "账单",
+            "word_transliteration": "Zhàngdān"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 5,
+            "sentence_transliteration": "Gyesan-hae juseyo.",
+            "translated_sentence": "계산해 주세요.",
+            "translated_word": "계산서",
+            "word_transliteration": "Gyesanseo"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 6,
+            "sentence_transliteration": "Cho chúng tôi thanh toán, làm ơn.",
+            "translated_sentence": "Cho chúng tôi thanh toán, làm ơn.",
+            "translated_word": "Hóa đơn",
+            "word_transliteration": "Hóa đơn"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 7,
+            "sentence_transliteration": "Bisa minta bonnya?",
+            "translated_sentence": "Bisa minta bonnya?",
+            "translated_word": "Bon",
+            "word_transliteration": "Bon"
+          },
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 8,
+            "sentence_transliteration": "Khor bpeet ngern dûai kráp/khâ",
+            "translated_sentence": "ขอเก็บเงินด้วยครับ/คะ",
+            "translated_word": "บิล",
+            "word_transliteration": "Bin"
+          }
+        ]
+      }
+    ]
+  }
+]

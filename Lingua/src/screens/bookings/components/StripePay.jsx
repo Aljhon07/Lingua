@@ -6,6 +6,7 @@ import { CustomButton } from "@components/molecules/CustomButton";
 import { payBooking } from "@services/directus/rest";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryState } from "@hooks/useQueryState";
+import { useLanguageContext } from "@context/LanguageProvider";
 
 const API_URL = server.baseURL;
 
@@ -20,6 +21,7 @@ export default function StripePay({
   const [pid, setPid] = useState(null);
   const navigation = useNavigation();
   const { invalidateQuery } = useQueryState();
+  const { syncLanguageFromBooking } = useLanguageContext();
 
   const fetchPaymentIntentClientSecret = async () => {
     console.log(bookingId);
@@ -82,6 +84,19 @@ export default function StripePay({
       // Invalidate related queries to ensure fresh data across the app
       invalidateQuery("latest-booking");
       invalidateQuery("itinerary-bookings");
+
+      // Sync language context with the newly paid booking's destination language
+      try {
+        const languageUpdated = await syncLanguageFromBooking();
+        if (languageUpdated) {
+          console.log(
+            "✅ Language automatically updated based on your booking destination!"
+          );
+        }
+      } catch (error) {
+        console.error("Error syncing language from booking:", error);
+        // Don't show this error to user as it's not critical to payment success
+      }
 
       Alert.alert("Success", "Payment Successful", [
         {

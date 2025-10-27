@@ -1,0 +1,149 @@
+{
+  "data": [
+      {
+          "phrase": "Which way should I go?",
+          "id": "085969a6-a08f-4e56-8ff6-42fafbdf00ae",
+          "category": "e63076b1-f122-4498-9c0c-149067915053"
+      },
+      {
+          "phrase": "Do you accept cash or card?",
+          "id": "09c1345e-8bcb-4478-981b-56ea04124a86",
+          "category": "485b42bf-650e-41b9-90ce-59be965020da"
+      },
+      {
+          "phrase": "Can I try this on?",
+          "id": "0b477f98-2e2c-4940-8498-f1246974f512",
+          "category": "485b42bf-650e-41b9-90ce-59be965020da"
+      },
+      {
+          "phrase": "Where is the information desk?",
+          "id": "16e5adb8-2e6f-4c63-87f4-ec5cb5723563",
+          "category": "e63076b1-f122-4498-9c0c-149067915053"
+      },
+      {
+          "phrase": "Thank you very much!",
+          "id": "1fe8c35a-35b9-4533-835c-60b3756af48f",
+          "category": "be892394-4060-4996-995e-56156e0ae88c"
+      },
+      {
+          "phrase": "Is there a doctor nearby?",
+          "id": "2891cef8-dd23-4cce-ba2f-00858f27f4f6",
+          "category": "f88976fe-601c-480b-be6e-7307d028d00d"
+      },
+      {
+          "phrase": "What time is check-out?",
+          "id": "2f9aadf2-be96-4903-bd1d-e8399e600c2d",
+          "category": "8104f327-89da-4212-b6ba-e134c196d22d"
+      },
+      {
+          "phrase": "Do you speak english?",
+          "id": "36570ff8-af7b-45a7-9aa4-3c4f8897d2d1",
+          "category": "11832480-7060-494c-96db-35da70db20a5"
+      },
+      {
+          "phrase": "Which way should I go?",
+          "id": "3775e2d4-254d-476d-ad1e-20886f926bfb",
+          "category": "e63076b1-f122-4498-9c0c-149067915053"
+      },
+      {
+          "phrase": "Hello, how are you?",
+          "id": "407a05c3-5e57-4311-854a-ec2a664c467d",
+          "category": "be892394-4060-4996-995e-56156e0ae88c"
+      },
+      {
+          "phrase": "Could I have some water, please?",
+          "id": "4d4d35ec-9614-44c5-b3e7-06e8c55469d3",
+          "category": "f6f0c5da-37fe-4531-8b4c-9a20dbf5680e"
+      },
+      {
+          "phrase": "How much is the ticket?",
+          "id": "6cf6efd6-183f-497f-bbd3-4b2c8cf17c3b",
+          "category": "1c34d68c-9f0e-4fdb-aae7-c0930c7baf79"
+      },
+      {
+          "phrase": "Is this the right vehicle to go there?",
+          "id": "6d9c5564-4544-4d0a-afc4-fb60f2ccf9c5",
+          "category": "1c34d68c-9f0e-4fdb-aae7-c0930c7baf79"
+      },
+      {
+          "phrase": "I have a reservation.",
+          "id": "6ee710a1-466e-4ca2-b3e9-3f4cf8f7e789",
+          "category": "8104f327-89da-4212-b6ba-e134c196d22d"
+      },
+      {
+          "phrase": "Goodbye! Have a nice day.",
+          "id": "77aacd53-9852-4f7e-a4db-d499853ea196",
+          "category": "e0d324d2-a133-49b6-976e-f30ecfb7cc30"
+      },
+      {
+          "phrase": "How much does this cost?",
+          "id": "7841cfe3-c73b-4a23-8ac2-c20fe0092197",
+          "category": "485b42bf-650e-41b9-90ce-59be965020da"
+      },
+      {
+          "phrase": "Can I see the room first?",
+          "id": "7c9a4195-857c-4544-9b18-0485027fafa4",
+          "category": "8104f327-89da-4212-b6ba-e134c196d22d"
+      },
+      {
+          "phrase": "Can you help me with my luggage?",
+          "id": "7e685f5f-2ea8-471f-922b-4a3f568100b2",
+          "category": "e63076b1-f122-4498-9c0c-149067915053"
+      },
+      {
+          "phrase": "Call the emergency number, please!",
+          "id": "81060e3c-f8e5-495f-ad1c-5eace1a8b68f",
+          "category": "f88976fe-601c-480b-be6e-7307d028d00d"
+      },
+      {
+          "phrase": "I need help immediately.",
+          "id": "84288486-85e9-404e-a321-5e2acac6edde",
+          "category": "f88976fe-601c-480b-be6e-7307d028d00d"
+      },
+      {
+          "phrase": "I am ready to start my journey.",
+          "id": "878867aa-3fc0-47f6-897c-ee9f2becf82a",
+          "category": "11832480-7060-494c-96db-35da70db20a5"
+      },
+      {
+          "phrase": "Excuse me, could you help me?",
+          "id": "878aed1c-10f6-42e7-8561-39e6441accf3",
+          "category": "be892394-4060-4996-995e-56156e0ae88c"
+      },
+      {
+          "phrase": "Can I take pictures here?",
+          "id": "8bb3ce9f-ddbf-4c9b-9249-4bd157eb3398",
+          "category": "a56b19cc-aa75-4ab0-a625-caf3153be81b"
+      },
+      {
+          "phrase": "Take care!",
+          "id": "9b90dbd0-ea43-439d-acc2-3fb85f0e2eec",
+          "category": "e0d324d2-a133-49b6-976e-f30ecfb7cc30"
+      },
+      {
+          "phrase": "Where should I go first?",
+          "id": "a43a3c23-5450-470d-9a50-4a0182926801",
+          "category": "11832480-7060-494c-96db-35da70db20a5"
+      },
+      {
+          "phrase": "See you later.",
+          "id": "a557ba1d-625e-4a7f-818f-c8e731ff055c",
+          "category": "e0d324d2-a133-49b6-976e-f30ecfb7cc30"
+      },
+      {
+          "phrase": "I am ready to start my journey.",
+          "id": "aacbf077-900b-4128-bbc2-8d1746db0f07",
+          "category": "11832480-7060-494c-96db-35da70db20a5"
+      },
+      {
+          "phrase": "Can I see the menu, please?",
+          "id": "b723e002-782b-40cd-b2cb-0290d91d9482",
+          "category": "f6f0c5da-37fe-4531-8b4c-9a20dbf5680e"
+      },
+      {
+          "phrase": "Is this place open to visitors?",
+          "id": "eaf3dd57-b5f6-4694-b9fa-3dd5118f1982",
+          "category": "a56b19cc-aa75-4ab0-a625-caf3153be81b"
+      }
+  ]
+}
