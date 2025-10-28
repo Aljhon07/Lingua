@@ -1,43 +1,27 @@
-import DataContainer from "@components/layouts/DataContainer"
-import { useQueryState } from "@hooks/useQueryState"
-import { fetchQuizzes } from "@services/directus/rest"
-import { useEffect } from "react"
-import { View } from "react-native"
-import { FlatList } from "react-native-gesture-handler"
-import { Text } from "react-native-paper"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { GameHandler } from "./components/GameHandler"
-import { spacing } from "@constants/globalStyles"
+import { useEffect } from "react";
+import { fetchQuestions } from "@services/directus/rest";
+import { useQueryState } from "@hooks/useQueryState";
+import { useLessonContext } from "@context/LessonProvider";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { FlatList } from "react-native-gesture-handler";
+import Vocabulary from "./components/Vocabulary";
+import GameManager from "./components/GameManager";
 
-export default function Quiz({ route }) {
-  const { id } = route.params
-  const { getQueryState, executeQuery } = useQueryState()
-  const quizzes = getQueryState("quizzes")
+export default function Quiz({ route, navigation }) {
+  const { id, title } = route.params;
+  // const { executeQuery, getQueryState } = useQueryState();
+  // const questions = getQueryState("questions");
+  const { vocabList } = useLessonContext();
+  // const { selectedLanguage } = useLanguageContext();
 
-  useEffect(() => {
-    ;(async () => {
-      executeQuery("quizzes", fetchQuizzes, {
-        id,
-        filter: "fields=questions.*,questions.answers.*",
-      })
-    })()
-  }, [])
-  return (
-    <View style={styles.container}>
-      <DataContainer
-        loading={quizzes.loading}
-        error={quizzes.error}
-        data={quizzes.data}
-      >
-        <GameHandler data={quizzes.data}></GameHandler>
-      </DataContainer>
-    </View>
-  )
-}
+  // useEffect(() => {
+  //   (async () => {
+  //     await executeQuery("questions", fetchQuestions, {
+  //       id,
+  //       lang: selectedLanguage.code,
+  //     });
+  //   })();
+  // }, []);
 
-const styles = {
-  container: {
-    flex: 1,
-    padding: spacing.md,
-  },
+  return <GameManager vocabList={vocabList} lessonId={id} />;
 }

@@ -1,0 +1,164 @@
+import React, { useCallback, useMemo, useEffect } from "react";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useTheme, Appbar } from "react-native-paper";
+import { useQueryState } from "@hooks/useQueryState";
+import { fetchBookings } from "@services/directus/rest";
+import BookingList from "./components/BookingList";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Text, View } from "react-native";
+import { spacing } from "@constants/globalStyles";
+import { StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
+const Tab = createMaterialTopTabNavigator();
+
+function BookingTabScreen({ status, bookings, getBookingHistory }) {
+  const filteredBookings = useMemo(() => {
+    if (!bookings?.data?.data) return [];
+
+    return bookings.data.data.filter((booking) => {
+      if (status === "All") return true;
+      if (status === "Pending")
+        return ["For Approval", "Approved"].includes(booking.status);
+      if (status === "Paid") return booking.status === "Paid";
+      if (status === "Cancelled")
+        return ["Cancelled", "Rejected"].includes(booking.status);
+      return booking.status === status;
+    });
+  }, [bookings?.data?.data, status]);
+
+  return (
+    <BookingList
+      bookings={{
+        ...bookings,
+        data: { data: filteredBookings },
+      }}
+      getBookingHistory={getBookingHistory}
+    />
+  );
+}
+
+export default function BookingHistoryTabs() {
+  const { colors } = useTheme();
+  const navigation = useNavigation();
+  const styles = createStyles(colors);
+  const { getQueryState, executeQuery } = useQueryState();
+  const bookingHistory = getQueryState("booking-history");
+
+  const getBookingHistory = () => {
+    executeQuery(
+      "booking-history",
+      fetchBookings,
+      "fields=id,status,date_created,ticket.*,total_price,ticket.travel_package.name,passengers.*&sort=-date_updated"
+    );
+  };
+
+  // Only fetch on initial mount - no more refetching on navigation
+  useEffect(() => {
+    if (!bookingHistory.data && !bookingHistory.loading) {
+      getBookingHistory();
+    }
+  }, []); // Empty dependency array - only runs once on mount
+
+  return (
+    <View style={styles.container}>
+      <Appbar.Header style={styles.header}>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Bookings" titleStyle={styles.headerTitle} />
+      </Appbar.Header>
+
+      <View style={styles.content}>
+        {/* <Text style={styles.headline} variant="headlineLarge">
+          Every Booking Tells a Story – Here's Yours!
+        </Text> */}
+
+        <Tab.Navigator
+          screenOptions={{
+            tabBarStyle: {
+              backgroundColor: colors.surface,
+            },
+            tabBarActiveTintColor: colors.primary,
+            tabBarInactiveTintColor: colors.onSurfaceVariant,
+            tabBarIndicatorStyle: {
+              backgroundColor: colors.primary,
+              height: 3,
+            },
+            tabBarLabelStyle: {
+              fontSize: 12,
+              fontWeight: "600",
+              textTransform: "none",
+            },
+            tabBarScrollEnabled: true,
+          }}
+        >
+          <Tab.Screen name="All" options={{ title: "All" }}>
+            {() => (
+              <BookingTabScreen
+                status="All"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+
+          <Tab.Screen name="Pending" options={{ title: "Pending" }}>
+            {() => (
+              <BookingTabScreen
+                status="Pending"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+
+          <Tab.Screen name="Paid" options={{ title: "Paid" }}>
+            {() => (
+              <BookingTabScreen
+                status="Paid"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+
+          <Tab.Screen name="Cancelled" options={{ title: "Cancelled" }}>
+            {() => (
+              <BookingTabScreen
+                status="Cancelled"
+                bookings={bookingHistory}
+                getBookingHistory={getBookingHistory}
+              />
+            )}
+          </Tab.Screen>
+        </Tab.Navigator>
+      </View>
+    </View>
+  );
+}
+
+const createStyles = (colors) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: colors.background,
+    },
+    header: {
+      backgroundColor: colors.surface,
+      elevation: 0,
+      shadowOpacity: 0,
+    },
+    headerTitle: {
+      color: colors.primary,
+      fontWeight: "600",
+    },
+    content: {
+      flex: 1,
+    },
+    headline: {
+      marginBottom: spacing.lg,
+      paddingHorizontal: spacing.lg,
+      paddingTop: spacing.xl,
+      textAlign: "center",
+      color: colors.primary,
+    },
+  });

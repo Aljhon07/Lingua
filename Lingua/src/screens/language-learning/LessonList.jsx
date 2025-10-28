@@ -1,64 +1,107 @@
-import { useEffect } from "react"
-import { StyleSheet } from "react-native"
-import { FlatList, RefreshControl } from "react-native-gesture-handler"
-import { SafeAreaView } from "react-native-safe-area-context"
-import { spacing } from "@constants/globalStyles"
-import { LessonCard } from "./components/LessonCard"
-import { useQueryState } from "@hooks/useQueryState"
-import DataContainer from "@components/layouts/DataContainer"
-import { fetchLessons } from "@services/directus/rest"
-import { Text } from "react-native-paper"
-import { Section } from "@components/atoms/Section"
+import { useEffect, useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { FlatList, RefreshControl } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { spacing } from "@constants/globalStyles";
+import { LessonCard } from "./components/LessonCard";
+import { useQueryState } from "@hooks/useQueryState";
+import DataContainer from "@components/layouts/DataContainer";
+import { fetchLessons } from "@services/directus/rest";
+import { Button, Text } from "react-native-paper";
+import { LanguageList } from "@components/atoms/LanguageList";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { useNavigation } from "@react-navigation/native";
+import { useUserProgressContext } from "@context/UserProgressProvider";
+
+export function LessonListWrapper() {
+  return <LessonList />;
+}
 
 export default function LessonList() {
-  const { getQueryState, executeQuery } = useQueryState()
-  const styles = createStyles()
-  const lesson = getQueryState("lesson")
+  const navigation = useNavigation();
+  const { getQueryState, executeQuery } = useQueryState();
+
+  const { userProgress, getUserProgress, lessonProgressState } =
+    useUserProgressContext();
+  const styles = createStyles();
+  const lesson = getQueryState("lesson");
+
+  const { selectedLanguage } = useLanguageContext();
 
   useEffect(() => {
-    executeQuery("lesson", fetchLessons)
-  }, [])
+    fetchLessonDetails();
+    getUserProgress();
+  }, []);
 
+  const fetchLessonDetails = async () => {
+    executeQuery("lesson", fetchLessons);
+  };
+
+  const tryAgainComponent = (
+    <View style={{ marginBottom: spacing.lg }}>
+      <Text style={{ textAlign: "center", marginBottom: spacing.md }}>
+        Unable to fetch lessons. Please check your connection.
+      </Text>
+      <Button
+        style={{ textAlign: "center", color: "blue" }}
+        onPress={() => {
+          executeQuery("lesson", fetchLessons);
+        }}
+      >
+        Try Again
+      </Button>
+    </View>
+  );
   return (
     <SafeAreaView style={styles.container}>
-      <Text variant="headlineLarge">
-        Every Lesson Brings You Closer to Fluency. Start Now!
+      <Text
+        variant="headlineLarge"
+        style={{ textAlign: "center", marginBottom: spacing.lg }}
+      >
+        Every Lesson Brings You Closer to Fluency
       </Text>
       <DataContainer
-        loading={lesson.loading}
-        error={lesson.error}
+        loading={lesson.loading && lessonProgressState.loading}
+        error={lesson.error || lessonProgressState.error}
         data={lesson.data}
         noDataMessage={"No Lessons Found"}
         errorMessage={"Error Fetching Lessons"}
+        errorComponent={tryAgainComponent}
       >
-        <Section
-          headline="Lessons"
-          contentContainerStyle={{ backgroundColor: "transparent", padding: 0 }}
-        >
-          <FlatList
-            data={lesson.data}
-            renderItem={({ item }) => (
-              <LessonCard
-                title={item.name}
-                id={item.id}
-                description={item.description}
-              />
-            )}
-          />
-        </Section>
+        <LanguageList />
+        <FlatList
+          data={lesson.data}
+          keyExtractor={(item) => item.id.toString()}
+          refreshControl={
+            <RefreshControl
+              refreshing={lesson.loading}
+              onRefresh={() => {
+                executeQuery("lesson", fetchLessons);
+                getUserProgress();
+              }}
+            />
+          }
+          renderItem={({ item }) => (
+            <LessonCard
+              title={`${item.name}`}
+              selectedLanguage={selectedLanguage}
+              id={item.id}
+              description={item.description}
+            />
+          )}
+          style={{ flex: 1, marginTop: spacing.md }}
+          showsVerticalScrollIndicator={false}
+        />
       </DataContainer>
     </SafeAreaView>
-  )
+  );
 }
 
 const createStyles = () =>
   StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: "center",
-      alignItems: "center",
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.xl,
-      gap: spacing.lg,
+      paddingTop: spacing.xl,
     },
-  })
+  });

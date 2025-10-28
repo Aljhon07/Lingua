@@ -1,0 +1,48 @@
+{
+  "data": [
+      {
+          "id": "11832480-7060-494c-96db-35da70db20a5",
+          "name": "Starting the Journey / Departure"
+      },
+      {
+          "id": "1c34d68c-9f0e-4fdb-aae7-c0930c7baf79",
+          "name": "On the Way / Transportation"
+      },
+      {
+          "id": "485b42bf-650e-41b9-90ce-59be965020da",
+          "name": "Shopping / Markets"
+      },
+      {
+          "id": "8104f327-89da-4212-b6ba-e134c196d22d",
+          "name": "Accommodation / Hotel"
+      },
+      {
+          "id": "8c77e740-87bc-4c71-b613-02d981d69b30",
+          "name": "Arrival / Immigration / Customs"
+      },
+      {
+          "id": "a56b19cc-aa75-4ab0-a625-caf3153be81b",
+          "name": "Sightseeing / Tourist Spots"
+      },
+      {
+          "id": "be892394-4060-4996-995e-56156e0ae88c",
+          "name": "Polite Interactions / Small Talk"
+      },
+      {
+          "id": "e0d324d2-a133-49b6-976e-f30ecfb7cc30",
+          "name": "Leaving / Farewell"
+      },
+      {
+          "id": "e63076b1-f122-4498-9c0c-149067915053",
+          "name": "At the Airport / Transport Hub"
+      },
+      {
+          "id": "f6f0c5da-37fe-4531-8b4c-9a20dbf5680e",
+          "name": "Eating / Restaurants"
+      },
+      {
+          "id": "f88976fe-601c-480b-be6e-7307d028d00d",
+          "name": "Emergencies / Health"
+      }
+  ]
+}

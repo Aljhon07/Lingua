@@ -1,0 +1,9 @@
+[
+  { "code": "ja", "id": 1, "name": "Japanese" },
+  { "code": "zh", "id": 3, "name": "Chinese" },
+  { "code": "en", "id": 4, "name": "English" },
+  { "code": "ko", "id": 5, "name": "Korean" },
+  { "code": "vi", "id": 6, "name": "Vietnamese" },
+  { "code": "id", "id": 7, "name": "Indonesian" },
+  { "code": "th", "id": 8, "name": "Thai" }
+]

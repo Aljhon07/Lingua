@@ -1,106 +1,253 @@
-import PaddedView from "@components/atoms/PaddedView"
-import { Text, TextInput, useTheme } from "react-native-paper"
-import { spacing } from "@constants/globalStyles"
-import { Keyboard, StyleSheet, View } from "react-native"
-import { useState } from "react"
+import PaddedView from "@components/atoms/PaddedView";
+import { IconButton, Text, TextInput, useTheme } from "react-native-paper";
+import { spacing } from "@constants/globalStyles";
+import { Keyboard, StyleSheet, View, ScrollView } from "react-native";
+import { useState, useEffect } from "react";
 import {
   en,
   registerTranslation,
   DatePickerInput,
-} from "react-native-paper-dates"
-import { useProfileContext } from "@context/ProfileProvider"
-import { StatusBar } from "expo-status-bar"
-import { Dropdown } from "react-native-paper-dropdown"
-import { CustomButton } from "@components/molecules/CustomButton"
+} from "react-native-paper-dates";
+import { useProfileContext } from "@context/ProfileProvider";
+import { StatusBar } from "expo-status-bar";
+import { Dropdown } from "react-native-paper-dropdown";
+import { CustomButton } from "@components/molecules/CustomButton";
+import { SelectableTag } from "@components/atoms/SelectableTag";
+import { useTravelPackagesContext } from "@context/TravelPackagesProvider";
+import { useLanguageContext } from "@context/LanguageProvider";
+import { fetchCountryLanguage } from "@services/directus/rest";
 
 export default function Header({ getPackages, countries }) {
-  registerTranslation("en", en)
-  const { profile } = useProfileContext()
-
-  console.log(countries)
+  registerTranslation("en", en);
+  const { profile } = useProfileContext();
+  const { tags } = useTravelPackagesContext();
+  const { languages, onSelectLanguage } = useLanguageContext();
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [filter, setFilter] = useState({
     date: new Date(Date.now()),
-    destination: undefined,
-    minBudget: undefined,
-    maxBudget: undefined,
-  })
+    destination: "",
+    minBudget: null,
+    maxBudget: null,
+    selectedTags: [],
+  });
 
-  const { colors } = useTheme()
-  const styles = createStyles(colors)
+  const { colors } = useTheme();
+  const styles = createStyles(colors);
 
-  const handleSearch = () => {
-    let queries = `filter[price][_gte]=${
-      filter.minBudget || 0
-    }&filter[price][_lte]=${filter.maxBudget || 999999}`
-    Keyboard.dismiss()
+  // Function to sync language based on selected destination
+  const syncLanguageFromDestination = async (countryName) => {
+    try {
+      console.log("Syncing language for destination:", countryName);
+      const countryLanguage = await fetchCountryLanguage(countryName);
+
+      if (countryLanguage && countryLanguage.code && languages.length > 0) {
+        const matchingLanguage = languages.find(
+          (lang) => lang.code === countryLanguage.code
+        );
+        if (matchingLanguage) {
+          console.log(
+            "Auto-setting language from destination:",
+            matchingLanguage
+          );
+          onSelectLanguage(matchingLanguage);
+          return true;
+        }
+      }
+      return false;
+    } catch (error) {
+      console.error("Error syncing language from destination:", error);
+      return false;
+    }
+  };
+
+  // Function to build query string from all filters
+  const buildQueryString = () => {
+    const queryParts = [];
+
+    // Price filters
+    const minBudget = filter.minBudget || 0;
+    const maxBudget = filter.maxBudget || 999999;
+    queryParts.push(`filter[price][_gte]=${minBudget}`);
+    queryParts.push(`filter[price][_lte]=${maxBudget}`);
+
+    // Country filter
     if (filter.destination) {
-      queries += `&filter[country][name][_eq]=${filter.destination}`
+      queryParts.push(`filter[country][name][_eq]=${filter.destination}`);
     }
 
-    console.log("Fikter: ", queries)
-    getPackages(queries)
-  }
+    // Tags filter - format: tags=1,2,3
+    if (filter.selectedTags.length > 0) {
+      const tagIds = filter.selectedTags.join(",");
+      queryParts.push(`filter[tags][id][_in]=${tagIds}`);
+    }
+
+    return queryParts.join("&");
+  };
+
+  // Function to handle tag selection
+  const toggleTag = (tagId) => {
+    setFilter((prevFilter) => {
+      const selectedTags = [...prevFilter.selectedTags];
+      const tagIndex = selectedTags.indexOf(tagId);
+
+      if (tagIndex > -1) {
+        selectedTags.splice(tagIndex, 1);
+      } else {
+        selectedTags.push(tagId);
+      }
+
+      return {
+        ...prevFilter,
+        selectedTags,
+      };
+    });
+  };
+
+  useEffect(() => {
+    const queries = buildQueryString();
+    console.log("Filter queries: ", queries);
+    getPackages(queries);
+  }, [
+    filter.destination,
+    filter.selectedTags,
+    filter.minBudget,
+    filter.maxBudget,
+  ]);
+
+  const handleSearch = () => {
+    if (
+      filter.minBudget &&
+      filter.maxBudget &&
+      filter.minBudget > filter.maxBudget
+    ) {
+      alert("Minimum budget cannot be greater than maximum budget");
+      return;
+    }
+
+    Keyboard.dismiss();
+    const queries = buildQueryString();
+    console.log("Search Filter: ", queries);
+    getPackages(queries);
+    setIsCollapsed(true);
+  };
   return (
     <PaddedView style={styles.headerContainer} vertical={spacing.xl}>
       <StatusBar backgroundColor={colors.elevation.level1} style="light" />
 
-      <Text variant="headlineLarge">
-        Adventure is calling, {profile.first_name}! Where to go next?
-      </Text>
-
       <View style={styles.wrapper}>
-        <Dropdown
-          label="Travel to"
-          mode="outlined"
-          placeholder="Select Destination"
-          options={countries}
-          value={filter.destination}
-          onSelect={(value) =>
-            setFilter({
-              ...filter,
-              destination: value,
-            })
-          }
-        />
+        <View style={styles.countryFilterRow}>
+          <View style={styles.countryDropdown}>
+            <Dropdown
+              label="Travel to"
+              mode="outlined"
+              placeholder="Select Destination"
+              options={countries}
+              value={filter.destination}
+              onSelect={async (value) => {
+                setFilter({
+                  ...filter,
+                  destination: value,
+                });
 
-        <DatePickerInput
-          locale="en"
-          mode="outlined"
-          label="Departure Date"
-          value={filter.date}
-          onChange={(value) => setFilter({ ...filter, date: value })}
-          inputMode="start"
-          validRange={{ startDate: new Date(Date.now()) }}
-          presentationStyle="formSheet"
-        />
+                // Sync language with selected destination
+                if (value) {
+                  try {
+                    await syncLanguageFromDestination(value);
+                  } catch (error) {
+                    console.error("Error syncing destination language:", error);
+                    // Don't show error to user as it's not critical for filtering
+                  }
+                }
+              }}
+            />
+          </View>
 
-        <View style={styles.budgetRange}>
-          <TextInput
-            label="Min budget"
-            inputMode="numeric"
+          <IconButton
+            icon="filter-variant"
+            iconColor={colors.text}
+            size={24}
+            onPress={() => setIsCollapsed(!isCollapsed)}
+            style={styles.filterButton}
             mode="outlined"
-            value={filter.minBudget}
-            onChangeText={(input) => setFilter({ ...filter, minBudget: input })}
-            style={{ flex: 1 }}
-            left={<TextInput.Affix text="₱ " />}
-          />
-          <TextInput
-            label="Max Budget"
-            inputMode="numeric"
-            mode="outlined"
-            value={filter.maxBudget}
-            onChangeText={(input) => setFilter({ ...filter, maxBudget: input })}
-            style={{ flex: 1 }}
-            left={<TextInput.Affix text="₱ " />}
           />
         </View>
-      </View>
 
-      <CustomButton primary onPress={handleSearch}>
-        Search
-      </CustomButton>
+        {!isCollapsed && (
+          <>
+            <DatePickerInput
+              locale="en"
+              mode="outlined"
+              label="Departure Date"
+              value={filter.date}
+              onChange={(value) => setFilter({ ...filter, date: value })}
+              inputMode="start"
+              validRange={{ startDate: new Date(Date.now()) }}
+              presentationStyle="formSheet"
+            />
+
+            <View style={styles.budgetRange}>
+              <TextInput
+                label="Min budget"
+                inputMode="numeric"
+                mode="outlined"
+                value={filter.minBudget?.toString() || ""}
+                onChangeText={(input) =>
+                  setFilter({
+                    ...filter,
+                    minBudget: input ? parseInt(input) : null,
+                  })
+                }
+                style={{ flex: 1 }}
+                left={<TextInput.Affix text="₱ " />}
+              />
+              <TextInput
+                label="Max Budget"
+                inputMode="numeric"
+                mode="outlined"
+                value={filter.maxBudget?.toString() || ""}
+                onChangeText={(input) =>
+                  setFilter({
+                    ...filter,
+                    maxBudget: input ? parseInt(input) : null,
+                  })
+                }
+                style={{ flex: 1 }}
+                left={<TextInput.Affix text="₱ " />}
+              />
+            </View>
+
+            {tags.length > 0 && (
+              <View style={styles.tagsSection}>
+                <Text variant="titleSmall" style={styles.sectionTitle}>
+                  Filter by Tags
+                </Text>
+                <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  contentContainerStyle={styles.tagsContainer}
+                >
+                  {tags.map((tag) => (
+                    <SelectableTag
+                      key={tag.id}
+                      label={tag.name}
+                      isSelected={filter.selectedTags.includes(tag.id)}
+                      onPress={() => toggleTag(tag.id)}
+                      style={styles.tagItem}
+                    />
+                  ))}
+                </ScrollView>
+              </View>
+            )}
+          </>
+        )}
+      </View>
+      {!isCollapsed && (
+        <CustomButton primary onPress={handleSearch}>
+          Search
+        </CustomButton>
+      )}
     </PaddedView>
-  )
+  );
 }
 
 const createStyles = (colors) =>
@@ -119,4 +266,31 @@ const createStyles = (colors) =>
     wrapper: {
       gap: spacing.xl,
     },
-  })
+    countryFilterRow: {
+      flexDirection: "row",
+      alignItems: "flex-end",
+      gap: spacing.sm,
+      width: "100%",
+    },
+    countryDropdown: {
+      flex: 1,
+    },
+    filterButton: {
+      marginBottom: spacing.xs,
+      borderRadius: spacing.md,
+    },
+    tagsSection: {
+      gap: spacing.sm,
+    },
+    sectionTitle: {
+      color: colors.onBackground,
+      fontWeight: "500",
+    },
+    tagsContainer: {
+      gap: spacing.sm,
+      paddingRight: spacing.lg,
+    },
+    tagItem: {
+      marginRight: spacing.sm,
+    },
+  });

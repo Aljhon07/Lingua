@@ -1,26 +1,28 @@
-import { createContext, useEffect, useState, useContext } from "react"
-import { fetchProfile } from "@services/directus/rest"
+import { createContext, useEffect, useState, useContext } from "react";
+import { fetchProfile } from "@services/directus/rest";
 
-export const ProfileContext = createContext()
+export const ProfileContext = createContext();
 
 export default function ProfileProvider({ children }) {
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState(null);
 
   const getProfile = async () => {
     try {
-      const data = await fetchProfile("fields=first_name,last_name,email")
-      setProfile(data)
-      return data
+      const data = await fetchProfile(
+        "fields=first_name,last_name,email,id,onboarding_completed"
+      );
+      setProfile(data);
+      return data;
     } catch (error) {
-      return null
+      throw new Error("Error fetching profile data");
     }
-  }
+  };
 
   return (
     <ProfileContext.Provider value={{ profile, getProfile }}>
       {children}
     </ProfileContext.Provider>
-  )
+  );
 }
 
-export const useProfileContext = () => useContext(ProfileContext)
+export const useProfileContext = () => useContext(ProfileContext);

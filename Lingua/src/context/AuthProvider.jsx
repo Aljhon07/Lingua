@@ -1,69 +1,136 @@
-import { createContext, useState, useContext, useEffect } from "react"
-import { signIn, signUp } from "@services/directus/auth"
-import * as SecureStorage from "expo-secure-store"
-import { axiosInstance } from "@utils/axiosInstance"
-import { useProfileContext } from "./ProfileProvider"
+import { createContext, useState, useContext, useEffect } from "react";
+import { googleSignIn, signIn, signUp } from "@services/directus/auth";
+import * as SecureStorage from "expo-secure-store";
+import { axiosInstance } from "@utils/axiosInstance";
+import { useProfileContext } from "./ProfileProvider";
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
+import { configureGoogleSignIn } from "@utils/googleSignInConfigure";
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 export default function AuthProvider({ children }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const { getProfile } = useProfileContext()
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const { getProfile } = useProfileContext();
 
   useEffect(() => {
     const checkAuthStatus = async () => {
       try {
-        const token = await SecureStorage.getItemAsync("accessToken")
+        const token = await SecureStorage.getItemAsync("accessToken");
         if (token) {
           axiosInstance.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${token}`
-          const profile = await getProfile()
-          if (profile) setIsAuthenticated(true)
+          ] = `Bearer ${token}`;
+          const profile = await getProfile();
+          if (profile) setIsAuthenticated(true);
         } else {
-          console.log("Auth: Token deleted")
-          delete axiosInstance.defaults.headers.common["Authorization"]
+          console.log("Auth: Token deleted");
+          delete axiosInstance.defaults.headers.common["Authorization"];
         }
       } catch (error) {
-        setIsAuthenticated(false)
+        setIsAuthenticated(false);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    checkAuthStatus()
-  }, [])
+    };
+    checkAuthStatus();
+  }, []);
 
   const contextSignIn = async ({ email, password }) => {
+    setLoading(true);
     try {
-      const res = await signIn(email, password)
-      setLoading(true)
-      await getProfile()
-      setIsAuthenticated(true)
-      console.log("Sign in successful")
+      const res = await signIn(email, password);
+      console.log("Auth Res: ", res);
+      if (res?.error) {
+        console.error("Conditional", res.error);
+        return res.message;
+      }
+      await getProfile();
+      setIsAuthenticated(true);
     } catch (error) {
-      console.error("Auth", error.responseData[0])
+      console.error("Auth Error", error);
     } finally {
-      setLoading(false)
+      console.log("Loading finished");
+      setLoading(false);
     }
-  }
+  };
 
-  const contextSignUp = async ({ email, password, firstName, lastName }) => {
+  const contextGoogleSignIn = async ({ force = false, data }) => {
+    configureGoogleSignIn();
+    setLoading(true);
     try {
-      const res = await signUp(email, password, firstName, lastName)
-      console.log("Sign Up successful")
-      setLoading(true)
-      contextSignIn({ email, password })
+      if (force) await GoogleSignin.signOut();
+      if (!data) {
+        const { data: userData } = await GoogleSignin.signIn();
+        data = userData;
+      }
+      const { user, idToken } = data;
+      const res = await googleSignIn({ email: user.email, idToken });
+
+      console.log("Auth Res: ", res);
+      if (res?.error) {
+        console.error("Conditional", res.error);
+        setLoading(false);
+        return {
+          error: true,
+          message: res.message,
+          status: res.status,
+        };
+      }
+      await getProfile();
+      setIsAuthenticated(true);
     } catch (error) {
-      console.error("Auth", error)
-      setLoading(false)
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log("User cancelled Google Sign-In");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log("Google Sign-In is in progress");
+      } else {
+        console.log("Google Sign-In error", error);
+      }
+    } finally {
+      console.log("Loading finished");
+      setLoading(false);
     }
-  }
+  };
+
+  const contextSignUp = async ({
+    email,
+    password,
+    firstName,
+    lastName,
+    user,
+  }) => {
+    setLoading(true);
+    try {
+      console.log(
+        "Auth SignUp: ",
+        JSON.stringify({ email, password, firstName, lastName, user }, null, 2)
+      );
+      lastName = lastName || " ";
+      firstName = firstName || " ";
+      const res = await signUp(email, password, firstName, lastName);
+
+      // contextSignIn({ email, password });
+      contextGoogleSignIn({ data: user });
+    } catch (error) {
+      console.error("Auth", error);
+      setLoading(false);
+    }
+  };
 
   const contextSignOut = async () => {
-    await SecureStorage.deleteItemAsync("accessToken")
-    delete axiosInstance.defaults.headers.common["Authorization"]
-    setIsAuthenticated(false)
-  }
+    try {
+      configureGoogleSignIn();
+      await GoogleSignin.signOut();
+      await SecureStorage.deleteItemAsync("accessToken");
+      delete axiosInstance.defaults.headers.common["Authorization"];
+      setIsAuthenticated(false);
+    } catch (error) {
+      console.log("Error signing out", error);
+    }
+  };
 
   return (
     <AuthContext.Provider
@@ -73,11 +140,12 @@ export default function AuthProvider({ children }) {
         signUp: contextSignUp,
         loading,
         isAuthenticated,
+        contextGoogleSignIn,
       }}
     >
       {children}
     </AuthContext.Provider>
-  )
+  );
 }
 
-export const useAuthContext = () => useContext(AuthContext)
+export const useAuthContext = () => useContext(AuthContext);

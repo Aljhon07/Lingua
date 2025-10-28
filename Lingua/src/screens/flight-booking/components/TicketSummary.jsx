@@ -1,13 +1,14 @@
-import StyledSurface from "@components/atoms/StyledSurface"
-import TwoColumnsText from "@components/atoms/TwoColumnsText"
-import { formatDate, formatTimeStamp } from "@utils/formatDate"
-import React from "react"
-import { Divider, Surface } from "react-native-paper"
+import StyledSurface from "@components/atoms/StyledSurface";
+import TwoColumnsText from "@components/atoms/TwoColumnsText";
+import { formatDate, formatTimeStamp } from "@utils/formatDate";
+import React from "react";
+import { Divider, Surface } from "react-native-paper";
 
 export default function TicketSummary({
   ticket,
   passengersCount = 1,
   returnTicket,
+  total_price,
 }) {
   return (
     <StyledSurface>
@@ -26,8 +27,8 @@ export default function TicketSummary({
         leftTextVariant="titleMedium"
         rightTextVariant="titleLarge"
         leftText="Total Price"
-        rightText={`₱ ${ticket.price * passengersCount}`}
+        rightText={`₱ ${total_price?.toFixed(2)}`}
       />
     </StyledSurface>
-  )
+  );
 }

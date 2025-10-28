@@ -3,10 +3,11 @@ import { useTheme } from "react-native-paper"
 import { spacing } from "@constants/globalStyles"
 import BackButton from "@components/molecules/BackButton"
 import BookingDetails from "../BookingDetails"
-import Checkout from "../Checkout"
-import StripeApp from "../components/StripePay"
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs"
+import CustomizeItinerary from "../CustomizeItinerary"
 
 const Stack = createStackNavigator()
+const Tab = createMaterialTopTabNavigator()
 
 export default function BookingDetailsNavigation() {
   const { colors } = useTheme()
@@ -37,6 +38,15 @@ export default function BookingDetailsNavigation() {
         }}
         name="BookingDetails"
         component={BookingDetails}
+      />
+      <Stack.Screen
+        options={{
+          animation: "slide_from_right",
+          headerTitle: "Customize Itinerary",
+          headerLeft: () => <BackButton />,
+        }}
+        name="CustomizeItinerary"
+        component={CustomizeItinerary}
       />
       {/* <Stack.Screen
         options={{

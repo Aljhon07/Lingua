@@ -1,10 +1,19 @@
-import { View } from "react-native"
-import { LinguaLogo } from "@components/atoms/LinguaLogo"
-import { Button, Text, useTheme } from "react-native-paper"
+import { View } from "react-native";
+import { LinguaLogo } from "@components/atoms/LinguaLogo";
+import { Button, Text } from "react-native-paper";
+import { useAuthContext } from "@context/AuthProvider";
 
 export default function Auth({ navigation }) {
-  const bg_1 = require("@assets/images/background_1.jpg")
-  const bg_2 = require("@assets/images/background_2.jpg")
+  const { contextGoogleSignIn, loading, signOut } = useAuthContext();
+
+  const handleGoogleSignIn = async () => {
+    const res = await contextGoogleSignIn({ force: true });
+    if (!res?.error) return;
+
+    if (res.status === 404) {
+      navigation.navigate("SignUp");
+    }
+  };
   return (
     <View style={{ flex: 1, padding: 20 }}>
       <View
@@ -14,7 +23,7 @@ export default function Auth({ navigation }) {
           justifyContent: "center",
         }}
       >
-        <LinguaLogo light />
+        <LinguaLogo />
         <Text
           style={{
             textAlign: "center",
@@ -24,7 +33,7 @@ export default function Auth({ navigation }) {
           Plan your journeys and communicate effortlessly, wherever you go.
         </Text>
       </View>
-      <View
+      {/* <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
@@ -50,7 +59,22 @@ export default function Auth({ navigation }) {
         >
           Sign In
         </Button>
-      </View>
+      </View> */}
+
+      {/* Google Sign-In Button */}
+      <Button
+        onPress={handleGoogleSignIn}
+        mode="outlined"
+        loading={loading}
+        disabled={loading}
+        icon={"google"}
+        iconColor="black"
+        style={{
+          marginTop: 20, // Add some spacing above the button
+        }}
+      >
+        Continue with Google
+      </Button>
     </View>
-  )
+  );
 }
