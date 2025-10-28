@@ -1,0 +1,59 @@
+{
+  "lesson_3": {
+    "name": "Food & Restaurants",
+    "description": "Vocabulary for ordering food, dining out, and communicating in restaurants while traveling.",
+    "order": 3,
+    "vocabularies": [
+      {
+        "word": "Menu",
+        "definition": "A list of food and drink items available in a restaurant.",
+        "sentence": "Can I see the menu, please?"
+      },
+      {
+        "word": "Waiter",
+        "definition": "A person who serves food and drinks at a restaurant.",
+        "sentence": "The waiter brought our drinks quickly."
+      },
+      {
+        "word": "Water",
+        "definition": "A drink that is essential for drinking.",
+        "sentence": "Could I have a glass of water, please?"
+      },
+      {
+        "word": "Food",
+        "definition": "Anything that can be eaten.",
+        "sentence": "I like to try local food when I travel."
+      },
+      {
+        "word": "Breakfast",
+        "definition": "The first meal of the day, usually eaten in the morning.",
+        "sentence": "I had eggs and toast for breakfast."
+      },
+      {
+        "word": "Lunch",
+        "definition": "A meal eaten in the middle of the day.",
+        "sentence": "I usually eat a sandwich for lunch."
+      },
+      {
+        "word": "Dinner",
+        "definition": "The main meal of the day, usually in the evening.",
+        "sentence": "We went to a nice restaurant for dinner."
+      },
+      {
+        "word": "Coffee",
+        "definition": "A hot drink made from roasted coffee beans.",
+        "sentence": "I would like a cup of coffee, please."
+      },
+      {
+        "word": "Tea",
+        "definition": "A hot drink made by infusing leaves in boiling water.",
+        "sentence": "Can I have some tea with sugar?"
+      },
+      {
+        "word": "Bill",
+        "definition": "A statement showing how much you need to pay at a restaurant.",
+        "sentence": "Could we get the bill, please?"
+      }
+    ]
+  }
+}

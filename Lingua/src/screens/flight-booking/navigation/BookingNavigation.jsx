@@ -1,14 +1,14 @@
-import BackButton from "@components/molecules/BackButton"
-import Booking from "../Booking"
-import { createStackNavigator } from "@react-navigation/stack"
-import PassengerInfo from "../PassengerInfo"
-import Summary from "../Summary"
-import PassengerInfoProvider from "@context/PassengerInfoProvider"
+import BackButton from "@components/molecules/BackButton";
+import Booking from "../Booking";
+import { createStackNavigator } from "@react-navigation/stack";
+import PassengerInfo from "../PassengerInfo";
+import Summary from "../Summary";
+import PassengerInfoProvider from "@context/PassengerInfoProvider";
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 export default function BookingNavigation({ route }) {
-  const { travel_package } = route.params
+  const { travel_package } = route.params;
 
   return (
     <PassengerInfoProvider>
@@ -38,7 +38,7 @@ export default function BookingNavigation({ route }) {
               backgroundColor: "transparent",
               shadowColor: "transparent",
             },
-            headerLeft: () => null,
+            headerLeft: () => <BackButton />,
           }}
         />
         <Stack.Screen
@@ -52,10 +52,10 @@ export default function BookingNavigation({ route }) {
               backgroundColor: "transparent",
               shadowColor: "transparent",
             },
-            headerLeft: () => null,
+            headerLeft: () => <BackButton />,
           }}
         />
       </Stack.Navigator>
     </PassengerInfoProvider>
-  )
+  );
 }

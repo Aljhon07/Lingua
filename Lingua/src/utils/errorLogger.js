@@ -6,10 +6,10 @@ export function logError(identifier, error) {
       responseData: error.response?.data?.errors,
       status: error.response?.status,
       url: error.config?.url,
-    }
-    console.error(`${identifier}: ${JSON.stringify(errorDetails)}`)
-    return errorDetails
+    };
+    console.error(`${identifier}: ${JSON.stringify(errorDetails, null, 2)}`);
+    return errorDetails;
   } catch (error) {
-    console.error(`${identifier} logging error!`)
+    console.error(`${identifier} logging error!`);
   }
 }

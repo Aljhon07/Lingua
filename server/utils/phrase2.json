@@ -1,0 +1,252 @@
+[
+  {
+    "phrase": "Is this place open to visitors?",
+    "category": {
+      "name": "Sightseeing / Tourist Spots"
+    },
+    "translation": [
+      {
+        "translation": "この場所は観光客に開放されていますか？",
+        "transliteration": "Kono basho wa kankoukyaku ni kaihou sarete imasu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "这个地方对游客开放吗？",
+        "transliteration": "Zhège dìfāng duì yóukè kāifàng ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Is this place open to visitors?",
+        "transliteration": "Is this place open to visitors?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "이곳은 관광객에게 개방되어 있나요?",
+        "transliteration": "Igos-eun gwangwang-egge gaebangdoeeo issnayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Nơi này có mở cửa cho du khách không?",
+        "transliteration": "Noi nay co mo cua cho du khach khong?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Apakah tempat ini terbuka untuk pengunjung?",
+        "transliteration": "Apakah tempat ini terbuka untuk pengunjung?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "สถานที่นี้เปิดให้เข้าชมหรือไม่?",
+        "transliteration": "Sathan thi ni poed hai khao chom rue mai?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Can I take pictures here?",
+    "category": {
+      "name": "Sightseeing / Tourist Spots"
+    },
+    "translation": [
+      {
+        "translation": "ここで写真を撮ってもいいですか？",
+        "transliteration": "Koko de shashin o totte mo ii desu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "我可以在这里拍照吗？",
+        "transliteration": "Wǒ kěyǐ zài zhèlǐ pāizhào ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Can I take pictures here?",
+        "transliteration": "Can I take pictures here?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "여기서 사진 찍어도 될까요?",
+        "transliteration": "Yeogiseo sajin jjik-eodo doelkkayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Tôi có thể chụp ảnh ở đây không?",
+        "transliteration": "Toi co the chup anh o day khong?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Bolehkah saya mengambil foto di sini?",
+        "transliteration": "Bolehkah saya mengambil foto di sini?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ถ่ายรูปที่นี่ได้ไหมครับ/คะ?",
+        "transliteration": "Thai rup thi ni dai mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Excuse me, could you help me?",
+    "category": {
+      "name": "Polite Interactions / Small Talk"
+    },
+    "translation": [
+      {
+        "translation": "すみません、手伝っていただけますか？",
+        "transliteration": "Sumimasen, tetsudatte itadakemasu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "打扰一下，你能帮我吗？",
+        "transliteration": "Dǎrǎo yīxià, nǐ néng bāng wǒ ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Excuse me, could you help me?",
+        "transliteration": "Excuse me, could you help me?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "실례합니다, 도와주실 수 있나요?",
+        "transliteration": "Sillyehamnida, dowajusil su issnayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Xin lỗi, bạn có thể giúp tôi được không?",
+        "transliteration": "Xin loi, ban co the giup toi duoc khong?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Permisi, bisakah Anda membantu saya?",
+        "transliteration": "Permisi, bisakah Anda membantu saya?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ขอโทษครับ/คะ ช่วยฉันหน่อยได้ไหมครับ/คะ?",
+        "transliteration": "Kho thot khrap/kha, chuay chan noi dai mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Hello, how are you?",
+    "category": {
+      "name": "Polite Interactions / Small Talk"
+    },
+    "translation": [
+      {
+        "translation": "こんにちは、お元気ですか？",
+        "transliteration": "Konnichiwa, o-genki desu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "你好，你怎么样？",
+        "transliteration": "Nǐ hǎo, nǐ zěnme yàng?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Hello, how are you?",
+        "transliteration": "Hello, how are you?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "안녕하세요, 어떻게 지내세요?",
+        "transliteration": "Annyeonghaseyo, eotteoke jinaeseyo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Xin chào, bạn có khỏe không?",
+        "transliteration": "Xin chao, ban co khoe khong?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Halo, apa kabar?",
+        "transliteration": "Halo, apa kabar?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "สวัสดีครับ/ค่ะ สบายดีไหมครับ/คะ?",
+        "transliteration": "Sawatdi khrap/kha, sabai di mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Thank you very much!",
+    "category": {
+      "name": "Polite Interactions / Small Talk"
+    },
+    "translation": [
+      {
+        "translation": "どうもありがとうございます！",
+        "transliteration": "Domo arigato gozaimasu!",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "非常感谢！",
+        "transliteration": "Fēicháng gǎnxiè!",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Thank you very much!",
+        "transliteration": "Thank you very much!",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "정말 감사합니다!",
+        "transliteration": "Jeongmal gamsahamnida!",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Cảm ơn rất nhiều!",
+        "transliteration": "Cam on rat nhieu!",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Terima kasih banyak!",
+        "transliteration": "Terima kasih banyak!",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ขอบคุณมากครับ/ค่ะ!",
+        "transliteration": "Khop khun mak khrap/kha!",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  }
+]

@@ -2,6 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Auth from "../auth/Auth.jsx"
 import SignIn from "../auth/SignIn.jsx"
 import SignUp from "../auth/SignUp.jsx"
+import TermsAndConditions from "../auth/TermsAndConditions.jsx"
+import PrivacyPolicy from "../auth/PrivacyPolicy.jsx"
 
 const Stack = createStackNavigator()
 
@@ -10,7 +12,7 @@ export default function AuthNavigation() {
     <Stack.Navigator
       initialRouteName="Auth"
       screenOptions={{
-        headerLeft: () => null,
+        headerShown: false,
       }}
     >
       <Stack.Screen
@@ -20,24 +22,10 @@ export default function AuthNavigation() {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        options={{
-          title: "Sign In",
-
-          headerTitleAlign: "center",
-        }}
-        name="SignIn"
-        component={SignIn}
-      />
-      <Stack.Screen
-        options={{
-          title: "Sign Up",
-
-          headerTitleAlign: "center",
-        }}
-        name="SignUp"
-        component={SignUp}
-      />
+      <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="TermsAndConditions" component={TermsAndConditions} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
     </Stack.Navigator>
   )
 }

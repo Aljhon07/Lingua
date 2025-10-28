@@ -1,39 +1,41 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState } from "react";
 
-const PassengerInfoContext = createContext()
+const PassengerInfoContext = createContext();
 
-import React from "react"
+import React from "react";
+import { useProfileContext } from "./ProfileProvider";
 
 export default function PassengerInfoProvider({ children }) {
+  const { profile } = useProfileContext();
   const [contacts, setContacts] = useState({
-    phoneNumber: "09123456789",
-    emailAddress: "paimon@gmail.com",
-  })
-  const [ticket, setTicket] = useState(null)
-  const [paymentMethod, setPaymentMethod] = useState("Credit Card")
+    phoneNumber: "",
+    emailAddress: profile.email,
+  });
+  const [ticket, setTicket] = useState(null);
+  const [paymentMethod, setPaymentMethod] = useState("Credit Card");
   const [passengers, setPassengers] = useState([
     {
-      name: "Aljhon",
+      name: "",
       documents: [],
     },
-  ])
+  ]);
 
   const handleChangeContacts = (key, value) => {
-    setContacts((prev) => ({ ...prev, [key]: value }))
-  }
+    setContacts((prev) => ({ ...prev, [key]: value }));
+  };
 
   const updateInfo = (index, key, value) => {
     setPassengers((prev) => {
       const udpatePassenger = prev.map((passenger, i) =>
         i === index ? { ...passenger, [key]: value } : passenger
-      )
-      return udpatePassenger
-    })
-  }
+      );
+      return udpatePassenger;
+    });
+  };
 
   const addPassenger = () => {
-    setPassengers((prev) => [...prev, { name: "", documents: [] }])
-  }
+    setPassengers((prev) => [...prev, { name: "", documents: [] }]);
+  };
 
   const getAllInfo = () => {
     return {
@@ -41,8 +43,8 @@ export default function PassengerInfoProvider({ children }) {
       contacts,
       paymentMethod,
       passengers,
-    }
-  }
+    };
+  };
   return (
     <PassengerInfoContext.Provider
       value={{
@@ -60,7 +62,7 @@ export default function PassengerInfoProvider({ children }) {
     >
       {children}
     </PassengerInfoContext.Provider>
-  )
+  );
 }
 
-export const usePassengerInfoContext = () => useContext(PassengerInfoContext)
+export const usePassengerInfoContext = () => useContext(PassengerInfoContext);

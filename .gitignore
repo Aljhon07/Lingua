@@ -1,3 +1,9 @@
 .vscode
 directus-playground
 vosk
+*.txt
+scp/
+android/
+ios/
+web/
+server/output/*.mp3

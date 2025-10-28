@@ -1,22 +1,41 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { Feather, MaterialIcons, SimpleLineIcons } from "@expo/vector-icons"
-import { useNavigation } from "@react-navigation/native"
-import Profile from "../profile/Profile"
-import Translator from "../translator/Translator"
-import BookingHistory from "../bookings/BookingHistory"
-import LessonNavigation from "./LessonNavigation"
-import Explore from "../travel-package-listing/Explore"
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { MaterialIcons, SimpleLineIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import Translator from "../translator/Translator";
+import Explore from "../travel-package-listing/Explore";
+import { LessonListWrapper } from "../language-learning/LessonList";
+import HomeScreen from "../home/HomeScreen.jsx";
+import PhrasebookButton from "@components/atoms/PhrasebookButton";
+import { useEffect } from "react";
+import { PerfMonitor } from "@utils/perfMonitor";
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function MainTab() {
-  const { navigate } = useNavigation()
+  const { navigate } = useNavigation();
+
+  useEffect(() => {
+    PerfMonitor.logAppLoad().catch(console.error);
+    console.log("MainTab mounted - app load tracking triggered");
+  }, []);
 
   return (
     <Tab.Navigator
-      initialRouteName="Explore"
-      screenOptions={{ headerShown: false, headerTransparent: false }}
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        headerShown: false,
+        headerTransparent: false,
+      })}
     >
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="home" size={24} color={color} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Explore"
         component={Explore}
@@ -27,32 +46,20 @@ export default function MainTab() {
         }}
       />
       <Tab.Screen
-        component={BookingHistory}
-        name="Bookings"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <SimpleLineIcons name="book-open" size={24} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
         component={Translator}
-        name="Translator"
-        listeners={() => ({
-          tabPress: (e) => {
-            // e.preventDefault()
-            navigate("Translator")
-          },
-        })}
+        name="Translate"
         options={{
           tabBarIcon: ({ color }) => (
             <SimpleLineIcons name="microphone" size={24} color={color} />
           ),
+          headerRight: () => <PhrasebookButton />,
+          headerShown: true,
         }}
       />
+
       <Tab.Screen
         name="LessonsNavigation"
-        component={LessonNavigation}
+        component={LessonListWrapper}
         options={{
           title: "Learn",
           tabBarIcon: ({ color }) => (
@@ -60,15 +67,6 @@ export default function MainTab() {
           ),
         }}
       />
-      <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Feather name="user" size={24} color={color} />
-          ),
-        }}
-      />
     </Tab.Navigator>
-  )
+  );
 }

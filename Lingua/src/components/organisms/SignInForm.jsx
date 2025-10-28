@@ -1,21 +1,52 @@
-import { StyleSheet, View } from "react-native"
-import { spacing } from "@constants/globalStyles"
-import { LinkText } from "@components/atoms/LinkText"
-import { useInputChange } from "@hooks/useInputChange"
-import { useAuthContext } from "@context/AuthProvider"
-import { Text, TextInput, useTheme } from "react-native-paper"
-import { useToggle } from "@hooks/useToggle"
-import { CustomButton } from "@components/molecules/CustomButton"
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
+import { spacing } from "@constants/globalStyles";
+import { LinkText } from "@components/atoms/LinkText";
+import { useInputChange } from "@hooks/useInputChange";
+import { useAuthContext } from "@context/AuthProvider";
+import { Text, TextInput, useTheme } from "react-native-paper";
+import { useToggle } from "@hooks/useToggle";
+import { CustomButton } from "@components/molecules/CustomButton";
+import {
+  GoogleSignin,
+  statusCodes,
+} from "@react-native-google-signin/google-signin";
 
 export default function SignInForm({ navigation }) {
   const [credentials, handleInputChange] = useInputChange({
     email: "",
     password: "",
-  })
-  const [visible, toggleVisiblity] = useToggle()
-  const { loading, signIn } = useAuthContext()
-  const { colors } = useTheme()
-  const handleSignIn = async () => signIn(credentials)
+  });
+  const [visible, toggleVisiblity] = useToggle();
+  const { loading, signIn } = useAuthContext();
+  const { colors } = useTheme();
+
+  useEffect(() => {
+    // Configure Google Sign-In
+    GoogleSignin.configure({
+      webClientId: "YOUR_GOOGLE_WEB_CLIENT_ID", // Get this from Google Developer Console
+    });
+  }, []);
+
+  const handleSignIn = async () => signIn(credentials);
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const userInfo = await GoogleSignin.signIn();
+      // You can now authenticate the user with your backend or context
+      console.log("Google Sign-In successful!", userInfo);
+      // Assuming your `signIn` method can handle Google auth token
+      await signIn({ email: userInfo.user.email, password: userInfo.idToken });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log("User cancelled Google Sign-In");
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log("Google Sign-In is in progress");
+      } else {
+        console.log("Google Sign-In error", error);
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -56,10 +87,15 @@ export default function SignInForm({ navigation }) {
             </LinkText>
           </Text>
           <LinkText style={styles.centerText}>Forgot Password?</LinkText>
+
+          {/* Google Sign-In Button */}
+          <CustomButton primary onPress={handleGoogleSignIn} loading={loading}>
+            Sign In with Google
+          </CustomButton>
         </View>
       </View>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -80,4 +116,4 @@ const styles = StyleSheet.create({
   centerText: {
     textAlign: "center",
   },
-})
+});

@@ -1,36 +1,66 @@
-import { useState } from "react"
+import { useState, useCallback } from "react";
 
 export const useQueryState = () => {
-  const [queries, setQueries] = useState({})
+  const [queries, setQueries] = useState({});
 
-  const initQueries = ({ name, loading, error, data }) => {
+  const initQueries = useCallback(({ name, loading, error, data }) => {
     setQueries((prevQueries) => ({
       ...prevQueries,
       [name]: {
-        loading: loading,
-        error: error,
-        data: data,
+        loading,
+        error,
+        data,
       },
-    }))
-  }
+    }));
+  }, []);
 
-  const executeQuery = async (name, querFn, ...args) => {
-    initQueries({ name, loading: true, error: null, data: null })
-    try {
-      const res = await querFn(...args)
-      initQueries({ name, loading: false, error: null, data: res })
-      return res
-    } catch (err) {
-      initQueries({
-        name,
-        loading: false,
-        error: true,
-        data: "Query State Error: " + err,
-      })
-    }
-  }
+  const executeQuery = useCallback(
+    async (name, queryFn, ...args) => {
+      initQueries({ name, loading: true, error: null, data: null });
+      try {
+        const res = await queryFn(...args);
+        initQueries({ name, loading: false, error: null, data: res });
+        return res;
+      } catch (err) {
+        initQueries({
+          name,
+          loading: false,
+          error: true,
+          data: "Query State Error: " + err,
+        });
+      }
+    },
+    [initQueries]
+  );
 
-  const getQueryState = (name) =>
-    queries[name] || { loading: true, error: false, data: null }
-  return { getQueryState, executeQuery, queries }
-}
+  const getQueryState = useCallback(
+    (name) => queries[name] || { loading: false, error: false, data: null },
+    [queries]
+  );
+
+  const invalidateQuery = useCallback((name) => {
+    setQueries((prevQueries) => {
+      const { [name]: removedQuery, ...restQueries } = prevQueries;
+      return restQueries;
+    });
+  }, []);
+
+  const refreshQuery = useCallback(
+    async (name, queryFn, ...args) => {
+      const currentQuery = getQueryState(name);
+      if (currentQuery.data) {
+        // If query exists, re-execute it
+        return await executeQuery(name, queryFn, ...args);
+      }
+    },
+    [executeQuery, getQueryState]
+  );
+
+  return {
+    getQueryState,
+    executeQuery,
+    invalidateQuery,
+    refreshQuery,
+    queries,
+  };
+};

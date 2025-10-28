@@ -1,0 +1,502 @@
+[
+  {
+    "phrase": "Goodbye! Have a nice day.",
+    "category": {
+      "name": "Leaving / Farewell"
+    },
+    "translation": [
+      {
+        "translation": "さようなら、良い一日を！",
+        "transliteration": "Sayonara, yoi ichinichi o!",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "再见，祝你有美好的一天！",
+        "transliteration": "Zàijiàn, zhù nǐ yǒu měihǎo de yītiān!",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Goodbye! Have a nice day.",
+        "transliteration": "Goodbye! Have a nice day.",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "안녕히 가세요, 좋은 하루 되세요!",
+        "transliteration": "Annyeonghi gaseyo, joheun haru doeseyo!",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Tạm biệt, chúc một ngày tốt lành!",
+        "transliteration": "Tam biet, chuc mot ngay tot lanh!",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Selamat tinggal, semoga harimu menyenangkan!",
+        "transliteration": "Selamat tinggal, semoga harimu menyenangkan!",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ลาก่อน ขอให้เป็นวันที่ดี!",
+        "transliteration": "La kon, khor hai pen wan thi di!",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "See you later.",
+    "category": {
+      "name": "Leaving / Farewell"
+    },
+    "translation": [
+      {
+        "translation": "また後で。",
+        "transliteration": "Mata ato de.",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "待会儿见。",
+        "transliteration": "Dàihuìr jiàn.",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "See you later.",
+        "transliteration": "See you later.",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "나중에 봐요.",
+        "transliteration": "Najung-e bwayo.",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Hẹn gặp lại sau nhé.",
+        "transliteration": "Hen gap lai sau nhe.",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Sampai jumpa lagi.",
+        "transliteration": "Sampai jumpa lagi.",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "แล้วเจอกันใหม่นะครับ/คะ",
+        "transliteration": "Laew jer gan mai na khrap/kha",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Take care!",
+    "category": {
+      "name": "Leaving / Farewell"
+    },
+    "translation": [
+      {
+        "translation": "お気をつけて！",
+        "transliteration": "O-ki o tsukete!",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "保重！",
+        "transliteration": "Bǎozhòng!",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Take care!",
+        "transliteration": "Take care!",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "조심히 가세요!",
+        "transliteration": "Josimhi gaseyo!",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Bảo trọng nhé!",
+        "transliteration": "Bao trong nhe!",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Hati-hati di jalan!",
+        "transliteration": "Hati-hati di jalan!",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ดูแลตัวเองด้วยนะครับ/คะ",
+        "transliteration": "Du-lae tua eng duay na khrap/kha",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Where is the information desk?",
+    "category": {
+      "name": "At the Airport / Transport Hub"
+    },
+    "translation": [
+      {
+        "translation": "インフォメーションデスクはどこですか？",
+        "transliteration": "Infomēshon desuku wa doko desu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "问讯处在哪里？",
+        "transliteration": "Wènxùn chù zài nǎlǐ?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Where is the information desk?",
+        "transliteration": "Where is the information desk?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "안내 데스크가 어디에 있나요?",
+        "transliteration": "Annae deseukeuga eodie issnayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Quầy thông tin ở đâu vậy?",
+        "transliteration": "Quay thong tin o dau vay?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Di mana meja informasinya?",
+        "transliteration": "Di mana meja informasinya?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "จุดประชาสัมพันธ์อยู่ที่ไหนครับ/คะ?",
+        "transliteration": "Jut pracha-samphan yu thi nai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Which way should I go?",
+    "category": {
+      "name": "At the Airport / Transport Hub"
+    },
+    "translation": [
+      {
+        "translation": "どちらに行けばいいですか？",
+        "transliteration": "Dochira ni ikeba ii desu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "我该走哪条路？",
+        "transliteration": "Wǒ gāi zǒu nǎ tiáo lù?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Which way should I go?",
+        "transliteration": "Which way should I go?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "어느 쪽으로 가야 하나요?",
+        "transliteration": "Eoneu jjogeuro gaya hanayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Tôi nên đi đường nào?",
+        "transliteration": "Toi nen di duong nao?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Saya harus ke arah mana?",
+        "transliteration": "Saya harus ke arah mana?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ผม/ดิฉันควรไปทางไหนครับ/คะ?",
+        "transliteration": "Phom/di-chan khuan pai thang nai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Can I see the menu, please?",
+    "category": {
+      "name": "Eating / Restaurants"
+    },
+    "translation": [
+      {
+        "translation": "メニューを見せていただけますか？",
+        "transliteration": "Menyu o misete itadakemasu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "请给我看看菜单好吗？",
+        "transliteration": "Qǐng gěi wǒ kànkan càidān hǎo ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Can I see the menu, please?",
+        "transliteration": "Can I see the menu, please?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "메뉴판 좀 볼 수 있을까요?",
+        "transliteration": "Menyupan jom bol su isseulkkayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Cho tôi xem thực đơn được không ạ?",
+        "transliteration": "Cho toi xem thuc don duoc khong a?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Bolehkah saya melihat menunya?",
+        "transliteration": "Bolehkah saya melihat menunya?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ขอเมนูหน่อยได้ไหมครับ/คะ?",
+        "transliteration": "Khor menu noi dai mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Could I have some water, please?",
+    "category": {
+      "name": "Eating / Restaurants"
+    },
+    "translation": [
+      {
+        "translation": "お水をいただけますか？",
+        "transliteration": "O-mizu o itadakemasu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "请给我一些水好吗？",
+        "transliteration": "Qǐng gěi wǒ yīxiē shuǐ hǎo ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Could I have some water, please?",
+        "transliteration": "Could I have some water, please?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "물 좀 주실 수 있을까요?",
+        "transliteration": "Mul jom jusil su isseulkkayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Cho tôi xin chút nước được không ạ?",
+        "transliteration": "Cho toi xin chut nuoc duoc khong a?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Bolehkah saya minta air putih?",
+        "transliteration": "Bolehkah saya minta air putih?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ขอน้ำดื่มหน่อยได้ไหมครับ/คะ?",
+        "transliteration": "Khor nam deum noi dai mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "I need help immediately.",
+    "category": {
+      "name": "Emergencies / Health"
+    },
+    "translation": [
+      {
+        "translation": "すぐに助けが必要です。",
+        "transliteration": "Sugu ni tasuke ga hitsuyō desu.",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "我需要立即帮助。",
+        "transliteration": "Wǒ xūyào lìjí bāngzhù.",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "I need help immediately.",
+        "transliteration": "I need help immediately.",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "도움이 급히 필요합니다.",
+        "transliteration": "Doumi geuphi piryohamnida.",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Tôi cần giúp đỡ ngay lập tức.",
+        "transliteration": "Toi can giup do ngay lap tuc.",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Saya butuh bantuan segera.",
+        "transliteration": "Saya butuh bantuan segera.",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "ผม/ดิฉันต้องการความช่วยเหลือด่วนครับ/ค่ะ",
+        "transliteration": "Phom/di-chan tong kan khwam chuay luea duan khrap/kha",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Is there a doctor nearby?",
+    "category": {
+      "name": "Emergencies / Health"
+    },
+    "translation": [
+      {
+        "translation": "近くに医者はいますか？",
+        "transliteration": "Chikaku ni isha wa imasu ka?",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "附近有医生吗？",
+        "transliteration": "Fùjìn yǒu yīshēng ma?",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Is there a doctor nearby?",
+        "transliteration": "Is there a doctor nearby?",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "근처에 의사가 있나요?",
+        "transliteration": "Geuncheoe uisaga innayo?",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Có bác sĩ nào gần đây không ạ?",
+        "transliteration": "Co bac si nao gan day khong a?",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Apakah ada dokter di dekat sini?",
+        "transliteration": "Apakah ada dokter di dekat sini?",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "มีหมออยู่แถวนี้ไหมครับ/คะ?",
+        "transliteration": "Mi mo yu thaew ni mai khrap/kha?",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  },
+  {
+    "phrase": "Call the emergency number, please!",
+    "category": {
+      "name": "Emergencies / Health"
+    },
+    "translation": [
+      {
+        "translation": "救急車を呼んでください！",
+        "transliteration": "Kyūkyūsha o yonde kudasai!",
+        "language": 1,
+        "audio": null
+      },
+      {
+        "translation": "请拨打紧急电话！",
+        "transliteration": "Qǐng bō dǎ jǐnjí diànhuà!",
+        "language": 3,
+        "audio": null
+      },
+      {
+        "translation": "Call the emergency number, please!",
+        "transliteration": "Call the emergency number, please!",
+        "language": 4,
+        "audio": null
+      },
+      {
+        "translation": "비상번호로 전화해 주세요!",
+        "transliteration": "Bisangbeonhoro jeonhwa juseyo!",
+        "language": 5,
+        "audio": null
+      },
+      {
+        "translation": "Làm ơn gọi cấp cứu!",
+        "transliteration": "Lam on goi cap cuu!",
+        "language": 6,
+        "audio": null
+      },
+      {
+        "translation": "Tolong hubungi nomor darurat!",
+        "transliteration": "Tolong hubungi nomor darurat!",
+        "language": 7,
+        "audio": null
+      },
+      {
+        "translation": "กรุณาโทรแจ้งเหตุฉุกเฉิน! (1669)",
+        "transliteration": "Karuna thor chaeng het chukchoeun! (1669)",
+        "language": 8,
+        "audio": null
+      }
+    ]
+  }
+]

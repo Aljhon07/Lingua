@@ -5,7 +5,6 @@ import Ticket from "./components/Ticket"
 import PaddedView from "@components/atoms/PaddedView"
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native"
 import { spacing } from "@constants/globalStyles"
-import ButtonPair from "@components/molecules/ButtonPair"
 import PassengerInputContainer from "./components/PassengerInputContainer"
 import { useQueryState } from "@hooks/useQueryState"
 import { usePassengerInfoContext } from "@context/PassengerInfoProvider"
@@ -13,10 +12,12 @@ import { useNavigation } from "@react-navigation/native"
 import ContactInput from "./components/ContactInput"
 import { ScrollView } from "react-native-gesture-handler"
 import PaymentMethodInput from "./components/PaymentMethodInput"
+import { CustomButton } from "@components/molecules/CustomButton"
+import { Text } from "react-native-paper"
 
 export default function PassengerInfo({ route }) {
   const { id } = route.params
-  const { passengers } = usePassengerInfoContext()
+  const { passengers, contacts, emailAddress } = usePassengerInfoContext()
 
   const navigation = useNavigation()
 
@@ -25,10 +26,19 @@ export default function PassengerInfo({ route }) {
   const ticket = getQueryState("ticketDetails")
   const styles = createStyle()
 
-  const handleGoBack = () => {
-    navigation.goBack()
-  }
   const handleGoToSummary = () => {
+    if (passengers[0].name.trim() === "") {
+      alert("Please add at least one passenger.")
+      return
+    }
+    if (!contacts.phoneNumber) {
+      alert("Please enter a contact phone number.")
+      return
+    }
+    if (!contacts.emailAddress) {
+      alert("Please enter a contact email address.")
+      return
+    }
     navigation.navigate("Summary", { id, passengers })
   }
   useEffect(() => {
@@ -51,12 +61,11 @@ export default function PassengerInfo({ route }) {
             <PassengerInputContainer />
           </View>
         </ScrollView>
-        <ButtonPair
-          leftText="Back"
-          rightText="Next"
-          onPressLeft={handleGoBack}
-          onPressRight={handleGoToSummary}
-        />
+        <CustomButton primary onPress={handleGoToSummary}>
+          <Text variant="titleSmall" style={{ color: "black" }}>
+            Next
+          </Text>
+        </CustomButton>
       </DataContainer>
     </PaddedView>
   )

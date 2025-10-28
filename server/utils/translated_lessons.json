@@ -1,0 +1,618 @@
+[
+  {
+    "name": "Transportation & Directions",
+    "description": "Vocabulary for navigating cities and using transportation while traveling.",
+    "vocabularies": [
+      {
+        "sentence": "Which bus goes to the city center?",
+        "word": "Bus",
+        "definition": "A vehicle used for public transport.",
+        "translations": [
+          {
+            "audio": "70fc25e3-fabb-4b44-93ab-952540b0fa99",
+            "audio_sentence": "e6a66512-aa78-4539-b6d4-54437c9f5162",
+            "language": 1,
+            "sentence_transliteration": "Toshin e iku basu wa dore desu ka?",
+            "translated_sentence": "都心へ行くバスはどれですか？",
+            "translated_word": "バス",
+            "word_transliteration": "Basu"
+          },
+          {
+            "audio": "46216703-153f-4f81-ab42-b8522d493a96",
+            "audio_sentence": "97e8a5cd-e82b-41e1-8bce-1bd3781b2cde",
+            "language": 3,
+            "sentence_transliteration": "Nǎ liàng gōnggòng qìchē qù shì zhōngxīn?",
+            "translated_sentence": "哪辆公共汽车去市中心？",
+            "translated_word": "公共汽车",
+            "word_transliteration": "Gōnggòng qìchē"
+          },
+          {
+            "audio": "0f40201b-17bc-4729-9f68-8b5f152c7b31",
+            "audio_sentence": "9919d7aa-ffd5-4048-8a92-b391bd8840fc",
+            "language": 5,
+            "sentence_transliteration": "Sinae-ro ganeun beoseu-ga eodie innayo?",
+            "translated_sentence": "시내로 가는 버스가 어디에 있나요?",
+            "translated_word": "버스",
+            "word_transliteration": "Beoseu"
+          },
+          {
+            "audio": "cbfa2016-4f35-467b-9eb1-7448e498d227",
+            "audio_sentence": "d6d8b216-3b3f-45ee-a229-87bfbf6916e2",
+            "language": 6,
+            "sentence_transliteration": "Xe buýt nào đi đến trung tâm thành phố?",
+            "translated_sentence": "Xe buýt nào đi đến trung tâm thành phố?",
+            "translated_word": "Xe buýt",
+            "word_transliteration": "Xe buýt"
+          },
+          {
+            "audio": "865f4e1e-98eb-494e-b7f2-6f82b195d66b",
+            "audio_sentence": "2e2f40c7-99dc-4fa2-aeee-37f56c5590a9",
+            "language": 7,
+            "sentence_transliteration": "Bis mana yang menuju ke pusat kota?",
+            "translated_sentence": "Bis mana yang menuju ke pusat kota?",
+            "translated_word": "Bis",
+            "word_transliteration": "Bis"
+          },
+          {
+            "audio": "5ea30864-6076-47b5-94c3-154225a82138",
+            "audio_sentence": "d9aea753-8587-4049-9204-4fee294521ec",
+            "language": 8,
+            "sentence_transliteration": "Rót-bàt khan nǎi bpai jai-laang mueang?",
+            "translated_sentence": "รถบัสคันไหนไปใจกลางเมือง?",
+            "translated_word": "รถบัส",
+            "word_transliteration": "Rót-bàt"
+          }
+        ]
+      },
+      {
+        "sentence": "I need a train ticket to the airport.",
+        "word": "Train",
+        "definition": "A vehicle that travels on tracks to transport passengers.",
+        "translations": [
+          {
+            "audio": "16b50677-8570-4123-82d5-c7633f346d01",
+            "audio_sentence": "b7ec852c-87f5-49f7-a2a7-a5a62dcdbecf",
+            "language": 1,
+            "sentence_transliteration": "Kūkō-yuki no kippu ga hoshii desu.",
+            "translated_sentence": "空港行きの切符が欲しいです。",
+            "translated_word": "電車",
+            "word_transliteration": "Densha"
+          },
+          {
+            "audio": "f562edab-93c4-42b2-b455-e903af616bba",
+            "audio_sentence": "8f49c81b-46a9-41c4-bfaa-41aa5406ea4f",
+            "language": 3,
+            "sentence_transliteration": "Wǒ xūyào yī zhāng qù jīchǎng de huǒchē piào.",
+            "translated_sentence": "我需要一张去机场的火车票。",
+            "translated_word": "火车",
+            "word_transliteration": "Huǒchē"
+          },
+          {
+            "audio": "098661f0-9174-4589-ab5b-fc1592c848fb",
+            "audio_sentence": "7c9191f5-a8e0-4bf6-8a5c-c55daab53b73",
+            "language": 5,
+            "sentence_transliteration": "Gonghang-haeng gichapyo-ga piryohaeyo.",
+            "translated_sentence": "공항행 기차표가 필요해요.",
+            "translated_word": "기차",
+            "word_transliteration": "Gicha"
+          },
+          {
+            "audio": "630f9eb6-2e59-4e25-9494-c55bbe8d595b",
+            "audio_sentence": "bb265488-79db-41d1-a707-983966c7265b",
+            "language": 6,
+            "sentence_transliteration": "Tôi cần một vé tàu đến sân bay.",
+            "translated_sentence": "Tôi cần một vé tàu đến sân bay.",
+            "translated_word": "Tàu hỏa",
+            "word_transliteration": "Tàu hỏa"
+          },
+          {
+            "audio": "2306c3a6-b6aa-47c4-a8d7-a7db4cbbdf34",
+            "audio_sentence": "10960ed1-9919-496f-b631-1a3c9b8f8ad4",
+            "language": 7,
+            "sentence_transliteration": "Saya perlu tiket kereta ke bandara.",
+            "translated_sentence": "Saya perlu tiket kereta ke bandara.",
+            "translated_word": "Kereta",
+            "word_transliteration": "Kereta"
+          },
+          {
+            "audio": "83359ead-1398-4b36-8e5a-86333c519951",
+            "audio_sentence": "40fb35bd-f007-4cbc-94c0-404087b85a67",
+            "language": 8,
+            "sentence_transliteration": "Chán dtông-gaan dtŭa rót-fai bpai sà-nǎam-bin",
+            "translated_sentence": "ฉันต้องการตั๋วรถไฟไปสนามบิน",
+            "translated_word": "รถไฟ",
+            "word_transliteration": "Rót-fai"
+          }
+        ]
+      },
+      {
+        "sentence": "I need a taxi to the hotel.",
+        "word": "Taxi",
+        "definition": "A car with a driver that can take you to your destination.",
+        "translations": [
+          {
+            "audio": "bee73de6-9674-4983-9b06-e520328606d3",
+            "audio_sentence": "c367c9a2-dddf-4f3c-99b0-c88541c9555f",
+            "language": 1,
+            "sentence_transliteration": "Hoteru made takushī o onegaishimasu.",
+            "translated_sentence": "ホテルまでタクシーをお願いします。",
+            "translated_word": "タクシー",
+            "word_transliteration": "Takushī"
+          },
+          {
+            "audio": "b4b4aa68-ed9d-417f-a82e-90318256ca6c",
+            "audio_sentence": "aa8e2992-2c40-4242-9c2d-3e1075572113",
+            "language": 3,
+            "sentence_transliteration": "Wǒ xūyào yī liàng qù jiǔdiàn de chūzūchē.",
+            "translated_sentence": "我需要一辆去酒店的出租车。",
+            "translated_word": "出租车",
+            "word_transliteration": "Chūzūchē"
+          },
+          {
+            "audio": "8dddd262-470c-4f60-a591-336c4c1e7f25",
+            "audio_sentence": "2ad654ee-51e5-4f75-8e74-8773ef4f56b5",
+            "language": 5,
+            "sentence_transliteration": "Hotel-kkaji taeksi-ga piryohaeyo.",
+            "translated_sentence": "호텔까지 택시가 필요해요.",
+            "translated_word": "택시",
+            "word_transliteration": "Taeksi"
+          },
+          {
+            "audio": "79c2c572-c1ec-4579-85c0-cf7079a2d815",
+            "audio_sentence": "fc20290c-9623-41b6-aec2-652100ff65e1",
+            "language": 6,
+            "sentence_transliteration": "Tôi cần một chiếc taxi đến khách sạn.",
+            "translated_sentence": "Tôi cần một chiếc taxi đến khách sạn.",
+            "translated_word": "Taxi",
+            "word_transliteration": "Taxi"
+          },
+          {
+            "audio": "ca8bb121-e10e-4377-a3ad-e1b84f175964",
+            "audio_sentence": "586fce4f-5aed-47ad-8392-bbedd26edf8b",
+            "language": 7,
+            "sentence_transliteration": "Saya perlu taksi ke hotel.",
+            "translated_sentence": "Saya perlu taksi ke hotel.",
+            "translated_word": "Taksi",
+            "word_transliteration": "Taksi"
+          },
+          {
+            "audio": "cb6d4d5e-b513-40a3-bc63-52d6d01196e0",
+            "audio_sentence": "51a820ce-68b2-410c-a736-8275f2df4558",
+            "language": 8,
+            "sentence_transliteration": "Chán dtông-gaan táek-sêe bpai roong-raem",
+            "translated_sentence": "ฉันต้องการแท็กซี่ไปโรงแรม",
+            "translated_word": "แท็กซี่",
+            "word_transliteration": "Táek-sêe"
+          }
+        ]
+      },
+      {
+        "sentence": "The airport is 10 minutes from here.",
+        "word": "Airport",
+        "definition": "The place where airplanes arrive and depart.",
+        "translations": [
+          {
+            "audio": "8f2d43cd-521a-4ac6-a652-a598b6b839e0",
+            "audio_sentence": "3220eca3-f1d6-4241-9fe5-c11122bdc70f",
+            "language": 1,
+            "sentence_transliteration": "Kūkō wa koko kara juppun desu.",
+            "translated_sentence": "空港はここから10分です。",
+            "translated_word": "空港",
+            "word_transliteration": "Kūkō"
+          },
+          {
+            "audio": "d467eb7a-03a6-423d-9ef4-2e15fffef4a7",
+            "audio_sentence": "b8e7a4dc-11c7-4d37-be10-2b1a34f61431",
+            "language": 3,
+            "sentence_transliteration": "Jīchǎng lí zhèlǐ yǒu shí fēnzhōng lùchéng.",
+            "translated_sentence": "机场离这里有10分钟路程。",
+            "translated_word": "机场",
+            "word_transliteration": "Jīchǎng"
+          },
+          {
+            "audio": "87f7f41b-651e-421c-ad36-4d5faaed7b7c",
+            "audio_sentence": "bd79fbc2-324a-4fd5-b13c-cdd494223601",
+            "language": 5,
+            "sentence_transliteration": "Gonghang-eun yeogiseo sipbun georiyeyo.",
+            "translated_sentence": "공항은 여기서 10분 거리예요.",
+            "translated_word": "공항",
+            "word_transliteration": "Gonghang"
+          },
+          {
+            "audio": "b8f0dbfe-0b7b-4797-a1b8-da55c5bdfcf3",
+            "audio_sentence": "c1209668-6487-4bef-ba4e-a19f4cb6a528",
+            "language": 6,
+            "sentence_transliteration": "Sân bay cách đây 10 phút.",
+            "translated_sentence": "Sân bay cách đây 10 phút.",
+            "translated_word": "Sân bay",
+            "word_transliteration": "Sân bay"
+          },
+          {
+            "audio": "acd06e00-d368-49ed-b512-c12c78961137",
+            "audio_sentence": "094e69ba-9f69-4368-b430-2287be5f9396",
+            "language": 7,
+            "sentence_transliteration": "Bandaranya 10 menit dari sini.",
+            "translated_sentence": "Bandaranya 10 menit dari sini.",
+            "translated_word": "Bandara",
+            "word_transliteration": "Bandara"
+          },
+          {
+            "audio": "368f000d-acf8-465f-a06b-aa84c7f1f362",
+            "audio_sentence": "ffb3acf2-4080-4fa2-b010-2b6817f6eb74",
+            "language": 8,
+            "sentence_transliteration": "Sà-nǎam-bin yùu hàak jàak tîi nîi sìp naa-tii",
+            "translated_sentence": "สนามบินอยู่ห่างจากที่นี่ 10 นาที",
+            "translated_word": "สนามบิน",
+            "word_transliteration": "Sà-nǎam-bin"
+          }
+        ]
+      },
+      {
+        "sentence": "The train station is next to the city square.",
+        "word": "Station",
+        "definition": "A place where buses or trains stop to pick up and drop off passengers.",
+        "translations": [
+          {
+            "audio": "76995a13-c4c5-4564-a163-7791c37b2c13",
+            "audio_sentence": "f4862bf6-73b7-46a2-ba5c-12540b834777",
+            "language": 1,
+            "sentence_transliteration": "Eki wa shi no hiroba no tonari desu.",
+            "translated_sentence": "駅は市の広場の隣です。",
+            "translated_word": "駅",
+            "word_transliteration": "Eki"
+          },
+          {
+            "audio": "32ac83b0-56ca-43e9-9cbd-78ee0cd3aae5",
+            "audio_sentence": "6b585224-aeca-474a-b131-bf0d4caf2e48",
+            "language": 3,
+            "sentence_transliteration": "Huǒchēzhàn zài chéngshì guǎngchǎng pángbiān.",
+            "translated_sentence": "火车站在城市广场旁边。",
+            "translated_word": "车站",
+            "word_transliteration": "Chēzhàn"
+          },
+          {
+            "audio": "73eedf00-f536-4e77-8f17-49abf27d4c9d",
+            "audio_sentence": "8b73a6dc-4702-4867-ba43-813cf55a4dcf",
+            "language": 5,
+            "sentence_transliteration": "Gichayeok-eun dosi gwangjang yeop-e isseoyo.",
+            "translated_sentence": "기차역은 도시 광장 옆에 있어요.",
+            "translated_word": "역",
+            "word_transliteration": "Yeok"
+          },
+          {
+            "audio": "58cd0852-ebf7-468a-a809-e09b2bd18b8a",
+            "audio_sentence": "c91f907e-41a4-46f4-9f85-166b12a1bd95",
+            "language": 6,
+            "sentence_transliteration": "Ga tàu nằm cạnh quảng trường thành phố.",
+            "translated_sentence": "Ga tàu nằm cạnh quảng trường thành phố.",
+            "translated_word": "Ga",
+            "word_transliteration": "Ga"
+          },
+          {
+            "audio": "6d0d95c5-3b64-42a1-b5ae-2fc7aaf533eb",
+            "audio_sentence": "4b72a6cc-d740-45d1-ac86-b4393bf4e62a",
+            "language": 7,
+            "sentence_transliteration": "Stasiun kereta ada di sebelah alun-alun kota.",
+            "translated_sentence": "Stasiun kereta ada di sebelah alun-alun kota.",
+            "translated_word": "Stasiun",
+            "word_transliteration": "Stasiun"
+          },
+          {
+            "audio": "2eea3d34-370d-44fc-9a19-7c5445f06e5c",
+            "audio_sentence": "a7d6158b-4e5d-4945-8592-7a5e6587be64",
+            "language": 8,
+            "sentence_transliteration": "Sà-tăa-nii rót-fai yùu dtìt gàp jàt-dtà-ràt glaang mueang",
+            "translated_sentence": "สถานีรถไฟอยู่ติดกับจัตุรัสกลางเมือง",
+            "translated_word": "สถานี",
+            "word_transliteration": "Sà-tăa-nii"
+          }
+        ]
+      },
+      {
+        "sentence": "I bought a ticket for the next train.",
+        "word": "Ticket",
+        "definition": "A pass that allows access to transportation.",
+        "translations": [
+          {
+            "audio": "499d0b18-4c95-4db3-a8bc-328b45ae876e",
+            "audio_sentence": "67beb5ec-9554-48ce-a21c-83914154fd0b",
+            "language": 1,
+            "sentence_transliteration": "Tsugi no densha no kippu o kaimashita.",
+            "translated_sentence": "次の電車の切符を買いました。",
+            "translated_word": "切符",
+            "word_transliteration": "Kippu"
+          },
+          {
+            "audio": "420cdf3d-f4c9-48e4-ba38-c8e9cb42d413",
+            "audio_sentence": "f7ff6b13-a3e0-49d2-bbb9-71cf53ee3108",
+            "language": 3,
+            "sentence_transliteration": "Wǒ mǎile yī zhāng xià yī bān huǒchē de piào.",
+            "translated_sentence": "我买了一张下一班火车的票。",
+            "translated_word": "票",
+            "word_transliteration": "Piào"
+          },
+          {
+            "audio": "e482a6b2-a811-4e7c-a550-1973eccd3982",
+            "audio_sentence": "eaac6b44-ffe6-4954-a4b5-c8cea0f4c7b2",
+            "language": 5,
+            "sentence_transliteration": "Daeum gicha pyo-reul sasseoyo.",
+            "translated_sentence": "다음 기차 표를 샀어요.",
+            "translated_word": "표",
+            "word_transliteration": "Pyo"
+          },
+          {
+            "audio": "05ac9889-bd90-46ca-b44f-c4d25f66a9b0",
+            "audio_sentence": "0109ecb9-fd10-4203-9bec-2a1add029c20",
+            "language": 6,
+            "sentence_transliteration": "Tôi đã mua một vé cho chuyến tàu tiếp theo.",
+            "translated_sentence": "Tôi đã mua một vé cho chuyến tàu tiếp theo.",
+            "translated_word": "Vé",
+            "word_transliteration": "Vé"
+          },
+          {
+            "audio": "6842bdd8-a038-4a3b-93b0-8fed106ea630",
+            "audio_sentence": "740e3cb2-4cb8-4c69-8538-9536cfedb6a2",
+            "language": 7,
+            "sentence_transliteration": "Saya membeli tiket untuk kereta berikutnya.",
+            "translated_sentence": "Saya membeli tiket untuk kereta berikutnya.",
+            "translated_word": "Tiket",
+            "word_transliteration": "Tiket"
+          },
+          {
+            "audio": "14dd4aac-856a-4fe5-aee5-450f2b5aced3",
+            "audio_sentence": "9202eb92-52a5-48a2-a9d8-e44edc71f10d",
+            "language": 8,
+            "sentence_transliteration": "Chán séu dtŭa rót-fai tîat tàt bpai láew",
+            "translated_sentence": "ฉันซื้อตั๋วรถไฟเที่ยวถัดไปแล้ว",
+            "translated_word": "ตั๋ว",
+            "word_transliteration": "Dtŭa"
+          }
+        ]
+      },
+      {
+        "sentence": "I am using a map to find the hotel.",
+        "word": "Map",
+        "definition": "A visual representation of an area showing locations and routes.",
+        "translations": [
+          {
+            "audio": "c7e04aba-6357-4487-b140-ee06b69894b9",
+            "audio_sentence": "e460f666-5bcb-44fa-bd81-11ced54f60be",
+            "language": 1,
+            "sentence_transliteration": "Hoteru o mitsukeru tame ni chizu o tsukatte imasu.",
+            "translated_sentence": "ホテルを見つけるために地図を使っています。",
+            "translated_word": "地図",
+            "word_transliteration": "Chizu"
+          },
+          {
+            "audio": "c371c6f9-04e2-42e5-8d96-18a3ed45da4e",
+            "audio_sentence": "f4fb89d5-db2d-428d-96f1-c1965517225d",
+            "language": 3,
+            "sentence_transliteration": "Wǒ zhèngzài yòng dìtú zhǎo jiǔdiàn.",
+            "translated_sentence": "我正在用地图找酒店。",
+            "translated_word": "地图",
+            "word_transliteration": "Dìtú"
+          },
+          {
+            "audio": "10b9c2ac-b089-4d01-abee-35f8541c8e25",
+            "audio_sentence": "75e66122-9e89-48d0-a638-a0f8d04e8b16",
+            "language": 5,
+            "sentence_transliteration": "Hotel-eul chatgi wihae jido-reul sayonghago isseoyo.",
+            "translated_sentence": "호텔을 찾기 위해 지도를 사용하고 있어요.",
+            "translated_word": "지도",
+            "word_transliteration": "Jido"
+          },
+          {
+            "audio": "45aa43ce-df2b-4109-8c5f-436eda8e0447",
+            "audio_sentence": "3c01c6df-ee27-48ad-a122-0fd1898eaca6",
+            "language": 6,
+            "sentence_transliteration": "Tôi đang sử dụng bản đồ để tìm khách sạn.",
+            "translated_sentence": "Tôi đang sử dụng bản đồ để tìm khách sạn.",
+            "translated_word": "Bản đồ",
+            "word_transliteration": "Bản đồ"
+          },
+          {
+            "audio": "73112f53-1b02-4026-9969-ef5ae55f0a68",
+            "audio_sentence": "d5ccf6f9-e395-4b73-9954-aee09ac8b86d",
+            "language": 7,
+            "sentence_transliteration": "Saya menggunakan peta untuk menemukan hotel.",
+            "translated_sentence": "Saya menggunakan peta untuk menemukan hotel.",
+            "translated_word": "Peta",
+            "word_transliteration": "Peta"
+          },
+          {
+            "audio": "ee8319fb-170e-4f4c-b877-6e1f6c7d2ce6",
+            "audio_sentence": "398e03af-a434-4d98-9257-8898431c9862",
+            "language": 8,
+            "sentence_transliteration": "Chán gam-lang chái phaen-tîi pʉ̂a hǎa roong-raem",
+            "translated_sentence": "ฉันกำลังใช้แผนที่เพื่อหาโรงแรม",
+            "translated_word": "แผนที่",
+            "word_transliteration": "Phaen-tîi"
+          }
+        ]
+      },
+      {
+        "sentence": "Turn left at the next intersection.",
+        "word": "Left",
+        "definition": "The direction opposite of right.",
+        "translations": [
+          {
+            "audio": "54c2118a-2c51-49f2-87cf-fa22cd7a02af",
+            "audio_sentence": "5a5f21da-f1b9-4dbb-b45f-59ff10989526",
+            "language": 1,
+            "sentence_transliteration": "Tsugi no kōsaten o hidari ni magatte kudasai.",
+            "translated_sentence": "次の交差点を左に曲がってください。",
+            "translated_word": "左",
+            "word_transliteration": "Hidari"
+          },
+          {
+            "audio": "076fe7dc-6ee5-4bfe-92e7-6cc254a13752",
+            "audio_sentence": "38e8c8a4-2d9a-4f5a-ac84-14e563b84f2b",
+            "language": 3,
+            "sentence_transliteration": "Zài xià gè shízì lùkǒu zuǒ zhuǎn.",
+            "translated_sentence": "在下个十字路口左转。",
+            "translated_word": "左",
+            "word_transliteration": "Zuǒ"
+          },
+          {
+            "audio": "e4d7a0bc-4d86-4e6a-a929-5b3a1b892dda",
+            "audio_sentence": "82a7ccc0-9402-44af-88b9-a411e2edc381",
+            "language": 5,
+            "sentence_transliteration": "Daeum gyocharo-eseo oenjjok-euro doseyo.",
+            "translated_sentence": "다음 교차로에서 왼쪽으로 도세요.",
+            "translated_word": "왼쪽",
+            "word_transliteration": "Oenjjok"
+          },
+          {
+            "audio": "ab92e4c9-aedb-4460-84be-a997aa23db9f",
+            "audio_sentence": "e5ee901f-88b7-42f7-80f1-aa35bcf62cb1",
+            "language": 6,
+            "sentence_transliteration": "Rẽ trái ở ngã tư tiếp theo.",
+            "translated_sentence": "Rẽ trái ở ngã tư tiếp theo.",
+            "translated_word": "Trái",
+            "word_transliteration": "Trái"
+          },
+          {
+            "audio": "64be891b-0f47-4eee-8d35-96766ba9eb16",
+            "audio_sentence": "51de4dc4-9e8e-47bb-989b-62f28323d246",
+            "language": 7,
+            "sentence_transliteration": "Belok kiri di persimpangan berikutnya.",
+            "translated_sentence": "Belok kiri di persimpangan berikutnya.",
+            "translated_word": "Kiri",
+            "word_transliteration": "Kiri"
+          },
+          {
+            "audio": "97dcbb23-8eb8-4df1-9a22-2c34c1d42879",
+            "audio_sentence": "7b6a3293-c148-4a5a-9427-ab53ee936a1a",
+            "language": 8,
+            "sentence_transliteration": "Líao sáai tîi sìi-yâek nâa",
+            "translated_sentence": "เลี้ยวซ้ายที่สี่แยกหน้า",
+            "translated_word": "ซ้าย",
+            "word_transliteration": "Sáai"
+          }
+        ]
+      },
+      {
+        "sentence": "Go right after the traffic light.",
+        "word": "Right",
+        "definition": "The direction opposite of left.",
+        "translations": [
+          {
+            "audio": "f939c57c-5f03-470c-9100-d54f139a434e",
+            "audio_sentence": "343019f9-c987-445d-86e4-e08f08174eac",
+            "language": 1,
+            "sentence_transliteration": "Shingō o sugitara migi ni itte kudasai.",
+            "translated_sentence": "信号を過ぎたら右に行ってください。",
+            "translated_word": "右",
+            "word_transliteration": "Migi"
+          },
+          {
+            "audio": "3c08f567-abc8-4344-a92b-a9619b8c7caa",
+            "audio_sentence": "f43dbf38-6e6d-4ae1-af05-b9589be27c76",
+            "language": 3,
+            "sentence_transliteration": "Guòle hónglǜdēng hòu yòu zhuǎn.",
+            "translated_sentence": "过了红绿灯后右转。",
+            "translated_word": "右",
+            "word_transliteration": "Yòu"
+          },
+          {
+            "audio": "1da9cbeb-60b2-4cdc-85b9-de65e0e19e9f",
+            "audio_sentence": "a9d57052-3873-47b6-a84b-49d47520d3e1",
+            "language": 5,
+            "sentence_transliteration": "Sinhodeung-eul jinaseo oreunjjok-euro gaseyo.",
+            "translated_sentence": "신호등을 지나서 오른쪽으로 가세요.",
+            "translated_word": "오른쪽",
+            "word_transliteration": "Oreunjjok"
+          },
+          {
+            "audio": "156de21f-e27c-47aa-9496-ede398d367df",
+            "audio_sentence": "e6b6565e-9fb0-4e79-b23d-ef1c4fada5ed",
+            "language": 6,
+            "sentence_transliteration": "Rẽ phải sau khi qua đèn giao thông.",
+            "translated_sentence": "Rẽ phải sau khi qua đèn giao thông.",
+            "translated_word": "Phải",
+            "word_transliteration": "Phải"
+          },
+          {
+            "audio": "262e5c15-f0a0-40fe-bf2b-8c570369c797",
+            "audio_sentence": "60ba2e01-54be-4209-ae07-1d335081a2f0",
+            "language": 7,
+            "sentence_transliteration": "Belok kanan setelah lampu lalu lintas.",
+            "translated_sentence": "Belok kanan setelah lampu lalu lintas.",
+            "translated_word": "Kanan",
+            "word_transliteration": "Kanan"
+          },
+          {
+            "audio": "a571e480-a063-4272-bf48-8a25c7d8a1bc",
+            "audio_sentence": "3a66a585-913c-4bd8-950e-e3deb63f7249",
+            "language": 8,
+            "sentence_transliteration": "Líao kwăa lăng jàak fai jà-raa-jaawn",
+            "translated_sentence": "เลี้ยวขวาหลังจากไฟจราจร",
+            "translated_word": "ขวา",
+            "word_transliteration": "Kwăa"
+          }
+        ]
+      },
+      {
+        "sentence": "Go straight for two blocks.",
+        "word": "Straight",
+        "definition": "To continue forward without turning.",
+        "translations": [
+          {
+            "audio": "1fc0c64d-10e8-41ba-9dc7-9b8929872977",
+            "audio_sentence": "3f899a3b-97e5-48e5-83fd-db193ad30075",
+            "language": 1,
+            "sentence_transliteration": "Ni burokku massugu susunde kudasai.",
+            "translated_sentence": "2ブロックまっすぐ進んでください。",
+            "translated_word": "まっすぐ",
+            "word_transliteration": "Massugu"
+          },
+          {
+            "audio": "7ff10ab4-529d-4f6d-a23f-8df6e1e8da93",
+            "audio_sentence": "764d2b48-bee5-4ad4-bb40-7225df3c69d4",
+            "language": 3,
+            "sentence_transliteration": "Zhí zǒu liǎng gè jiēqū.",
+            "translated_sentence": "直走两个街区。",
+            "translated_word": "直行",
+            "word_transliteration": "Zhíxíng"
+          },
+          {
+            "audio": "ada9f8de-7417-415d-9fe3-33b35eb64bfc",
+            "audio_sentence": "c29eaf79-8301-48f7-820d-b7f4fa2790a4",
+            "language": 5,
+            "sentence_transliteration": "Du beullok jjuk jikjinhaseyo.",
+            "translated_sentence": "두 블록 쭉 직진하세요.",
+            "translated_word": "직진",
+            "word_transliteration": "Jikjin"
+          },
+          {
+            "audio": "64733162-e306-4d33-a007-d86239279627",
+            "audio_sentence": "cde7b6c6-a618-4a35-aa05-9b8eaf3849b3",
+            "language": 6,
+            "sentence_transliteration": "Đi thẳng hai dãy nhà.",
+            "translated_sentence": "Đi thẳng hai dãy nhà.",
+            "translated_word": "Thẳng",
+            "word_transliteration": "Thẳng"
+          },
+          {
+            "audio": "cac849ae-3079-46df-909e-6a776a25936f",
+            "audio_sentence": "2d0c32c4-dfdd-4e0a-bd29-3a8d6e29a1a2",
+            "language": 7,
+            "sentence_transliteration": "Jalan lurus dua blok.",
+            "translated_sentence": "Jalan lurus dua blok.",
+            "translated_word": "Lurus",
+            "word_transliteration": "Lurus"
+          },
+          {
+            "audio": "73f36357-c47d-47ff-ba97-8c72f651e15b",
+            "audio_sentence": "3768a16b-7912-4e42-a76b-7c13a2267700",
+            "language": 8,
+            "sentence_transliteration": "Dtrong bpai sǎang chûa dtèuk",
+            "translated_sentence": "ตรงไปสองช่วงตึก",
+            "translated_word": "ตรง",
+            "word_transliteration": "Dtrong"
+          }
+        ]
+      }
+    ]
+  }
+]

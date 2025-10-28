@@ -1,0 +1,59 @@
+[
+  {
+    "name": "Transportation",
+    "description": "Common words and phrases for traveling by plane, train, bus, taxi, and other forms of transport.",
+    "vocabularies": [
+      {
+        "sentence": "We found the taxi stand outside the hotel.",
+        "word": "Taxi Stand",
+        "definition": "A designated area where taxis wait for passengers.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashitachi wa hoteru no soto de takushī noriba o mitsukemashita.",
+            "translated_sentence": "私たちはホテルの外でタクシー乗り場を見つけました。",
+            "translated_word": "タクシー乗り場",
+            "word_transliteration": "Takushī noriba"
+          },
+          {
+            "audio": "0f604b2d-adf0-4e03-9507-6b8d9a7fc2af",
+            "audio_sentence": "950f55ed-1ca1-4477-8ba0-91e7c47be09b",
+            "language": 3,
+            "sentence_transliteration": "Wǒmen zài jiǔdiàn wài zhǎodào le chūzū chē zhàn.",
+            "translated_sentence": "我们在酒店外找到了出租车站。",
+            "translated_word": "出租车站",
+            "word_transliteration": "Chūzū chē zhàn"
+          }
+        ]
+      },
+
+      {
+        "sentence": "We took a taxi to the hotel.",
+        "word": "Taxi",
+        "definition": "A car that can be hired to take passengers to a specific place.",
+        "translations": [
+          {
+            "audio": null,
+            "audio_sentence": null,
+            "language": 1,
+            "sentence_transliteration": "Watashitachi wa hoteru made takushī ni norimashita.",
+            "translated_sentence": "私たちはホテルまでタクシーに乗りました。",
+            "translated_word": "タクシー",
+            "word_transliteration": "Takushī"
+          },
+          {
+            "audio": "4f84acc8-3695-421a-a908-b9b0ef5683a1",
+            "audio_sentence": "55165d21-e557-4e18-a973-17233c6dc4ae",
+            "language": 3,
+            "sentence_transliteration": "Wǒmen zuò chūzū chē qù jiǔdiàn.",
+            "translated_sentence": "我们坐出租车去酒店。",
+            "translated_word": "出租车",
+            "word_transliteration": "Chūzū chē"
+          }
+        ]
+      }
+    ]
+  }
+]

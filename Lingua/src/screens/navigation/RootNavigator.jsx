@@ -1,26 +1,20 @@
-import { useAuthContext } from "@context/AuthProvider"
-import AuthNavigation from "./AuthNavigation"
-import MainNavigation from "./MainNavigation"
-import * as SplashScreen from "expo-splash-screen"
-import { useEffect } from "react"
-import TravelPackagesProvider from "@context/TravelPackagesProvider"
-import { Text } from "react-native-paper"
+import { useAuthContext } from "@context/AuthProvider";
+import AuthNavigation from "./AuthNavigation";
+import MainNavigation from "./MainNavigation";
+import { NotificationProvider } from "@context/NotificationsProvider";
+import { NotificationHistoryProvider } from "@context/NotificationHistoryProvider";
 
 export default function RootNavigator() {
-  const { loading, isAuthenticated } = useAuthContext()
-  useEffect(() => {
-    if (loading) {
-      SplashScreen.preventAutoHideAsync()
-    } else {
-      setTimeout(() => {
-        SplashScreen.hideAsync()
-      }, 100)
-    }
-  }, [loading])
+  const { loading, isAuthenticated } = useAuthContext();
 
-  if (loading) {
-    return null
-  }
-
-  return isAuthenticated ? <MainNavigation /> : <AuthNavigation />
+  // Show main app flow based on authentication status
+  return isAuthenticated ? (
+    <NotificationProvider>
+      <NotificationHistoryProvider>
+        <MainNavigation />
+      </NotificationHistoryProvider>
+    </NotificationProvider>
+  ) : (
+    <AuthNavigation />
+  );
 }
