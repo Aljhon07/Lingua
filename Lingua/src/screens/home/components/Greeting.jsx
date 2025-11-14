@@ -1,29 +1,36 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
-import { Text, useTheme, IconButton } from "react-native-paper";
-import { spacing } from "@constants/globalStyles";
-import { useProfileContext } from "@context/ProfileProvider";
-import { useThemeContext } from "@context/ThemeProvider";
-import PaddedView from "@components/atoms/PaddedView";
+import React, { useEffect } from "react"
+import { StyleSheet, View } from "react-native"
+import { Text, useTheme, IconButton } from "react-native-paper"
+import { spacing } from "@constants/globalStyles"
+import { useProfileContext } from "@context/ProfileProvider"
+import { useThemeContext } from "@context/ThemeProvider"
+import PaddedView from "@components/atoms/PaddedView"
 
 export default function Greeting() {
-  const { profile } = useProfileContext();
-  const { colors } = useTheme();
-  const { themePreference, setThemePreference } = useThemeContext();
-  const styles = createStyles(colors);
+  const { profile, getProfile } = useProfileContext()
+  const { colors } = useTheme()
+  const { themePreference, setThemePreference } = useThemeContext()
+  const styles = createStyles(colors)
 
-  const isDarkTheme = themePreference === "dark";
+  const isDarkTheme = themePreference === "dark"
+
+  // Fetch profile if not already loaded
+  useEffect(() => {
+    if (!profile) {
+      getProfile()
+    }
+  }, [profile])
 
   const handleThemeToggle = () => {
-    setThemePreference(isDarkTheme ? "light" : "dark");
-  };
+    setThemePreference(isDarkTheme ? "light" : "dark")
+  }
 
   return (
     <PaddedView style={styles.greetingContainer}>
       <View style={styles.headerRow}>
         <View style={styles.greetingContent}>
           <Text variant="headlineLarge" style={styles.greetingText}>
-            Welcome back, {profile.first_name}!
+            Welcome back{profile?.first_name ? `, ${profile.first_name}` : ""}!
           </Text>
           <Text variant="bodyLarge" style={styles.subGreeting}>
             Ready for your next adventure?
@@ -38,7 +45,7 @@ export default function Greeting() {
         />
       </View>
     </PaddedView>
-  );
+  )
 }
 
 const createStyles = (colors) =>
@@ -67,4 +74,4 @@ const createStyles = (colors) =>
       margin: 0,
       backgroundColor: colors.surfaceVariant,
     },
-  });
+  })
