@@ -28,12 +28,8 @@ export default function LegalDocument({
   const shouldShowButton = showBackButton && !navigation
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        <Text variant="headlineMedium" style={styles.title}>
-          {title}
-        </Text>
-
         {sections.map((section, index) => (
           <View key={index}>
             {section.title && (
@@ -61,7 +57,7 @@ export default function LegalDocument({
           </CustomButton>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 
